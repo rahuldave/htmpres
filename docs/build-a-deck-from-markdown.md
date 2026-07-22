@@ -95,7 +95,31 @@ These notes only appear in presenter.html.
 `quarto run scripts/htmpres.ts render` removes notes from `index.html` and
 places them in the presenter panel in `presenter.html`.
 
-## 6. Add Images And Deckset-Inspired Layouts
+## 6. Highlight Code By Line
+
+Use Pandoc fenced-code attributes for highlighted code examples:
+
+````markdown
+```{.python .numberLines data-highlight="2" data-steps="2|3|4|all"}
+def render_slide(slide):
+    html = markdown_to_html(slide["body"])
+    if slide.get("notes"):
+        write_presenter_notes(slide["notes"])
+    return f"<section>{html}</section>"
+```
+````
+
+The language class, such as `.python`, enables Pandoc syntax highlighting.
+Use `.numberLines` for line numbers. Use `data-highlight` for persistent line
+highlights, and `data-steps` for code transitions that consume Next, Space,
+PageDown, Previous, or PageUp before the deck changes slides.
+
+Line specs accept comma-separated numbers and ranges:
+
+- `data-highlight="2,4-5"`
+- `data-steps="none|2|3-4|all"`
+
+## 7. Add Images And Deckset-Inspired Layouts
 
 Use normal Markdown image syntax, with Quarto/Pandoc attributes on the media
 itself:
@@ -178,7 +202,7 @@ Playback directive classes supported by the runtime:
 - `.ds-autoadvance`
 - `.ds-keep-time`
 
-## 7. Add Small Interactions And Buttons
+## 8. Add Small Interactions And Buttons
 
 For a click-to-update panel, use raw HTML buttons with data attributes:
 
@@ -206,24 +230,24 @@ Any button style can use the same data attributes:
 <button class="action-button" data-target="#panel" data-title="Action" data-text="...">Action</button>
 ```
 
-## 8. Render
+## 9. Render
 
-Render all decks:
+Render the tutorial deck:
 
 ```sh
-quarto run scripts/htmpres.ts render
+just tutorial
 ```
 
 Render one deck:
 
 ```sh
-quarto run scripts/htmpres.ts render decks/my-deck/index.qmd
+just render decks/my-deck/index.qmd
 ```
 
 Then verify:
 
 ```sh
-quarto run scripts/htmpres.ts verify
+just verify
 ```
 
 Open:
@@ -231,14 +255,14 @@ Open:
 - `decks/my-deck/index.html` for the audience view.
 - `decks/my-deck/presenter.html` for the presenter view.
 
-## 9. Import Existing HTML
+## 10. Import Existing HTML
 
 When starting from an HTML deck copied into `source_presentations/`, run:
 
 ```sh
-quarto run scripts/htmpres.ts convert
-quarto run scripts/htmpres.ts render
-quarto run scripts/htmpres.ts verify
+just convert
+just render-all
+just verify
 ```
 
 The converter writes QMD, copies normal assets, extracts embedded `data:image`

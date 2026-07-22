@@ -20,7 +20,7 @@ _extensions/
 The root `scripts/htmpres.ts` file is only a convenience shim for this repo:
 
 ```sh
-quarto run scripts/htmpres.ts render
+just render-all
 ```
 
 An installed project should call the extension path:

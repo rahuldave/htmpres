@@ -144,6 +144,29 @@ Normal images use Pandoc image attributes:
 Clicking a `.zoomable` image opens the custom deck zoom modal. Press `Esc` or
 click outside the image to close it.
 
+## Code Blocks
+
+Use fenced-code attributes for syntax highlighting, line numbers, static line
+highlights, and step-through code transitions:
+
+````markdown
+```{.python .numberLines data-highlight="2" data-steps="2|3|4|all"}
+def render_slide(slide):
+    html = markdown_to_html(slide["body"])
+    if slide.get("notes"):
+        write_presenter_notes(slide["notes"])
+    return f"<section>{html}</section>"
+```
+````
+
+Supported code attributes:
+
+- Language class, such as `.python`, `.js`, `.html`, or `.yaml`, enables Pandoc syntax highlighting.
+- `.numberLines` enables Pandoc line-number anchors.
+- `data-highlight="2,4-5"` applies persistent line highlights.
+- `data-steps="none|2|3-4|all"` adds per-slide code steps before moving to the next slide.
+- `data-highlight-steps` is accepted as a more explicit alias for `data-steps`.
+
 ## Interactivity
 
 The packaged interaction helper supports a generic data-driven button pattern:
@@ -167,8 +190,8 @@ back to the document only when necessary.
 ## Workflow
 
 ```sh
-quarto run scripts/htmpres.ts render decks/tutorial/index.qmd
-quarto run scripts/htmpres.ts verify
+just tutorial
+just verify
 ```
 
 In a project where the extension was installed with `quarto add`, use:

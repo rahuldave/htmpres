@@ -18,16 +18,19 @@ Not included:
 - Private imported decks.
 - Rendered HTML outputs and Quarto support folders.
 
-Primary commands, using Quarto's bundled Deno runtime:
+Primary commands:
 
 ```sh
-quarto run scripts/htmpres.ts render decks/tutorial/index.qmd
-quarto run scripts/htmpres.ts verify
+just tutorial
+just verify
 ```
 
-The local `scripts/htmpres.ts` file is a shim to the installable extension at
-`_extensions/htmpres/htmpres.ts`. In another project, install the extension and
-run the extension path directly:
+Run `just --list` to see focused targets for rendering one deck, rendering all
+local decks, converting HTML snapshots, the Node fallback, and diff hygiene.
+
+The local `scripts/htmpres.ts` file used by the Just targets is a shim to the
+installable extension at `_extensions/htmpres/htmpres.ts`. In another project,
+install the extension and run the extension path directly:
 
 ```sh
 quarto add <repo-or-archive>
@@ -44,6 +47,8 @@ The tutorial demonstrates:
 - Level-2 headings as slides.
 - Fenced divs for layout.
 - Presenter notes.
+- Syntax-highlighted code blocks with optional line numbers and line-step
+  transitions.
 - Deckset-inspired full, left, right, split, fit, fill, filter, and media
   patterns using Quarto containers and media attributes.
 - Zoomable images.

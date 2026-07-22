@@ -16,6 +16,7 @@ const zoomClose = document.getElementById("zoomClose");
 let current = 0;
 let hasRendered = false;
 let textFitFrame = 0;
+let viewportFrame = 0;
 const deckNotes = readDeckNotes();
 const slideFragmentStates = new WeakMap();
 const slideCodeStates = new WeakMap();
@@ -51,6 +52,35 @@ function scaleDeck() {
   document.documentElement.style.setProperty("--deck-scale", scale.toString());
   slideFit.style.width = `${width * scale}px`;
   slideFit.style.height = `${height * scale}px`;
+}
+
+function updateViewportHeight() {
+  const height = window.visualViewport?.height || window.innerHeight || document.documentElement.clientHeight;
+  if (!height) return;
+  document.documentElement.style.setProperty("--htmpres-viewport-height", `${Math.floor(height)}px`);
+  document.documentElement.style.setProperty(
+    "--htmpres-mobile-browser-clearance",
+    `${mobileBrowserChromeClearance(height)}px`,
+  );
+}
+
+function mobileBrowserChromeClearance(height) {
+  const isMobileTouch = window.matchMedia?.("(max-width: 980px) and (pointer: coarse)")?.matches;
+  const isPortrait = window.matchMedia?.("(orientation: portrait)")?.matches;
+  const isStandalone = window.navigator.standalone || window.matchMedia?.("(display-mode: standalone)")?.matches;
+  const screenHeight = Math.max(window.screen?.height || 0, window.screen?.availHeight || 0);
+  if (!isMobileTouch || !isPortrait || isStandalone || !screenHeight) return 0;
+  return height >= screenHeight * 0.9 ? 112 : 0;
+}
+
+function scheduleViewportLayout() {
+  if (viewportFrame) cancelAnimationFrame(viewportFrame);
+  viewportFrame = requestAnimationFrame(() => {
+    viewportFrame = 0;
+    updateViewportHeight();
+    scaleDeck();
+    scheduleTextFit();
+  });
 }
 
 function scheduleTextFit() {
@@ -467,6 +497,78 @@ function wireZoom() {
   });
 }
 
+function wireTapNavigation() {
+  if (!slideFit) return;
+
+  let touchStart = null;
+  let suppressClickUntil = 0;
+  const swipeDistance = 48;
+  const swipeVerticalTolerance = 0.8;
+  const swipeMaxDuration = 800;
+
+  slideFit.addEventListener("click", (event) => {
+    if (performance.now() < suppressClickUntil) return;
+    if (event.defaultPrevented || ("button" in event && event.button !== 0) || interactiveTapTarget(event.target)) return;
+    const rect = slideFit.getBoundingClientRect();
+    if (!rect.width) return;
+    const x = event.clientX - rect.left;
+    if (x < rect.width * 0.28) {
+      prevStepOrSlide();
+    } else {
+      nextStepOrSlide();
+    }
+  });
+
+  slideFit.addEventListener("touchstart", (event) => {
+    if (event.touches.length !== 1 || interactiveTapTarget(event.target)) {
+      touchStart = null;
+      return;
+    }
+    const touch = event.touches[0];
+    touchStart = {
+      x: touch.clientX,
+      y: touch.clientY,
+      time: performance.now(),
+    };
+  }, { passive: true });
+
+  slideFit.addEventListener("touchend", (event) => {
+    if (!touchStart || interactiveTapTarget(event.target)) {
+      touchStart = null;
+      return;
+    }
+    const touch = event.changedTouches[0];
+    if (!touch) {
+      touchStart = null;
+      return;
+    }
+    const dx = touch.clientX - touchStart.x;
+    const dy = touch.clientY - touchStart.y;
+    const duration = performance.now() - touchStart.time;
+    touchStart = null;
+    if (Math.abs(dx) < swipeDistance) return;
+    if (Math.abs(dy) > Math.abs(dx) * swipeVerticalTolerance) return;
+    if (duration > swipeMaxDuration) return;
+    suppressClickUntil = performance.now() + 650;
+    if (dx < 0) {
+      nextStepOrSlide();
+    } else {
+      prevStepOrSlide();
+    }
+  }, { passive: true });
+
+  slideFit.addEventListener("touchcancel", () => {
+    touchStart = null;
+  }, { passive: true });
+}
+
+function interactiveTapTarget(target) {
+  if (!(target instanceof Element)) return false;
+  return Boolean(target.closest(
+    "a, button, input, select, textarea, summary, label, pre, code, video, audio, iframe, object, embed, [contenteditable], [role='button'], .sourceCode, .zoomable, .no-tap-nav, .no-slide-nav, [data-no-tap-nav], [data-no-slide-nav]",
+  ));
+}
+
 function wireMediaDirectives() {
   document.querySelectorAll("video, audio").forEach((media) => {
     if (media.classList.contains("ds-controls")) media.setAttribute("controls", "");
@@ -527,10 +629,10 @@ overviewBtn?.addEventListener("click", toggleOverview);
 overview?.addEventListener("click", (event) => {
   if (event.target === overview) overview.classList.remove("visible");
 });
-window.addEventListener("resize", () => {
-  scaleDeck();
-  scheduleTextFit();
-});
+window.addEventListener("resize", scheduleViewportLayout);
+window.addEventListener("orientationchange", scheduleViewportLayout);
+window.visualViewport?.addEventListener("resize", scheduleViewportLayout);
+window.visualViewport?.addEventListener("scroll", scheduleViewportLayout);
 window.addEventListener("load", scheduleTextFit);
 document.fonts?.ready?.then(scheduleTextFit)?.catch(() => {});
 document.addEventListener("keydown", (event) => {
@@ -553,8 +655,10 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+updateViewportHeight();
 buildNav();
 wireZoom();
+wireTapNavigation();
 wireMediaDirectives();
 prepareSlideTransitions();
 prepareFragments();

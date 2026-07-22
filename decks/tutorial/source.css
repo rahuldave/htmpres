@@ -2,6 +2,10 @@
   --slide-w: 1280px;
   --slide-h: 720px;
   --radius: 8px;
+  --htmpres-viewport-height: 100dvh;
+  --htmpres-mobile-browser-clearance: 0px;
+  --htmpres-mobile-footer-row: calc(64px + env(safe-area-inset-bottom, 0px));
+  --htmpres-mobile-slide-bottom-clearance: calc(120px + env(safe-area-inset-bottom, 0px));
 }
 
 :root,
@@ -187,7 +191,7 @@ button {
 .deck-shell {
   height: 100vh;
   height: 100dvh;
-  min-height: 100vh;
+  min-height: 0;
   display: grid;
   grid-template-columns: 220px 1fr;
   grid-template-rows: minmax(0, 1fr) 56px;
@@ -261,6 +265,7 @@ button {
 
 .slide-fit {
   width: min(100%, var(--slide-w));
+  touch-action: pan-y;
 }
 
 .slides {
@@ -934,11 +939,20 @@ code {
 
 @media (max-width: 980px) {
   body {
-    overflow: auto;
+    overflow: hidden;
   }
 
   .deck-shell {
-    display: block;
+    position: fixed;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) var(--htmpres-mobile-footer-row);
+    width: 100%;
+    height: max(360px, calc(var(--htmpres-viewport-height, 100dvh) - var(--htmpres-mobile-browser-clearance, 0px)));
+    max-height: max(360px, calc(var(--htmpres-viewport-height, 100dvh) - var(--htmpres-mobile-browser-clearance, 0px)));
+    min-height: 0;
+    overflow: hidden;
   }
 
   .toc {
@@ -946,20 +960,31 @@ code {
   }
 
   .stage-wrap {
+    align-items: stretch;
+    min-height: 0;
+    overflow: hidden;
     padding: 0;
   }
 
+  .slide-fit,
   .slides {
-    width: 100%;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .slides {
     max-height: none;
     aspect-ratio: auto;
-    min-height: calc(100vh - 56px);
+    min-height: 0;
     border-radius: 0;
   }
 
   .slide {
-    padding: 30px 22px 70px;
+    padding: 30px 22px var(--htmpres-mobile-slide-bottom-clearance);
     overflow: auto;
+    overscroll-behavior: contain;
+    scroll-padding-bottom: var(--htmpres-mobile-slide-bottom-clearance);
+    -webkit-overflow-scrolling: touch;
   }
 
   .two-col,
@@ -985,7 +1010,26 @@ code {
   }
 
   .footer-controls {
-    grid-template-columns: 1fr auto auto auto;
+    grid-column: 1;
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    align-self: end;
+    min-height: var(--htmpres-mobile-footer-row);
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+    padding-left: calc(12px + env(safe-area-inset-left, 0px));
+    padding-right: calc(12px + env(safe-area-inset-right, 0px));
+    position: relative;
+    z-index: 10;
+  }
+
+  .nav-btn {
+    min-width: 50px;
+    height: 42px;
+    padding: 0 10px;
+  }
+
+  .counter {
+    min-width: 54px;
+    font-size: 0.78rem;
   }
 }
 

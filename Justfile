@@ -37,6 +37,11 @@ diff-check:
 # This path uses Quarto's bundled Deno runtime and does not require Node.
 check: tutorial verify diff-check
 
+# Prepare the private Sites preview app with both tutorial themes.
+# Saving and deploying still happens through the Sites connector.
+publish theme_dir="/private/tmp/htmpres-theme-preview" site_dir="/private/tmp/htmpres-sites-preview":
+  scripts/prepare-sites-preview.sh "{{theme_dir}}" "{{site_dir}}"
+
 # Run the optional Node fallback renderer and verifier.
 node-check: node-render node-verify
 

@@ -1,0 +1,32 @@
+# macOS/local editor noise
+.DS_Store
+*.swp
+*.swo
+
+# Dependencies and local caches
+node_modules/
+.quarto/
+.cache/
+*.log
+
+# Rendered deck outputs are reproducible from QMD.
+decks/*/index.html
+decks/*/presenter.html
+decks/*/index_files/
+
+# Proprietary/local source material. Do not publish these decks or snapshots.
+source_presentations/
+decks/first/
+decks/firstallincluded/
+decks/technical/
+decks/executive/
+decks/styles/
+
+# Keep tutorial sources and shared runtime scripts trackable.
+!decks/tutorial/
+!decks/tutorial/index.qmd
+!decks/tutorial/source.css
+!decks/tutorial/assets/
+!decks/tutorial/assets/**
+!decks/scripts/
+!decks/scripts/**

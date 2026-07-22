@@ -1,0 +1,57 @@
+# htmpres
+
+`htmpres` is a small Quarto/Pandoc-based toolkit for writing Markdown decks
+that render to a custom HTML presentation shell. The published repo is scoped
+to the tutorial deck and reusable renderer code.
+
+Included:
+
+- `_extensions/htmpres/`: installable Quarto utility extension and runtime.
+- `decks/tutorial/`: hand-authored tutorial deck and tutorial assets.
+- `decks/scripts/`: project-local runtime copies used by this workspace.
+- `docs/`: authoring, packaging, and class-map notes.
+- `scripts/`: local shim plus optional Node fallback scripts.
+
+Not included:
+
+- Private source presentation snapshots.
+- Private imported decks.
+- Rendered HTML outputs and Quarto support folders.
+
+Primary commands, using Quarto's bundled Deno runtime:
+
+```sh
+quarto run scripts/htmpres.ts render decks/tutorial/index.qmd
+quarto run scripts/htmpres.ts verify
+```
+
+The local `scripts/htmpres.ts` file is a shim to the installable extension at
+`_extensions/htmpres/htmpres.ts`. In another project, install the extension and
+run the extension path directly:
+
+```sh
+quarto add <repo-or-archive>
+quarto run _extensions/htmpres/htmpres.ts render decks/my-deck/index.qmd
+```
+
+The renderer writes:
+
+- `index.html`: audience deck, with speaker notes stripped from slide content.
+- `presenter.html`: presenter deck, with notes shown in a presenter panel.
+
+The tutorial demonstrates:
+
+- Level-2 headings as slides.
+- Fenced divs for layout.
+- Presenter notes.
+- Deckset-inspired full, left, right, split, fit, fill, filter, and media
+  patterns using Quarto containers and media attributes.
+- Zoomable images.
+- Raw HTML buttons for small slide interactions.
+
+Useful docs:
+
+- `docs/build-a-deck-from-markdown.md`
+- `docs/quarto-class-map.md`
+- `docs/quarto-extension.md`
+- `docs/packaging.md`

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">Markdown to custom deck flow</title>
+  <desc id="desc">A flow diagram showing QMD, CSS, Quarto Pandoc, custom renderer, audience HTML, and presenter HTML.</desc>
+  <defs>
+    <style>
+      .box { fill: #ffffff; stroke: #d7e0da; stroke-width: 2; rx: 10; }
+      .source { fill: #e9f6f4; stroke: #117c78; }
+      .tool { fill: #fff6e7; stroke: #c18322; }
+      .out { fill: #f1eefb; stroke: #6f56a8; }
+      .label { font: 700 22px Inter, Arial, sans-serif; fill: #172127; }
+      .small { font: 16px Inter, Arial, sans-serif; fill: #536067; }
+      .arrow { stroke: #172127; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#172127" />
+    </marker>
+  </defs>
+
+  <rect x="36" y="92" width="180" height="96" class="box source" />
+  <text x="126" y="132" text-anchor="middle" class="label">index.qmd</text>
+  <text x="126" y="160" text-anchor="middle" class="small">slides + notes</text>
+
+  <rect x="36" y="236" width="180" height="96" class="box source" />
+  <text x="126" y="276" text-anchor="middle" class="label">source.css</text>
+  <text x="126" y="304" text-anchor="middle" class="small">deck styles</text>
+
+  <path d="M216 140 H312" class="arrow" />
+  <path d="M216 284 H312" class="arrow" />
+
+  <rect x="312" y="146" width="220" height="132" class="box tool" />
+  <text x="422" y="190" text-anchor="middle" class="label">htmpres render</text>
+  <text x="422" y="220" text-anchor="middle" class="small">Quarto Pandoc</text>
+  <text x="422" y="248" text-anchor="middle" class="small">custom shell</text>
+
+  <path d="M532 212 H632" class="arrow" />
+
+  <rect x="632" y="84" width="260" height="104" class="box out" />
+  <text x="762" y="126" text-anchor="middle" class="label">index.html</text>
+  <text x="762" y="154" text-anchor="middle" class="small">audience view</text>
+
+  <rect x="632" y="236" width="260" height="104" class="box out" />
+  <text x="762" y="278" text-anchor="middle" class="label">presenter.html</text>
+  <text x="762" y="306" text-anchor="middle" class="small">notes panel</text>
+
+  <path d="M574 206 C602 206 604 136 632 136" class="arrow" />
+  <path d="M574 218 C602 218 604 288 632 288" class="arrow" />
+</svg>

@@ -1,0 +1,13 @@
+{
+  "name": "htmpres",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "convert": "quarto run scripts/htmpres.ts convert",
+    "render": "quarto run scripts/htmpres.ts render",
+    "verify": "quarto run scripts/htmpres.ts verify",
+    "node:convert": "node scripts/html-to-qmd.mjs",
+    "node:render": "node scripts/qmd-to-html.mjs",
+    "node:verify": "node scripts/verify-roundtrip.mjs"
+  }
+}

@@ -1,0 +1,388 @@
+---
+pagetitle: "Build A Custom htmpres Deck From Markdown"
+execute:
+  enabled: false
+resources:
+  - assets/**
+
+deck:
+  css: source.css
+  renderer: custom
+deck-note: "Hand-authored tutorial deck for the custom htmpres renderer."
+---
+
+## Build A Deck From Markdown {.hero-title data-section="Tutorial" data-title="Build From Markdown"}
+
+[htmpres tutorial]{.eyebrow}
+
+::: hero-subtitle
+Write slides as QMD, style them with `source.css`, and render audience and presenter HTML through the custom no-reveal shell.
+:::
+
+::: callout
+The source is plain Markdown plus Quarto fenced divs. The output keeps custom deck navigation, overview, zoom, presenter notes, and small interactions.
+:::
+
+::: source-line
+Source: docs/build-a-deck-from-markdown.md
+:::
+
+::: notes
+This opening slide is the orientation: QMD is the authoring layer, but the runtime and slide shell remain custom.
+:::
+
+## The Package Shape {.theme-runtime data-section="Packaging" data-title="Package Shape"}
+
+[Recommended packaging]{.eyebrow}
+
+:::: three-col
+::: {.card .metric-card style="--accent: var(--teal)"}
+**Quarto-run CLI**
+
+Commands import HTML, render QMD, and verify outputs through Quarto's bundled Deno runtime.
+:::
+
+::: {.card .metric-card style="--accent: var(--amber)"}
+**Installable extension**
+
+`_extensions/htmpres` carries the runner and browser runtime into other projects.
+:::
+
+::: {.card .metric-card style="--accent: var(--violet)"}
+**Starter template**
+
+A small QMD deck gives authors a working first file instead of a blank page.
+:::
+::::
+
+::: callout
+Quarto stays in the loop as the Pandoc markdown engine. It does not need to own the slide navigation.
+:::
+
+::: notes
+Make the distinction explicit: this is not a pure Quarto format yet. It is a package that uses Quarto for conversion and owns presentation runtime itself.
+:::
+
+## Start With Front Matter {data-section="Authoring" data-title="Front Matter"}
+
+[Deck metadata]{.eyebrow}
+
+Use `pagetitle`, disable execution, point at local assets, and choose the CSS file for this deck.
+
+:::: code-card
+```yaml
+---
+pagetitle: "My Deck"
+execute:
+  enabled: false
+resources:
+  - assets/**
+
+deck:
+  css: source.css
+  renderer: custom
+---
+```
+::::
+
+::: callout
+The renderer reads `deck.css`, inlines that stylesheet, and writes both `index.html` and `presenter.html`.
+:::
+
+## Use Slide Headings And Div Classes {data-section="Authoring" data-title="Slide Structure"}
+
+[Slide anatomy]{.eyebrow}
+
+:::: two-col
+::: card
+**A slide starts with `##`**
+
+The heading becomes the slide title. Heading attributes become section classes and data attributes.
+:::
+
+::: card
+**Layout uses fenced divs**
+
+Use `::: class-name` or `::: {.class-one .class-two}` for blocks that CSS can target.
+:::
+::::
+
+:::: code-card
+```markdown
+## Platform Story {.hero-title data-section="Opening" data-title="Platform Story"}
+
+[Architecture]{.eyebrow}
+
+::: hero-subtitle
+The short version of the story goes here.
+:::
+```
+::::
+
+## Add Notes For Presenter Only {data-section="Authoring" data-title="Presenter Notes"}
+
+[Speaker notes]{.eyebrow}
+
+Notes are ordinary fenced divs in QMD:
+
+:::: code-card
+```markdown
+::: notes
+This appears only in presenter.html.
+:::
+```
+::::
+
+:::: two-col
+::: {.card .metric-card style="--accent: var(--teal)"}
+**Audience HTML**
+
+`index.html` has no note content in the slide DOM.
+:::
+
+::: {.card .metric-card style="--accent: var(--indigo)"}
+**Presenter HTML**
+
+`presenter.html` shows the notes in a right-side panel.
+:::
+::::
+
+::: notes
+This slide should prove the note split: it appears in presenter.html and is stripped from index.html.
+:::
+
+## Add Images And Zoom {data-section="Media" data-title="Images And Zoom"}
+
+[Visual assets]{.eyebrow}
+
+Store images under the deck's `assets/` folder. Put layout classes on containers, and put fit/fill/filter/zoom classes on the media itself.
+
+::: diagram-frame
+![Markdown to custom deck flow](assets/tutorial-flow.svg){.ds-fit .zoomable}
+:::
+
+:::: code-card
+```markdown
+::: diagram-frame
+![Markdown to custom deck flow](assets/tutorial-flow.svg){.ds-fit .zoomable}
+:::
+```
+::::
+
+::: notes
+Clicking the diagram should open the custom zoom modal. This is a browser smoke-test target as well as a tutorial example.
+:::
+
+## Full-Slide Media {.title-hidden data-section="Media" data-title="Full-Slide Media"}
+
+::: {.ds-full .ds-media .ds-no-pad}
+![](assets/tutorial-landscape.svg){.ds-fill .zoomable}
+:::
+
+::: {.ds-layer .media-caption}
+[Full slide]{.eyebrow}
+
+### Fill the whole slide
+
+The container owns placement. The image owns `ds-fill`, so it crops like a background while text and buttons can sit above it.
+:::
+
+::: notes
+This is the Deckset full-background image idea translated to Quarto containers: the image fills a full-slide container, and visible text remains ordinary content.
+:::
+
+## Half-Slide Left Media {.title-hidden data-section="Media" data-title="Half-Slide Left Media"}
+
+::: {.ds-left .ds-media .ds-no-pad}
+![](assets/tutorial-landscape.svg){.ds-fill .zoomable}
+:::
+
+::: {.ds-right .ds-pane}
+[Left image]{.eyebrow}
+
+### Put anything on the other half
+
+The right half is just another container. It can hold headings, body text, lists, cards, or buttons.
+
+- Use `.ds-left` or `.ds-right` for half-slide regions.
+- Use `.ds-fill` on the image when cropping is acceptable.
+- Use `.ds-fit` when the whole image must remain visible.
+:::
+
+## Half-Slide Right Media {.title-hidden data-section="Media" data-title="Half-Slide Right Media"}
+
+:::: {.ds-left .ds-pane}
+[Right image]{.eyebrow}
+
+### The mirror layout is the same idea
+
+This layout is useful for a product image, screenshot, diagram detail, video, or any other media that should occupy one half of the slide.
+
+::: pill-row
+<button class="pill active" data-target="#halfPanel" data-title="Fit" data-text="Use ds-fit when the full image matters more than edge-to-edge coverage.">Fit</button>
+<button class="pill" data-target="#halfPanel" data-title="Fill" data-text="Use ds-fill when the media should cover the pane and can be cropped.">Fill</button>
+:::
+
+::: {#halfPanel .focus-panel .compact-panel}
+### Fit
+
+Use ds-fit when the full image matters more than edge-to-edge coverage.
+:::
+::::
+
+::: {.ds-right .ds-media .ds-frame}
+![](assets/tutorial-detail.svg){.ds-fit .zoomable}
+:::
+
+## Split Containers {data-section="Media" data-title="Split Containers"}
+
+[Composed layouts]{.eyebrow}
+
+:::: {.ds-split .sample-split style="--ds-gap: 18px; --ds-height: 430px;"}
+::: {.ds-pane .ds-frame style="--ds-bg: #fbfcfa;"}
+### Text pane
+
+Use a split container when both sides should remain in normal slide flow.
+
+This is better than image-only syntax when the layout includes text, lists, tables, code, or controls.
+:::
+
+::: {.ds-pane .ds-media .ds-frame}
+![](assets/tutorial-detail.svg){.ds-fit .zoomable}
+:::
+::::
+
+## Fit, Fill, And Filters {data-section="Media" data-title="Fit Fill Filters"}
+
+[Media attributes]{.eyebrow}
+
+:::: {.sample-media-grid}
+::: {.ds-media .ds-frame}
+![](assets/tutorial-landscape.svg){.ds-fit}
+:::
+
+::: {.ds-media .ds-frame}
+![](assets/tutorial-landscape.svg){.ds-fill}
+:::
+
+::: {.ds-media .ds-frame}
+![](assets/tutorial-landscape.svg){.ds-fit .ds-bn}
+:::
+
+::: {.sample-label}
+`ds-fit`
+:::
+
+::: {.sample-label}
+`ds-fill`
+:::
+
+::: {.sample-label}
+`ds-bn`
+:::
+::::
+
+:::: code-card
+```markdown
+![](assets/tutorial-landscape.svg){.ds-fit}
+![](assets/tutorial-landscape.svg){.ds-fill}
+![](assets/tutorial-landscape.svg){.ds-fit .ds-bn}
+![](assets/tutorial-landscape.svg){.ds-fit .ds-vivid .zoomable}
+```
+::::
+
+## Other Media {data-section="Media" data-title="Other Media"}
+
+[Video, audio, embeds]{.eyebrow}
+
+Use the same containers for video, audio, or embedded media. CSS handles placement; native attributes or `ds-*` directive classes handle playback.
+
+:::: code-card
+```markdown
+::: {.ds-right .ds-media .ds-no-pad}
+<video class="ds-fill ds-controls ds-autoplay ds-muted ds-loop" src="assets/demo.mp4"></video>
+:::
+
+::: {.ds-left .ds-pane}
+<audio class="ds-controls" src="assets/narration.mp3"></audio>
+:::
+
+::: {.ds-full .ds-media .ds-no-pad}
+<iframe class="ds-fill" src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+:::
+```
+::::
+
+::: callout
+Use `.ds-hide` for audio that should play without a visible control, and `.ds-autoadvance` on the last video or audio element when the slide should advance after playback.
+:::
+
+## Add Small Interactions {data-section="Authoring" data-title="Small Interactions"}
+
+[Click to update]{.eyebrow}
+
+Use raw HTML buttons when a slide needs tiny controlled behavior.
+
+::: pill-row
+<button class="pill active" data-target="#tutorialPanel" data-title="QMD" data-text="QMD is the editable source: headings become slides, fenced divs become layout, and notes are split for presenter view.">QMD</button>
+<button class="pill" data-target="#tutorialPanel" data-title="CSS" data-text="CSS maps the markdown classes to the existing visual system. Keep new classes documented.">CSS</button>
+<button class="pill" data-target="#tutorialPanel" data-title="Renderer" data-text="The renderer calls Quarto Pandoc for fragments, then writes audience and presenter HTML with custom navigation.">Renderer</button>
+:::
+
+::: {#tutorialPanel .focus-panel}
+### QMD
+
+QMD is the editable source: headings become slides, fenced divs become layout, and notes are split for presenter view.
+:::
+
+::: notes
+This is the smallest supported interactivity pattern. The helper scopes the update to the current slide.
+:::
+
+## Button Patterns {data-section="Authoring" data-title="Button Patterns"}
+
+[Controls]{.eyebrow}
+
+Buttons are just raw HTML, so they can be styled as pills, chips, or compact actions while using the same `data-target` update pattern.
+
+::: {.button-samples data-choice-group="tutorial-buttons"}
+<button class="pill active" data-target="#buttonPanel" data-title="Pill" data-text="Pills are best for a small set of peer choices.">Pill</button>
+<button class="control-chip" data-target="#buttonPanel" data-title="Chip" data-text="Chips work well when labels are short and scan like filters.">Chip</button>
+<button class="action-button" data-target="#buttonPanel" data-title="Action" data-text="Action buttons should represent a command or a meaningful state change.">Action</button>
+:::
+
+::: {#buttonPanel .focus-panel}
+### Pill
+
+Pills are best for a small set of peer choices.
+:::
+
+:::: code-card
+```html
+<button class="pill active" data-target="#panel" data-title="Pill" data-text="...">Pill</button>
+<button class="control-chip" data-target="#panel" data-title="Chip" data-text="...">Chip</button>
+<button class="action-button" data-target="#panel" data-title="Action" data-text="...">Action</button>
+```
+::::
+
+## Render And Verify {data-section="Workflow" data-title="Render And Verify"}
+
+[Build commands]{.eyebrow}
+
+:::: code-card
+```sh
+quarto run scripts/htmpres.ts render decks/tutorial/index.qmd
+quarto run scripts/htmpres.ts verify
+```
+::::
+
+::: checklist
+<div><strong>Audience</strong><p>Open <code>decks/tutorial/index.html</code>.</p></div>
+<div><strong>Presenter</strong><p>Open <code>decks/tutorial/presenter.html</code>.</p></div>
+<div><strong>Notes</strong><p>Confirm notes are absent from audience HTML and present in presenter HTML.</p></div>
+<div><strong>Interactions</strong><p>Click pills and zoomable images in the rendered deck.</p></div>
+:::
+
+::: callout
+For imported HTML decks, run `quarto run scripts/htmpres.ts convert` before rendering.
+:::

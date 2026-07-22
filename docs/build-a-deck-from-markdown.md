@@ -197,7 +197,7 @@ Full-slide media:
 ```markdown
 ## Full-Slide Media {.title-hidden data-section="Media" data-title="Full-Slide Media"}
 
-::: {.ds-full .ds-media .ds-no-pad}
+::: {.ds-full .ds-media .ds-no-pad .ds-readable}
 ![](assets/photo.svg){.ds-fill .zoomable}
 :::
 
@@ -232,13 +232,40 @@ Split content in normal slide flow:
 ::::
 ```
 
+Inline image groups and grids use the same split: the enclosing div lays out
+the group, while each media element keeps its own fit/fill/filter behavior.
+
+```markdown
+:::: {.ds-grid style="--ds-columns: 3; --ds-gap: 14px;"}
+::: {.ds-media}
+![](assets/photo-1.svg){.ds-fill .ds-bn}
+:::
+
+::: {.ds-media}
+![](assets/photo-2.svg){.ds-fill .ds-vivid}
+:::
+
+::: {.ds-media .ds-vignette style="--ds-vignette: 0.42;"}
+![](assets/photo-3.svg){.ds-fill .ds-filter style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
+:::
+::::
+```
+
 Useful media classes:
 
 - `.ds-fit`: contain the whole image/video inside its box.
 - `.ds-fill`: cover the box and crop if needed.
 - `.ds-bn` / `.ds-bw`, `.ds-vivid`, `.ds-noir`, `.ds-chrome`, `.ds-fade`: simple filter presets.
-- `.ds-filter`: custom filter variables such as `--ds-saturation`, `--ds-contrast`, `--ds-brightness`, `--ds-sepia`, `--ds-blur`, and `--ds-opacity`.
+- `.ds-filter`: custom filter variables such as `--ds-grayscale`, `--ds-sepia`, `--ds-saturation`, `--ds-contrast`, `--ds-brightness`, `--ds-exposure`, `--ds-hue`, `--ds-blur`, and `--ds-opacity`.
+- `.ds-original`: remove filters from a media item.
+- `.ds-alpha`: opacity via `--ds-opacity`.
 - `.ds-rounded`: apply a media corner radius.
+- `.ds-vignette` / `.ds-vignette-light`: edge vignette via `--ds-vignette`, `--ds-vignette-size`, and optionally `--ds-vignette-color`.
+- `.ds-readable`: add a readability gradient overlay to a background media container.
+
+Use `.ds-vignette` and `.ds-readable` on a media wrapper or full-slide media
+container, because they are overlay effects. Keep text that should sit above a
+full-slide overlay in a separate `.ds-layer` container.
 
 For video and audio, raw HTML gives the most predictable attributes:
 

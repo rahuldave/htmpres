@@ -465,9 +465,6 @@ code {
 }
 
 .sample-media-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px 14px;
   margin-top: 20px;
 }
 

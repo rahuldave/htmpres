@@ -60,14 +60,14 @@ fit/fill, filters, video, and audio. In `htmpres`, the same ideas are expressed
 with composable Quarto containers plus media attributes:
 
 - Containers decide where the box is: `.ds-full`, `.ds-left`, `.ds-right`, `.ds-split`, `.ds-pane`, `.ds-media`, `.ds-grid`, `.ds-inline`.
-- Media attributes decide how the asset fits: `.ds-fit`, `.ds-fill`, `.ds-rounded`, `.zoomable`, and filter classes.
+- Media attributes decide how the asset behaves: `.ds-fit`, `.ds-fill`, `.ds-rounded`, `.zoomable`, and filter classes.
 - `.ds-layer` raises normal text or controls above full-slide media.
 - `.ds-no-pad`, `.ds-no-border`, `.ds-frame`, `.ds-center`, `.ds-top`, and `.ds-bottom` tune the container box.
 
 Full-slide media:
 
 ```markdown
-::: {.ds-full .ds-media .ds-no-pad}
+::: {.ds-full .ds-media .ds-no-pad .ds-readable}
 ![](assets/photo.svg){.ds-fill .zoomable}
 :::
 
@@ -104,16 +104,38 @@ Split flow layout:
 
 ## Media Classes
 
-Use these on images, videos, iframes, or media containers:
+Use layout classes on containers and fit/filter classes on the media. Wrapper
+effects such as vignette and readability overlays belong on the nearest
+container, because they use pseudo-elements around the media.
 
 - `.ds-fit`: contain the whole asset.
 - `.ds-fill`: cover the box and crop if needed.
 - `.ds-bn` / `.ds-bw`: black and white.
 - `.ds-vivid`, `.ds-noir`, `.ds-chrome`, `.ds-fade`: filter presets.
-- `.ds-filter`: custom filter variables such as `--ds-saturation`, `--ds-contrast`, `--ds-brightness`, `--ds-sepia`, `--ds-blur`, and `--ds-opacity`.
+- `.ds-filter`: custom filter variables such as `--ds-grayscale`, `--ds-sepia`, `--ds-saturation`, `--ds-contrast`, `--ds-brightness`, `--ds-exposure`, `--ds-hue`, `--ds-blur`, and `--ds-opacity`.
+- `.ds-original`: remove filters from a media item.
 - `.ds-alpha`: opacity via `--ds-opacity`.
 - `.ds-zoom`: visual zoom via `--ds-scale`.
-- `.ds-vignette`: edge vignette via `--ds-vignette` and `--ds-vignette-size`.
+- `.ds-vignette` / `.ds-vignette-light`: edge vignette via `--ds-vignette`, `--ds-vignette-size`, and optionally `--ds-vignette-color`.
+- `.ds-readable`: readability gradient via `--ds-readable-angle`, `--ds-readable-start`, and `--ds-readable-end`.
+
+Three inline images laid out by an enclosing div:
+
+```markdown
+:::: {.ds-grid style="--ds-columns: 3; --ds-gap: 14px;"}
+::: {.ds-media}
+![](assets/photo-1.svg){.ds-fill .ds-bn}
+:::
+
+::: {.ds-media}
+![](assets/photo-2.svg){.ds-fill .ds-vivid}
+:::
+
+::: {.ds-media .ds-vignette style="--ds-vignette: 0.42;"}
+![](assets/photo-3.svg){.ds-fill .ds-filter style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
+:::
+::::
+```
 
 Media playback directive classes:
 

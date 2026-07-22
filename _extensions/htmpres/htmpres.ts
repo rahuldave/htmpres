@@ -33,6 +33,38 @@ const rawDivClasses = [
   "axis",
   "axis-map",
   "core-cycle",
+  "ds-alpha",
+  "ds-bn",
+  "ds-bottom",
+  "ds-bw",
+  "ds-center",
+  "ds-chrome",
+  "ds-fade",
+  "ds-fill",
+  "ds-filter",
+  "ds-fit",
+  "ds-frame",
+  "ds-full",
+  "ds-grid",
+  "ds-hide",
+  "ds-inline",
+  "ds-layer",
+  "ds-left",
+  "ds-media",
+  "ds-no-border",
+  "ds-no-pad",
+  "ds-noir",
+  "ds-original",
+  "ds-pane",
+  "ds-readable",
+  "ds-right",
+  "ds-rounded",
+  "ds-split",
+  "ds-top",
+  "ds-vignette",
+  "ds-vignette-light",
+  "ds-vivid",
+  "ds-zoom",
   "flow",
   "flow-strip",
   "fragment",
@@ -1117,91 +1149,195 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
   min-width: 0;
 }
 
+.slide .ds-grid > p,
+.slide .ds-grid > figure {
+  margin: 0;
+}
+
 .slide img.ds-rounded,
 .slide video.ds-rounded,
 .slide iframe.ds-rounded,
+.slide object.ds-rounded,
+.slide embed.ds-rounded,
 .slide .ds-rounded img,
 .slide .ds-rounded video,
-.slide .ds-rounded iframe {
+.slide .ds-rounded iframe,
+.slide .ds-rounded object,
+.slide .ds-rounded embed {
   border-radius: var(--ds-radius, 16px);
 }
 
 .slide img.ds-bn,
 .slide video.ds-bn,
+.slide iframe.ds-bn,
+.slide object.ds-bn,
+.slide embed.ds-bn,
 .slide img.ds-bw,
 .slide video.ds-bw,
+.slide iframe.ds-bw,
+.slide object.ds-bw,
+.slide embed.ds-bw,
 .slide .ds-bn img,
 .slide .ds-bn video,
+.slide .ds-bn iframe,
+.slide .ds-bn object,
+.slide .ds-bn embed,
 .slide .ds-bw img,
-.slide .ds-bw video {
+.slide .ds-bw video,
+.slide .ds-bw iframe,
+.slide .ds-bw object,
+.slide .ds-bw embed {
   filter: grayscale(1);
 }
 
 .slide img.ds-vivid,
 .slide video.ds-vivid,
+.slide iframe.ds-vivid,
+.slide object.ds-vivid,
+.slide embed.ds-vivid,
 .slide .ds-vivid img,
-.slide .ds-vivid video {
+.slide .ds-vivid video,
+.slide .ds-vivid iframe,
+.slide .ds-vivid object,
+.slide .ds-vivid embed {
   filter: saturate(1.35) contrast(1.12);
 }
 
 .slide img.ds-noir,
 .slide video.ds-noir,
+.slide iframe.ds-noir,
+.slide object.ds-noir,
+.slide embed.ds-noir,
 .slide .ds-noir img,
-.slide .ds-noir video {
+.slide .ds-noir video,
+.slide .ds-noir iframe,
+.slide .ds-noir object,
+.slide .ds-noir embed {
   filter: grayscale(1) contrast(1.25) brightness(0.85);
 }
 
 .slide img.ds-chrome,
 .slide video.ds-chrome,
+.slide iframe.ds-chrome,
+.slide object.ds-chrome,
+.slide embed.ds-chrome,
 .slide .ds-chrome img,
-.slide .ds-chrome video {
+.slide .ds-chrome video,
+.slide .ds-chrome iframe,
+.slide .ds-chrome object,
+.slide .ds-chrome embed {
   filter: saturate(0.7) contrast(1.35) brightness(1.08);
 }
 
 .slide img.ds-fade,
 .slide video.ds-fade,
+.slide iframe.ds-fade,
+.slide object.ds-fade,
+.slide embed.ds-fade,
 .slide .ds-fade img,
-.slide .ds-fade video {
+.slide .ds-fade video,
+.slide .ds-fade iframe,
+.slide .ds-fade object,
+.slide .ds-fade embed {
   filter: saturate(0.75) opacity(0.78);
 }
 
 .slide img.ds-filter,
 .slide video.ds-filter,
+.slide iframe.ds-filter,
+.slide object.ds-filter,
+.slide embed.ds-filter,
 .slide .ds-filter img,
-.slide .ds-filter video {
+.slide .ds-filter video,
+.slide .ds-filter iframe,
+.slide .ds-filter object,
+.slide .ds-filter embed {
   filter:
+    grayscale(var(--ds-grayscale, 0))
+    sepia(var(--ds-sepia, 0))
     saturate(var(--ds-saturation, 1))
     contrast(var(--ds-contrast, 1))
-    brightness(var(--ds-brightness, 1))
-    sepia(var(--ds-sepia, 0))
+    brightness(clamp(0, calc(var(--ds-brightness, 1) + var(--ds-exposure, 0)), 3))
+    hue-rotate(var(--ds-hue, 0deg))
     blur(var(--ds-blur, 0))
     opacity(var(--ds-opacity, 1));
 }
 
 .slide img.ds-alpha,
 .slide video.ds-alpha,
+.slide iframe.ds-alpha,
+.slide object.ds-alpha,
+.slide embed.ds-alpha,
 .slide .ds-alpha img,
-.slide .ds-alpha video {
+.slide .ds-alpha video,
+.slide .ds-alpha iframe,
+.slide .ds-alpha object,
+.slide .ds-alpha embed {
   opacity: var(--ds-opacity, 0.6);
 }
 
 .slide img.ds-zoom,
 .slide video.ds-zoom,
+.slide iframe.ds-zoom,
+.slide object.ds-zoom,
+.slide embed.ds-zoom,
 .slide .ds-zoom img,
-.slide .ds-zoom video {
+.slide .ds-zoom video,
+.slide .ds-zoom iframe,
+.slide .ds-zoom object,
+.slide .ds-zoom embed {
   transform: scale(var(--ds-scale, 1.2));
 }
 
+.slide img.ds-original,
+.slide video.ds-original,
+.slide iframe.ds-original,
+.slide object.ds-original,
+.slide embed.ds-original,
+.slide .ds-original img,
+.slide .ds-original video,
+.slide .ds-original iframe,
+.slide .ds-original object,
+.slide .ds-original embed {
+  filter: none !important;
+  opacity: 1;
+}
+
+.slide .ds-readable,
 .slide .ds-vignette {
   position: relative;
+  isolation: isolate;
+}
+
+.slide .ds-readable::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    var(--ds-readable-angle, 90deg),
+    rgba(0, 0, 0, var(--ds-readable-start, 0.5)),
+    rgba(0, 0, 0, var(--ds-readable-end, 0.16))
+  );
 }
 
 .slide .ds-vignette::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
-  box-shadow: inset 0 0 var(--ds-vignette-size, 160px) rgba(0, 0, 0, var(--ds-vignette, 0.35));
+  box-shadow: inset 0 0 var(--ds-vignette-size, 160px) var(--ds-vignette-color, rgba(0, 0, 0, var(--ds-vignette, 0.35)));
+}
+
+.slide .ds-vignette-light {
+  --ds-vignette-color: rgba(255, 255, 255, var(--ds-vignette, 0.35));
+}
+
+.slide .ds-readable .ds-layer,
+.slide .ds-vignette .ds-layer {
+  z-index: 2;
 }
 
 body.presenter-mode .deck-shell {

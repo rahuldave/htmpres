@@ -217,9 +217,7 @@ code {
 }
 
 .source-line {
-  position: absolute;
-  left: 58px;
-  bottom: 28px;
+  margin-top: 18px;
   color: #6b787f;
   font-size: 0.76rem;
 }
@@ -287,6 +285,39 @@ code {
 
 .code-card code {
   color: #eff6f4;
+}
+
+.code-card div.sourceCode {
+  margin: 0;
+}
+
+.code-card pre.sourceCode,
+.code-card pre {
+  max-height: 100%;
+  overflow: auto;
+}
+
+.code-split {
+  align-items: stretch;
+}
+
+.code-split .code-card {
+  margin-top: 0;
+  min-width: 0;
+  font-size: 0.78rem;
+}
+
+.code-guide {
+  min-height: 0;
+}
+
+.code-guide ul {
+  padding-left: 1rem;
+}
+
+.code-guide code {
+  color: var(--ink);
+  font-size: 0.78rem;
 }
 
 .diagram-frame {

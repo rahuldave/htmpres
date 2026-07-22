@@ -15,6 +15,7 @@ const zoomImg = document.getElementById("zoomImg");
 const zoomClose = document.getElementById("zoomClose");
 let current = 0;
 const deckNotes = readDeckNotes();
+const slideCodeStates = new WeakMap();
 
 function buildNav() {
   slides.forEach((slide, index) => {
@@ -56,9 +57,172 @@ function goTo(index) {
   Array.from(overviewGrid?.children || []).forEach((card, i) => card.classList.toggle("active", i === current));
   if (counter) counter.textContent = `${current + 1} / ${slides.length}`;
   if (progressBar) progressBar.style.width = `${((current + 1) / slides.length) * 100}%`;
+  resetCodeStep(slides[current]);
   updateNotes();
   syncSlideMedia();
   if (location.hash !== `#/${current + 1}`) history.replaceState(null, "", `#/${current + 1}`);
+}
+
+function prepareCodeSteppers() {
+  slides.forEach((slide) => {
+    const blocks = [];
+    slide.querySelectorAll("div.sourceCode, pre, code").forEach((root) => {
+      if (!hasCodeDirective(root)) return;
+      if (root.matches("pre, code") && root.closest("div.sourceCode[data-highlight], div.sourceCode[data-steps], div.sourceCode[data-highlight-steps]")) return;
+
+      const code = root.matches("code") ? root : root.querySelector("code");
+      if (!code) return;
+
+      const lines = codeLineNodes(code);
+      if (!lines.length) return;
+
+      const highlight = getCodeData(root, code, "highlight");
+      const steps = getCodeData(root, code, "steps") || getCodeData(root, code, "highlightSteps");
+      const staticLines = parseLineSelection(highlight, lines.length);
+      const stepLines = parseStepSelections(steps, lines.length);
+      if (!staticLines.size && !stepLines.length) return;
+
+      root.classList.add("code-stepper");
+      blocks.push({ root, lines, staticLines, stepLines });
+    });
+
+    if (!blocks.length) return;
+    slideCodeStates.set(slide, {
+      blocks,
+      maxSteps: Math.max(...blocks.map((block) => block.stepLines.length)),
+      step: 0,
+    });
+  });
+}
+
+function hasCodeDirective(root) {
+  return Boolean(root.dataset.highlight || root.dataset.steps || root.dataset.highlightSteps);
+}
+
+function getCodeData(root, code, key) {
+  const pre = code.closest("pre");
+  return root.dataset[key] || pre?.dataset[key] || code.dataset[key] || "";
+}
+
+function codeLineNodes(code) {
+  const pandocLines = Array.from(code.children).filter((child) => {
+    if (child.tagName !== "SPAN") return false;
+    return Boolean(child.dataset.line || /-\d+$/.test(child.id || ""));
+  });
+
+  const lines = pandocLines.length ? pandocLines : wrapPlainCodeLines(code);
+  lines.forEach((line, index) => {
+    line.classList.add("code-line");
+    line.dataset.line = String(lineNumber(line, index));
+  });
+  return lines;
+}
+
+function wrapPlainCodeLines(code) {
+  const text = code.textContent || "";
+  const hadTrailingNewline = /\n$/.test(text);
+  const parts = text.replace(/\n$/, "").split("\n");
+  code.textContent = "";
+  const lines = parts.map((part, index) => {
+    const line = document.createElement("span");
+    line.textContent = part || "\u200b";
+    code.appendChild(line);
+    if (index < parts.length - 1 || hadTrailingNewline) code.appendChild(document.createTextNode("\n"));
+    return line;
+  });
+  return lines;
+}
+
+function lineNumber(line, index) {
+  const dataLine = Number(line.dataset.line);
+  if (Number.isFinite(dataLine) && dataLine > 0) return dataLine;
+  const match = /-(\d+)$/.exec(line.id || "");
+  return match ? Number(match[1]) : index + 1;
+}
+
+function parseStepSelections(value, lineCount) {
+  if (!value) return [];
+  return value.split("|").map((part) => parseLineSelection(part, lineCount));
+}
+
+function parseLineSelection(value, lineCount) {
+  const selected = new Set();
+  const raw = (value || "").trim().toLowerCase();
+  if (!raw || raw === "none") return selected;
+  if (raw === "all") {
+    for (let line = 1; line <= lineCount; line += 1) selected.add(line);
+    return selected;
+  }
+
+  raw.split(/[,\s]+/).forEach((part) => {
+    if (!part) return;
+    const range = /^(\d+)-(\d+)$/.exec(part);
+    if (range) {
+      const start = Math.max(1, Math.min(Number(range[1]), Number(range[2])));
+      const end = Math.min(lineCount, Math.max(Number(range[1]), Number(range[2])));
+      for (let line = start; line <= end; line += 1) selected.add(line);
+      return;
+    }
+    const line = Number(part);
+    if (Number.isInteger(line) && line >= 1 && line <= lineCount) selected.add(line);
+  });
+  return selected;
+}
+
+function resetCodeStep(slide) {
+  const state = slideCodeStates.get(slide);
+  if (!state) return;
+  state.step = 0;
+  applyCodeStep(slide);
+}
+
+function advanceCodeStep() {
+  const state = slideCodeStates.get(slides[current]);
+  if (!state || state.maxSteps < 2 || state.step >= state.maxSteps - 1) return false;
+  state.step += 1;
+  applyCodeStep(slides[current]);
+  return true;
+}
+
+function retreatCodeStep() {
+  const state = slideCodeStates.get(slides[current]);
+  if (!state || state.step <= 0) return false;
+  state.step -= 1;
+  applyCodeStep(slides[current]);
+  return true;
+}
+
+function applyCodeStep(slide) {
+  const state = slideCodeStates.get(slide);
+  if (!state) return;
+
+  state.blocks.forEach((block) => {
+    const stepSet = block.stepLines.length ? block.stepLines[Math.min(state.step, block.stepLines.length - 1)] : null;
+    const activeLines = new Set(block.staticLines);
+    if (stepSet) stepSet.forEach((line) => activeLines.add(line));
+    const shouldDim = Boolean(stepSet && activeLines.size);
+
+    block.lines.forEach((line) => {
+      const active = activeLines.has(Number(line.dataset.line));
+      line.classList.toggle("code-line-highlight", active);
+      line.classList.toggle("code-line-dim", shouldDim && !active);
+    });
+
+    block.root.classList.toggle("code-step-active", Boolean(block.stepLines.length));
+    if (block.stepLines.length) {
+      block.root.dataset.activeStep = String(Math.min(state.step + 1, block.stepLines.length));
+    } else {
+      delete block.root.dataset.activeStep;
+    }
+  });
+}
+
+function nextStepOrSlide() {
+  if (!advanceCodeStep()) goTo(current + 1);
+}
+
+function prevStepOrSlide() {
+  if (!retreatCodeStep()) goTo(current - 1);
 }
 
 function updateNotes() {
@@ -155,8 +319,8 @@ function initialSlideFromHash() {
   return Number(match[1]) - 1;
 }
 
-prevBtn?.addEventListener("click", () => goTo(current - 1));
-nextBtn?.addEventListener("click", () => goTo(current + 1));
+prevBtn?.addEventListener("click", prevStepOrSlide);
+nextBtn?.addEventListener("click", nextStepOrSlide);
 overviewBtn?.addEventListener("click", toggleOverview);
 overview?.addEventListener("click", (event) => {
   if (event.target === overview) overview.classList.remove("visible");
@@ -165,11 +329,11 @@ window.addEventListener("resize", scaleDeck);
 document.addEventListener("keydown", (event) => {
   if (event.key === "ArrowRight" || event.key === " " || event.key === "PageDown") {
     event.preventDefault();
-    goTo(current + 1);
+    nextStepOrSlide();
   }
   if (event.key === "ArrowLeft" || event.key === "PageUp") {
     event.preventDefault();
-    goTo(current - 1);
+    prevStepOrSlide();
   }
   if (event.key === "Home") goTo(0);
   if (event.key === "End") goTo(slides.length - 1);
@@ -185,5 +349,6 @@ document.addEventListener("keydown", (event) => {
 buildNav();
 wireZoom();
 wireMediaDirectives();
+prepareCodeSteppers();
 scaleDeck();
 goTo(initialSlideFromHash());

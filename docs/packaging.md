@@ -80,11 +80,11 @@ htmpres/
 ## CLI Surface
 
 ```sh
-quarto run scripts/htmpres.ts convert source.html
-quarto run scripts/htmpres.ts render decks/example/index.qmd
-quarto run scripts/htmpres.ts render
-quarto run scripts/htmpres.ts verify
-quarto run scripts/htmpres.ts all
+just convert source.html
+just render decks/example/index.qmd
+just render-all
+just verify
+just check
 ```
 
 Installed extension usage in another project:

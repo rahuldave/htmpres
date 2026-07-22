@@ -200,7 +200,7 @@ function verifyGeneratedHtml(deck, qmd, html, file, mode) {
   }
 
   if (/@@HTMPRES_RAW_\d+@@/.test(html)) fail(deck, file, "unrestored raw HTML placeholder token remains in output");
-  if (/\bsourceCode\b|id="cb\d+"/.test(html)) fail(deck, file, "Pandoc highlighted-code wrapper or duplicate code anchor remains in output");
+  if (/\bid="cb\d+(?:-\d+)?"|\bhref="#cb\d+(?:-\d+)?"/.test(html)) fail(deck, file, "unnamespaced Pandoc code anchor remains in output");
   if (/index_files\/libs\/revealjs|revealjs\/|Reveal\.initialize/.test(html)) fail(deck, file, "reveal.js reference remains in custom renderer output");
   if (mode === "audience" && /<script\b[^>]*\bid="deckNotes"/i.test(html)) fail(deck, file, "audience output contains presenter notes JSON");
   if (mode === "presenter" && !/<script\b[^>]*\bid="deckNotes"/i.test(html)) fail(deck, file, "presenter output is missing presenter notes JSON");

@@ -151,6 +151,37 @@ This appears only in presenter.html.
 This slide should prove the note split: it appears in presenter.html and is stripped from index.html.
 :::
 
+## Highlight Code By Line {data-section="Authoring" data-title="Code Highlighting"}
+
+[Syntax plus steps]{.eyebrow}
+
+Use Pandoc code attributes for syntax highlighting, line numbers, persistent highlights, and click-through line steps.
+
+::::: {.two-col .code-split}
+:::: {.code-card .code-demo}
+```{.python .numberLines data-highlight="2" data-steps="2|3|4|all"}
+def render_slide(slide):
+    html = markdown_to_html(slide["body"])
+    if slide.get("notes"):
+        write_presenter_notes(slide["notes"])
+    return f"<section>{html}</section>"
+```
+::::
+
+::: {.card .code-guide}
+**Authoring syntax**
+
+- Use `.numberLines` for line numbers.
+- Use `data-highlight="2,4-5"` for persistent line highlights.
+- Use `data-steps="2|3|4|all"` for arrow-key code transitions.
+- Line specs accept numbers, ranges, `none`, and `all`.
+:::
+:::::
+
+::: notes
+Advance through the code with Space or the Next button. The renderer lets Pandoc do token highlighting and the htmpres runtime applies the line-step state.
+:::
+
 ## Add Images And Zoom {data-section="Media" data-title="Images And Zoom"}
 
 [Visual assets]{.eyebrow}
@@ -371,8 +402,8 @@ Pills are best for a small set of peer choices.
 
 :::: code-card
 ```sh
-quarto run scripts/htmpres.ts render decks/tutorial/index.qmd
-quarto run scripts/htmpres.ts verify
+just tutorial
+just verify
 ```
 ::::
 

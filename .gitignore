@@ -7,6 +7,7 @@
 node_modules/
 .quarto/
 .cache/
+.gest/
 *.log
 
 # Rendered deck outputs are reproducible from QMD.

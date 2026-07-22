@@ -435,7 +435,7 @@ async function renderDeck(file: string) {
     const cleanSlide = { ...slides[index], body };
     rendered.push({
       slideHtml: await renderSlide(cleanSlide, index),
-      notesHtml: (await markdownToHtml(notes)).trim(),
+      notesHtml: namespacePandocCodeIds((await markdownToHtml(notes)).trim(), `notes-${index + 1}`),
     });
   }
 
@@ -475,7 +475,7 @@ async function renderSlide(slide: QmdSlide, index: number) {
   const classes = ["slide", ...attrs.classes];
   if (index === 0) classes.push("active");
   const title = slide.title || attrs.keyValues["data-title"] || `Slide ${index + 1}`;
-  const bodyHtml = (await markdownToHtml(slide.body)).trim();
+  const bodyHtml = namespacePandocCodeIds((await markdownToHtml(slide.body)).trim(), `slide-${index + 1}`);
   const dataAttrs = { ...attrs.keyValues };
   if (!dataAttrs["data-title"]) dataAttrs["data-title"] = title;
   const attrText = formatHtmlAttrs({
@@ -487,6 +487,12 @@ async function renderSlide(slide: QmdSlide, index: number) {
   <h2${headingClass}>${escapeHtml(title)}</h2>
 ${indentHtml(bodyHtml, "  ")}
 </section>`;
+}
+
+function namespacePandocCodeIds(html: string, prefix: string) {
+  return html
+    .replace(/\bid="cb(\d+(?:-\d+)?)"/g, `id="${prefix}-cb$1"`)
+    .replace(/\bhref="#cb(\d+(?:-\d+)?)"/g, `href="#${prefix}-cb$1"`);
 }
 
 function deckShell({
@@ -590,6 +596,134 @@ function runtimeCss() {
 
 body.audience-mode .slide .notes {
   display: none !important;
+}
+
+.slide div.sourceCode,
+.slide pre {
+  max-width: 100%;
+  overflow: auto;
+}
+
+.slide > div.sourceCode,
+.slide > pre {
+  margin-top: 24px;
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  border-radius: 8px;
+  background: var(--htmpres-code-bg, #172127);
+  color: var(--htmpres-code-ink, #eff6f4);
+  padding: 18px;
+}
+
+.slide div.sourceCode > pre,
+.slide pre.sourceCode {
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  box-shadow: none;
+}
+
+.slide pre.sourceCode,
+.slide pre.sourceCode code {
+  white-space: pre;
+}
+
+.slide pre code {
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.slide pre.numberSource code {
+  counter-reset: source-line;
+}
+
+.slide pre.numberSource code > span,
+.slide code > .code-line {
+  display: inline-block;
+  min-width: 100%;
+  min-height: 1.45em;
+  box-sizing: border-box;
+  padding-left: 0.65rem;
+  padding-right: 0.65rem;
+  transition: background 140ms ease, box-shadow 140ms ease, opacity 140ms ease;
+}
+
+.slide pre.numberSource code > span {
+  counter-increment: source-line;
+  position: relative;
+  padding-left: 3.1rem;
+}
+
+.slide pre.numberSource code > span > a:first-child {
+  position: absolute;
+  left: 0;
+  width: 2.35rem;
+  padding-right: 0.5rem;
+  color: rgba(226, 232, 240, 0.46);
+  text-align: right;
+  text-decoration: none;
+  user-select: none;
+}
+
+.slide pre.numberSource code > span > a:first-child::before {
+  content: counter(source-line);
+}
+
+.slide .code-line-highlight {
+  background: rgba(193, 131, 34, 0.22);
+  box-shadow: inset 4px 0 0 rgba(193, 131, 34, 0.9);
+}
+
+.slide .code-step-active .code-line-dim {
+  opacity: 0.42;
+}
+
+.slide .sourceCode .al,
+.slide .sourceCode .er {
+  color: #fecdd3;
+}
+
+.slide .sourceCode .kw,
+.slide .sourceCode .cf,
+.slide .sourceCode .im {
+  color: #7dd3fc;
+  font-weight: 700;
+}
+
+.slide .sourceCode .dt,
+.slide .sourceCode .at {
+  color: #c4b5fd;
+}
+
+.slide .sourceCode .st,
+.slide .sourceCode .ss,
+.slide .sourceCode .ch {
+  color: #a7f3d0;
+}
+
+.slide .sourceCode .dv,
+.slide .sourceCode .bn,
+.slide .sourceCode .fl {
+  color: #fcd34d;
+}
+
+.slide .sourceCode .co {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.slide .sourceCode .fu,
+.slide .sourceCode .bu,
+.slide .sourceCode .ot {
+  color: #f9a8d4;
+}
+
+.slide .sourceCode .op,
+.slide .sourceCode .sc,
+.slide .sourceCode .va {
+  color: #f8fafc;
 }
 
 .slide > :not(.ds-full):not(.ds-left):not(.ds-right) {
@@ -976,7 +1110,6 @@ async function markdownToHtml(markdown: string) {
       "markdown+native_divs+native_spans+fenced_divs+pipe_tables+raw_html+yaml_metadata_block",
       "-t",
       "html",
-      "--no-highlight",
       "--wrap=none",
     ],
     markdown,
@@ -1347,8 +1480,8 @@ function verifyGeneratedHtml(
   if (/@@HTMPRES_RAW_\d+@@/.test(html)) {
     fail(slug, file, "unrestored raw HTML placeholder token remains in output", failures);
   }
-  if (/\bsourceCode\b|id="cb\d+"/.test(html)) {
-    fail(slug, file, "Pandoc highlighted-code wrapper or duplicate code anchor remains in output", failures);
+  if (/\bid="cb\d+(?:-\d+)?"|\bhref="#cb\d+(?:-\d+)?"/.test(html)) {
+    fail(slug, file, "unnamespaced Pandoc code anchor remains in output", failures);
   }
   if (/index_files\/libs\/revealjs|revealjs\/|Reveal\.initialize/.test(html)) {
     fail(slug, file, "reveal.js reference remains in custom renderer output", failures);

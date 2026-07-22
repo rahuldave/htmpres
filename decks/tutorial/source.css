@@ -320,6 +320,94 @@ code {
   font-size: 0.78rem;
 }
 
+.transition-demo {
+  align-items: stretch;
+}
+
+.transition-demo .code-card {
+  margin-top: 0;
+  min-width: 0;
+  font-size: 0.76rem;
+}
+
+.fragment-demo {
+  min-height: 284px;
+}
+
+.fragment-demo .incremental {
+  margin-top: 18px;
+}
+
+.transition-strip,
+.feature-status {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.transition-strip {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.transition-strip .card {
+  min-height: 128px;
+}
+
+.feature-status {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.status-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fbfcfa;
+  padding: 16px;
+  min-height: 300px;
+}
+
+.status-card strong {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+
+.status-card ul {
+  padding-left: 1rem;
+  font-size: 0.82rem;
+  line-height: 1.38;
+}
+
+.status-card li + li {
+  margin-top: 0.34rem;
+}
+
+.mixed-transition {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 18px;
+  margin-top: 24px;
+  align-items: stretch;
+}
+
+.mixed-transition .card,
+.mixed-transition .code-card {
+  margin-top: 0;
+}
+
+.mixed-transition .focus-panel {
+  margin-top: 18px;
+  min-height: 116px;
+}
+
+.mixed-copy {
+  min-height: 320px;
+}
+
+.mixed-code {
+  min-width: 0;
+  font-size: 0.76rem;
+}
+
 .diagram-frame {
   margin-top: 20px;
   border: 1px solid var(--line);
@@ -678,7 +766,10 @@ code {
 
   .two-col,
   .three-col,
-  .checklist {
+  .checklist,
+  .mixed-transition,
+  .transition-strip,
+  .feature-status {
     grid-template-columns: 1fr;
   }
 

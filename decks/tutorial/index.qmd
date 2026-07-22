@@ -159,7 +159,7 @@ Use Pandoc code attributes for syntax highlighting, line numbers, persistent hig
 
 ::::: {.two-col .code-split}
 :::: {.code-card .code-demo}
-```{.python .numberLines data-highlight="2" data-steps="2|3|4|all"}
+```{.python .numberLines data-steps="none|2|3|4|all"}
 def render_slide(slide):
     html = markdown_to_html(slide["body"])
     if slide.get("notes"):
@@ -173,13 +173,156 @@ def render_slide(slide):
 
 - Use `.numberLines` for line numbers.
 - Use `data-highlight="2,4-5"` for persistent line highlights.
-- Use `data-steps="2|3|4|all"` for arrow-key code transitions.
+- Use `data-steps="none|2|3|4|all"` for arrow-key code transitions.
 - Line specs accept numbers, ranges, `none`, and `all`.
 :::
 :::::
 
 ::: notes
 Advance through the code with Space or the Next button. The renderer lets Pandoc do token highlighting and the htmpres runtime applies the line-step state.
+:::
+
+## Reveal Bullets {.transition-fade data-section="Authoring" data-title="Bullet Transitions" data-transition="fade"}
+
+[Incremental lists]{.eyebrow}
+
+:::: {.two-col .transition-demo}
+::: {.card .fragment-demo}
+**Wrap a list in `.incremental`**
+
+::: {.incremental data-fragment-effect="rise"}
+- Write the whole outline in normal Markdown.
+- Advance with Space, Next, PageDown, or the right arrow.
+- Previous reverses the reveal before leaving the slide.
+:::
+:::
+
+::: code-card
+```markdown
+::: {.incremental data-fragment-effect="rise"}
+- First point
+- Second point
+- Third point
+:::
+```
+:::
+::::
+
+::: notes
+This slide should consume three navigation steps before moving forward. It uses a fade slide transition when entering from another slide.
+:::
+
+## Reveal Any Block {.transition-slide data-section="Authoring" data-title="Fragment Transitions" data-transition="slide"}
+
+[Fragments]{.eyebrow}
+
+:::: three-col
+::: {.card .fragment data-fragment-index="1" data-fragment-effect="left"}
+**Text block**
+
+Any fenced div can become a fragment.
+:::
+
+::: {.card .fragment data-fragment-index="2" data-fragment-effect="highlight"}
+**Controls**
+
+Buttons, chips, and panels can reveal together.
+:::
+
+::: {.card .fragment data-fragment-index="2" data-fragment-effect="scale"}
+**Media**
+
+The same class works around image, video, or embed containers.
+:::
+::::
+
+:::: code-card
+```markdown
+::: {.card .fragment data-fragment-index="2" data-fragment-effect="highlight"}
+**Reveal me later**
+:::
+```
+::::
+
+::: notes
+The first card reveals alone. The second and third share the same fragment index and reveal together.
+:::
+
+## Slide Transitions {.transition-zoom data-section="Authoring" data-title="Slide Transitions" data-transition="zoom"}
+
+[Per-slide motion]{.eyebrow}
+
+:::: {.transition-strip}
+::: {.card .metric-card style="--accent: var(--teal)"}
+**Fade**
+
+Use `.transition-fade` or `data-transition="fade"`.
+:::
+
+::: {.card .metric-card style="--accent: var(--amber)"}
+**Slide**
+
+Use `.transition-slide` or `data-transition="slide"`.
+:::
+
+::: {.card .metric-card style="--accent: var(--rose)"}
+**Zoom**
+
+Use `.transition-zoom` or `data-transition="zoom"`.
+:::
+::::
+
+:::: code-card
+```markdown
+## Enter From The Side {.transition-slide data-transition="slide"}
+
+## Fade In {data-transition="fade"}
+
+## No Motion {.transition-none}
+```
+::::
+
+::: callout
+Transitions are CSS-level choices on the slide. Fragment and code steps still consume navigation before the deck changes slides.
+:::
+
+## Mixed Transition Order {data-section="Authoring" data-title="Mixed Transition Order"}
+
+[Precedence]{.eyebrow}
+
+:::: {.mixed-transition}
+::: {.card .mixed-copy}
+**On one slide**
+
+::: {.incremental data-fragment-effect="rise"}
+- List items reveal as generic fragments.
+- Explicit fragments share the same queue.
+:::
+
+::: {.fragment .focus-panel .compact-panel data-fragment-effect="highlight"}
+### Then code
+
+After every list item and fragment is visible, code line steps start.
+:::
+:::
+
+:::: {.code-card .mixed-code}
+```{.js .numberLines data-steps="none|2|3|all"}
+const queue = collectFragments(slide);
+if (queue.hasNext()) {
+  return queue.next();
+}
+return codeSteps.next();
+```
+::::
+::::
+
+::: callout
+Order on mixed slides is deliberate: fragments and incremental list items first, then code line steps, then the next slide. Persistent `data-highlight` lines do not consume a step.
+:::
+
+::: notes
+Test this with six Next presses: first list item, second list item, focus panel, code line 2, code line 3, all code lines. The next press leaves the slide.
 :::
 
 ## Add Images And Zoom {data-section="Media" data-title="Images And Zoom"}
@@ -394,6 +537,37 @@ Pills are best for a small set of peer choices.
 <button class="control-chip" data-target="#panel" data-title="Chip" data-text="...">Chip</button>
 <button class="action-button" data-target="#panel" data-title="Action" data-text="...">Action</button>
 ```
+::::
+
+## Feature Status {data-section="Roadmap" data-title="Feature Status"}
+
+[Easy and medium]{.eyebrow}
+
+:::: feature-status
+::: status-card
+**Easy, done**
+
+- Full, left, right, and split containers
+- Fit/fill, filters, zoomable images, media directives
+- Buttons, syntax highlighting, line highlights
+- Bullet, fragment, and slide transitions
+:::
+
+::: status-card
+**Medium, partly done**
+
+- Deckset image syntax mapped to Quarto containers
+- Step-through code examples with line numbers
+- Import preservation for fragment classes
+:::
+
+::: status-card
+**Medium, open**
+
+- Interleaving code and text fragments by source order
+- Theme-level text fitting and broader Deckset parity
+- Export and print tuning beyond basic fragment visibility
+:::
 ::::
 
 ## Render And Verify {data-section="Workflow" data-title="Render And Verify"}

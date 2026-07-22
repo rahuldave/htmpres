@@ -5,7 +5,16 @@ import path from "node:path";
 const root = process.cwd();
 const sourceRoot = path.join(root, "source_presentations");
 const decksDir = path.join(root, "decks");
-const interactiveAttrs = ["data-target", "data-update-target", "data-filter", "data-item-filter", "data-filter-target"];
+const interactiveAttrs = [
+  "data-target",
+  "data-update-target",
+  "data-filter",
+  "data-item-filter",
+  "data-filter-target",
+  "data-fragment-effect",
+  "data-fragment-index",
+  "data-transition",
+];
 const failures = [];
 const sourceSlugs = new Set();
 

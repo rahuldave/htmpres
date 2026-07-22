@@ -100,7 +100,7 @@ places them in the presenter panel in `presenter.html`.
 Use Pandoc fenced-code attributes for highlighted code examples:
 
 ````markdown
-```{.python .numberLines data-highlight="2" data-steps="2|3|4|all"}
+```{.python .numberLines data-steps="none|2|3|4|all"}
 def render_slide(slide):
     html = markdown_to_html(slide["body"])
     if slide.get("notes"):
@@ -119,7 +119,63 @@ Line specs accept comma-separated numbers and ranges:
 - `data-highlight="2,4-5"`
 - `data-steps="none|2|3-4|all"`
 
-## 7. Add Images And Deckset-Inspired Layouts
+Use `data-highlight` only when a line should stay highlighted across every
+step. Use a leading `none` step when the block should start with no active
+line.
+
+## 7. Add Bullet, Fragment, And Slide Transitions
+
+Wrap a list in `.incremental` to reveal list items one-by-one:
+
+```markdown
+::: {.incremental data-fragment-effect="rise"}
+- First point
+- Second point
+- Third point
+:::
+```
+
+Use `.fragment` on any fenced div to reveal a whole block. Optional
+`data-fragment-index` values let multiple blocks reveal together, and
+`data-fragment-effect` maps to CSS effect classes such as `rise`, `left`,
+`right`, `scale`, `blur`, `highlight`, `dim`, or `none`.
+
+```markdown
+::: {.card .fragment data-fragment-index="2" data-fragment-effect="highlight"}
+**Reveal me later**
+:::
+```
+
+Put transition classes on slide headings, or set `data-transition` and let the
+runtime add the matching class:
+
+```markdown
+## Enter From The Side {.transition-slide data-transition="slide"}
+
+## Fade In {data-transition="fade"}
+
+## No Motion {.transition-none}
+```
+
+Supported slide transitions are `.transition-fade`, `.transition-slide`,
+`.transition-zoom`, and `.transition-none`.
+
+When a slide mixes transition modalities, the runtime uses this order:
+
+1. Generic fragments, including `.incremental` list items, reveal first in
+   source order. Matching `data-fragment-index` values reveal together.
+2. Code line steps run after all generic fragments on the slide are visible.
+   Multiple stepped code blocks share one code-step counter.
+3. The next navigation action changes slides and the destination slide's
+   transition runs.
+
+Persistent `data-highlight` lines are not transition steps. They are applied
+whenever the code block is visible. Slide transitions do not consume a
+navigation step; they run only when entering a slide. When code stepping
+begins, any current-fragment styling is cleared because the active modality has
+moved to code.
+
+## 8. Add Images And Deckset-Inspired Layouts
 
 Use normal Markdown image syntax, with Quarto/Pandoc attributes on the media
 itself:
@@ -202,7 +258,7 @@ Playback directive classes supported by the runtime:
 - `.ds-autoadvance`
 - `.ds-keep-time`
 
-## 8. Add Small Interactions And Buttons
+## 9. Add Small Interactions And Buttons
 
 For a click-to-update panel, use raw HTML buttons with data attributes:
 
@@ -230,7 +286,7 @@ Any button style can use the same data attributes:
 <button class="action-button" data-target="#panel" data-title="Action" data-text="...">Action</button>
 ```
 
-## 9. Render
+## 10. Render
 
 Render the tutorial deck:
 
@@ -255,7 +311,7 @@ Open:
 - `decks/my-deck/index.html` for the audience view.
 - `decks/my-deck/presenter.html` for the presenter view.
 
-## 10. Import Existing HTML
+## 11. Import Existing HTML
 
 When starting from an HTML deck copied into `source_presentations/`, run:
 

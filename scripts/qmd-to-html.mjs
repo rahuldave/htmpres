@@ -28,13 +28,15 @@ function renderDeck(file) {
 
   const title = meta.pagetitle || meta.title || humanTitle(path.basename(deckDir));
   const theme = meta["deck.theme"] || meta.theme || "";
+  const background = deckBackground(meta);
+  const textFit = deckTextFit(meta);
   const cssPath = path.join(deckDir, meta["deck.css"] || "source.css");
   const css = existsSync(cssPath) ? readFileSync(cssPath, "utf8") : "";
   const rendered = slides.map((slide, index) => {
     const { body, notes } = extractNotes(slide.body);
     const cleanSlide = { ...slide, body };
     return {
-      slideHtml: renderSlide(cleanSlide, index),
+      slideHtml: renderSlide(cleanSlide, index, background),
       notesHtml: namespacePandocCodeIds(markdownToHtml(notes).trim(), `notes-${index + 1}`),
     };
   });
@@ -49,6 +51,7 @@ function renderDeck(file) {
     slideCount: slides.length,
     notes,
     theme,
+    textFit,
   });
   const presenterHtml = deckShell({
     mode: "presenter",
@@ -59,6 +62,7 @@ function renderDeck(file) {
     slideCount: slides.length,
     notes,
     theme,
+    textFit,
   });
 
   const outPath = path.join(deckDir, "index.html");
@@ -71,12 +75,13 @@ function renderDeck(file) {
   );
 }
 
-function renderSlide(slide, index) {
+function renderSlide(slide, index, globalBackground) {
   const attrs = parsePandocAttrs(slide.attrText);
   const classes = ["slide", ...attrs.classes];
   if (index === 0) classes.push("active");
   const title = slide.title || attrs.keyValues["data-title"] || `Slide ${index + 1}`;
   const bodyHtml = namespacePandocCodeIds(markdownToHtml(slide.body).trim(), `slide-${index + 1}`);
+  const backgroundHtml = renderBackgroundLayer(attrs, globalBackground);
   const dataAttrs = { ...attrs.keyValues };
   if (!dataAttrs["data-title"]) dataAttrs["data-title"] = title;
   const attrText = formatHtmlAttrs({
@@ -85,9 +90,101 @@ function renderSlide(slide, index) {
   });
   const headingClass = attrs.classes.includes("title-hidden") ? " class=\"visually-hidden\"" : "";
   return `<section${attrText}>
+${backgroundHtml ? indentHtml(backgroundHtml, "  ") + "\n" : ""}
   <h2${headingClass}>${escapeHtml(title)}</h2>
 ${indentHtml(bodyHtml, "  ")}
 </section>`;
+}
+
+function deckBackground(meta) {
+  const image = firstMeta(meta, ["deck.background-image", "deck.background.image", "background-image"]);
+  if (!image) return null;
+  return {
+    image,
+    fit: firstMeta(meta, ["deck.background-fit", "deck.background.fit", "background-fit"]) || "fill",
+    filter: firstMeta(meta, ["deck.background-filter", "deck.background.filter", "background-filter"]) || "theme",
+    position: firstMeta(meta, ["deck.background-position", "deck.background.position", "background-position"]) || "",
+    opacity: firstMeta(meta, ["deck.background-opacity", "deck.background.opacity", "background-opacity"]) || "",
+    className: firstMeta(meta, ["deck.background-class", "deck.background.class", "background-class"]) || "",
+  };
+}
+
+function deckTextFit(meta) {
+  const enabled = boolMeta(firstMeta(meta, ["deck.text-fit", "deck.autoscale", "text-fit", "autoscale"]));
+  return {
+    enabled,
+    min: firstMeta(meta, ["deck.text-fit-min", "deck.autoscale-min", "text-fit-min", "autoscale-min"]) || "",
+  };
+}
+
+function renderBackgroundLayer(attrs, globalBackground) {
+  if (attrs.classes.includes("no-background")) return "";
+  const explicitImage = attrs.keyValues["data-background-image"] || "";
+  if (explicitImage && isNoneValue(explicitImage)) return "";
+  const image = explicitImage || globalBackground?.image || "";
+  if (!image) return "";
+
+  const fit = attrs.keyValues["data-background-fit"] || globalBackground?.fit || "fill";
+  const filter = attrs.keyValues["data-background-filter"] || globalBackground?.filter || "theme";
+  const position = attrs.keyValues["data-background-position"] || globalBackground?.position || "";
+  const opacity = attrs.keyValues["data-background-opacity"] || globalBackground?.opacity || "";
+  const extraClass = attrs.keyValues["data-background-class"] || globalBackground?.className || "";
+  const mediaClasses = unique([
+    backgroundFitClass(fit),
+    ...backgroundFilterClasses(filter),
+    ...splitClasses(extraClass),
+  ]);
+  const style = backgroundStyle(position, opacity);
+
+  return `<div class="ds-global-background ds-full ds-media ds-no-pad" aria-hidden="true"${style}>
+  <img src="${escapeHtmlAttr(image)}" alt="" class="${escapeHtmlAttr(mediaClasses.join(" "))}">
+</div>`;
+}
+
+function backgroundFitClass(value) {
+  return sanitizeClassToken(value) === "fit" ? "ds-fit" : "ds-fill";
+}
+
+function backgroundFilterClasses(value) {
+  const tokens = value.split(/[\s,]+/).map(sanitizeClassToken).filter(Boolean);
+  if (!tokens.length) return ["ds-theme-filter"];
+  if (tokens.some(isNoneValue)) return ["ds-original"];
+  return tokens.flatMap((token) => {
+    if (token === "theme" || token === "filtered") return ["ds-theme-filter"];
+    if (token === "bn" || token === "bw") return [`ds-${token}`];
+    if (token.startsWith("ds-")) return [token];
+    return [`ds-${token}`];
+  });
+}
+
+function backgroundStyle(position, opacity) {
+  const styles = [];
+  if (position) styles.push(`--ds-bg-position: ${escapeCssValue(position)}`);
+  if (opacity) styles.push(`--ds-bg-opacity: ${escapeCssValue(opacity)}`);
+  return styles.length ? ` style="${escapeHtmlAttr(styles.join("; "))}"` : "";
+}
+
+function firstMeta(meta, keys) {
+  for (const key of keys) {
+    if (meta[key] != null && meta[key] !== "") return meta[key];
+  }
+  return "";
+}
+
+function boolMeta(value) {
+  return /^(1|true|yes|on)$/i.test(String(value || "").trim());
+}
+
+function isNoneValue(value) {
+  return /^(none|false|off|original)$/i.test(String(value || "").trim());
+}
+
+function sanitizeClassToken(value) {
+  return value.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
+function escapeCssValue(value) {
+  return String(value).replace(/[;"'<>]/g, "");
 }
 
 function namespacePandocCodeIds(html, prefix) {
@@ -96,7 +193,7 @@ function namespacePandocCodeIds(html, prefix) {
     .replace(/\bhref="#cb(\d+(?:-\d+)?)"/g, `href="#${prefix}-cb$1"`);
 }
 
-function deckShell({ mode, title, tocTitle, css, slides, slideCount, notes, theme }) {
+function deckShell({ mode, title, tocTitle, css, slides, slideCount, notes, theme, textFit }) {
   const deckJs = readFileSync(path.join(root, "decks", "scripts", "htmpres-custom-deck.js"), "utf8");
   const interactions = readFileSync(path.join(root, "decks", "scripts", "htmpres-interactions.html"), "utf8");
   const isPresenter = mode === "presenter";
@@ -110,9 +207,15 @@ function deckShell({ mode, title, tocTitle, css, slides, slideCount, notes, them
       <div class="presenter-note-body" id="presenterNotes"></div>
     </aside>`
     : "";
-  const themeAttr = theme ? ` data-theme="${escapeHtml(theme)}"` : "";
+  const htmlAttrs = formatHtmlAttrs({
+    lang: "en",
+    "data-theme": theme || "",
+    "data-text-fit": textFit?.enabled ? "true" : "",
+    "data-autoscale": textFit?.enabled ? "true" : "",
+    "data-text-fit-min": textFit?.min || "",
+  });
   return `<!doctype html>
-<html lang="en"${themeAttr}>
+<html${htmlAttrs}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -153,6 +256,11 @@ ${presenterPanel}
     <button class="zoom-close" id="zoomClose" type="button">Close</button>
     <img id="zoomImg" alt="Zoomed diagram">
   </div>
+  <svg class="htmpres-filter-defs" aria-hidden="true" focusable="false" width="0" height="0">
+    <filter id="htmpres-sharpen">
+      <feConvolveMatrix order="3" preserveAlpha="true" kernelMatrix="0 -1 0 -1 5 -1 0 -1 0"></feConvolveMatrix>
+    </filter>
+  </svg>
 ${notesScript}
 
   <script>
@@ -182,6 +290,13 @@ function runtimeCss() {
 
 body.audience-mode .slide .notes {
   display: none !important;
+}
+
+.htmpres-filter-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 
 .slide div.sourceCode,
@@ -396,6 +511,34 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
   opacity: 1;
 }
 
+.slide.htmpres-text-fit-active {
+  --htmpres-text-fit-scale: 1;
+}
+
+.slide.htmpres-text-fit-active h2 {
+  font-size: calc(var(--htmpres-h2-size, 2.35rem) * var(--htmpres-text-fit-scale));
+}
+
+.slide.htmpres-text-fit-active .hero-title h2 {
+  font-size: calc(var(--htmpres-hero-title-size, 3rem) * var(--htmpres-text-fit-scale));
+}
+
+.slide.htmpres-text-fit-active h3 {
+  font-size: calc(var(--htmpres-h3-size, 1.18rem) * var(--htmpres-text-fit-scale));
+}
+
+.slide.htmpres-text-fit-active p,
+.slide.htmpres-text-fit-active li,
+.slide.htmpres-text-fit-active .card,
+.slide.htmpres-text-fit-active .callout {
+  font-size: calc(var(--htmpres-body-size, 1rem) * var(--htmpres-text-fit-scale));
+}
+
+.slide.htmpres-text-fit-active .eyebrow,
+.slide.htmpres-text-fit-active .source-line {
+  font-size: calc(var(--htmpres-small-size, 0.78rem) * var(--htmpres-text-fit-scale));
+}
+
 @media (prefers-reduced-motion: reduce) {
   .slide.transition-fade.active,
   .slide.transition-slide.active,
@@ -489,6 +632,11 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .ds-full {
   left: 0;
   right: 0;
+}
+
+.slide .ds-global-background {
+  pointer-events: none;
+  opacity: var(--ds-bg-opacity, 1);
 }
 
 .slide .ds-left {
@@ -625,6 +773,14 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
   object-fit: contain;
 }
 
+.slide .ds-global-background img,
+.slide .ds-global-background video,
+.slide .ds-global-background iframe,
+.slide .ds-global-background object,
+.slide .ds-global-background embed {
+  object-position: var(--ds-bg-position, center);
+}
+
 .slide img.ds-fit,
 .slide video.ds-fit,
 .slide iframe.ds-fit,
@@ -726,7 +882,7 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .ds-bw iframe,
 .slide .ds-bw object,
 .slide .ds-bw embed {
-  filter: var(--ds-bn-filter, grayscale(1));
+  --ds-filter-preset: var(--ds-bn-filter, grayscale(1));
 }
 
 .slide img.ds-vivid,
@@ -739,7 +895,7 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .ds-vivid iframe,
 .slide .ds-vivid object,
 .slide .ds-vivid embed {
-  filter: var(--ds-vivid-filter, saturate(1.35) contrast(1.12));
+  --ds-filter-preset: var(--ds-vivid-filter, saturate(1.35) contrast(1.12));
 }
 
 .slide img.ds-noir,
@@ -752,7 +908,7 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .ds-noir iframe,
 .slide .ds-noir object,
 .slide .ds-noir embed {
-  filter: var(--ds-noir-filter, grayscale(1) contrast(1.25) brightness(0.85));
+  --ds-filter-preset: var(--ds-noir-filter, grayscale(1) contrast(1.36) brightness(0.9));
 }
 
 .slide img.ds-chrome,
@@ -765,7 +921,7 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .ds-chrome iframe,
 .slide .ds-chrome object,
 .slide .ds-chrome embed {
-  filter: var(--ds-chrome-filter, saturate(0.7) contrast(1.35) brightness(1.08));
+  --ds-filter-preset: var(--ds-chrome-filter, saturate(1.45) contrast(1.16) brightness(1.06));
 }
 
 .slide img.ds-fade,
@@ -778,7 +934,7 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .ds-fade iframe,
 .slide .ds-fade object,
 .slide .ds-fade embed {
-  filter: var(--ds-fade-filter, saturate(0.75) opacity(0.78));
+  --ds-filter-preset: var(--ds-fade-filter, saturate(0.62) contrast(0.92) brightness(1.12) opacity(0.82));
 }
 
 .slide img.ds-filter,
@@ -791,7 +947,7 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .ds-filter iframe,
 .slide .ds-filter object,
 .slide .ds-filter embed {
-  filter:
+  --ds-filter-custom:
     grayscale(var(--ds-grayscale, 0))
     sepia(var(--ds-sepia, 0))
     saturate(var(--ds-saturation, 1))
@@ -838,7 +994,113 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .ds-theme-filter iframe,
 .slide .ds-theme-filter object,
 .slide .ds-theme-filter embed {
-  filter: var(--ds-theme-filter, none);
+  --ds-filter-preset: var(--ds-theme-filter, );
+}
+
+.slide img.ds-sharpen,
+.slide video.ds-sharpen,
+.slide iframe.ds-sharpen,
+.slide object.ds-sharpen,
+.slide embed.ds-sharpen,
+.slide .ds-sharpen img,
+.slide .ds-sharpen video,
+.slide .ds-sharpen iframe,
+.slide .ds-sharpen object,
+.slide .ds-sharpen embed {
+  --ds-filter-sharpen: var(--ds-sharpen-filter, url("#htmpres-sharpen"));
+}
+
+.slide img.ds-bn,
+.slide video.ds-bn,
+.slide iframe.ds-bn,
+.slide object.ds-bn,
+.slide embed.ds-bn,
+.slide img.ds-bw,
+.slide video.ds-bw,
+.slide iframe.ds-bw,
+.slide object.ds-bw,
+.slide embed.ds-bw,
+.slide img.ds-vivid,
+.slide video.ds-vivid,
+.slide iframe.ds-vivid,
+.slide object.ds-vivid,
+.slide embed.ds-vivid,
+.slide img.ds-noir,
+.slide video.ds-noir,
+.slide iframe.ds-noir,
+.slide object.ds-noir,
+.slide embed.ds-noir,
+.slide img.ds-chrome,
+.slide video.ds-chrome,
+.slide iframe.ds-chrome,
+.slide object.ds-chrome,
+.slide embed.ds-chrome,
+.slide img.ds-fade,
+.slide video.ds-fade,
+.slide iframe.ds-fade,
+.slide object.ds-fade,
+.slide embed.ds-fade,
+.slide img.ds-filter,
+.slide video.ds-filter,
+.slide iframe.ds-filter,
+.slide object.ds-filter,
+.slide embed.ds-filter,
+.slide img.ds-theme-filter,
+.slide video.ds-theme-filter,
+.slide iframe.ds-theme-filter,
+.slide object.ds-theme-filter,
+.slide embed.ds-theme-filter,
+.slide img.ds-sharpen,
+.slide video.ds-sharpen,
+.slide iframe.ds-sharpen,
+.slide object.ds-sharpen,
+.slide embed.ds-sharpen,
+.slide .ds-bn img,
+.slide .ds-bn video,
+.slide .ds-bn iframe,
+.slide .ds-bn object,
+.slide .ds-bn embed,
+.slide .ds-bw img,
+.slide .ds-bw video,
+.slide .ds-bw iframe,
+.slide .ds-bw object,
+.slide .ds-bw embed,
+.slide .ds-vivid img,
+.slide .ds-vivid video,
+.slide .ds-vivid iframe,
+.slide .ds-vivid object,
+.slide .ds-vivid embed,
+.slide .ds-noir img,
+.slide .ds-noir video,
+.slide .ds-noir iframe,
+.slide .ds-noir object,
+.slide .ds-noir embed,
+.slide .ds-chrome img,
+.slide .ds-chrome video,
+.slide .ds-chrome iframe,
+.slide .ds-chrome object,
+.slide .ds-chrome embed,
+.slide .ds-fade img,
+.slide .ds-fade video,
+.slide .ds-fade iframe,
+.slide .ds-fade object,
+.slide .ds-fade embed,
+.slide .ds-filter img,
+.slide .ds-filter video,
+.slide .ds-filter iframe,
+.slide .ds-filter object,
+.slide .ds-filter embed,
+.slide .ds-theme-filter img,
+.slide .ds-theme-filter video,
+.slide .ds-theme-filter iframe,
+.slide .ds-theme-filter object,
+.slide .ds-theme-filter embed,
+.slide .ds-sharpen img,
+.slide .ds-sharpen video,
+.slide .ds-sharpen iframe,
+.slide .ds-sharpen object,
+.slide .ds-sharpen embed {
+  filter: var(--ds-filter-preset, ) var(--ds-filter-custom, ) var(--ds-filter-sharpen, );
 }
 
 .slide img.ds-original,
@@ -1160,6 +1422,10 @@ function formatHtmlAttrs(attrs) {
     .join("");
 }
 
+function splitClasses(value = "") {
+  return String(value).split(/\s+/).filter(Boolean);
+}
+
 function shortTitle(title) {
   return title.replace(/\s+Presentation$/i, "");
 }
@@ -1182,6 +1448,10 @@ function escapeHtml(text) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+function escapeHtmlAttr(value) {
+  return escapeHtml(value);
 }
 
 function escapeScriptJson(text) {

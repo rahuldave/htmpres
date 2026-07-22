@@ -15,6 +15,7 @@ const zoomImg = document.getElementById("zoomImg");
 const zoomClose = document.getElementById("zoomClose");
 let current = 0;
 let hasRendered = false;
+let textFitFrame = 0;
 const deckNotes = readDeckNotes();
 const slideFragmentStates = new WeakMap();
 const slideCodeStates = new WeakMap();
@@ -52,6 +53,85 @@ function scaleDeck() {
   slideFit.style.height = `${height * scale}px`;
 }
 
+function scheduleTextFit() {
+  if (textFitFrame) cancelAnimationFrame(textFitFrame);
+  textFitFrame = requestAnimationFrame(() => {
+    textFitFrame = 0;
+    fitSlideText(slides[current]);
+  });
+}
+
+function fitSlideText(slide) {
+  if (!slide) return;
+  if (!slideTextFitEnabled(slide)) {
+    resetTextFit(slide);
+    return;
+  }
+  if (!slide.classList.contains("active")) return;
+
+  const minScale = textFitMinimum(slide);
+  let scale = 1;
+  slide.classList.add("htmpres-text-fit-active");
+  slide.classList.remove("htmpres-text-fit-overflow");
+  slide.style.setProperty("--htmpres-text-fit-scale", "1");
+
+  let overflow = slideOverflowRatio(slide);
+  for (let attempt = 0; attempt < 8 && overflow > 1.01 && scale > minScale; attempt += 1) {
+    const nextScale = Math.max(minScale, Math.min((scale / overflow) * 0.985, scale - 0.01));
+    if (Math.abs(nextScale - scale) < 0.002) break;
+    scale = nextScale;
+    slide.style.setProperty("--htmpres-text-fit-scale", scale.toFixed(4));
+    overflow = slideOverflowRatio(slide);
+  }
+
+  slide.dataset.textFitScale = scale.toFixed(3);
+  slide.classList.toggle("htmpres-text-fit-overflow", overflow > 1.02 && scale <= minScale + 0.002);
+}
+
+function resetTextFit(slide) {
+  slide.classList.remove("htmpres-text-fit-active", "htmpres-text-fit-overflow");
+  slide.style.removeProperty("--htmpres-text-fit-scale");
+  delete slide.dataset.textFitScale;
+}
+
+function slideTextFitEnabled(slide) {
+  if (truthy(slide.dataset.textFit) || truthy(slide.dataset.autoscale) || slide.classList.contains("autoscale")) return true;
+  if (falsy(slide.dataset.textFit) || falsy(slide.dataset.autoscale) || slide.classList.contains("no-autoscale")) return false;
+  return truthy(document.documentElement.dataset.textFit) || truthy(document.documentElement.dataset.autoscale);
+}
+
+function textFitMinimum(slide) {
+  const style = getComputedStyle(slide);
+  return clampNumber(
+    slide.dataset.textFitMin ||
+      slide.dataset.autoscaleMin ||
+      document.documentElement.dataset.textFitMin ||
+      style.getPropertyValue("--htmpres-text-fit-min"),
+    0.45,
+    1,
+    0.62,
+  );
+}
+
+function slideOverflowRatio(slide) {
+  if (!slide.clientWidth || !slide.clientHeight) return 1;
+  return Math.max(slide.scrollWidth / slide.clientWidth, slide.scrollHeight / slide.clientHeight);
+}
+
+function truthy(value) {
+  return /^(1|true|yes|on)$/i.test(String(value || "").trim());
+}
+
+function falsy(value) {
+  return /^(0|false|no|off)$/i.test(String(value || "").trim());
+}
+
+function clampNumber(value, min, max, fallback) {
+  const number = Number.parseFloat(String(value || "").trim());
+  if (!Number.isFinite(number)) return fallback;
+  return Math.max(min, Math.min(max, number));
+}
+
 function goTo(index) {
   const next = Math.max(0, Math.min(slides.length - 1, index));
   const direction = !hasRendered || next === current ? "none" : next > current ? "next" : "prev";
@@ -66,6 +146,7 @@ function goTo(index) {
   if (shouldResetSteps) resetSlideSteps(slides[current]);
   updateNotes();
   syncSlideMedia();
+  scheduleTextFit();
   hasRendered = true;
   if (location.hash !== `#/${current + 1}`) history.replaceState(null, "", `#/${current + 1}`);
 }
@@ -446,7 +527,12 @@ overviewBtn?.addEventListener("click", toggleOverview);
 overview?.addEventListener("click", (event) => {
   if (event.target === overview) overview.classList.remove("visible");
 });
-window.addEventListener("resize", scaleDeck);
+window.addEventListener("resize", () => {
+  scaleDeck();
+  scheduleTextFit();
+});
+window.addEventListener("load", scheduleTextFit);
+document.fonts?.ready?.then(scheduleTextFit)?.catch(() => {});
 document.addEventListener("keydown", (event) => {
   if (event.key === "ArrowRight" || event.key === " " || event.key === "PageDown") {
     event.preventDefault();

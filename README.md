@@ -55,6 +55,11 @@ The tutorial demonstrates:
   patterns using Quarto containers and media attributes.
 - Theme selection through `deck.theme`, with tutorial examples for `sage` and
   `mono-grid` color, typography, code-token, and media-filter tokens.
+- Global deck backgrounds through `deck.background-image`.
+- Theme-level text fitting through `deck.text-fit`, `.autoscale`, and
+  responsive typography tokens.
+- Core Image-inspired browser filter approximations, including composable
+  `ds-noir`, `ds-chrome`, `ds-fade`, and `ds-sharpen`.
 - Zoomable images.
 - Raw HTML buttons for small slide interactions.
 

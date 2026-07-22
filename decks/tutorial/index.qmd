@@ -349,7 +349,7 @@ Clicking the diagram should open the custom zoom modal. This is a browser smoke-
 
 ## Full-Slide Media {.title-hidden data-section="Media" data-title="Full-Slide Media"}
 
-::: {.ds-full .ds-media .ds-no-pad}
+::: {.ds-full .ds-media .ds-no-pad .ds-readable style="--ds-readable-start: 0.42; --ds-readable-end: 0.08;"}
 ![](assets/tutorial-landscape.svg){.ds-fill .zoomable}
 :::
 
@@ -430,7 +430,7 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 
 [Media attributes]{.eyebrow}
 
-:::: {.sample-media-grid}
+:::: {.ds-grid .sample-media-grid style="--ds-columns: 3; --ds-gap: 14px;"}
 ::: {.ds-media .ds-frame}
 ![](assets/tutorial-landscape.svg){.ds-fit}
 :::
@@ -464,6 +464,58 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 ![](assets/tutorial-landscape.svg){.ds-fit .ds-vivid .zoomable}
 ```
 ::::
+
+## Inline Grids And Filter Placement {data-section="Media" data-title="Filter Placement"}
+
+[Containers place; media filters]{.eyebrow}
+
+:::: {.ds-grid .sample-media-grid style="--ds-columns: 3; --ds-gap: 14px;"}
+::: {.ds-media .ds-frame}
+![](assets/tutorial-landscape.svg){.ds-fill .ds-bn}
+:::
+
+::: {.ds-media .ds-frame}
+![](assets/tutorial-detail.svg){.ds-fill .ds-vivid}
+:::
+
+::: {.ds-media .ds-frame .ds-vignette style="--ds-vignette: 0.42; --ds-vignette-size: 96px;"}
+![](assets/tutorial-landscape.svg){.ds-fill .ds-filter style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
+:::
+
+::: {.sample-label}
+`ds-grid` + `ds-bn`
+:::
+
+::: {.sample-label}
+`ds-vivid`
+:::
+
+::: {.sample-label}
+custom filter + vignette
+:::
+::::
+
+:::: code-card
+```markdown
+:::: {.ds-grid style="--ds-columns: 3"}
+::: {.ds-media}
+![](assets/photo-1.svg){.ds-fill .ds-bn}
+:::
+
+::: {.ds-media}
+![](assets/photo-2.svg){.ds-fill .ds-vivid}
+:::
+
+::: {.ds-media .ds-vignette style="--ds-vignette: 0.42;"}
+![](assets/photo-3.svg){.ds-fill .ds-filter style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
+:::
+::::
+```
+::::
+
+::: callout
+Deckset puts layout words in image alt text. In `htmpres`, put layout on the fenced div and put fit, fill, zoom, and filter classes on the media. Use wrapper classes such as `.ds-vignette` or `.ds-readable` when the effect needs an overlay.
+:::
 
 ## Other Media {data-section="Media" data-title="Other Media"}
 

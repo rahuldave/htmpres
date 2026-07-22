@@ -34,4 +34,11 @@ diff-check:
   git diff --check
 
 # Run the normal local verification path for renderer/tutorial changes.
-check: tutorial verify node-render node-verify diff-check
+# This path uses Quarto's bundled Deno runtime and does not require Node.
+check: tutorial verify diff-check
+
+# Run the optional Node fallback renderer and verifier.
+node-check: node-render node-verify
+
+# Run the core Deno checks plus optional Node fallback parity checks.
+compat-check: tutorial verify node-render node-verify diff-check

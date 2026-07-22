@@ -23,10 +23,13 @@ Primary commands:
 ```sh
 just tutorial
 just verify
+just check
 ```
 
 Run `just --list` to see focused targets for rendering one deck, rendering all
-local decks, converting HTML snapshots, the Node fallback, and diff hygiene.
+local decks, converting HTML snapshots, the optional Node fallback, and diff
+hygiene. `just check` uses the Quarto/Deno path only; `just compat-check` also
+exercises the optional Node fallback when Node is available.
 
 The local `scripts/htmpres.ts` file used by the Just targets is a shim to the
 installable extension at `_extensions/htmpres/htmpres.ts`. In another project,

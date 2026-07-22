@@ -85,7 +85,13 @@ just render decks/example/index.qmd
 just render-all
 just verify
 just check
+just node-check
+just compat-check
 ```
+
+`just check` is the normal Quarto/Deno verification path and does not require
+Node. `just node-check` exercises only the optional Node fallback scripts, and
+`just compat-check` runs both paths when Node is available.
 
 Installed extension usage in another project:
 

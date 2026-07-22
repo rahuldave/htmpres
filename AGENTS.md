@@ -201,6 +201,8 @@ just convert [source.html ...]
 just verify
 just node-render [decks/tutorial/index.qmd]
 just node-verify
+just node-check
+just compat-check
 just diff-check
 just check
 npm run render -- decks/tutorial/index.qmd
@@ -209,10 +211,12 @@ npm run verify
 
 There is no separate typecheck/lint/test suite yet. For renderer or tutorial
 changes, run `just tutorial` plus `just verify`; use `just check` when changing
-the renderer, runtime, verifier, docs, or Justfile because it also exercises the
-Node fallback and diff hygiene. For CSS or browser-visible behavior, inspect
-`decks/tutorial/index.html` visually when practical and mention whether browser
-verification was performed.
+the renderer, runtime, verifier, docs, or Justfile because it exercises the
+normal Quarto/Deno path and diff hygiene without requiring Node. Use
+`just compat-check` when the optional Node fallback scripts changed or when a
+release checkpoint should prove Node fallback parity too. For CSS or
+browser-visible behavior, inspect `decks/tutorial/index.html` visually when
+practical and mention whether browser verification was performed.
 
 When changing Just recipes, consult the Just manual rather than treating it like
 Make. The key reference for recipe ordering is:

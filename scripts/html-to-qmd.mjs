@@ -37,6 +37,7 @@ const rawDivClasses = [
   "ds-right",
   "ds-rounded",
   "ds-split",
+  "ds-theme-filter",
   "ds-top",
   "ds-vignette",
   "ds-vignette-light",

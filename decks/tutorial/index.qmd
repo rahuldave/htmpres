@@ -8,6 +8,7 @@ resources:
 deck:
   css: source.css
   renderer: custom
+  theme: mono-grid
 deck-note: "Hand-authored tutorial deck for the custom htmpres renderer."
 ---
 
@@ -67,7 +68,7 @@ Make the distinction explicit: this is not a pure Quarto format yet. It is a pac
 
 [Deck metadata]{.eyebrow}
 
-Use `pagetitle`, disable execution, point at local assets, and choose the CSS file for this deck.
+Use `pagetitle`, disable execution, point at local assets, and choose the CSS and theme for this deck.
 
 :::: code-card
 ```yaml
@@ -81,13 +82,43 @@ resources:
 deck:
   css: source.css
   renderer: custom
+  theme: mono-grid
 ---
 ```
 ::::
 
 ::: callout
-The renderer reads `deck.css`, inlines that stylesheet, and writes both `index.html` and `presenter.html`.
+The renderer reads `deck.css`, sets `deck.theme` on the generated HTML, inlines the stylesheet, and writes both `index.html` and `presenter.html`.
 :::
+
+## Choose A Theme {data-section="Authoring" data-title="Themes"}
+
+[Theme tokens]{.eyebrow}
+
+Themes are CSS variable sets selected by front matter. Keep layout classes structural, then let the theme own color, typography, code tokens, and media filter defaults.
+
+:::: two-col
+::: theme-sample
+**sage**
+
+The default warm tutorial palette uses proportional display type and gentle media filters.
+:::
+
+::: {.theme-sample .mono-theme-sample}
+**mono-grid**
+
+This deck uses a sharper blue-gray palette, sans body text, monospaced headings, monospaced code, and a cooler media filter.
+:::
+::::
+
+:::: code-card
+```yaml
+deck:
+  css: source.css
+  renderer: custom
+  theme: mono-grid
+```
+::::
 
 ## Use Slide Headings And Div Classes {data-section="Authoring" data-title="Slide Structure"}
 
@@ -475,7 +506,7 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 :::
 
 ::: {.ds-media .ds-frame}
-![](assets/tutorial-detail.svg){.ds-fill .ds-vivid}
+![](assets/tutorial-detail.svg){.ds-fill .ds-theme-filter}
 :::
 
 ::: {.ds-media .ds-frame .ds-vignette style="--ds-vignette: 0.42; --ds-vignette-size: 96px;"}
@@ -487,7 +518,7 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 :::
 
 ::: {.sample-label}
-`ds-vivid`
+`ds-theme-filter`
 :::
 
 ::: {.sample-label}
@@ -503,7 +534,7 @@ custom filter + vignette
 :::
 
 ::: {.ds-media}
-![](assets/photo-2.svg){.ds-fill .ds-vivid}
+![](assets/photo-2.svg){.ds-fill .ds-theme-filter}
 :::
 
 ::: {.ds-media .ds-vignette style="--ds-vignette: 0.42;"}

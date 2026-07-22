@@ -53,6 +53,8 @@ The tutorial demonstrates:
   transitions.
 - Deckset-inspired full, left, right, split, fit, fill, filter, and media
   patterns using Quarto containers and media attributes.
+- Theme selection through `deck.theme`, with tutorial examples for `sage` and
+  `mono-grid` color, typography, code-token, and media-filter tokens.
 - Zoomable images.
 - Raw HTML buttons for small slide interactions.
 

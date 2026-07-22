@@ -60,6 +60,7 @@ const rawDivClasses = [
   "ds-right",
   "ds-rounded",
   "ds-split",
+  "ds-theme-filter",
   "ds-top",
   "ds-vignette",
   "ds-vignette-light",
@@ -473,6 +474,7 @@ async function renderDeck(file: string) {
   }
 
   const title = meta.pagetitle || meta.title || humanTitle(basename(deckDir));
+  const theme = meta["deck.theme"] || meta.theme || "";
   const cssPath = join(deckDir, meta["deck.css"] || "source.css");
   const css = exists(cssPath) ? Deno.readTextFileSync(cssPath) : "";
   const rendered: { slideHtml: string; notesHtml: string }[] = [];
@@ -496,6 +498,7 @@ async function renderDeck(file: string) {
     slides: htmlSlides,
     slideCount: slides.length,
     notes,
+    theme,
   });
   const presenterHtml = deckShell({
     mode: "presenter",
@@ -505,6 +508,7 @@ async function renderDeck(file: string) {
     slides: htmlSlides,
     slideCount: slides.length,
     notes,
+    theme,
   });
 
   const outPath = join(deckDir, "index.html");
@@ -550,6 +554,7 @@ function deckShell({
   slides,
   slideCount,
   notes,
+  theme,
 }: {
   mode: "audience" | "presenter";
   title: string;
@@ -558,6 +563,7 @@ function deckShell({
   slides: string;
   slideCount: number;
   notes: string[];
+  theme?: string;
 }) {
   const deckJs = readRuntimeFile("htmpres-custom-deck.js");
   const interactions = readRuntimeFile("htmpres-interactions.html");
@@ -572,8 +578,9 @@ function deckShell({
       <div class="presenter-note-body" id="presenterNotes"></div>
     </aside>`
     : "";
+  const themeAttr = theme ? ` data-theme="${escapeHtml(theme)}"` : "";
   return `<!doctype html>
-<html lang="en">
+<html lang="en"${themeAttr}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -654,11 +661,11 @@ body.audience-mode .slide .notes {
 .slide > div.sourceCode,
 .slide > pre {
   margin-top: 24px;
-  border: 1px solid rgba(15, 23, 42, 0.16);
-  border-radius: 8px;
+  border: 1px solid var(--htmpres-code-border, rgba(15, 23, 42, 0.16));
+  border-radius: var(--htmpres-code-radius, 8px);
   background: var(--htmpres-code-bg, #172127);
   color: var(--htmpres-code-ink, #eff6f4);
-  padding: 18px;
+  padding: var(--htmpres-code-pad, 18px);
 }
 
 .slide div.sourceCode > pre,
@@ -708,7 +715,7 @@ body.audience-mode .slide .notes {
   left: 0;
   width: 2.35rem;
   padding-right: 0.5rem;
-  color: rgba(226, 232, 240, 0.46);
+  color: var(--htmpres-code-line-number, rgba(226, 232, 240, 0.46));
   text-align: right;
   text-decoration: none;
   user-select: none;
@@ -719,8 +726,8 @@ body.audience-mode .slide .notes {
 }
 
 .slide .code-line-highlight {
-  background: rgba(193, 131, 34, 0.22);
-  box-shadow: inset 4px 0 0 rgba(193, 131, 34, 0.9);
+  background: var(--htmpres-code-highlight-bg, rgba(193, 131, 34, 0.22));
+  box-shadow: inset var(--htmpres-code-highlight-bar-width, 4px) 0 0 var(--htmpres-code-highlight-bar, rgba(193, 131, 34, 0.9));
 }
 
 .slide .code-step-active .code-line-dim {
@@ -845,8 +852,8 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 }
 
 .slide .fragment.fragment-highlight.fragment-current {
-  background: rgba(193, 131, 34, 0.14);
-  box-shadow: inset 4px 0 0 rgba(193, 131, 34, 0.75);
+  background: var(--htmpres-fragment-highlight-bg, rgba(193, 131, 34, 0.14));
+  box-shadow: inset var(--htmpres-fragment-highlight-bar-width, 4px) 0 0 var(--htmpres-fragment-highlight-bar, rgba(193, 131, 34, 0.75));
 }
 
 .slide .fragment.fragment-dim.fragment-past {
@@ -881,48 +888,48 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 
 .slide .sourceCode .al,
 .slide .sourceCode .er {
-  color: #fecdd3;
+  color: var(--htmpres-code-token-alert, #fecdd3);
 }
 
 .slide .sourceCode .kw,
 .slide .sourceCode .cf,
 .slide .sourceCode .im {
-  color: #7dd3fc;
+  color: var(--htmpres-code-token-keyword, #7dd3fc);
   font-weight: 700;
 }
 
 .slide .sourceCode .dt,
 .slide .sourceCode .at {
-  color: #c4b5fd;
+  color: var(--htmpres-code-token-type, #c4b5fd);
 }
 
 .slide .sourceCode .st,
 .slide .sourceCode .ss,
 .slide .sourceCode .ch {
-  color: #a7f3d0;
+  color: var(--htmpres-code-token-string, #a7f3d0);
 }
 
 .slide .sourceCode .dv,
 .slide .sourceCode .bn,
 .slide .sourceCode .fl {
-  color: #fcd34d;
+  color: var(--htmpres-code-token-number, #fcd34d);
 }
 
 .slide .sourceCode .co {
-  color: #94a3b8;
+  color: var(--htmpres-code-token-comment, #94a3b8);
   font-style: italic;
 }
 
 .slide .sourceCode .fu,
 .slide .sourceCode .bu,
 .slide .sourceCode .ot {
-  color: #f9a8d4;
+  color: var(--htmpres-code-token-function, #f9a8d4);
 }
 
 .slide .sourceCode .op,
 .slide .sourceCode .sc,
 .slide .sourceCode .va {
-  color: #f8fafc;
+  color: var(--htmpres-code-token-base, #f8fafc);
 }
 
 .slide > :not(.ds-full):not(.ds-left):not(.ds-right) {
@@ -1018,9 +1025,9 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 }
 
 .slide .ds-frame {
-  border: 1px solid rgba(15, 23, 42, 0.14);
+  border: 1px solid var(--ds-frame-border, rgba(15, 23, 42, 0.14));
   border-radius: var(--ds-radius, 8px);
-  background: #ffffff;
+  background: var(--ds-frame-bg, #ffffff);
 }
 
 .slide .ds-no-border {
@@ -1187,7 +1194,7 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .ds-bw iframe,
 .slide .ds-bw object,
 .slide .ds-bw embed {
-  filter: grayscale(1);
+  filter: var(--ds-bn-filter, grayscale(1));
 }
 
 .slide img.ds-vivid,
@@ -1200,7 +1207,7 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .ds-vivid iframe,
 .slide .ds-vivid object,
 .slide .ds-vivid embed {
-  filter: saturate(1.35) contrast(1.12);
+  filter: var(--ds-vivid-filter, saturate(1.35) contrast(1.12));
 }
 
 .slide img.ds-noir,
@@ -1213,7 +1220,7 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .ds-noir iframe,
 .slide .ds-noir object,
 .slide .ds-noir embed {
-  filter: grayscale(1) contrast(1.25) brightness(0.85);
+  filter: var(--ds-noir-filter, grayscale(1) contrast(1.25) brightness(0.85));
 }
 
 .slide img.ds-chrome,
@@ -1226,7 +1233,7 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .ds-chrome iframe,
 .slide .ds-chrome object,
 .slide .ds-chrome embed {
-  filter: saturate(0.7) contrast(1.35) brightness(1.08);
+  filter: var(--ds-chrome-filter, saturate(0.7) contrast(1.35) brightness(1.08));
 }
 
 .slide img.ds-fade,
@@ -1239,7 +1246,7 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .ds-fade iframe,
 .slide .ds-fade object,
 .slide .ds-fade embed {
-  filter: saturate(0.75) opacity(0.78);
+  filter: var(--ds-fade-filter, saturate(0.75) opacity(0.78));
 }
 
 .slide img.ds-filter,
@@ -1287,6 +1294,19 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .ds-zoom object,
 .slide .ds-zoom embed {
   transform: scale(var(--ds-scale, 1.2));
+}
+
+.slide img.ds-theme-filter,
+.slide video.ds-theme-filter,
+.slide iframe.ds-theme-filter,
+.slide object.ds-theme-filter,
+.slide embed.ds-theme-filter,
+.slide .ds-theme-filter img,
+.slide .ds-theme-filter video,
+.slide .ds-theme-filter iframe,
+.slide .ds-theme-filter object,
+.slide .ds-theme-filter embed {
+  filter: var(--ds-theme-filter, none);
 }
 
 .slide img.ds-original,
@@ -1357,9 +1377,9 @@ body.presenter-mode .footer-controls {
   grid-column: 3;
   grid-row: 1;
   min-width: 0;
-  border-left: 1px solid rgba(15, 23, 42, 0.14);
-  background: #fff;
-  color: #172033;
+  border-left: 1px solid var(--htmpres-panel-border, rgba(15, 23, 42, 0.14));
+  background: var(--htmpres-panel-bg, #fff);
+  color: var(--htmpres-panel-ink, #172033);
   padding: 18px 20px;
   overflow: auto;
 }
@@ -1370,7 +1390,7 @@ body.presenter-mode .footer-controls {
   line-height: 1.2;
   letter-spacing: 0;
   text-transform: uppercase;
-  color: #64748b;
+  color: var(--htmpres-panel-muted, #64748b);
 }
 
 .presenter-note-body {
@@ -1383,7 +1403,7 @@ body.presenter-mode .footer-controls {
 }
 
 .presenter-note-empty {
-  color: #64748b;
+  color: var(--htmpres-panel-muted, #64748b);
   font-style: italic;
 }
 

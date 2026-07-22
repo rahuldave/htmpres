@@ -50,8 +50,40 @@ Shared patterns become visible.
 Supported tutorial layout classes include:
 
 - `.two-col`, `.three-col`, `.card`, `.metric-card`, `.callout`
-- `.diagram-frame`, `.code-card`, `.checklist`, `.focus-panel`
+- `.diagram-frame`, `.code-card`, `.checklist`, `.focus-panel`, `.theme-sample`
 - `.pill-row`, `.pill`, `.control-chip`, `.action-button`
+
+## Themes
+
+Set `deck.theme` in front matter to select a CSS variable set:
+
+```yaml
+deck:
+  css: source.css
+  renderer: custom
+  theme: mono-grid
+```
+
+The renderer copies that value to `<html data-theme="mono-grid">`. Deck CSS can
+then split structural layout from theme concerns:
+
+```css
+:root,
+html[data-theme="sage"] {
+  --font-body: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-body);
+  --ds-theme-filter: saturate(1.05) contrast(1.02);
+}
+
+html[data-theme="mono-grid"] {
+  --font-body: "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-display: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --ds-theme-filter: saturate(0.78) contrast(1.18) brightness(1.04) hue-rotate(-8deg);
+}
+```
+
+Theme variables currently cover deck colors, typography, code token colors,
+panel colors, media frame colors, filter preset values, and `.ds-theme-filter`.
 
 ## Deckset-Inspired Containers
 
@@ -113,6 +145,7 @@ container, because they use pseudo-elements around the media.
 - `.ds-bn` / `.ds-bw`: black and white.
 - `.ds-vivid`, `.ds-noir`, `.ds-chrome`, `.ds-fade`: filter presets.
 - `.ds-filter`: custom filter variables such as `--ds-grayscale`, `--ds-sepia`, `--ds-saturation`, `--ds-contrast`, `--ds-brightness`, `--ds-exposure`, `--ds-hue`, `--ds-blur`, and `--ds-opacity`.
+- `.ds-theme-filter`: apply the active theme's `--ds-theme-filter` value.
 - `.ds-original`: remove filters from a media item.
 - `.ds-alpha`: opacity via `--ds-opacity`.
 - `.ds-zoom`: visual zoom via `--ds-scale`.
@@ -128,7 +161,7 @@ Three inline images laid out by an enclosing div:
 :::
 
 ::: {.ds-media}
-![](assets/photo-2.svg){.ds-fill .ds-vivid}
+![](assets/photo-2.svg){.ds-fill .ds-theme-filter}
 :::
 
 ::: {.ds-media .ds-vignette style="--ds-vignette: 0.42;"}

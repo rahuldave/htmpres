@@ -37,12 +37,42 @@ resources:
 deck:
   css: source.css
   renderer: custom
+  theme: mono-grid
 ---
 ```
 
 `deck.css` tells the renderer which CSS file to inline into the generated HTML.
+`deck.theme` is copied to `data-theme` on the generated `<html>` element.
 
-## 3. Write Slides With Level-2 Headings
+## 3. Choose A Theme
+
+Themes are ordinary CSS variable sets selected from front matter. Keep layout
+classes structural, and put palette, typography, code token colors, and default
+media filters in theme selectors:
+
+```css
+:root,
+html[data-theme="sage"] {
+  --bg: #f5f7f4;
+  --paper: #ffffff;
+  --font-body: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-body);
+  --ds-theme-filter: saturate(1.05) contrast(1.02);
+}
+
+html[data-theme="mono-grid"] {
+  --bg: #eef3f7;
+  --paper: #fbfcfd;
+  --font-body: "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-display: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --ds-theme-filter: saturate(0.78) contrast(1.18) brightness(1.04) hue-rotate(-8deg);
+}
+```
+
+Use `.ds-theme-filter` on media that should receive the active theme's default
+filter. Use `.ds-original` when a media item must bypass theme filtering.
+
+## 4. Write Slides With Level-2 Headings
 
 Every slide starts with `##`.
 
@@ -59,7 +89,7 @@ The short version of the story goes here.
 Heading classes become slide classes. `data-title` is used by the table of
 contents and overview. `data-section` appears as the slide footer label.
 
-## 4. Use Fenced Divs For Layout
+## 5. Use Fenced Divs For Layout
 
 Use Quarto/Pandoc fenced divs for visual blocks:
 
@@ -82,7 +112,7 @@ Approvals and evidence travel with the work.
 Use more colons for an outer div when nesting divs. This keeps the source easy
 to scan.
 
-## 5. Add Speaker Notes
+## 6. Add Speaker Notes
 
 Notes are normal QMD fenced divs:
 
@@ -95,7 +125,7 @@ These notes only appear in presenter.html.
 `quarto run scripts/htmpres.ts render` removes notes from `index.html` and
 places them in the presenter panel in `presenter.html`.
 
-## 6. Highlight Code By Line
+## 7. Highlight Code By Line
 
 Use Pandoc fenced-code attributes for highlighted code examples:
 
@@ -123,7 +153,7 @@ Use `data-highlight` only when a line should stay highlighted across every
 step. Use a leading `none` step when the block should start with no active
 line.
 
-## 7. Add Bullet, Fragment, And Slide Transitions
+## 8. Add Bullet, Fragment, And Slide Transitions
 
 Wrap a list in `.incremental` to reveal list items one-by-one:
 
@@ -175,7 +205,7 @@ navigation step; they run only when entering a slide. When code stepping
 begins, any current-fragment styling is cleared because the active modality has
 moved to code.
 
-## 8. Add Images And Deckset-Inspired Layouts
+## 9. Add Images And Deckset-Inspired Layouts
 
 Use normal Markdown image syntax, with Quarto/Pandoc attributes on the media
 itself:
@@ -242,7 +272,7 @@ the group, while each media element keeps its own fit/fill/filter behavior.
 :::
 
 ::: {.ds-media}
-![](assets/photo-2.svg){.ds-fill .ds-vivid}
+![](assets/photo-2.svg){.ds-fill .ds-theme-filter}
 :::
 
 ::: {.ds-media .ds-vignette style="--ds-vignette: 0.42;"}
@@ -257,6 +287,7 @@ Useful media classes:
 - `.ds-fill`: cover the box and crop if needed.
 - `.ds-bn` / `.ds-bw`, `.ds-vivid`, `.ds-noir`, `.ds-chrome`, `.ds-fade`: simple filter presets.
 - `.ds-filter`: custom filter variables such as `--ds-grayscale`, `--ds-sepia`, `--ds-saturation`, `--ds-contrast`, `--ds-brightness`, `--ds-exposure`, `--ds-hue`, `--ds-blur`, and `--ds-opacity`.
+- `.ds-theme-filter`: apply the active theme's `--ds-theme-filter` value.
 - `.ds-original`: remove filters from a media item.
 - `.ds-alpha`: opacity via `--ds-opacity`.
 - `.ds-rounded`: apply a media corner radius.
@@ -285,7 +316,7 @@ Playback directive classes supported by the runtime:
 - `.ds-autoadvance`
 - `.ds-keep-time`
 
-## 9. Add Small Interactions And Buttons
+## 10. Add Small Interactions And Buttons
 
 For a click-to-update panel, use raw HTML buttons with data attributes:
 
@@ -313,7 +344,7 @@ Any button style can use the same data attributes:
 <button class="action-button" data-target="#panel" data-title="Action" data-text="...">Action</button>
 ```
 
-## 10. Render
+## 11. Render
 
 Render the tutorial deck:
 
@@ -338,7 +369,7 @@ Open:
 - `decks/my-deck/index.html` for the audience view.
 - `decks/my-deck/presenter.html` for the presenter view.
 
-## 11. Import Existing HTML
+## 12. Import Existing HTML
 
 When starting from an HTML deck copied into `source_presentations/`, run:
 

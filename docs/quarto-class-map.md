@@ -150,7 +150,7 @@ Use fenced-code attributes for syntax highlighting, line numbers, static line
 highlights, and step-through code transitions:
 
 ````markdown
-```{.python .numberLines data-highlight="2" data-steps="2|3|4|all"}
+```{.python .numberLines data-steps="none|2|3|4|all"}
 def render_slide(slide):
     html = markdown_to_html(slide["body"])
     if slide.get("notes"):
@@ -166,6 +166,67 @@ Supported code attributes:
 - `data-highlight="2,4-5"` applies persistent line highlights.
 - `data-steps="none|2|3-4|all"` adds per-slide code steps before moving to the next slide.
 - `data-highlight-steps` is accepted as a more explicit alias for `data-steps`.
+
+## Transitions And Fragments
+
+Use `.incremental` around a list to reveal each list item one step at a time:
+
+```markdown
+::: {.incremental data-fragment-effect="rise"}
+- First point
+- Second point
+- Third point
+:::
+```
+
+Use `.fragment` on any fenced div or raw HTML block that should reveal as a
+unit:
+
+```markdown
+::: {.card .fragment data-fragment-index="2" data-fragment-effect="highlight"}
+**Reveal me later**
+:::
+```
+
+Supported fragment classes and data values:
+
+- `.fragment`: a revealable block.
+- `.incremental`: reveal direct list items in source order.
+- `data-fragment-index="2"`: reveal multiple fragments on the same step.
+- `data-fragment-effect="rise|left|right|scale|blur|highlight|dim|none"`: add the matching effect class at runtime.
+
+Auto-numbered fragments advance past explicit indexes. Repeat an explicit
+`data-fragment-index` only when multiple fragments should reveal together.
+
+Supported slide transition classes:
+
+- `.transition-fade`
+- `.transition-slide`
+- `.transition-zoom`
+- `.transition-none`
+
+The equivalent `data-transition="fade|slide|zoom"` attribute can be used on a
+slide heading when the author prefers data attributes.
+
+Mixed-modality slides use fixed navigation precedence:
+
+1. `.fragment` blocks and `.incremental` list items reveal first in source
+   order. Fragments with the same `data-fragment-index` reveal together.
+2. Code blocks with `data-steps` or `data-highlight-steps` step after all
+   generic fragments are visible. Multiple stepped code blocks share one
+   code-step counter.
+3. Slide navigation runs when no fragment or code step remains. The incoming
+   slide's transition animation then plays.
+
+When code stepping begins, `.fragment-current` is cleared from visible
+fragments. They remain visible and are treated as past fragments while code
+line highlighting advances.
+
+The following do not consume navigation steps:
+
+- Persistent `data-highlight` line highlights.
+- Slide transitions.
+- Media playback directives such as `.ds-autoplay`.
 
 ## Interactivity
 

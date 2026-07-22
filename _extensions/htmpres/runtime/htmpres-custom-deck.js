@@ -14,7 +14,9 @@ const zoom = document.getElementById("zoom");
 const zoomImg = document.getElementById("zoomImg");
 const zoomClose = document.getElementById("zoomClose");
 let current = 0;
+let hasRendered = false;
 const deckNotes = readDeckNotes();
+const slideFragmentStates = new WeakMap();
 const slideCodeStates = new WeakMap();
 
 function buildNav() {
@@ -51,16 +53,130 @@ function scaleDeck() {
 }
 
 function goTo(index) {
-  current = Math.max(0, Math.min(slides.length - 1, index));
+  const next = Math.max(0, Math.min(slides.length - 1, index));
+  const direction = !hasRendered || next === current ? "none" : next > current ? "next" : "prev";
+  const shouldResetSteps = !hasRendered || next !== current;
+  current = next;
+  document.documentElement.dataset.slideDirection = direction;
   slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
   Array.from(tocList?.children || []).forEach((btn, i) => btn.classList.toggle("active", i === current));
   Array.from(overviewGrid?.children || []).forEach((card, i) => card.classList.toggle("active", i === current));
   if (counter) counter.textContent = `${current + 1} / ${slides.length}`;
   if (progressBar) progressBar.style.width = `${((current + 1) / slides.length) * 100}%`;
-  resetCodeStep(slides[current]);
+  if (shouldResetSteps) resetSlideSteps(slides[current]);
   updateNotes();
   syncSlideMedia();
+  hasRendered = true;
   if (location.hash !== `#/${current + 1}`) history.replaceState(null, "", `#/${current + 1}`);
+}
+
+function prepareSlideTransitions() {
+  slides.forEach((slide) => {
+    const transition = sanitizeClassToken(slide.dataset.transition || "");
+    if (transition) slide.classList.add(`transition-${transition}`);
+  });
+}
+
+function prepareFragments() {
+  slides.forEach((slide) => {
+    const fragments = [];
+    const seen = new Set();
+
+    slide.querySelectorAll(".fragment").forEach((fragment) => addFragment(fragments, seen, fragment));
+    slide.querySelectorAll(".incremental > li, .incremental > ol > li, .incremental > ul > li, ol.incremental > li, ul.incremental > li").forEach((item) => {
+      item.classList.add("fragment");
+      const owner = item.closest(".incremental");
+      if (owner?.dataset.fragmentEffect && !item.dataset.fragmentEffect) {
+        item.dataset.fragmentEffect = owner.dataset.fragmentEffect;
+      }
+      addFragment(fragments, seen, item);
+    });
+
+    if (!fragments.length) return;
+    slide.classList.add("has-fragments");
+    fragments.sort((a, b) => {
+      if (a.element === b.element) return 0;
+      return a.element.compareDocumentPosition(b.element) & Node.DOCUMENT_POSITION_PRECEDING ? 1 : -1;
+    });
+    let nextIndex = 1;
+    fragments.forEach((fragment) => {
+      const explicit = Number(fragment.element.dataset.fragmentIndex);
+      if (Number.isFinite(explicit)) {
+        fragment.index = Math.max(0, Math.floor(explicit));
+        nextIndex = Math.max(nextIndex, fragment.index + 1);
+      } else {
+        fragment.index = nextIndex;
+        nextIndex += 1;
+      }
+      const effect = sanitizeClassToken(fragment.element.dataset.fragmentEffect || "");
+      if (effect) fragment.element.classList.add(`fragment-${effect}`);
+    });
+    slideFragmentStates.set(slide, {
+      fragments,
+      maxSteps: Math.max(...fragments.map((fragment) => fragment.index)),
+      step: 0,
+    });
+  });
+}
+
+function addFragment(fragments, seen, element) {
+  if (seen.has(element)) return;
+  seen.add(element);
+  fragments.push({ element, index: 0 });
+}
+
+function sanitizeClassToken(value) {
+  return value.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
+function resetSlideSteps(slide) {
+  resetFragmentStep(slide);
+  resetCodeStep(slide);
+}
+
+function resetFragmentStep(slide) {
+  const state = slideFragmentStates.get(slide);
+  if (!state) return;
+  state.step = 0;
+  applyFragmentStep(slide);
+}
+
+function advanceFragmentStep() {
+  const state = slideFragmentStates.get(slides[current]);
+  if (!state || state.step >= state.maxSteps) return false;
+  state.step += 1;
+  applyFragmentStep(slides[current]);
+  return true;
+}
+
+function retreatFragmentStep() {
+  const state = slideFragmentStates.get(slides[current]);
+  if (!state || state.step <= 0) return false;
+  state.step -= 1;
+  applyFragmentStep(slides[current]);
+  return true;
+}
+
+function applyFragmentStep(slide) {
+  const state = slideFragmentStates.get(slide);
+  if (!state) return;
+  state.fragments.forEach((fragment) => {
+    const visible = fragment.index <= state.step;
+    const currentFragment = fragment.index === state.step && state.step > 0;
+    fragment.element.classList.toggle("fragment-visible", visible);
+    fragment.element.classList.toggle("fragment-current", currentFragment);
+    fragment.element.classList.toggle("fragment-past", visible && fragment.index < state.step);
+    fragment.element.setAttribute("aria-hidden", visible ? "false" : "true");
+  });
+}
+
+function settleFragmentStep(slide) {
+  const state = slideFragmentStates.get(slide);
+  if (!state || state.step < state.maxSteps) return;
+  state.fragments.forEach((fragment) => {
+    fragment.element.classList.remove("fragment-current");
+    fragment.element.classList.toggle("fragment-past", fragment.index <= state.step);
+  });
 }
 
 function prepareCodeSteppers() {
@@ -218,11 +334,16 @@ function applyCodeStep(slide) {
 }
 
 function nextStepOrSlide() {
-  if (!advanceCodeStep()) goTo(current + 1);
+  if (advanceFragmentStep()) return;
+  settleFragmentStep(slides[current]);
+  if (advanceCodeStep()) return;
+  goTo(current + 1);
 }
 
 function prevStepOrSlide() {
-  if (!retreatCodeStep()) goTo(current - 1);
+  if (retreatCodeStep()) return;
+  if (retreatFragmentStep()) return;
+  goTo(current - 1);
 }
 
 function updateNotes() {
@@ -349,6 +470,8 @@ document.addEventListener("keydown", (event) => {
 buildNav();
 wireZoom();
 wireMediaDirectives();
+prepareSlideTransitions();
+prepareFragments();
 prepareCodeSteppers();
 scaleDeck();
 goTo(initialSlideFromHash());

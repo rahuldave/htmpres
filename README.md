@@ -49,6 +49,8 @@ The tutorial demonstrates:
 - Presenter notes.
 - Syntax-highlighted code blocks with optional line numbers and line-step
   transitions.
+- Incremental bullet reveals, generic fragment reveals, and per-slide
+  transitions.
 - Deckset-inspired full, left, right, split, fit, fill, filter, and media
   patterns using Quarto containers and media attributes.
 - Zoomable images.
@@ -58,5 +60,6 @@ Useful docs:
 
 - `docs/build-a-deck-from-markdown.md`
 - `docs/quarto-class-map.md`
+- `docs/deckset-feature-status.md`
 - `docs/quarto-extension.md`
 - `docs/packaging.md`

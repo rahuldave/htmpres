@@ -9,6 +9,12 @@ deck:
   css: source.css
   renderer: custom
   theme: mono-grid
+  background-image: assets/tutorial-landscape.svg
+  background-fit: fill
+  background-filter: theme sharpen
+  background-opacity: 0.08
+  text-fit: true
+  text-fit-min: 0.64
 deck-note: "Hand-authored tutorial deck for the custom htmpres renderer."
 ---
 
@@ -83,6 +89,10 @@ deck:
   css: source.css
   renderer: custom
   theme: mono-grid
+  background-image: assets/tutorial-landscape.svg
+  background-filter: theme sharpen
+  background-opacity: 0.08
+  text-fit: true
 ---
 ```
 ::::
@@ -117,6 +127,60 @@ deck:
   css: source.css
   renderer: custom
   theme: mono-grid
+```
+::::
+
+## Set A Global Background {data-section="Authoring" data-title="Global Background"}
+
+[Deck media defaults]{.eyebrow}
+
+Global backgrounds are front matter, not alt-text layout. The renderer adds a low layer to every slide; each slide can opt out or override it with data attributes.
+
+:::: code-card
+```yaml
+deck:
+  background-image: assets/tutorial-landscape.svg
+  background-fit: fill
+  background-filter: theme sharpen
+  background-opacity: 0.08
+```
+::::
+
+::: callout
+Use `.no-background` on a slide or `data-background-image="none"` when an explicit full-slide media container should own the whole background.
+:::
+
+## Let Dense Slides Fit {.autoscale data-section="Authoring" data-title="Text Fit"}
+
+[Theme-level text fitting]{.eyebrow}
+
+The deck-level `text-fit` option lets the runtime scale theme typography down when a slide would overflow. Themes decide which text tokens respond.
+
+:::: {.three-col .fit-demo}
+::: card
+**Narrative**
+
+Dense slide copy can stay readable while avoiding clipped paragraphs, long callouts, and crowded headings.
+:::
+
+::: card
+**Controls**
+
+Use `deck.text-fit: true` globally, `.autoscale` for one slide, `.no-autoscale` for an exception, and `data-text-fit-min` for a local floor.
+:::
+
+::: card
+**Boundaries**
+
+The feature scales text tokens. Fixed-size media, custom absolute layouts, and intentionally clipped design elements remain authored by CSS.
+:::
+::::
+
+:::: code-card
+```markdown
+## Dense Slide {.autoscale data-text-fit-min="0.62"}
+
+Long paragraphs, cards, and lists can scale through theme tokens.
 ```
 ::::
 
@@ -471,7 +535,7 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 :::
 
 ::: {.ds-media .ds-frame}
-![](assets/tutorial-landscape.svg){.ds-fit .ds-bn}
+![](assets/tutorial-landscape.svg){.ds-fit .ds-noir .ds-sharpen}
 :::
 
 ::: {.sample-label}
@@ -483,7 +547,7 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 :::
 
 ::: {.sample-label}
-`ds-bn`
+`ds-noir ds-sharpen`
 :::
 ::::
 
@@ -491,7 +555,7 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 ```markdown
 ![](assets/tutorial-landscape.svg){.ds-fit}
 ![](assets/tutorial-landscape.svg){.ds-fill}
-![](assets/tutorial-landscape.svg){.ds-fit .ds-bn}
+![](assets/tutorial-landscape.svg){.ds-fit .ds-noir .ds-sharpen}
 ![](assets/tutorial-landscape.svg){.ds-fit .ds-vivid .zoomable}
 ```
 ::::
@@ -510,7 +574,7 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 :::
 
 ::: {.ds-media .ds-frame .ds-vignette style="--ds-vignette: 0.42; --ds-vignette-size: 96px;"}
-![](assets/tutorial-landscape.svg){.ds-fill .ds-filter style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
+![](assets/tutorial-landscape.svg){.ds-fill .ds-filter .ds-sharpen style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
 :::
 
 ::: {.sample-label}
@@ -522,7 +586,7 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 :::
 
 ::: {.sample-label}
-custom filter + vignette
+custom filter + sharpen
 :::
 ::::
 
@@ -538,7 +602,7 @@ custom filter + vignette
 :::
 
 ::: {.ds-media .ds-vignette style="--ds-vignette: 0.42;"}
-![](assets/photo-3.svg){.ds-fill .ds-filter style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
+![](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
 :::
 ::::
 ```
@@ -642,13 +706,14 @@ Pills are best for a small set of peer choices.
 - Deckset image syntax mapped to Quarto containers
 - Step-through code examples with line numbers
 - Import preservation for fragment classes
+- Core Image-style filters as browser approximations
 :::
 
 ::: status-card
 **Medium, open**
 
 - Interleaving code and text fragments by source order
-- Theme-level text fitting and broader Deckset parity
+- Pixel-exact Apple Core Image output
 - Export and print tuning beyond basic fragment visibility
 :::
 ::::

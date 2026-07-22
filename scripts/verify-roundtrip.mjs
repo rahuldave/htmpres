@@ -6,7 +6,16 @@ const root = process.cwd();
 const sourceRoot = path.join(root, "source_presentations");
 const decksDir = path.join(root, "decks");
 const interactiveAttrs = [
+  "data-autoscale",
+  "data-background-class",
+  "data-background-filter",
+  "data-background-fit",
+  "data-background-image",
+  "data-background-opacity",
+  "data-background-position",
   "data-target",
+  "data-text-fit",
+  "data-text-fit-min",
   "data-update-target",
   "data-filter",
   "data-item-filter",
@@ -188,6 +197,7 @@ function verifyQmdVerbatimBlocks(deck, qmd, file) {
 function verifyGeneratedHtml(deck, qmd, html, file, mode) {
   const expected = extractExpectedPreBlocks(qmd);
   const actual = extractHtmlPreBlocks(html);
+  const meta = parseSimpleYaml(splitFrontMatter(qmd).yaml);
 
   if (actual.length !== expected.length) {
     fail(deck, file, `rendered verbatim block count ${actual.length} did not match QMD ${expected.length}`);
@@ -213,6 +223,12 @@ function verifyGeneratedHtml(deck, qmd, html, file, mode) {
   if (/index_files\/libs\/revealjs|revealjs\/|Reveal\.initialize/.test(html)) fail(deck, file, "reveal.js reference remains in custom renderer output");
   if (mode === "audience" && /<script\b[^>]*\bid="deckNotes"/i.test(html)) fail(deck, file, "audience output contains presenter notes JSON");
   if (mode === "presenter" && !/<script\b[^>]*\bid="deckNotes"/i.test(html)) fail(deck, file, "presenter output is missing presenter notes JSON");
+  if (deckBackgroundImage(meta) && !countClassName(html, "ds-global-background")) {
+    fail(deck, file, "deck background image metadata did not render a global background layer");
+  }
+  if (deckTextFitEnabled(meta) && !/<html\b[^>]*\bdata-text-fit=(["'])true\1/i.test(html)) {
+    fail(deck, file, "deck text-fit metadata did not render html[data-text-fit=true]");
+  }
 }
 
 function countSlides(html) {
@@ -282,6 +298,47 @@ function splitFrontMatter(text) {
     yaml: text.slice(4, end),
     body: text.slice(end + 4).replace(/^\s*\n/, ""),
   };
+}
+
+function parseSimpleYaml(yaml) {
+  const meta = {};
+  const stack = [];
+  for (const rawLine of yaml.split(/\r?\n/)) {
+    if (!rawLine.trim() || rawLine.trim().startsWith("#")) continue;
+    const indentSize = rawLine.match(/^\s*/)?.[0].length || 0;
+    const line = rawLine.trim();
+    const match = /^([^:]+):(?:\s+(.*))?$/.exec(line);
+    if (!match) continue;
+    while (stack.length && stack[stack.length - 1].indent >= indentSize) stack.pop();
+    const key = [...stack.map((item) => item.key), match[1].trim()].join(".");
+    const value = match[2] ?? "";
+    if (value) meta[key] = stripYamlQuotes(value);
+    stack.push({ indent: indentSize, key: match[1].trim() });
+  }
+  return meta;
+}
+
+function deckBackgroundImage(meta) {
+  return firstMeta(meta, ["deck.background-image", "deck.background.image", "background-image"]);
+}
+
+function deckTextFitEnabled(meta) {
+  return /^(1|true|yes|on)$/i.test(firstMeta(meta, ["deck.text-fit", "deck.autoscale", "text-fit", "autoscale"]));
+}
+
+function firstMeta(meta, keys) {
+  for (const key of keys) {
+    if (meta[key] != null && meta[key] !== "") return meta[key];
+  }
+  return "";
+}
+
+function stripYamlQuotes(value) {
+  const trimmed = value.trim();
+  if ((trimmed.startsWith('"') && trimmed.endsWith('"')) || (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
+    return trimmed.slice(1, -1).replace(/\\"/g, '"');
+  }
+  return trimmed;
 }
 
 function parseSlides(body) {

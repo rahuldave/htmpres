@@ -12,8 +12,10 @@ Quarto containers are more general.
 | Left/right half-slide media | Done | Use `.ds-left` and `.ds-right`; the other half can hold text, lists, code, cards, or buttons. |
 | Split flow layouts | Done | Use `.ds-split` with child `.ds-pane` or `.ds-media` containers. |
 | Fit and fill behavior | Done | `.ds-fit` contains the whole asset; `.ds-fill` covers and crops. |
-| Filter presets and custom filters | Done | `.ds-bn`, `.ds-bw`, `.ds-vivid`, `.ds-noir`, `.ds-chrome`, `.ds-fade`, `.ds-filter`, `.ds-alpha`, `.ds-original`, `.ds-vignette`, and `.ds-readable` are available. |
+| Filter presets and custom filters | Done | `.ds-bn`, `.ds-bw`, `.ds-vivid`, `.ds-noir`, `.ds-chrome`, `.ds-fade`, `.ds-filter`, `.ds-sharpen`, `.ds-alpha`, `.ds-original`, `.ds-vignette`, and `.ds-readable` are available. |
 | Theme-selected colors, filters, and typography | Done | `deck.theme` becomes `data-theme` on `<html>`; the tutorial ships `sage` and `mono-grid` token sets, including code colors and `.ds-theme-filter`. |
+| Global background image | Done | Use `deck.background-image` plus optional `deck.background-fit`, `deck.background-filter`, `deck.background-opacity`, and slide-level `data-background-*` overrides. |
+| Theme-level text fitting | Done | Use `deck.text-fit: true`, `.autoscale`, `.no-autoscale`, and theme typography tokens that respond to `--htmpres-text-fit-scale`. |
 | Zoomable images | Done | Add `.zoomable` to open the runtime zoom modal. |
 | Video/audio directives | Done | `.ds-controls`, `.ds-autoplay`, `.ds-loop`, `.ds-muted`, `.ds-hide`, `.ds-autoadvance`, and `.ds-keep-time` are supported. |
 | Inline image grids | Done | Use `.ds-grid` or `.ds-inline` on the enclosing div; individual media items keep their own fit/fill/filter classes. |
@@ -34,7 +36,6 @@ Quarto containers are more general.
 | Code step transitions | Done | Line-step navigation works; a leading `none` step starts with no highlighted line. |
 | Mixed fragments, bullets, and code steps | Done | The current precedence is documented and tested: generic fragments and incremental list items first, then code steps, then slide navigation. |
 | Source-order interleaving of code and text fragments | Open | A unified step graph could let code steps sit between earlier and later fragments on the same slide. |
-| Exact Core Image filter matching | Open | CSS filters approximate Deckset photo effects; exact Core Image `noir`, `chrome`, `fade`, `exposure`, and `sharpen` parity is not implemented. |
-| Global background-image command | Open | Use a full-slide media container today; a deck-level background command can be added with theme support later. |
-| Theme-level text fitting | Open | Theme tokens can change typography, but automatic Deckset-style text fitting is not implemented. |
+| Core Image-style filter matching | Done by browser approximation | `noir`, `chrome`, `fade`, `vivid`, exposure, and `sharpen` now use stable CSS/SVG mappings and compose in a single filter chain. |
+| Pixel-exact Apple Core Image output | Open | Browser CSS/SVG filters do not expose Apple's private photo-effect lookup tables, so exact pixel parity would need a heavier preprocessing/export path. |
 | Broader export/print parity | Open | Print shows all fragments, but deeper PDF/export transition parity is not implemented. |

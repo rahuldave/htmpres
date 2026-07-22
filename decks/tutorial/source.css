@@ -21,6 +21,12 @@ html[data-theme="sage"] {
   --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-display: var(--font-body);
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --htmpres-text-fit-min: 0.64;
+  --htmpres-h2-size: 2.35rem;
+  --htmpres-hero-title-size: 3rem;
+  --htmpres-h3-size: 1.18rem;
+  --htmpres-body-size: 1rem;
+  --htmpres-small-size: 0.78rem;
   --toc-bg: #edf2ee;
   --toc-ink: #2d3a3f;
   --toc-hover-border: #b8c4bd;
@@ -47,12 +53,13 @@ html[data-theme="sage"] {
   --print-border: #dddddd;
   --ds-frame-bg: var(--paper);
   --ds-frame-border: rgba(15, 23, 42, 0.14);
-  --ds-theme-filter: saturate(1.05) contrast(1.02);
+  --ds-theme-filter: saturate(1.03) contrast(1.04) brightness(1.01);
   --ds-bn-filter: grayscale(1);
-  --ds-vivid-filter: saturate(1.35) contrast(1.12);
-  --ds-noir-filter: grayscale(1) contrast(1.25) brightness(0.85);
-  --ds-chrome-filter: saturate(0.7) contrast(1.35) brightness(1.08);
-  --ds-fade-filter: saturate(0.75) opacity(0.78);
+  --ds-vivid-filter: saturate(1.42) contrast(1.12) brightness(1.03);
+  --ds-noir-filter: grayscale(1) contrast(1.38) brightness(0.9);
+  --ds-chrome-filter: saturate(1.48) contrast(1.17) brightness(1.06);
+  --ds-fade-filter: saturate(0.62) contrast(0.92) brightness(1.12) opacity(0.84);
+  --ds-sharpen-filter: url("#htmpres-sharpen");
   --ds-readable-start: 0.5;
   --ds-readable-end: 0.16;
   --htmpres-panel-bg: var(--paper);
@@ -93,6 +100,12 @@ html[data-theme="mono-grid"] {
   --font-body: "Helvetica Neue", Arial, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-display: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --font-mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --htmpres-text-fit-min: 0.64;
+  --htmpres-h2-size: 2.35rem;
+  --htmpres-hero-title-size: 3rem;
+  --htmpres-h3-size: 1.18rem;
+  --htmpres-body-size: 1rem;
+  --htmpres-small-size: 0.78rem;
   --toc-bg: #e5edf5;
   --toc-ink: #1f2937;
   --toc-hover-border: #93a4b7;
@@ -121,10 +134,11 @@ html[data-theme="mono-grid"] {
   --ds-frame-border: rgba(51, 65, 85, 0.2);
   --ds-theme-filter: saturate(0.78) contrast(1.18) brightness(1.04) hue-rotate(-8deg);
   --ds-bn-filter: grayscale(1) contrast(1.18);
-  --ds-vivid-filter: saturate(1.08) contrast(1.24) brightness(1.03);
-  --ds-noir-filter: grayscale(1) contrast(1.42) brightness(0.94);
-  --ds-chrome-filter: saturate(0.62) contrast(1.42) brightness(1.12) hue-rotate(-6deg);
-  --ds-fade-filter: saturate(0.58) contrast(1.08) opacity(0.82);
+  --ds-vivid-filter: saturate(1.18) contrast(1.22) brightness(1.04);
+  --ds-noir-filter: grayscale(1) contrast(1.5) brightness(0.95);
+  --ds-chrome-filter: saturate(1.32) contrast(1.25) brightness(1.08) hue-rotate(-6deg);
+  --ds-fade-filter: saturate(0.5) contrast(0.96) brightness(1.14) opacity(0.82);
+  --ds-sharpen-filter: url("#htmpres-sharpen");
   --ds-readable-start: 0.58;
   --ds-readable-end: 0.2;
   --htmpres-panel-bg: #f8fafc;
@@ -289,7 +303,7 @@ button {
   display: inline-block;
   margin: 0 0 14px;
   color: var(--teal);
-  font-size: 0.78rem;
+  font-size: var(--htmpres-small-size);
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -299,7 +313,7 @@ h2 {
   margin: 0;
   max-width: 920px;
   font-family: var(--font-display);
-  font-size: 2.35rem;
+  font-size: var(--htmpres-h2-size);
   line-height: 1.08;
   letter-spacing: 0;
 }
@@ -307,7 +321,7 @@ h2 {
 h3 {
   margin: 0 0 12px;
   font-family: var(--font-display);
-  font-size: 1.18rem;
+  font-size: var(--htmpres-h3-size);
   line-height: 1.2;
   letter-spacing: 0;
 }
@@ -315,7 +329,7 @@ h3 {
 p {
   color: var(--muted);
   line-height: 1.5;
-  font-size: 1rem;
+  font-size: var(--htmpres-body-size);
 }
 
 ul {
@@ -339,7 +353,7 @@ code {
 }
 
 .hero-title h2 {
-  font-size: 3rem;
+  font-size: var(--htmpres-hero-title-size);
   max-width: 980px;
   line-height: 1.03;
   margin-top: 30px;
@@ -356,7 +370,7 @@ code {
 .source-line {
   margin-top: 18px;
   color: var(--source-copy);
-  font-size: 0.76rem;
+  font-size: var(--htmpres-small-size);
 }
 
 .two-col,
@@ -438,6 +452,14 @@ code {
   margin: 0;
   color: var(--preview-muted);
   font-size: 0.92rem;
+}
+
+.fit-demo {
+  margin-top: 26px;
+}
+
+.fit-demo .card {
+  min-height: 220px;
 }
 
 .callout {

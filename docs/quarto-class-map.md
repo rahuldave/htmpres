@@ -19,6 +19,9 @@ Common slide classes:
 - `.section-divider`: centered chapter slide.
 - `.diagram-slide`: full-slide diagram treatment for legacy imports.
 - `.title-hidden`: keeps a navigation title while visually hiding the slide heading.
+- `.autoscale`: enables text fitting for one slide.
+- `.no-autoscale`: opts one slide out of deck-level text fitting.
+- `.no-background`: opts one slide out of a global deck background.
 
 ## Presenter Notes
 
@@ -72,18 +75,47 @@ then split structural layout from theme concerns:
 html[data-theme="sage"] {
   --font-body: Inter, ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-body);
-  --ds-theme-filter: saturate(1.05) contrast(1.02);
+  --htmpres-text-fit-min: 0.64;
+  --ds-theme-filter: saturate(1.03) contrast(1.04) brightness(1.01);
+  --ds-sharpen-filter: url("#htmpres-sharpen");
 }
 
 html[data-theme="mono-grid"] {
   --font-body: "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
   --font-display: ui-monospace, "SFMono-Regular", Consolas, monospace;
   --ds-theme-filter: saturate(0.78) contrast(1.18) brightness(1.04) hue-rotate(-8deg);
+  --ds-sharpen-filter: url("#htmpres-sharpen");
 }
 ```
 
 Theme variables currently cover deck colors, typography, code token colors,
-panel colors, media frame colors, filter preset values, and `.ds-theme-filter`.
+panel colors, media frame colors, filter preset values, `.ds-theme-filter`,
+and text-fit typography tokens.
+
+## Global Backgrounds And Text Fit
+
+Set global background and text-fit behavior in front matter:
+
+```yaml
+deck:
+  background-image: assets/background.svg
+  background-fit: fill
+  background-filter: theme sharpen
+  background-opacity: 0.08
+  text-fit: true
+  text-fit-min: 0.64
+```
+
+The renderer inserts `.ds-global-background` inside each slide. Per-slide
+overrides use `data-background-image`, `data-background-fit`,
+`data-background-filter`, `data-background-position`,
+`data-background-opacity`, and `data-background-class`. Use
+`data-background-image="none"` or `.no-background` to opt out.
+
+Text fitting uses `deck.text-fit`, `.autoscale`, `.no-autoscale`,
+`data-text-fit`, and `data-text-fit-min`. The runtime measures the active
+slide, sets `--htmpres-text-fit-scale`, and themes decide which typography
+tokens scale.
 
 ## Deckset-Inspired Containers
 
@@ -91,7 +123,7 @@ Deckset uses image alt-text modifiers for full backgrounds, split images,
 fit/fill, filters, video, and audio. In `htmpres`, the same ideas are expressed
 with composable Quarto containers plus media attributes:
 
-- Containers decide where the box is: `.ds-full`, `.ds-left`, `.ds-right`, `.ds-split`, `.ds-pane`, `.ds-media`, `.ds-grid`, `.ds-inline`.
+- Containers decide where the box is: `.ds-full`, `.ds-left`, `.ds-right`, `.ds-split`, `.ds-pane`, `.ds-media`, `.ds-grid`, `.ds-inline`, `.ds-global-background`.
 - Media attributes decide how the asset behaves: `.ds-fit`, `.ds-fill`, `.ds-rounded`, `.zoomable`, and filter classes.
 - `.ds-layer` raises normal text or controls above full-slide media.
 - `.ds-no-pad`, `.ds-no-border`, `.ds-frame`, `.ds-center`, `.ds-top`, and `.ds-bottom` tune the container box.
@@ -146,6 +178,7 @@ container, because they use pseudo-elements around the media.
 - `.ds-vivid`, `.ds-noir`, `.ds-chrome`, `.ds-fade`: filter presets.
 - `.ds-filter`: custom filter variables such as `--ds-grayscale`, `--ds-sepia`, `--ds-saturation`, `--ds-contrast`, `--ds-brightness`, `--ds-exposure`, `--ds-hue`, `--ds-blur`, and `--ds-opacity`.
 - `.ds-theme-filter`: apply the active theme's `--ds-theme-filter` value.
+- `.ds-sharpen`: apply the browser SVG sharpen filter and compose it with preset or custom CSS filters.
 - `.ds-original`: remove filters from a media item.
 - `.ds-alpha`: opacity via `--ds-opacity`.
 - `.ds-zoom`: visual zoom via `--ds-scale`.
@@ -165,10 +198,14 @@ Three inline images laid out by an enclosing div:
 :::
 
 ::: {.ds-media .ds-vignette style="--ds-vignette: 0.42;"}
-![](assets/photo-3.svg){.ds-fill .ds-filter style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
+![](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
 :::
 ::::
 ```
+
+`ds-noir`, `ds-chrome`, `ds-fade`, exposure, and sharpen are Core
+Image-inspired browser approximations. They are stable CSS/SVG mappings, not
+pixel-exact Apple Core Image output.
 
 Media playback directive classes:
 

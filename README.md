@@ -23,6 +23,7 @@ Primary commands:
 ```sh
 just tutorial
 just verify
+just authoring-smoke
 just check
 just publish
 ```
@@ -40,7 +41,15 @@ install the extension and run the extension path directly:
 
 ```sh
 quarto add <repo-or-archive>
-quarto run _extensions/htmpres/htmpres.ts render decks/my-deck/index.qmd
+quarto run _extensions/htmpres/htmpres.ts workspace init presentations
+quarto run _extensions/htmpres/htmpres.ts deck new presentations/my-deck --theme sage
+quarto run _extensions/htmpres/htmpres.ts render presentations/my-deck/index.qmd
+```
+
+Agent skills are distributed separately from the Quarto extension:
+
+```sh
+npx skills add rahuldave/htmpres -a codex --skill htmpres-installer --skill htmpres-authoring
 ```
 
 The renderer writes:
@@ -75,6 +84,7 @@ The tutorial demonstrates:
 Useful docs:
 
 - `docs/build-a-deck-from-markdown.md`
+- `docs/authoring-cli.md`
 - `docs/quarto-class-map.md`
 - `docs/deckset-feature-status.md`
 - `docs/quarto-extension.md`

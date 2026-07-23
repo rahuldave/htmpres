@@ -1,0 +1,47 @@
+{
+  "schema": "https://rahuldave.github.io/agent_skill_package_maker/schema/skill-package.v1.json",
+  "version": 1,
+  "repository": {
+    "owner": "rahuldave",
+    "name": "htmpres",
+    "url": "https://github.com/rahuldave/htmpres"
+  },
+  "skills": [
+    {
+      "name": "htmpres-installer",
+      "path": "skills/htmpres-installer"
+    },
+    {
+      "name": "htmpres-authoring",
+      "path": "skills/htmpres-authoring"
+    }
+  ],
+  "installer_skill": {
+    "name": "htmpres-installer",
+    "description": "Install or initialize the htmpres Quarto extension and presentation workspace.",
+    "installs": [
+      "quarto-extension",
+      "presentation-workspace",
+      "starter-deck"
+    ],
+    "requires_approval": true
+  },
+  "executables": {
+    "required": [
+      {
+        "name": "quarto",
+        "check": "quarto --version"
+      }
+    ],
+    "optional": [
+      {
+        "name": "just",
+        "check": "just --version"
+      }
+    ]
+  },
+  "npx": {
+    "supported": true,
+    "install": "npx skills add rahuldave/htmpres -a codex --skill htmpres-installer --skill htmpres-authoring"
+  }
+}

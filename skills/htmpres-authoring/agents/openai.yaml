@@ -1,0 +1,4 @@
+interface:
+  display_name: "htmpres Authoring"
+  short_description: "Author and edit htmpres decks through the extension CLI."
+  default_prompt: "Use htmpres-authoring to inspect an htmpres deck, add or replace slides, manage deck-local themes, and verify the rendered presentation."

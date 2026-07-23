@@ -12,6 +12,8 @@ _extensions/
   htmpres/
     _extension.yml
     htmpres.ts
+    templates/
+      source.css
     runtime/
       htmpres-custom-deck.js
       htmpres-interactions.html
@@ -47,6 +49,34 @@ quarto add /path/to/htmpres
 
 After installation, check `_extensions/htmpres/` into version control with the
 deck project. Quarto treats installed extensions as local source code.
+
+For authoring work, initialize a presentation subfolder rather than modifying a
+host application's root build files:
+
+```sh
+mkdir -p presentations
+cd presentations
+quarto add your-org/htmpres
+quarto run _extensions/htmpres/htmpres.ts workspace init .
+quarto run _extensions/htmpres/htmpres.ts deck new demo --title "Demo Deck" --theme sage
+```
+
+`workspace init` writes a generated `Justfile` in the presentation workspace.
+If a non-htmpres `Justfile` already exists, it writes `htmpres.just` instead.
+The long `quarto run _extensions/htmpres/htmpres.ts ...` commands remain the
+canonical agent interface.
+
+## Agent Skills
+
+The agent skills are installed separately from the Quarto extension:
+
+```sh
+npx skills add your-org/htmpres -a codex --skill htmpres-installer --skill htmpres-authoring
+```
+
+Use `htmpres-installer` to install or initialize the extension in a project.
+Use `htmpres-authoring` to inspect, insert, replace, theme, render, and verify
+slides after `_extensions/htmpres/htmpres.ts` exists.
 
 ## Starter Template
 

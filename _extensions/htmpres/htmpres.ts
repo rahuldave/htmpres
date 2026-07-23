@@ -1351,7 +1351,7 @@ async function handleHttpConnection(
   serveHttp: (conn: Deno.Conn) => AsyncIterable<{ request: Request; respondWith: (response: Response) => Promise<void> }>,
 ) {
   for await (const event of serveHttp(conn)) {
-    await event.respondWith(staticResponse(event.request, deckDir));
+    await event.respondWith(await staticResponse(event.request, deckDir));
   }
 }
 

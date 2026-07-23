@@ -17,18 +17,18 @@ test -d demo/assets
 grep -q 'theme: mono-grid' demo/index.qmd
 grep -q 'html\[data-theme="mono-grid"\]' demo/source.css
 
-quarto run _extensions/htmpres/htmpres.ts slide list demo/index.qmd --json > slides.json
+quarto run _extensions/htmpres/htmpres.ts slide list demo/index.qmd --json > slides.json 2>&1
 grep -q '"slideCount": 2' slides.json
 grep -q '"kind": "hero"' slides.json
 
-if quarto run _extensions/htmpres/htmpres.ts slide insert demo/index.qmd --after 1 --kind typo-kind 2> unknown-kind.txt; then
+if quarto run _extensions/htmpres/htmpres.ts slide insert demo/index.qmd --after 1 --kind typo-kind > unknown-kind.txt 2>&1; then
   echo "unknown kind was accepted" >&2
   exit 1
 fi
 grep -q 'Unknown slide kind: typo-kind' unknown-kind.txt
 
 quarto run _extensions/htmpres/htmpres.ts slide insert demo/index.qmd --after 1 --kind two-card --title "Two Paths" --section "Plan"
-quarto run _extensions/htmpres/htmpres.ts slide show demo/index.qmd 2 --json > slide-2.json
+quarto run _extensions/htmpres/htmpres.ts slide show demo/index.qmd 2 --json > slide-2.json 2>&1
 grep -q '"kind": "two-card"' slide-2.json
 grep -q 'Two Paths' slide-2.json
 
@@ -50,17 +50,17 @@ one
 two
 QMD
 
-if quarto run _extensions/htmpres/htmpres.ts slide replace demo/index.qmd 2 --from multi-slide.qmd 2> multi-replace.txt; then
+if quarto run _extensions/htmpres/htmpres.ts slide replace demo/index.qmd 2 --from multi-slide.qmd > multi-replace.txt 2>&1; then
   echo "multi-slide replacement was accepted" >&2
   exit 1
 fi
 grep -q 'exactly one level-2 slide heading' multi-replace.txt
 
 quarto run _extensions/htmpres/htmpres.ts slide replace demo/index.qmd 2 --from replacement.qmd
-quarto run _extensions/htmpres/htmpres.ts slide show demo/index.qmd 2 > replaced.qmd
+quarto run _extensions/htmpres/htmpres.ts slide show demo/index.qmd 2 > replaced.qmd 2>&1
 grep -q 'This slide was replaced' replaced.qmd
 
-if quarto run _extensions/htmpres/htmpres.ts theme set demo/index.qmd missing-theme 2> missing-theme.txt; then
+if quarto run _extensions/htmpres/htmpres.ts theme set demo/index.qmd missing-theme > missing-theme.txt 2>&1; then
   echo "missing theme was accepted" >&2
   exit 1
 fi
@@ -71,7 +71,7 @@ quarto run _extensions/htmpres/htmpres.ts theme set demo/index.qmd custom
 grep -q 'theme: custom' demo/index.qmd
 grep -q 'html\[data-theme="custom"\]' demo/source.css
 
-just --justfile Justfile slides demo > just-slides.txt
+just --justfile Justfile slides demo > just-slides.txt 2>&1
 grep -q 'Replaced Slide' just-slides.txt
 
 mkdir collision
@@ -84,7 +84,7 @@ cat > htmpres.just <<'JUST'
 default:
   @echo custom
 JUST
-if quarto run ../_extensions/htmpres/htmpres.ts workspace init . 2> collision.txt; then
+if quarto run ../_extensions/htmpres/htmpres.ts workspace init . > collision.txt 2>&1; then
   echo "non-htmpres htmpres.just was overwritten" >&2
   exit 1
 fi
@@ -99,7 +99,7 @@ default:
 JUST
 quarto run ../_extensions/htmpres/htmpres.ts workspace init .
 test -f htmpres.just
-just --justfile htmpres.just > fallback-list.txt
+just --justfile htmpres.just > fallback-list.txt 2>&1
 grep -q 'slides-json' fallback-list.txt
 cd ..
 

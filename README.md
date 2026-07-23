@@ -64,6 +64,9 @@ The tutorial demonstrates:
 - Global deck backgrounds through `deck.background-image`.
 - Theme-level text fitting through `deck.text-fit`, `.autoscale`, and
   responsive typography tokens.
+- Configurable vertical overflow policy through `deck.overflow`, including
+  `fit-scroll` for text-fit first and scroll fallback when content is still too
+  tall, with a bottom cue on slides that can scroll.
 - Core Image-inspired browser filter approximations, including composable
   `ds-noir`, `ds-chrome`, `ds-fade`, and `ds-sharpen`.
 - Zoomable images.

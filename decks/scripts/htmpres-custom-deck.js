@@ -2,6 +2,8 @@ const slides = Array.from(document.querySelectorAll(".slide"));
 const tocList = document.getElementById("tocList");
 const overview = document.getElementById("overview");
 const overviewGrid = document.getElementById("overviewGrid");
+const slidesViewport = document.getElementById("slides");
+const scrollCue = document.getElementById("scrollCue");
 const notesBox = document.getElementById("notesBox");
 const presenterNotes = document.getElementById("presenterNotes");
 const counter = document.getElementById("counter");
@@ -100,17 +102,24 @@ function scheduleTextFit() {
 }
 
 function fitSlideText(slide) {
-  if (!slide) return;
-  if (!slideTextFitEnabled(slide)) {
-    resetTextFit(slide);
+  if (!slide) {
+    updateScrollCue();
     return;
   }
-  if (!slide.classList.contains("active")) return;
+  slide.classList.remove("htmpres-text-fit-overflow");
+  if (!slideTextFitEnabled(slide)) {
+    resetTextFit(slide);
+    updateScrollCue();
+    return;
+  }
+  if (!slide.classList.contains("active")) {
+    updateScrollCue();
+    return;
+  }
 
   const minScale = textFitMinimum(slide);
   let scale = 1;
   slide.classList.add("htmpres-text-fit-active");
-  slide.classList.remove("htmpres-text-fit-overflow");
   slide.style.setProperty("--htmpres-text-fit-scale", "1");
 
   let overflow = slideOverflowRatio(slide);
@@ -124,6 +133,7 @@ function fitSlideText(slide) {
 
   slide.dataset.textFitScale = scale.toFixed(3);
   slide.classList.toggle("htmpres-text-fit-overflow", overflow > 1.02 && scale <= minScale + 0.002);
+  updateScrollCue();
 }
 
 function resetTextFit(slide) {
@@ -135,7 +145,13 @@ function resetTextFit(slide) {
 function slideTextFitEnabled(slide) {
   if (truthy(slide.dataset.textFit) || truthy(slide.dataset.autoscale) || slide.classList.contains("autoscale")) return true;
   if (falsy(slide.dataset.textFit) || falsy(slide.dataset.autoscale) || slide.classList.contains("no-autoscale")) return false;
+  if (fitOverflowPolicy(slide)) return true;
   return truthy(document.documentElement.dataset.textFit) || truthy(document.documentElement.dataset.autoscale);
+}
+
+function fitOverflowPolicy(slide) {
+  const mode = String(slide.dataset.overflow || document.documentElement.dataset.overflow || "").trim().toLowerCase();
+  return mode === "fit" || mode === "fit-scroll";
 }
 
 function textFitMinimum(slide) {
@@ -154,6 +170,30 @@ function textFitMinimum(slide) {
 function slideOverflowRatio(slide) {
   if (!slide.clientWidth || !slide.clientHeight) return 1;
   return Math.max(slide.scrollWidth / slide.clientWidth, slide.scrollHeight / slide.clientHeight);
+}
+
+function wireScrollCue() {
+  slides.forEach((slide) => slide.addEventListener("scroll", updateScrollCue, { passive: true }));
+}
+
+function updateScrollCue() {
+  const slide = slides[current];
+  if (!slidesViewport || !scrollCue || !slide) return;
+  const overflowY = getComputedStyle(slide).overflowY;
+  const scrollOverflow = slide.scrollHeight - slide.clientHeight;
+  const canScroll = /(auto|scroll)/.test(overflowY) && scrollOverflow > 12;
+  const atEnd = !canScroll || slide.scrollTop + slide.clientHeight >= slide.scrollHeight - 12;
+  slide.classList.toggle("htmpres-slide-scrollable", canScroll);
+  slide.classList.toggle("htmpres-slide-scrolled-end", atEnd);
+  slidesViewport.classList.toggle("scroll-cue-visible", canScroll && !atEnd);
+  scrollCue.hidden = !(canScroll && !atEnd);
+}
+
+function resetInactiveScrollState(activeSlide) {
+  slides.forEach((slide) => {
+    if (slide === activeSlide) return;
+    slide.classList.remove("htmpres-slide-scrollable", "htmpres-slide-scrolled-end");
+  });
 }
 
 function truthy(value) {
@@ -177,6 +217,12 @@ function goTo(index) {
   current = next;
   document.documentElement.dataset.slideDirection = direction;
   slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
+  if (shouldResetSteps) {
+    slides[current].scrollTop = 0;
+    slides[current].scrollLeft = 0;
+  }
+  resetInactiveScrollState(slides[current]);
+  updateScrollCue();
   Array.from(tocList?.children || []).forEach((btn, i) => btn.classList.toggle("active", i === current));
   Array.from(overviewGrid?.children || []).forEach((card, i) => card.classList.toggle("active", i === current));
   if (counter) counter.textContent = `${current + 1} / ${slides.length}`;
@@ -666,6 +712,7 @@ document.addEventListener("keydown", (event) => {
 updateViewportHeight();
 buildNav();
 wireZoom();
+wireScrollCue();
 wireTapNavigation();
 wireMediaDirectives();
 prepareSlideTransitions();

@@ -65,10 +65,12 @@ deck:
   css: source.css
   renderer: custom
   theme: mono-grid
+  overflow: fit-scroll
 ```
 
-The renderer copies that value to `<html data-theme="mono-grid">`. Deck CSS can
-then split structural layout from theme concerns:
+The renderer copies the theme to `<html data-theme="mono-grid">` and overflow
+to `<html data-overflow="fit-scroll">`. Deck CSS can then split structural
+layout from theme concerns:
 
 ```css
 :root,
@@ -104,6 +106,7 @@ deck:
   background-opacity: 0.08
   text-fit: true
   text-fit-min: 0.64
+  overflow: fit-scroll
 ```
 
 The renderer inserts `.ds-global-background` inside each slide. Per-slide
@@ -115,7 +118,10 @@ overrides use `data-background-image`, `data-background-fit`,
 Text fitting uses `deck.text-fit`, `.autoscale`, `.no-autoscale`,
 `data-text-fit`, and `data-text-fit-min`. The runtime measures the active
 slide, sets `--htmpres-text-fit-scale`, and themes decide which typography
-tokens scale.
+tokens scale. `deck.overflow` can be `hidden`, `scroll`, `fit`, or
+`fit-scroll`; the `fit` modes trigger that same fitting pass, and
+`fit-scroll` only scrolls slides that still overflow. Scrollable slides show a
+small bottom cue while more content is below the visible slide area.
 
 ## Deckset-Inspired Containers
 

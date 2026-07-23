@@ -42,13 +42,18 @@ deck:
   background-filter: theme sharpen
   background-opacity: 0.08
   text-fit: true
+  overflow: fit-scroll
 ---
 ```
 
 `deck.css` tells the renderer which CSS file to inline into the generated HTML.
 `deck.theme` is copied to `data-theme` on the generated `<html>` element.
 `deck.background-*` options create a global background layer, and
-`deck.text-fit` enables runtime typography fitting.
+`deck.text-fit` enables runtime typography fitting. `deck.overflow` controls
+what happens when content is still too tall; `fit` and `fit-scroll`
+automatically run the fitting pass, and `fit-scroll` turns on scrolling only
+for slides that still overflow. Scrollable slides show a small bottom cue until
+the reader scrolls near the end of the slide.
 
 ## 3. Choose A Theme
 
@@ -108,13 +113,25 @@ a slide would overflow:
 deck:
   text-fit: true
   text-fit-min: 0.64
+  overflow: fit-scroll
 ```
 
 The runtime sets `--htmpres-text-fit-scale` on active slides. Themes decide
 which typography tokens respond, for example `--htmpres-h2-size`,
 `--htmpres-hero-title-size`, `--htmpres-h3-size`, `--htmpres-body-size`, and
-`--htmpres-small-size`. Use `.autoscale` or `data-text-fit="true"` for a
-single slide, and `.no-autoscale` or `data-text-fit="false"` for an exception.
+`--htmpres-small-size`. Code blocks can also respond through
+`--htmpres-code-size`. Use `.autoscale` or `data-text-fit="true"` for a single
+slide, and `.no-autoscale` or `data-text-fit="false"` for an exception.
+
+Supported overflow modes are:
+
+- `hidden`: keep the slide fixed and clip overflow.
+- `scroll`: allow slide scrolling.
+- `fit`: run text fitting but keep overflow clipped if the slide remains too
+  tall.
+- `fit-scroll`: run text fitting first, then allow scrolling only when the
+  active slide still overflows. A small bottom cue appears while more content is
+  below the visible slide area.
 
 ## 6. Write Slides With Level-2 Headings
 

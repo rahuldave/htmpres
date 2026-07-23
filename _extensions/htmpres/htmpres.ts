@@ -491,6 +491,7 @@ async function renderDeck(file: string) {
   const theme = meta["deck.theme"] || meta.theme || "";
   const background = deckBackground(meta);
   const textFit = deckTextFit(meta);
+  const overflow = deckOverflow(meta);
   const cssPath = join(deckDir, meta["deck.css"] || "source.css");
   const css = exists(cssPath) ? Deno.readTextFileSync(cssPath) : "";
   const rendered: { slideHtml: string; notesHtml: string }[] = [];
@@ -516,6 +517,7 @@ async function renderDeck(file: string) {
     notes,
     theme,
     textFit,
+    overflow,
   });
   const presenterHtml = deckShell({
     mode: "presenter",
@@ -527,6 +529,7 @@ async function renderDeck(file: string) {
     notes,
     theme,
     textFit,
+    overflow,
   });
 
   const outPath = join(deckDir, "index.html");
@@ -593,6 +596,14 @@ function deckTextFit(meta: Record<string, string>): DeckTextFit {
     enabled,
     min: firstMeta(meta, ["deck.text-fit-min", "deck.autoscale-min", "text-fit-min", "autoscale-min"]) || "",
   };
+}
+
+function deckOverflow(meta: Record<string, string>) {
+  const raw = firstMeta(meta, ["deck.overflow", "deck.slide-overflow", "overflow"]);
+  if (!raw) return "";
+  const mode = sanitizeClassToken(raw);
+  const modes = new Set(["hidden", "scroll", "fit", "fit-scroll"]);
+  return modes.has(mode) ? mode : "";
 }
 
 function renderBackgroundLayer(attrs: PandocAttrs, globalBackground: DeckBackground | null) {
@@ -681,6 +692,7 @@ function deckShell({
   notes,
   theme,
   textFit,
+  overflow,
 }: {
   mode: "audience" | "presenter";
   title: string;
@@ -691,6 +703,7 @@ function deckShell({
   notes: string[];
   theme?: string;
   textFit?: DeckTextFit;
+  overflow?: string;
 }) {
   const deckJs = readRuntimeFile("htmpres-custom-deck.js");
   const interactions = readRuntimeFile("htmpres-interactions.html");
@@ -711,6 +724,7 @@ function deckShell({
     "data-text-fit": textFit?.enabled ? "true" : "",
     "data-autoscale": textFit?.enabled ? "true" : "",
     "data-text-fit-min": textFit?.min || "",
+    "data-overflow": overflow || "",
   });
   return `<!doctype html>
 <html${htmlAttrs}>
@@ -735,6 +749,7 @@ ${runtimeCss()}
       <div class="slide-fit" id="slideFit">
         <div class="slides" id="slides">
 ${indentHtml(slides, "          ")}
+          <div class="scroll-cue" id="scrollCue" hidden aria-hidden="true"></div>
         </div>
       </div>
     </main>
@@ -1037,6 +1052,76 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
   font-size: calc(var(--htmpres-small-size, 0.78rem) * var(--htmpres-text-fit-scale));
 }
 
+.slide.htmpres-text-fit-active pre {
+  font-size: calc(var(--htmpres-code-size, 0.9rem) * var(--htmpres-text-fit-scale));
+}
+
+.slide[data-overflow="scroll"],
+html[data-overflow="scroll"] .slide,
+.slide[data-overflow="fit-scroll"].htmpres-text-fit-overflow,
+html[data-overflow="fit-scroll"] .slide.htmpres-text-fit-overflow {
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.slide[data-overflow="hidden"],
+html[data-overflow="hidden"] .slide,
+.slide[data-overflow="fit"],
+html[data-overflow="fit"] .slide {
+  overflow: hidden;
+}
+
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  z-index: 9;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.82);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.24);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 6px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.scroll-cue[hidden] {
+  display: none;
+}
+
+.slides.scroll-cue-visible .scroll-cue {
+  opacity: 0.92;
+  transform: translate(-50%, 0);
+}
+
+.scroll-cue::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  margin-top: -4px;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  transform: rotate(45deg);
+  animation: htmpres-scroll-cue 1300ms ease-in-out infinite;
+}
+
+@keyframes htmpres-scroll-cue {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translateY(-2px) rotate(45deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(3px) rotate(45deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .slide.transition-fade.active,
   .slide.transition-slide.active,
@@ -1047,6 +1132,10 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
   .slide .fragment {
     transition: none;
     transform: none;
+  }
+
+  .scroll-cue::before {
+    animation: none;
   }
 }
 

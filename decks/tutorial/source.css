@@ -31,6 +31,7 @@ html[data-theme="sage"] {
   --htmpres-h3-size: 1.18rem;
   --htmpres-body-size: 1rem;
   --htmpres-small-size: 0.78rem;
+  --htmpres-code-size: 0.84rem;
   --toc-bg: #edf2ee;
   --toc-ink: #2d3a3f;
   --toc-hover-border: #b8c4bd;
@@ -110,6 +111,7 @@ html[data-theme="mono-grid"] {
   --htmpres-h3-size: 1.18rem;
   --htmpres-body-size: 1rem;
   --htmpres-small-size: 0.78rem;
+  --htmpres-code-size: 0.84rem;
   --toc-bg: #e5edf5;
   --toc-ink: #1f2937;
   --toc-hover-border: #93a4b7;
@@ -284,9 +286,10 @@ button {
   position: absolute;
   inset: 0;
   display: none;
-  padding: 48px 58px;
+  padding: 48px 58px 82px;
   background: var(--paper);
   overflow: hidden;
+  scroll-padding-bottom: 82px;
 }
 
 .slide.active {
@@ -298,6 +301,8 @@ button {
   position: absolute;
   right: 34px;
   bottom: 28px;
+  z-index: 3;
+  pointer-events: none;
   color: var(--footer-label);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
@@ -478,13 +483,14 @@ code {
 }
 
 .code-card {
+  --htmpres-code-size: 0.84rem;
   margin-top: 24px;
   border: 1px solid var(--htmpres-code-border);
   border-radius: var(--radius);
   background: var(--code-card-bg);
   color: var(--code-card-ink);
   padding: 18px;
-  font-size: 0.84rem;
+  font-size: var(--htmpres-code-size);
   line-height: 1.45;
   overflow: hidden;
 }
@@ -510,7 +516,7 @@ code {
 .code-split .code-card {
   margin-top: 0;
   min-width: 0;
-  font-size: 0.78rem;
+  --htmpres-code-size: 0.78rem;
 }
 
 .code-guide {
@@ -533,7 +539,7 @@ code {
 .transition-demo .code-card {
   margin-top: 0;
   min-width: 0;
-  font-size: 0.76rem;
+  --htmpres-code-size: 0.76rem;
 }
 
 .fragment-demo {
@@ -611,7 +617,7 @@ code {
 
 .mixed-code {
   min-width: 0;
-  font-size: 0.76rem;
+  --htmpres-code-size: 0.76rem;
 }
 
 .diagram-frame {

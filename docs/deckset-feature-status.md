@@ -15,7 +15,7 @@ Quarto containers are more general.
 | Filter presets and custom filters | Done | `.ds-bn`, `.ds-bw`, `.ds-vivid`, `.ds-noir`, `.ds-chrome`, `.ds-fade`, `.ds-filter`, `.ds-sharpen`, `.ds-alpha`, `.ds-original`, `.ds-vignette`, and `.ds-readable` are available. |
 | Theme-selected colors, filters, and typography | Done | `deck.theme` becomes `data-theme` on `<html>`; the tutorial ships `sage` and `mono-grid` token sets, including code colors and `.ds-theme-filter`. |
 | Global background image | Done | Use `deck.background-image` plus optional `deck.background-fit`, `deck.background-filter`, `deck.background-opacity`, and slide-level `data-background-*` overrides. |
-| Theme-level text fitting | Done | Use `deck.text-fit: true`, `.autoscale`, `.no-autoscale`, and theme typography tokens that respond to `--htmpres-text-fit-scale`. |
+| Theme-level text fitting and overflow policy | Done | Use `deck.text-fit: true`, `.autoscale`, `.no-autoscale`, theme typography tokens that respond to `--htmpres-text-fit-scale`, and `deck.overflow: hidden|scroll|fit|fit-scroll`; `fit` modes trigger runtime fitting, and scrollable slides show a bottom cue. |
 | Zoomable images | Done | Add `.zoomable` to open the runtime zoom modal. |
 | Video/audio directives | Done | `.ds-controls`, `.ds-autoplay`, `.ds-loop`, `.ds-muted`, `.ds-hide`, `.ds-autoadvance`, and `.ds-keep-time` are supported. |
 | Inline image grids | Done | Use `.ds-grid` or `.ds-inline` on the enclosing div; individual media items keep their own fit/fill/filter classes. |

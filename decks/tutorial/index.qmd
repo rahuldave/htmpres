@@ -15,6 +15,7 @@ deck:
   background-opacity: 0.08
   text-fit: true
   text-fit-min: 0.64
+  overflow: fit-scroll
 deck-note: "Hand-authored tutorial deck for the custom htmpres renderer."
 ---
 

@@ -10,8 +10,9 @@ template:
 
 - Quarto-run CLI: owns `html -> qmd`, `qmd -> html`, and verification.
 - Runtime assets: custom deck JavaScript, interaction helper, and base CSS.
-- Extension folder: `_extensions/htmpres` contains the runner and packaged
-  runtime assets, so `quarto add` can install it into another project.
+- Extension folder: `_extensions/htmpres` contains the runner, packaged runtime
+  assets, and authoring templates, so `quarto add` can install it into another
+  project.
 - Template: gives users a ready-to-edit `decks/<name>/index.qmd` and
   `source.css`.
 - Optional npm wrappers: useful for people who already use npm scripts, but not
@@ -97,9 +98,20 @@ Installed extension usage in another project:
 
 ```sh
 quarto add <repo-or-archive>
-quarto run _extensions/htmpres/htmpres.ts render decks/example/index.qmd
+quarto run _extensions/htmpres/htmpres.ts workspace init presentations
+quarto run _extensions/htmpres/htmpres.ts deck new presentations/example --theme sage
+quarto run _extensions/htmpres/htmpres.ts render presentations/example/index.qmd
 quarto run _extensions/htmpres/htmpres.ts verify
 ```
+
+Installable Codex skills are a separate distribution layer:
+
+```sh
+npx skills add rahuldave/htmpres -a codex --skill htmpres-installer --skill htmpres-authoring
+```
+
+The skills should not copy renderer code themselves. They should verify or
+install the Quarto extension, then use the extension CLI.
 
 The repo also exposes npm convenience wrappers for users who already have npm:
 

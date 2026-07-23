@@ -1,0 +1,4 @@
+interface:
+  display_name: "htmpres Installer"
+  short_description: "Install and initialize htmpres extension workspaces."
+  default_prompt: "Use htmpres-installer to install the htmpres Quarto extension into a deck project, initialize a presentation workspace, and create a starter deck."

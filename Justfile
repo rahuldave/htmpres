@@ -21,6 +21,10 @@ convert *sources:
 verify:
   quarto run scripts/htmpres.ts verify
 
+# Smoke-test the authoring CLI against a scratch presentation workspace.
+authoring-smoke:
+  tests/authoring-cli-smoke.sh
+
 # Render one deck through the optional Node fallback. Defaults to the tutorial.
 node-render deck="decks/tutorial/index.qmd":
   node scripts/qmd-to-html.mjs {{deck}}
@@ -35,7 +39,7 @@ diff-check:
 
 # Run the normal local verification path for renderer/tutorial changes.
 # This path uses Quarto's bundled Deno runtime and does not require Node.
-check: tutorial verify diff-check
+check: tutorial verify authoring-smoke diff-check
 
 # Prepare the private Sites preview app with both tutorial themes.
 # Saving and deploying still happens through the Sites connector.

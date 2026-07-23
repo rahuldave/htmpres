@@ -805,7 +805,7 @@ code {
 .footer-controls {
   grid-column: 2;
   display: grid;
-  grid-template-columns: 1fr auto auto auto;
+  grid-template-columns: minmax(0, 1fr) auto auto auto auto;
   align-items: center;
   gap: 10px;
   border-top: 1px solid var(--line);
@@ -1011,7 +1011,7 @@ code {
 
   .footer-controls {
     grid-column: 1;
-    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    grid-template-columns: minmax(48px, 1fr) auto auto auto auto;
     align-self: end;
     min-height: var(--htmpres-mobile-footer-row);
     padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));

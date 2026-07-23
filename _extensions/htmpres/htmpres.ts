@@ -727,7 +727,7 @@ ${runtimeCss()}
   <div class="deck-shell">
     <aside class="toc" aria-label="Slide list">
       <h1>${escapeHtml(tocTitle)}</h1>
-      <p class="hint">${isPresenter ? "Presenter view: notes are on the right. " : ""}Arrow keys or Space advance. O opens overview. Click diagrams to zoom.</p>
+      <p class="hint">${isPresenter ? "Presenter view: notes sit beside or above the slide. " : ""}Arrow keys or Space advance. O opens overview. Click diagrams to zoom.</p>
       <div class="toc-list" id="tocList"></div>
     </aside>
 
@@ -1655,20 +1655,25 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 body.presenter-mode .deck-shell {
   grid-template-columns: minmax(180px, 220px) minmax(0, 1fr) minmax(280px, 360px) !important;
   grid-template-rows: minmax(0, 1fr) 58px !important;
+  column-gap: 12px;
 }
 
 body.presenter-mode .stage-wrap {
   grid-column: 2 !important;
+  grid-row: 1 !important;
 }
 
 body.presenter-mode .footer-controls {
   grid-column: 2 / 4 !important;
+  grid-row: 2 !important;
 }
 
 .presenter-notes {
   grid-column: 3;
   grid-row: 1;
   min-width: 0;
+  position: relative;
+  z-index: 2;
   border-left: 1px solid var(--htmpres-panel-border, rgba(15, 23, 42, 0.14));
   background: var(--htmpres-panel-bg, #fff);
   color: var(--htmpres-panel-ink, #172033);
@@ -1701,15 +1706,42 @@ body.presenter-mode .footer-controls {
 
 @media (max-width: 980px) {
   body.presenter-mode .deck-shell {
-    display: block !important;
-    min-height: 100vh;
-    overflow: auto;
+    position: fixed;
+    inset: 0;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: minmax(104px, 32vh) minmax(0, 1fr) var(--htmpres-mobile-footer-row, 64px) !important;
+    width: 100%;
+    height: max(360px, calc(var(--htmpres-viewport-height, 100dvh) - var(--htmpres-mobile-browser-clearance, 0px))) !important;
+    max-height: max(360px, calc(var(--htmpres-viewport-height, 100dvh) - var(--htmpres-mobile-browser-clearance, 0px))) !important;
+    min-height: 0;
+    overflow: hidden;
+    column-gap: 0;
+  }
+
+  body.presenter-mode .stage-wrap {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    min-height: 0;
+    overflow: hidden;
+    padding: 0 !important;
+  }
+
+  body.presenter-mode .footer-controls {
+    grid-column: 1 !important;
+    grid-row: 3 !important;
   }
 
   .presenter-notes {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
     border-left: 0;
-    border-top: 1px solid rgba(15, 23, 42, 0.14);
-    max-height: 34vh;
+    border-top: 0;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.14);
+    min-height: 0;
+    max-height: none;
+    padding: 14px 16px;
+    overflow: auto;
   }
 }
 `;

@@ -48,10 +48,18 @@ function scaleDeck() {
   const width = 1280;
   const height = 720;
   const rect = stage.getBoundingClientRect();
-  const scale = Math.min(rect.width / width, rect.height / height, 1);
+  const stageStyle = getComputedStyle(stage);
+  const availableWidth = Math.max(0, rect.width - cssPixels(stageStyle.paddingLeft) - cssPixels(stageStyle.paddingRight));
+  const availableHeight = Math.max(0, rect.height - cssPixels(stageStyle.paddingTop) - cssPixels(stageStyle.paddingBottom));
+  const scale = Math.min(availableWidth / width, availableHeight / height, 1);
   document.documentElement.style.setProperty("--deck-scale", scale.toString());
   slideFit.style.width = `${width * scale}px`;
   slideFit.style.height = `${height * scale}px`;
+}
+
+function cssPixels(value) {
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : 0;
 }
 
 function updateViewportHeight() {

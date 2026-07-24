@@ -50,11 +50,25 @@ Shared patterns become visible.
 ::::
 ```
 
-Supported tutorial layout classes include:
+Class ownership is intentionally split:
 
+- Renderer/runtime classes have behavior in `_extensions/htmpres/htmpres.ts`
+  or the runtime assets.
+- Starter CSS classes are styled by the packaged `source.css` seed and can be
+  copied into a deck.
+- Deck-local classes are just normal Quarto classes until that deck or theme
+  defines them in CSS.
+
+Common starter CSS layout classes include:
+
+- `.lead`: short framing copy, used by the built-in section slide template.
 - `.two-col`, `.three-col`, `.card`, `.metric-card`, `.callout`
 - `.diagram-frame`, `.code-card`, `.checklist`, `.focus-panel`, `.theme-sample`
 - `.pill-row`, `.pill`, `.control-chip`, `.action-button`
+
+If a class such as `.why-line` appears in a deck but is not listed here, look
+in that deck's `source.css` or theme stylesheet. It is a deck-local hook unless
+the reusable class map documents it.
 
 ## Themes
 

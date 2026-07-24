@@ -85,7 +85,7 @@ Useful docs:
 
 - `docs/build-a-deck-from-markdown.md`
 - `docs/authoring-cli.md`
-- `docs/quarto-class-map.md`
+- `docs/quarto-class-map.md` for renderer, starter CSS, and deck-local class vocabulary.
 - `docs/deckset-feature-status.md`
 - `docs/quarto-extension.md`
 - `docs/packaging.md`

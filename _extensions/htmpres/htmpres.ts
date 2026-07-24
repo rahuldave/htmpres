@@ -2159,6 +2159,7 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide.htmpres-text-fit-active p,
 .slide.htmpres-text-fit-active li,
 .slide.htmpres-text-fit-active .card,
+.slide.htmpres-text-fit-active .lead,
 .slide.htmpres-text-fit-active .callout {
   font-size: calc(var(--htmpres-body-size, 1rem) * var(--htmpres-text-fit-scale));
 }

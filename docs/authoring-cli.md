@@ -126,4 +126,8 @@ quarto run _extensions/htmpres/htmpres.ts theme set demo/index.qmd my-theme
 ```
 
 Edit `demo/source.css` after the seed is copied. Slide templates should use
-semantic classes and CSS tokens so they remain portable across themes.
+semantic classes and CSS tokens so they remain portable across themes. The
+built-in section template uses `.section-divider` and `.lead`; both are part of
+the starter CSS vocabulary in `docs/quarto-class-map.md`. Custom classes such
+as `.why-line` should be defined in the deck-local `source.css` or a theme
+stylesheet.

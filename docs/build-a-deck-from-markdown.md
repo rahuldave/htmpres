@@ -173,6 +173,19 @@ Approvals and evidence travel with the work.
 Use more colons for an outer div when nesting divs. This keeps the source easy
 to scan.
 
+Use `docs/quarto-class-map.md` as the class reference. A class is reusable
+when it has renderer behavior or starter CSS there. Other classes are ordinary
+deck-local hooks: define them in the deck's `source.css` or theme stylesheet.
+For example, `::: lead` is part of the starter vocabulary, while a custom block
+such as `::: why-line` only has meaning in decks whose CSS defines
+`.why-line`.
+
+```markdown
+::: lead
+A short framing sentence for the slide or section.
+:::
+```
+
 ## 8. Add Speaker Notes
 
 Notes are normal QMD fenced divs:

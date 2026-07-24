@@ -383,6 +383,37 @@ code {
   font-size: var(--htmpres-small-size);
 }
 
+.slide.section-divider.active {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  padding-inline: 72px;
+}
+
+.slide.section-divider h2 {
+  max-width: 860px;
+}
+
+.lead {
+  margin: 22px 0 0;
+  max-width: 840px;
+  color: var(--hero-copy);
+  font-size: 1.16rem;
+  line-height: 1.45;
+}
+
+.lead p {
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.slide.section-divider .lead {
+  margin-top: 24px;
+}
+
 .two-col,
 .three-col {
   display: grid;

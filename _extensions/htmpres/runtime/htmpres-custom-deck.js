@@ -22,6 +22,7 @@ let viewportFrame = 0;
 const deckNotes = readDeckNotes();
 const slideFragmentStates = new WeakMap();
 const slideCodeStates = new WeakMap();
+const mobileDeckFlowQuery = "(max-width: 980px)";
 
 function buildNav() {
   slides.forEach((slide, index) => {
@@ -47,6 +48,12 @@ function scaleDeck() {
   if (!slideFit) return;
   const stage = slideFit.parentElement;
   if (!stage) return;
+  if (mobileDeckFlowActive()) {
+    document.documentElement.style.setProperty("--deck-scale", "1");
+    slideFit.style.removeProperty("width");
+    slideFit.style.removeProperty("height");
+    return;
+  }
   const width = 1280;
   const height = 720;
   const rect = stage.getBoundingClientRect();
@@ -57,6 +64,10 @@ function scaleDeck() {
   document.documentElement.style.setProperty("--deck-scale", scale.toString());
   slideFit.style.width = `${width * scale}px`;
   slideFit.style.height = `${height * scale}px`;
+}
+
+function mobileDeckFlowActive() {
+  return window.matchMedia?.(mobileDeckFlowQuery)?.matches || false;
 }
 
 function cssPixels(value) {

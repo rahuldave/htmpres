@@ -2910,6 +2910,127 @@ body.presenter-mode .footer-controls {
 }
 
 @media (max-width: 980px) {
+  .slide-fit {
+    width: 100% !important;
+    height: auto;
+  }
+
+  .slides {
+    width: 100% !important;
+    height: auto;
+    max-height: none;
+    aspect-ratio: auto;
+    transform: none !important;
+  }
+
+  .two-col,
+  .two-col.wide-left,
+  .two-col.wide-right,
+  .three-col,
+  .four-col,
+  .five-col,
+  .flow,
+  .timeline,
+  .release-ladder,
+  .story-layout,
+  .story-steps,
+  .story-stat-grid,
+  .story-bridge,
+  .url-pair,
+  .profile-fragment-grid,
+  .axis-map,
+  .axis-map.six,
+  .axis-map.eight,
+  .kpi-grid,
+  .mini-diagram,
+  .checklist,
+  .mixed-transition,
+  .transition-strip,
+  .feature-status {
+    grid-template-columns: 1fr !important;
+  }
+
+  .two-col > *,
+  .three-col > *,
+  .four-col > *,
+  .five-col > *,
+  .flow > *,
+  .timeline > *,
+  .release-ladder > *,
+  .story-layout > *,
+  .story-steps > *,
+  .story-stat-grid > *,
+  .story-bridge > *,
+  .url-pair > *,
+  .profile-fragment-grid > *,
+  .axis-map > *,
+  .kpi-grid > *,
+  .mini-diagram > *,
+  .checklist > *,
+  .mixed-transition > *,
+  .transition-strip > *,
+  .feature-status > *,
+  .code-card,
+  .lead,
+  .callout,
+  .source-line,
+  .axis,
+  .matrix {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .chip-row > p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 0;
+  }
+
+  .chip-row .chip {
+    display: inline-flex;
+    max-width: 100%;
+  }
+
+  .source-line {
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    display: block;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .source-line code {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .slide .code-card pre,
+  .slide .code-card pre.sourceCode,
+  .slide .code-card pre.sourceCode code,
+  .slide .code-card code {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .slide code,
+  .scheme-row code {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .axis {
+    grid-template-columns: 1fr !important;
+  }
+
+  .axis .bar {
+    min-width: 0;
+  }
+
   body.presenter-mode .deck-shell {
     position: fixed;
     inset: 0;

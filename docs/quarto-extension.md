@@ -1,7 +1,8 @@
 # Quarto Extension Packaging
 
 `htmpres` can now be packaged as an installable Quarto utility extension. It is
-not yet a native Quarto output format.
+not yet a native Quarto HTML output format; its PowerPoint path delegates to
+Quarto's native PPTX writer with bundled reference documents.
 
 ## Current Shape
 
@@ -14,6 +15,10 @@ _extensions/
     htmpres.ts
     templates/
       source.css
+    powerpoint/
+      assets/
+      templates/
+      template-manifest.json
     runtime/
       htmpres-custom-deck.js
       htmpres-interactions.html
@@ -29,6 +34,7 @@ An installed project should call the extension path:
 
 ```sh
 quarto run _extensions/htmpres/htmpres.ts render decks/my-deck/index.qmd
+quarto run _extensions/htmpres/htmpres.ts powerpoint decks/my-deck/index.qmd --template executive
 quarto run _extensions/htmpres/htmpres.ts verify
 ```
 
@@ -122,6 +128,12 @@ To become a native format later, we would need to:
 3. Extract `.notes` into presenter-only metadata during the Pandoc pass.
 4. Bundle runtime CSS/JS as format resources.
 5. Prove output parity against the current `htmpres.ts verify` checks.
+
+PowerPoint is intentionally different: the utility normalizes the richer
+htmpres vocabulary, calls Quarto/Pandoc's PPTX writer with a matching reference
+document, restores branded master media, applies semantic colors, and writes a
+conversion report. This leaves the existing HTML renderer unchanged. See
+`powerpoint-export.md` for the contract and validation workflow.
 
 ## Official Docs Used
 

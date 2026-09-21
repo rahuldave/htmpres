@@ -1,8 +1,9 @@
 # htmpres
 
 `htmpres` is a small Quarto/Pandoc-based toolkit for writing Markdown decks
-that render to a custom HTML presentation shell. The published repo is scoped
-to the tutorial deck and reusable renderer code.
+that render to a custom HTML presentation shell or branded, editable
+PowerPoint. The published repo is scoped to the tutorial deck and reusable
+renderer code.
 
 Included:
 
@@ -24,6 +25,7 @@ Primary commands:
 just tutorial
 just verify
 just authoring-smoke
+just powerpoint-smoke
 just check
 just publish
 ```
@@ -56,6 +58,12 @@ The renderer writes:
 
 - `index.html`: audience deck, with speaker notes stripped from slide content.
 - `presenter.html`: presenter deck, with notes shown in a presenter panel.
+- `*.pptx` plus `*.conversion.json` when the `powerpoint` command is used.
+
+PowerPoint export uses three bundled Quarto reference templates for executive
+funding, executive briefing, and technical architecture decks. See
+`docs/powerpoint-export.md` for the CLI, editability contract, hybrid-image
+allowlist, report schema, validation flow, and current limitations.
 
 The tutorial demonstrates:
 
@@ -89,3 +97,4 @@ Useful docs:
 - `docs/deckset-feature-status.md`
 - `docs/quarto-extension.md`
 - `docs/packaging.md`
+- `docs/powerpoint-export.md`

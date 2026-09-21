@@ -8,7 +8,7 @@ with npm and Node kept only as optional compatibility wrappers.
 Package `htmpres` as an installable Quarto utility extension plus a starter
 template:
 
-- Quarto-run CLI: owns `html -> qmd`, `qmd -> html`, and verification.
+- Quarto-run CLI: owns `html -> qmd`, `qmd -> html`, `qmd -> pptx`, and verification.
 - Runtime assets: custom deck JavaScript, interaction helper, and base CSS.
 - Extension folder: `_extensions/htmpres` contains the runner, packaged runtime
   assets, and authoring templates, so `quarto add` can install it into another
@@ -85,6 +85,8 @@ just convert source.html
 just render decks/example/index.qmd
 just render-all
 just verify
+just powerpoint decks/example/index.qmd build/powerpoint
+just powerpoint-smoke
 just check
 just node-check
 just compat-check
@@ -101,6 +103,7 @@ quarto add <repo-or-archive>
 quarto run _extensions/htmpres/htmpres.ts workspace init presentations
 quarto run _extensions/htmpres/htmpres.ts deck new presentations/example --theme sage
 quarto run _extensions/htmpres/htmpres.ts render presentations/example/index.qmd
+quarto run _extensions/htmpres/htmpres.ts powerpoint presentations/example/index.qmd --template executive
 quarto run _extensions/htmpres/htmpres.ts verify
 ```
 

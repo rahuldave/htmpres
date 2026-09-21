@@ -1,0 +1,84 @@
+---
+title: PowerPoint smoke fixture
+---
+
+## PowerPoint Export
+
+The title slide comes from the branded master.
+
+## Editable Semantic Text
+
+::: {.card .theme-profile}
+**Profile**
+
+Editable intent and authority.
+:::
+
+::: {.card .theme-catalog}
+**Catalog**
+
+Editable ownership and discovery.
+:::
+
+::: notes
+This speaker note must survive the PowerPoint conversion.
+:::
+
+## Editable Table
+
+| Control | Purpose |
+| --- | --- |
+| Runtime | Enforce the run contract. |
+| Evidence | Reconstruct the work. |
+
+## Editable Code
+
+```yaml
+profile: smoke_fixture
+runtime: controlled
+evidence: required
+```
+
+## Privacy
+
+::: {.card style="--accent: var(--rose)"}
+**PHI and privacy**
+
+Apply minimum-necessary access and masking.
+:::
+
+## Prompt Risk
+
+**Prompt exfiltration** must not bypass runtime policy.
+
+## Fairness
+
+**Fairness review** remains an editable policy checkpoint.
+
+## Reuse
+
+**Reuse outcome** remains source-linked and approved.
+
+## Native List
+
+- Editable item one
+- Editable item two
+- Editable item three
+
+## Native Timeline
+
+1. Explore
+2. Pilot
+3. Scale
+
+## Four-Part Cycle
+
+<div class="core-cycle-layout">
+<div class="core-cycle" aria-label="Profile, catalog, runtime, and evidence cycle"></div>
+</div>
+
+::: aside-panel
+**Operating model**
+
+Profile, catalog, runtime, and evidence form one controlled cycle.
+:::

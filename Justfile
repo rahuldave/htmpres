@@ -17,6 +17,26 @@ render-all:
 convert *sources:
   quarto run scripts/htmpres.ts convert {{sources}}
 
+# Export one QMD deck to branded PowerPoint. The deck family is inferred from its path.
+powerpoint deck output_dir="build/powerpoint":
+  quarto run scripts/htmpres.ts powerpoint {{deck}} --output-dir {{output_dir}}
+
+# Rebuild the two SVG fallbacks used by allowlisted hybrid diagram slides.
+powerpoint-diagrams:
+  quarto run scripts/build-powerpoint-diagrams.ts
+
+# Rebuild all three branded Quarto reference documents.
+powerpoint-templates:
+  quarto run scripts/build-powerpoint-templates.ts
+
+# Render every required layout from all three PowerPoint reference documents.
+powerpoint-previews: powerpoint-templates
+  quarto run scripts/build-powerpoint-previews.ts
+
+# Exercise notes, alt text, editability metadata, semantic colors, and the image allowlist.
+powerpoint-smoke:
+  tests/powerpoint-export-smoke.sh
+
 # Run the renderer's round-trip and output checks.
 verify:
   quarto run scripts/htmpres.ts verify
@@ -39,7 +59,7 @@ diff-check:
 
 # Run the normal local verification path for renderer/tutorial changes.
 # This path uses Quarto's bundled Deno runtime and does not require Node.
-check: tutorial verify authoring-smoke diff-check
+check: tutorial verify authoring-smoke powerpoint-smoke diff-check
 
 # Prepare the private Sites preview app with both tutorial themes.
 # Saving and deploying still happens through the Sites connector.

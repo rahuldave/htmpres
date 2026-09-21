@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "deduplication": "Each shared diagram is stored once and referenced by every allowlisted deck slide that uses it.",
+  "brand": [
+    {
+      "path": "assets/logos/univ-ai-logo.png",
+      "source": "assets/logos/univ-ai-logo.svg",
+      "role": "embedded slide-master logo",
+      "pixels": "1600x362"
+    },
+    {
+      "path": "assets/logos/point32health-logo.png",
+      "source": "assets/logos/point32health-logo.svg",
+      "role": "embedded slide-master logo",
+      "pixels": "1600x204"
+    },
+    {
+      "path": "assets/backgrounds/univ-ai-section-background.png",
+      "role": "embedded title and section-master background",
+      "pixels": "2500x1177"
+    }
+  ],
+  "sharedDiagrams": [
+    { "path": "assets/diagrams/azure-databricks-implementation.png", "pixels": "2960x552" },
+    { "path": "assets/diagrams/catalog-core.png", "pixels": "2960x3096" },
+    { "path": "assets/diagrams/context-resolver.png", "pixels": "2960x556" },
+    { "path": "assets/diagrams/five-plane-architecture.png", "pixels": "2960x448" },
+    { "path": "assets/diagrams/identity-layers.png", "pixels": "3908x1721" },
+    { "path": "assets/diagrams/security-flow.png", "pixels": "4875x898" }
+  ],
+  "svgFallbacks": [
+    {
+      "path": "assets/diagrams/llm-agent-run.ppt.png",
+      "source": "assets/diagrams/llm-agent-run.svg",
+      "generator": "scripts/build-powerpoint-diagrams.ts",
+      "pixels": "2400x1178"
+    },
+    {
+      "path": "assets/diagrams/ai-application-anatomy.ppt.png",
+      "source": "assets/diagrams/ai-application-anatomy.svg",
+      "generator": "scripts/build-powerpoint-diagrams.ts",
+      "pixels": "2400x1182"
+    }
+  ],
+  "fourPartCycles": [
+    {
+      "path": "assets/diagrams/profile-catalog-runtime-evidence.executive-funding.ppt.png",
+      "family": "executive-funding",
+      "sourceSlide": "presentations/executive-funding/index.qmd#11",
+      "generator": "browser render of the source core-cycle region at 2x display size",
+      "pixels": "1640x862"
+    },
+    {
+      "path": "assets/diagrams/profile-catalog-runtime-evidence.executive.ppt.png",
+      "family": "executive",
+      "sourceSlide": "presentations/executive/index.qmd#12",
+      "generator": "browser render of the source core-cycle region at 2x display size",
+      "pixels": "1640x860"
+    },
+    {
+      "path": "assets/diagrams/profile-catalog-runtime-evidence.technical.ppt.png",
+      "family": "technical",
+      "sourceSlide": "presentations/technical/index.qmd#8",
+      "generator": "browser render of the source core-cycle region at 2x display size",
+      "pixels": "1628x862"
+    }
+  ]
+}

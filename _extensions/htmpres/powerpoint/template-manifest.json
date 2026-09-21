@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "aspectRatio": "16:9",
+  "slideSizeEmu": [9144000, 5143500],
+  "templates": {
+    "executive-funding": "templates/univ-ai-p32-executive-funding-reference.pptx",
+    "executive": "templates/univ-ai-p32-executive-reference.pptx",
+    "technical": "templates/univ-ai-p32-technical-reference.pptx"
+  },
+  "previews": {
+    "executive-funding": "previews/executive-funding/",
+    "executive": "previews/executive/",
+    "technical": "previews/technical/"
+  },
+  "density": {
+    "executive-funding": { "titlePoints": 30, "bodyPoints": 14, "sectionTitlePoints": 32 },
+    "executive": { "titlePoints": 28, "bodyPoints": 13, "sectionTitlePoints": 30 },
+    "technical": { "titlePoints": 26, "bodyPoints": 11.5, "sectionTitlePoints": 28 }
+  },
+  "masters": ["Univ.AI Point32Health"],
+  "layouts": [
+    "Title Slide",
+    "Title and Content",
+    "Section Header",
+    "Two Content",
+    "Comparison",
+    "Content with Caption",
+    "Blank"
+  ],
+  "fonts": {
+    "heading": ["Bitter", "Aptos Display", "Arial"],
+    "body": ["Source Serif 4", "Aptos", "Arial"],
+    "code": ["IBM Plex Mono", "Cascadia Mono", "Courier New"]
+  },
+  "masterAssets": [
+    "assets/logos/univ-ai-logo.png",
+    "assets/logos/point32health-logo.png",
+    "assets/backgrounds/univ-ai-section-background.png"
+  ],
+  "semanticColors": {
+    "profile": "#6159A8",
+    "catalog": "#0F7773",
+    "runtime": "#BD7B18",
+    "evidence": "#9B2F5F",
+    "phi_privacy": "#AD4455",
+    "prompt_runtime_attack": "#BD7B18",
+    "fairness_policy": "#6159A8",
+    "reuse_outcome": "#5F8F3B"
+  }
+}

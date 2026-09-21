@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "convert": "quarto run scripts/htmpres.ts convert",
+    "powerpoint": "quarto run scripts/htmpres.ts powerpoint",
+    "powerpoint:smoke": "tests/powerpoint-export-smoke.sh",
     "render": "quarto run scripts/htmpres.ts render",
     "verify": "quarto run scripts/htmpres.ts verify",
     "node:convert": "node scripts/html-to-qmd.mjs",

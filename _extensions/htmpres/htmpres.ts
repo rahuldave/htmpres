@@ -1,3 +1,5 @@
+import { powerpointCommand } from "./powerpoint/powerpoint.ts";
+
 type DeckSource = {
   source: string;
   slug: string;
@@ -205,6 +207,9 @@ async function main() {
       case "render":
         await renderCommand(args);
         break;
+      case "powerpoint":
+        await powerpointCommand(args, { root, extensionDir });
+        break;
       case "serve":
         await serveCommand(args);
         break;
@@ -245,6 +250,7 @@ function usage() {
   quarto run ${commandScript} theme set <deck/index.qmd> <name>
   quarto run ${commandScript} convert [source.html ...]
   quarto run ${commandScript} render [decks/name/index.qmd ...]
+  quarto run ${commandScript} powerpoint <deck/index.qmd> [--template <family>] [--slides <n,n>] [--output <deck.pptx>]
   quarto run ${commandScript} serve <deck/index.qmd> [--watch] [--port 8000]
   quarto run ${commandScript} verify
   quarto run ${commandScript} all
@@ -256,6 +262,7 @@ Commands:
   theme     List, inspect, add, or select deck-local theme seeds.
   convert   Convert HTML decks in source_presentations/ to decks/*/index.qmd.
   render    Render QMD decks to index.html and presenter.html.
+  powerpoint Render QMD decks through Quarto's PPTX writer and a branded reference template.
   serve     Render and serve one deck folder; --watch rerenders on file changes.
   verify    Compare copied source decks, QMD, and rendered HTML outputs.
   all       Run convert, render, and verify.
@@ -654,6 +661,10 @@ default:
 # Render one deck folder.
 render deck=".":
   quarto run {{extension}} render {{deck}}/index.qmd
+
+# Export one deck folder to branded PowerPoint.
+powerpoint deck="." output_dir="build/powerpoint":
+  quarto run {{extension}} powerpoint {{deck}}/index.qmd --output-dir {{output_dir}}
 
 # Render and serve one deck folder, rerendering when files change.
 serve deck=".":

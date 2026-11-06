@@ -109,3 +109,5 @@ test -f demo/presenter.html
 grep -q 'data-theme="custom"' demo/index.html
 
 echo "authoring CLI smoke passed in $SCRATCH"
+
+"$ROOT/tests/theme-catalog-smoke.sh"

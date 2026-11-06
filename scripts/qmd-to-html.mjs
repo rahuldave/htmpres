@@ -2,6 +2,10 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { colorModeControl, colorModeScript, resolveTheme, themeAssets, themeAttributes, themeStyles } from "../_extensions/htmpres/themes/themes.mjs";
+
+const themeDirectory = new URL("../_extensions/htmpres/themes/", import.meta.url);
+const bundledThemes = JSON.parse(readFileSync(new URL("catalog.json", themeDirectory), "utf8"));
 
 const root = process.cwd();
 const decksDir = path.join(root, "decks");
@@ -31,7 +35,17 @@ function renderDeck(file) {
   const background = deckBackground(meta);
   const textFit = deckTextFit(meta);
   const cssPath = path.join(deckDir, meta["deck.css"] || "source.css");
-  const css = existsSync(cssPath) ? readFileSync(cssPath, "utf8") : "";
+  const localCss = existsSync(cssPath) ? readFileSync(cssPath, "utf8") : "";
+  const themePlan = resolveTheme(meta, bundledThemes, localCss);
+  const baseCss = themePlan ? readFileSync(new URL("../_extensions/htmpres/templates/source.css", import.meta.url), "utf8") : "";
+  const css = themePlan ? `${baseCss}\n${themeStyles(themePlan, bundledThemes)}\n${localCss}` : localCss;
+  for (const file of themeAssets(themePlan, bundledThemes)) {
+    const bytes = readFileSync(new URL(file, themeDirectory));
+    const target = path.join(deckDir, "assets", "htmpres-themes", file);
+    if (existsSync(target) && readFileSync(target).equals(bytes)) continue;
+    mkdirSync(path.dirname(target), { recursive: true });
+    writeFileSync(target, bytes);
+  }
   const rendered = slides.map((slide, index) => {
     const { body, notes } = extractNotes(slide.body);
     const cleanSlide = { ...slide, body };
@@ -51,6 +65,7 @@ function renderDeck(file) {
     slideCount: slides.length,
     notes,
     theme,
+    themePlan,
     textFit,
   });
   const presenterHtml = deckShell({
@@ -62,6 +77,7 @@ function renderDeck(file) {
     slideCount: slides.length,
     notes,
     theme,
+    themePlan,
     textFit,
   });
 
@@ -193,7 +209,7 @@ function namespacePandocCodeIds(html, prefix) {
     .replace(/\bhref="#cb(\d+(?:-\d+)?)"/g, `href="#${prefix}-cb$1"`);
 }
 
-function deckShell({ mode, title, tocTitle, css, slides, slideCount, notes, theme, textFit }) {
+function deckShell({ mode, title, tocTitle, css, slides, slideCount, notes, theme, themePlan, textFit }) {
   const deckJs = readFileSync(path.join(root, "decks", "scripts", "htmpres-custom-deck.js"), "utf8");
   const interactions = readFileSync(path.join(root, "decks", "scripts", "htmpres-interactions.html"), "utf8");
   const isPresenter = mode === "presenter";
@@ -210,6 +226,7 @@ function deckShell({ mode, title, tocTitle, css, slides, slideCount, notes, them
   const htmlAttrs = formatHtmlAttrs({
     lang: "en",
     "data-theme": theme || "",
+    ...themeAttributes(themePlan),
     "data-text-fit": textFit?.enabled ? "true" : "",
     "data-autoscale": textFit?.enabled ? "true" : "",
     "data-text-fit-min": textFit?.min || "",
@@ -220,6 +237,7 @@ function deckShell({ mode, title, tocTitle, css, slides, slideCount, notes, them
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)}</title>
+  ${colorModeScript(themePlan)}
   <style>
 ${css}
 ${runtimeCss()}
@@ -245,6 +263,7 @@ ${presenterPanel}
     <footer class="footer-controls">
       <div class="progress" aria-label="Deck progress"><span id="progressBar"></span></div>
       <div class="counter" id="counter">1 / ${slideCount}</div>
+      ${colorModeControl(themePlan)}
       <button class="nav-btn" id="overviewBtn" aria-label="Open overview">O</button>
       <button class="nav-btn" id="prevBtn" aria-label="Previous slide">Prev</button>
       <button class="nav-btn primary" id="nextBtn" aria-label="Next slide">Next</button>

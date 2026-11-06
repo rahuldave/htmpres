@@ -70,6 +70,8 @@ The tutorial demonstrates:
   patterns using Quarto containers and media attributes.
 - Theme selection through `deck.theme`, with tutorial examples for `sage` and
   `mono-grid` color, typography, code-token, and media-filter tokens.
+- Declarative Bootstrap, all 25 local Bootswatch, Elegant, Reading, and Tufte
+  themes with light/dark/system modes; see [presentation themes](docs/themes.md).
 - Global deck backgrounds through `deck.background-image`.
 - Theme-level text fitting through `deck.text-fit`, `.autoscale`, and
   responsive typography tokens.
@@ -86,6 +88,7 @@ Useful docs:
 - `docs/build-a-deck-from-markdown.md`
 - `docs/authoring-cli.md`
 - `docs/quarto-class-map.md` for renderer, starter CSS, and deck-local class vocabulary.
+- `docs/themes.md` for the complete theme catalog, color modes, and local overrides.
 - `docs/deckset-feature-status.md`
 - `docs/quarto-extension.md`
 - `docs/packaging.md`

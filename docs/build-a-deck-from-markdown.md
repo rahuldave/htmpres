@@ -163,13 +163,13 @@ Use Quarto/Pandoc fenced divs for visual blocks:
 
 ```markdown
 :::: three-col
-::: {.card .metric-card style="--accent: var(--teal)"}
+::: {.card .metric-card}
 **Reusable**
 
 Shared patterns become visible.
 :::
 
-::: {.card .metric-card style="--accent: var(--amber)"}
+::: {.card .metric-card}
 **Governed**
 
 Approvals and evidence travel with the work.
@@ -286,6 +286,9 @@ copyable shared code/text/equation examples.
 
 ## 11. Add Images And Deckset-Inspired Layouts
 
+Keep appearance in the theme stylesheet. The examples below use class-based
+structure and theme defaults, with no inline style attributes.
+
 Use normal Markdown image syntax, with Quarto/Pandoc attributes on the media
 itself:
 
@@ -330,7 +333,7 @@ Half-slide media:
 Split content in normal slide flow:
 
 ```markdown
-:::: {.ds-split style="--ds-gap: 18px; --ds-height: 420px;"}
+:::: {.ds-split}
 ::: {.ds-pane .ds-frame}
 ### Text pane
 :::
@@ -345,7 +348,7 @@ Inline image groups and grids use the same split: the enclosing div lays out
 the group, while each media element keeps its own fit/fill/filter behavior.
 
 ```markdown
-:::: {.ds-grid style="--ds-columns: 3; --ds-gap: 14px;"}
+:::: {.ds-grid}
 ::: {.ds-media}
 ![](assets/photo-1.svg){.ds-fill .ds-bn}
 :::
@@ -354,8 +357,8 @@ the group, while each media element keeps its own fit/fill/filter behavior.
 ![](assets/photo-2.svg){.ds-fill .ds-theme-filter}
 :::
 
-::: {.ds-media .ds-vignette style="--ds-vignette: 0.42;"}
-![](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
+::: {.ds-media .ds-vignette}
+![](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen}
 :::
 ::::
 ```

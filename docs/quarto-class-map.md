@@ -58,11 +58,12 @@ the presenter notes panel in `presenter.html`.
 
 ## Layout Blocks
 
-Use fenced divs for layout and styling:
+Use fenced divs for structure. These examples use theme defaults; customize
+appearance in the theme stylesheet, keeping QMD semantic:
 
 ```markdown
 :::: three-col
-::: {.card .metric-card style="--accent: var(--teal)"}
+::: {.card .metric-card}
 **Reusable**
 
 Shared patterns become visible.
@@ -199,7 +200,7 @@ Half-slide media:
 Split flow layout:
 
 ```markdown
-:::: {.ds-split style="--ds-gap: 18px; --ds-height: 420px;"}
+:::: {.ds-split}
 ::: {.ds-pane .ds-frame}
 ### Text pane
 :::
@@ -232,7 +233,7 @@ container, because they use pseudo-elements around the media.
 Three inline images laid out by an enclosing div:
 
 ```markdown
-:::: {.ds-grid style="--ds-columns: 3; --ds-gap: 14px;"}
+:::: {.ds-grid}
 ::: {.ds-media}
 ![](assets/photo-1.svg){.ds-fill .ds-bn}
 :::
@@ -241,8 +242,8 @@ Three inline images laid out by an enclosing div:
 ![](assets/photo-2.svg){.ds-fill .ds-theme-filter}
 :::
 
-::: {.ds-media .ds-vignette style="--ds-vignette: 0.42;"}
-![](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
+::: {.ds-media .ds-vignette}
+![](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen}
 :::
 ::::
 ```
@@ -250,6 +251,9 @@ Three inline images laid out by an enclosing div:
 `ds-noir`, `ds-chrome`, `ds-fade`, exposure, and sharpen are Core
 Image-inspired browser approximations. They are stable CSS/SVG mappings, not
 pixel-exact Apple Core Image output.
+
+Set custom media filter, gap, height and grid variables in the theme
+stylesheet. The QMD examples use the theme defaults.
 
 Media playback directive classes:
 

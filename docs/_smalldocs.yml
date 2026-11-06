@@ -10,6 +10,7 @@ project:
     - build-a-deck-from-markdown.md
     - themes.md
     - quarto-class-map.md
+    - semantic-authoring.md
     - quarto-extension.md
     - packaging.md
     - deckset-feature-status.md
@@ -48,6 +49,7 @@ website:
           - build-a-deck-from-markdown.md
           - themes.md
           - quarto-class-map.md
+          - semantic-authoring.md
       - section: Understand & extend
         contents:
           - quarto-extension.md

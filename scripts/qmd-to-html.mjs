@@ -4,6 +4,9 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSy
 import path from "node:path";
 import { colorModeControl, colorModeScript, resolveTheme, themeAssets, themeAttributes, themeStyles } from "../_extensions/htmpres/themes/themes.mjs";
 
+import { assignSlideIds, renderTitle, namespacePandocIds } from "../_extensions/htmpres/lib/render.mjs";
+import { extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, splitFrontMatter as splitSourceFrontMatter } from "../_extensions/htmpres/lib/source.mjs";
+
 const themeDirectory = new URL("../_extensions/htmpres/themes/", import.meta.url);
 const bundledThemes = JSON.parse(readFileSync(new URL("catalog.json", themeDirectory), "utf8"));
 
@@ -11,6 +14,7 @@ const root = process.cwd();
 const decksDir = path.join(root, "decks");
 
 const explicit = process.argv.slice(2);
+if (explicit[0] === "lint") { lintCommand(explicit.slice(1)); process.exit(); }
 const qmdFiles = explicit.length
   ? explicit
   : findFiles(decksDir, (file) => file.endsWith("index.qmd")).map((file) => path.relative(root, file));
@@ -25,7 +29,9 @@ function renderDeck(file) {
   const qmd = readFileSync(qmdPath, "utf8");
   const { yaml, body } = splitFrontMatter(qmd);
   const meta = parseSimpleYaml(yaml);
-  const slides = parseSlides(body);
+  const diagnostics = lintSource(qmd, file);
+  if (diagnostics.length) throw new Error(diagnostics.map(formatDiagnostic).join("\n"));
+  const slides = assignSlideIds(parseSlides(body), parsePandocAttrs);
   if (!slides.length) {
     throw new Error(`No level-2 slides found in ${file}`);
   }
@@ -46,12 +52,13 @@ function renderDeck(file) {
     mkdirSync(path.dirname(target), { recursive: true });
     writeFileSync(target, bytes);
   }
+  copyMathAssets(deckDir);
   const rendered = slides.map((slide, index) => {
     const { body, notes } = extractNotes(slide.body);
     const cleanSlide = { ...slide, body };
     return {
       slideHtml: renderSlide(cleanSlide, index, background),
-      notesHtml: namespacePandocCodeIds(markdownToHtml(notes).trim(), `notes-${index + 1}`),
+      notesHtml: namespacePandocIds(markdownToHtml(notes).trim(), `notes-${index + 1}`),
     };
   });
   const htmlSlides = rendered.map((slide) => slide.slideHtml).join("\n\n");
@@ -96,10 +103,11 @@ function renderSlide(slide, index, globalBackground) {
   const classes = ["slide", ...attrs.classes];
   if (index === 0) classes.push("active");
   const title = slide.title || attrs.keyValues["data-title"] || `Slide ${index + 1}`;
-  const bodyHtml = namespacePandocCodeIds(markdownToHtml(slide.body).trim(), `slide-${index + 1}`);
+  const renderedTitle = renderTitle(markdownToHtml(`# ${title}`), `slide-${index + 1}`);
+  const bodyHtml = namespacePandocIds(markdownToHtml(slide.body).trim(), `slide-${index + 1}`);
   const backgroundHtml = renderBackgroundLayer(attrs, globalBackground);
-  const dataAttrs = { ...attrs.keyValues };
-  if (!dataAttrs["data-title"]) dataAttrs["data-title"] = title;
+  const dataAttrs = { ...attrs.keyValues, id: slide.id || attrs.keyValues.id || `slide-${index + 1}` };
+  if (!dataAttrs["data-title"]) dataAttrs["data-title"] = renderedTitle.plainText;
   const attrText = formatHtmlAttrs({
     class: unique(classes).join(" "),
     ...dataAttrs,
@@ -107,9 +115,9 @@ function renderSlide(slide, index, globalBackground) {
   const headingClass = attrs.classes.includes("title-hidden") ? " class=\"visually-hidden\"" : "";
   return `<section${attrText}>
 ${backgroundHtml ? indentHtml(backgroundHtml, "  ") + "\n" : ""}
-  <h2${headingClass}>${escapeHtml(title)}</h2>
+  <h2${headingClass}>${renderedTitle.inlineHtml}</h2>
 ${indentHtml(bodyHtml, "  ")}
-</section>`;
+${renderedTitle.footnotesHtml ? indentHtml(renderedTitle.footnotesHtml, "  ") + "\n" : ""}</section>`;
 }
 
 function deckBackground(meta) {
@@ -203,15 +211,10 @@ function escapeCssValue(value) {
   return String(value).replace(/[;"'<>]/g, "");
 }
 
-function namespacePandocCodeIds(html, prefix) {
-  return html
-    .replace(/\bid="cb(\d+(?:-\d+)?)"/g, `id="${prefix}-cb$1"`)
-    .replace(/\bhref="#cb(\d+(?:-\d+)?)"/g, `href="#${prefix}-cb$1"`);
-}
 
 function deckShell({ mode, title, tocTitle, css, slides, slideCount, notes, theme, themePlan, textFit }) {
-  const deckJs = readFileSync(path.join(root, "decks", "scripts", "htmpres-custom-deck.js"), "utf8");
-  const interactions = readFileSync(path.join(root, "decks", "scripts", "htmpres-interactions.html"), "utf8");
+  const deckJs = readRuntimeFile("htmpres-custom-deck.js");
+  const interactions = readRuntimeFile("htmpres-interactions.html");
   const isPresenter = mode === "presenter";
   const notesScript = isPresenter
     ? `\n  <script id="deckNotes" type="application/json">${escapeScriptJson(JSON.stringify(notes))}</script>`
@@ -238,9 +241,12 @@ function deckShell({ mode, title, tocTitle, css, slides, slideCount, notes, them
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)}</title>
   ${colorModeScript(themePlan)}
+  <link rel="stylesheet" href="assets/htmpres-math/katex.min.css">
   <style>
 ${css}
 ${runtimeCss()}
+${readRuntimeFile("htmpres-semantic.css")}
+${readRuntimeFile("htmpres-steps.css")}
   </style>
 </head>
 <body class="${mode}-mode">
@@ -282,6 +288,10 @@ ${presenterPanel}
   </svg>
 ${notesScript}
 
+  <script src="assets/htmpres-math/katex.min.js"></script>
+  <script>
+${indent(readRuntimeFile("htmpres-math.js"), "    ")}
+  </script>
   <script>
 ${indent(deckJs, "    ")}
   </script>
@@ -1247,6 +1257,7 @@ function markdownToHtml(markdown) {
       "-t",
       "html",
       "--wrap=none",
+      "--katex",
     ],
     {
       input: markdown,
@@ -1261,112 +1272,11 @@ function markdownToHtml(markdown) {
 }
 
 function extractNotes(markdown) {
-  if (!markdown.trim()) return { body: markdown, notes: "" };
-  const bodyLines = [];
-  const noteBlocks = [];
-  const lines = markdown.split(/\r?\n/);
-  let inNotes = false;
-  let notesFenceLen = 0;
-  let currentNotes = [];
-  let inCodeFence = false;
-  let codeFenceChar = "";
-  let codeFenceLen = 0;
-
-  for (const line of lines) {
-    const codeFence = /^(`{3,}|~{3,})/.exec(line);
-    if (codeFence) {
-      const marker = codeFence[1];
-      if (!inCodeFence) {
-        inCodeFence = true;
-        codeFenceChar = marker[0];
-        codeFenceLen = marker.length;
-      } else if (marker[0] === codeFenceChar && marker.length >= codeFenceLen) {
-        inCodeFence = false;
-      }
-    }
-
-    if (!inNotes) {
-      const opening = inCodeFence ? null : noteFenceOpening(line);
-      if (opening) {
-        inNotes = true;
-        notesFenceLen = opening.length;
-        currentNotes = [];
-        continue;
-      }
-      bodyLines.push(line);
-      continue;
-    }
-
-    if (!inCodeFence && noteFenceClosing(line, notesFenceLen)) {
-      noteBlocks.push(currentNotes.join("\n").trim());
-      inNotes = false;
-      notesFenceLen = 0;
-      currentNotes = [];
-      continue;
-    }
-
-    currentNotes.push(line);
-  }
-
-  if (inNotes) {
-    noteBlocks.push(currentNotes.join("\n").trim());
-  }
-
-  return {
-    body: bodyLines.join("\n").trim(),
-    notes: noteBlocks.filter(Boolean).join("\n\n"),
-  };
-}
-
-function noteFenceOpening(line) {
-  const match = /^(:{3,})\s+(?:notes|\{\s*\.notes\s*\})\s*$/.exec(line.trim());
-  return match ? { length: match[1].length } : null;
-}
-
-function noteFenceClosing(line, fenceLen) {
-  const trimmed = line.trim();
-  if (!trimmed || /[^:]/.test(trimmed)) return false;
-  return trimmed.length >= fenceLen;
+  return extractSourceNotes(markdown);
 }
 
 function parseSlides(body) {
-  const lines = body.split(/\r?\n/);
-  const slides = [];
-  let current = null;
-  let inFence = false;
-  let fenceChar = "";
-  let fenceLen = 0;
-  for (const line of lines) {
-    const fence = /^(`{3,}|~{3,})/.exec(line);
-    if (fence) {
-      const marker = fence[1];
-      if (!inFence) {
-        inFence = true;
-        fenceChar = marker[0];
-        fenceLen = marker.length;
-      } else if (marker[0] === fenceChar && marker.length >= fenceLen) {
-        inFence = false;
-      }
-    }
-
-    const heading = !inFence ? /^##\s+(.+?)(?:\s+(\{.*\}))?\s*$/.exec(line) : null;
-    if (heading) {
-      if (current) slides.push(current);
-      current = {
-        title: heading[1].trim(),
-        attrText: heading[2] || "",
-        bodyLines: [],
-      };
-    } else if (current) {
-      current.bodyLines.push(line);
-    }
-  }
-  if (current) slides.push(current);
-  return slides.map((slide) => ({
-    ...slide,
-    title: unescapeHeading(slide.title),
-    body: slide.bodyLines.join("\n").trim(),
-  }));
+  return parseSourceSlides(body);
 }
 
 function parsePandocAttrs(attrText = "") {
@@ -1395,13 +1305,7 @@ function parsePandocAttrs(attrText = "") {
 }
 
 function splitFrontMatter(text) {
-  if (!text.startsWith("---\n")) return { yaml: "", body: text };
-  const end = text.indexOf("\n---", 4);
-  if (end < 0) return { yaml: "", body: text };
-  return {
-    yaml: text.slice(4, end),
-    body: text.slice(end + 4).replace(/^\s*\n/, ""),
-  };
+  return splitSourceFrontMatter(text);
 }
 
 function parseSimpleYaml(yaml) {
@@ -1504,4 +1408,43 @@ function unique(values) {
 
 function humanTitle(slug) {
   return slug.replace(/[-_]/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function readRuntimeFile(name) {
+  const local = path.join(root, "decks", "scripts", name);
+  return readFileSync(existsSync(local) ? local : new URL(`../_extensions/htmpres/runtime/${name}`, import.meta.url), "utf8");
+}
+
+function copyMathAssets(deckDir) {
+  const sourceDir = new URL("../_extensions/htmpres/vendor/katex/", import.meta.url);
+  function copy(directory, relative = "") {
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      const file = `${relative}${entry.name}`;
+      if (entry.isDirectory()) { copy(new URL(`${entry.name}/`, directory), `${file}/`); continue; }
+      const bytes = readFileSync(new URL(entry.name, directory));
+      const target = path.join(deckDir, "assets", "htmpres-math", file);
+      if (existsSync(target) && readFileSync(target).equals(bytes)) continue;
+      mkdirSync(path.dirname(target), { recursive: true });
+      writeFileSync(target, bytes);
+    }
+  }
+  copy(sourceDir);
+}
+
+function formatDiagnostic(diagnostic) {
+  return `${diagnostic.file}:${diagnostic.line}:${diagnostic.column}: ${diagnostic.code}: ${diagnostic.message}`;
+}
+
+function lintCommand(args) {
+  const files = args.filter(arg => arg !== "--json");
+  const diagnostics = files.flatMap(file => {
+    try { return lintSource(readFileSync(path.resolve(root, file), "utf8"), file); }
+    catch (error) { return [{ file, line: 1, column: 1, code: "source-read", severity: "error", message: String(error) }]; }
+  });
+  if (!files.length) diagnostics.push({ file: "", line: 1, column: 1, code: "usage", severity: "error", message: "lint requires at least one QMD source file." });
+  const report = { version: 1, ok: diagnostics.length === 0, diagnostics };
+  if (args.includes("--json")) console.log(JSON.stringify(report, null, 2));
+  else if (report.ok) console.log(`Source lint passed (${files.length} files).`);
+  else for (const diagnostic of diagnostics) console.error(formatDiagnostic(diagnostic));
+  if (!report.ok) process.exit(1);
 }

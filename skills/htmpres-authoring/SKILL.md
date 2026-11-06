@@ -39,9 +39,13 @@ description: Author, inspect, and edit htmpres Quarto presentation decks through
 5. Render and verify:
 
    ```sh
+   quarto run _extensions/htmpres/htmpres.ts lint <deck>/index.qmd --json
    quarto run _extensions/htmpres/htmpres.ts render <deck>/index.qmd
-   quarto run _extensions/htmpres/htmpres.ts verify
+   quarto run _extensions/htmpres/htmpres.ts verify <deck>/index.qmd
    ```
+
+   Pass the actual source path (including `slides.qmd` when that is its name)
+   to `verify`; no-argument discovery covers only `decks/**/index.qmd`.
 
    If the project has a generated presentation `Justfile`, humans may use
    `just render <deck>`, but agents should prefer the explicit extension CLI.
@@ -60,10 +64,115 @@ When adding a slide, choose the closest structural kind. For example, use
 `interactive` for button/pill control slides, `left-media` or `right-media` for
 half-media layouts, and `two-card` or `three-card` for comparison slides.
 
+## Semantic Source
+
+Write structure, importance and reveal order in QMD. Do not put `style=`, CSS
+color values, color names or font choices in authored slides. Select a theme
+in front matter; put custom appearance in the theme stylesheet. A slide starts
+at `##`; standalone body `---` outside code is an error, including before `##`.
+The initial YAML delimiters are exempt. `lint <path> [more paths] --json`
+returns `{version:1,ok,diagnostics:[{file,line,column,code,severity,message}]}`
+with exit 0 for success and 1 for diagnostics (`code: "slide-break"`).
+
+Importance works on spans and blocks:
+
+```markdown
+## Why *structure* matters {#result}
+
+[The main point.]{.key}
+
+::: {.aside}
+A minor qualification.
+:::
+```
+
+`.key` maps to importance level 3 and `.aside` to level 1; normal body text is
+level 2. Theme tokens `--htmpres-importance-{0..4}-{scale,weight,ink}` support
+future remapping; there are no numbered author classes. Titles render inline
+Markdown; navigation labels are plain text.
+
+Math uses `$x^2$` or `$$...$$`, with local KaTeX assets. Use
+`\htmlClass{term-a}{x}` inside math to name a term. Keep the generated
+`assets/htmpres-math/` with the HTML for offline viewing. Do not use KaTeX's
+style, URL or HTML-ID extensions; only `\htmlClass` is trusted.
+
+## Shared Steps
+
+Map code snapshots and text to the same positive frame numbers:
+
+````markdown
+## Explain a calculation
+
+:::: {.two-col}
+::: {}
+```{.python data-steps="1|2" data-step-indices="1|3"}
+x = 1
+x += 2
+```
+:::
+::: {}
+[Introduce x.]{.fragment data-fragment-index="1"}
+
+[Add two.]{.fragment data-fragment-index="3"}
+:::
+::::
+````
+
+Replace the code container with this equation container to use term snapshots:
+
+```markdown
+::: {.equation-steps data-equation-steps="term-a|term-b|term-a,term-b" data-step-indices="1|3|7"}
+$$
+\htmlClass{term-a}{x} + \htmlClass{term-b}{y} = z
+$$
+:::
+```
+
+`|` separates snapshots; commas combine term classes. Only referenced named
+terms dim. Use matching text fragment indices 1, 3, 7 to explain each snapshot.
+Gaps consume no extra keypresses. Mapped lanes start inactive and hold their
+latest snapshot. Earlier ordinary text stays visible without dimming. Each
+mapping must have one decimal, positive safe integer per snapshot, strictly
+increasing; invalid mappings warn and fall back to implicit order. Unmapped
+mixed events run in source order. Legacy unmapped code-only slides retain
+their first snapshot baseline and shared kth snapshots across code blocks.
+
+For deliberate layering, wrap spans or a list in
+`::: {.incremental data-fragment-effect="dim"}`. Spans also need `.fragment`:
+
+```markdown
+::: {.incremental data-fragment-effect="dim"}
+[First point.]{.fragment}
+
+[Second point.]{.fragment}
+:::
+```
+
+Future points remain hidden; only earlier visible points dim. The effect works
+for spans and list items inside columns. Never preview future text in grey.
+
+## Appendix And Footnotes
+
+Use `## Data {#appendix-data data-kind="appendix"}` to begin a trailing
+appendix. Every later slide belongs to it. The normal counter, Next and End
+stop at the last main slide; appendix counters are separate. Link with
+`[The data](#appendix-data)` and return with `[Back](#result)` to an explicitly
+identified main slide. Live links and browser history work; duplicate explicit
+slide IDs fail rendering. Automatic fallback IDs are `slide-N`, with a suffix
+on collision; explicit IDs are best for durable links.
+
+Standard footnotes (`[^1]` and `[^1]: Source.`) may reuse labels on different
+slides and in presenter cues; generated IDs and backlinks are namespaced.
+Notes remain fenced `::: notes` blocks, never Deckset `^` syntax. Do not add
+Deckset shorthand such as `[.column]`.
+
 ## Themes
 
-Themes are deck-local CSS selector blocks selected by front matter. Packaged
-theme seeds are `sage`, `mono-grid`, and `blank`.
+Select bundled Bootstrap, Bootswatch, Elegant, Reading or Tufte themes by
+name, for example `deck.theme: nocturne` or `deck.theme: simplex-reading`, with
+`deck.color-mode: light|dark|auto`. All 35 paired themes map importance in both
+modes. Deck-local CSS selector blocks also work; legacy seeds are `sage`,
+`mono-grid`, and `blank`.
 
 Use:
 
@@ -73,9 +182,8 @@ quarto run _extensions/htmpres/htmpres.ts theme add <deck>/index.qmd <name> --fr
 quarto run _extensions/htmpres/htmpres.ts theme set <deck>/index.qmd <name>
 ```
 
-After adding a custom theme, edit `<deck>/source.css`; do not add a global theme
-registry. Keep slide source semantic by using classes and CSS variables rather
-than hard-coded visual styling.
+After adding a custom theme, edit `<deck>/source.css`. Keep slide source
+semantic; appearance and CSS variables belong in the stylesheet.
 
 ## Safety
 

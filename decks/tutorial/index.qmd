@@ -382,9 +382,9 @@ Use `.transition-zoom` or `data-transition="zoom"`.
 Transitions are CSS-level choices on the slide. Fragment and code steps still consume navigation before the deck changes slides.
 :::
 
-## Mixed Transition Order {data-section="Authoring" data-title="Mixed Transition Order"}
+## Mixed Step Order {data-section="Authoring" data-title="Mixed Step Order"}
 
-[Precedence]{.eyebrow}
+[One step graph]{.eyebrow}
 
 :::: {.mixed-transition}
 ::: {.card .mixed-copy}
@@ -396,25 +396,25 @@ Transitions are CSS-level choices on the slide. Fragment and code steps still co
 :::
 
 ::: {.fragment .focus-panel .compact-panel data-fragment-effect="highlight"}
-### Then code
+### Source order
 
-After every list item and fragment is visible, code line steps start.
+This example puts text before code. Explicit shared frame numbers can advance both columns together.
 :::
 :::
 
 :::: {.code-card .mixed-code}
-```{.js .numberLines data-steps="none|2|3|all"}
-const queue = collectFragments(slide);
-if (queue.hasNext()) {
-  return queue.next();
+```{.js .numberLines data-steps="2|3|all"}
+const frames = compileSteps(slide);
+if (frames.hasNext()) {
+  return frames.next();
 }
-return codeSteps.next();
+return nextSlide();
 ```
 ::::
 ::::
 
 ::: callout
-Order on mixed slides is deliberate: fragments and incremental list items first, then code line steps, then the next slide. Persistent `data-highlight` lines do not consume a step.
+Mixed events follow source order unless explicit frame numbers synchronize them. Earlier ordinary text stays visible while code advances. Persistent `data-highlight` lines do not consume a step.
 :::
 
 ::: notes

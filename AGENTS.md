@@ -195,6 +195,9 @@ prefer the Just targets below.
 
 ```bash
 just tutorial
+just semantic
+just semantic-test
+just lint slides.qmd
 just example
 just theme-gallery
 just docs
@@ -216,6 +219,16 @@ just check
 npm run render -- decks/tutorial/index.qmd
 npm run verify
 ```
+
+The semantic demo source is `decks/semantic/index.qmd`. `just semantic-test`
+checks semantic importance across every paired theme and the rendered demo's
+source/IDs/math assets. `just lint <path> [more paths]` emits versioned JSON
+for forbidden standalone body `---` rules; initial YAML and code are exempt.
+Both `just verify <path> [more paths]` and `just node-verify <path> [more paths]`
+check explicit QMD names such as `slides.qmd`; without paths they discover
+`decks/**/index.qmd`. `just compat-check` also runs focused renderer, step and
+navigation tests using Node. The rerunnable browser flow is
+`integration_tests/semantic-browser.mjs`, called from CUA against the demo.
 
 The SmallDocs targets use pinned SmallDocs 0.5.5 via `uvx` (or
 `SMALLDOCS_BIN`). `just docs` renders the public example, generates all theme

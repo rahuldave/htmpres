@@ -34,8 +34,17 @@ Quarto containers are more general.
 | Imported HTML preservation for fragments | Done | The converter preserves known fragment classes and verification tracks fragment data attributes. |
 | Imported HTML preservation for media containers | Done | The converter protects the documented `ds-*` container/filter wrapper classes when converting HTML snapshots to QMD. |
 | Code step transitions | Done | Line-step navigation works; a leading `none` step starts with no highlighted line. |
-| Mixed fragments, bullets, and code steps | Done | The current precedence is documented and tested: generic fragments and incremental list items first, then code steps, then slide navigation. |
-| Source-order interleaving of code and text fragments | Open | A unified step graph could let code steps sit between earlier and later fragments on the same slide. |
+| Mixed fragments, bullets, code and equation steps | Done | A shared step graph supports explicit synchronized frames and implicit source order. Ordinary explanations remain visible. |
+| Source-order interleaving of code and text fragments | Done | Use `data-step-indices` to map snapshots to shared `data-fragment-index` values; unmapped mixed events follow source order. See [Semantic slides](semantic-authoring.md). |
 | Core Image-style filter matching | Done by browser approximation | `noir`, `chrome`, `fade`, `vivid`, exposure, and `sharpen` now use stable CSS/SVG mappings and compose in a single filter chain. |
 | Pixel-exact Apple Core Image output | Open | Browser CSS/SVG filters do not expose Apple's private photo-effect lookup tables, so exact pixel parity would need a heavier preprocessing/export path. |
 | Broader export/print parity | Open | Print shows all fragments, but deeper PDF/export transition parity is not implemented. |
+
+## Semantic Authoring
+
+Importance (`.key` / `.aside`), local classed KaTeX math, title emphasis,
+unique footnote anchors, live named slide links and appendix boundaries are
+implemented. Standalone body `---` rules are errors; `lint ... --json` supplies
+machine-readable diagnostics. Credits/conclusion templates and Deckset
+shorthand are deliberately deferred; the former was information only in this
+workstream. See [Semantic slides](semantic-authoring.md) for exact syntax.

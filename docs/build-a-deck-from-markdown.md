@@ -5,6 +5,11 @@ the custom `htmpres` slide shell.
 
 The companion deck lives at `decks/tutorial/index.qmd`.
 
+For semantic importance, offline math, shared text/code/equation steps and
+appendix links, see [Semantic slides](semantic-authoring.md) and its complete
+audience/presenter example. New slides start with `##`; standalone body `---`
+outside code is an error. Check with `htmpres.ts lint slides.qmd --json`.
+
 This workspace uses the local shim `scripts/htmpres.ts`. In a separate project
 where the extension has been installed with `quarto add`, use
 `_extensions/htmpres/htmpres.ts` in the commands instead.
@@ -266,20 +271,18 @@ runtime add the matching class:
 Supported slide transitions are `.transition-fade`, `.transition-slide`,
 `.transition-zoom`, and `.transition-none`.
 
-When a slide mixes transition modalities, the runtime uses this order:
+Mixed slides use one step graph. Shared `data-fragment-index` text numbers
+and code/equation `data-step-indices` mappings advance together, even across
+columns. Sparse numbers consume no empty keypresses. Without mappings, mixed
+events run in source order. Ordinary revealed text remains visible; `dim`
+keeps the latest text point current until another text point appears. Only
+legacy unmapped code-only slides retain their first-snapshot baseline and
+shared kth snapshots across code blocks.
 
-1. Generic fragments, including `.incremental` list items, reveal first in
-   source order. Matching `data-fragment-index` values reveal together.
-2. Code line steps run after all generic fragments on the slide are visible.
-   Multiple stepped code blocks share one code-step counter.
-3. The next navigation action changes slides and the destination slide's
-   transition runs.
-
-Persistent `data-highlight` lines are not transition steps. They are applied
-whenever the code block is visible. Slide transitions do not consume a
-navigation step; they run only when entering a slide. When code stepping
-begins, any current-fragment styling is cleared because the active modality has
-moved to code.
+Persistent `data-highlight` lines and slide transitions do not consume a
+navigation step. The transition runs when entering the next slide after all
+frames have completed. See [Semantic slides](semantic-authoring.md) for
+copyable shared code/text/equation examples.
 
 ## 11. Add Images And Deckset-Inspired Layouts
 

@@ -2,6 +2,10 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 
+import { extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, splitFrontMatter as splitSourceFrontMatter } from "../_extensions/htmpres/lib/source.mjs";
+
+import { unnamespacedPandocIds } from "../_extensions/htmpres/lib/render.mjs";
+
 const root = process.cwd();
 const sourceRoot = path.join(root, "source_presentations");
 const decksDir = path.join(root, "decks");
@@ -26,8 +30,10 @@ const interactiveAttrs = [
 ];
 const failures = [];
 const sourceSlugs = new Set();
+const explicit = process.argv.slice(2);
+const selected = explicit.length ? [...new Set(explicit.map(file => path.resolve(root, file)))].sort() : discoverQmdDecks();
 
-for (const sourcePath of discoverSourceDecks()) {
+for (const sourcePath of explicit.length ? [] : discoverSourceDecks()) {
   const slug = inferSlug(sourcePath);
   sourceSlugs.add(slug);
   const deckDir = path.join(decksDir, slug);
@@ -36,7 +42,7 @@ for (const sourcePath of discoverSourceDecks()) {
   const audiencePath = path.join(deckDir, "index.html");
   const presenterPath = path.join(deckDir, "presenter.html");
 
-  const qmd = readRequired(qmdPath);
+  const qmd = readRequired(qmdPath, "QMD source");
   const audience = readRequired(audiencePath);
   const presenter = readRequired(presenterPath);
   const notes = extractDeckNotes(presenter);
@@ -88,11 +94,11 @@ for (const sourcePath of discoverSourceDecks()) {
   console.log(formatRow(row));
 }
 
-for (const qmdPath of discoverQmdDecks()) {
+for (const qmdPath of selected) {
   const slug = path.basename(path.dirname(qmdPath));
   if (sourceSlugs.has(slug)) continue;
   const deckDir = path.dirname(qmdPath);
-  const qmd = readRequired(qmdPath);
+  const qmd = readRequired(qmdPath, "QMD source");
   const audiencePath = path.join(deckDir, "index.html");
   const presenterPath = path.join(deckDir, "presenter.html");
   const audience = readRequired(audiencePath);
@@ -160,6 +166,7 @@ function discoverQmdDecks() {
 
 function findFiles(dir, predicate) {
   const found = [];
+  if (!existsSync(dir)) return found;
   for (const entry of readdirSync(dir)) {
     const fullPath = path.join(dir, entry);
     const stat = statSync(fullPath);
@@ -175,15 +182,16 @@ function inferSlug(sourcePath) {
   return parsed.name;
 }
 
-function readRequired(file) {
+function readRequired(file, kind = "generated file") {
   if (!existsSync(file)) {
-    fail(path.basename(path.dirname(file)), file, "missing generated file");
+    fail(path.basename(path.dirname(file)), file, `missing ${kind}${kind === "generated file" ? "; render its QMD source first" : ""}`);
     return "";
   }
   return readFileSync(file, "utf8");
 }
 
 function verifyQmdVerbatimBlocks(deck, qmd, file) {
+  for (const diagnostic of lintSource(qmd, path.relative(root, file))) fail(deck, file, `${diagnostic.code} at ${diagnostic.line}:${diagnostic.column}: ${diagnostic.message}`);
   const blocks = extractExpectedPreBlocks(qmd);
   blocks.forEach((block, index) => {
     if (!block.trim()) fail(deck, file, `verbatim block ${index + 1} is empty`);
@@ -219,7 +227,7 @@ function verifyGeneratedHtml(deck, qmd, html, file, mode) {
   }
 
   if (/@@HTMPRES_RAW_\d+@@/.test(html)) fail(deck, file, "unrestored raw HTML placeholder token remains in output");
-  if (/\bid="cb\d+(?:-\d+)?"|\bhref="#cb\d+(?:-\d+)?"/.test(html)) fail(deck, file, "unnamespaced Pandoc code anchor remains in output");
+  if (unnamespacedPandocIds(html).length) fail(deck, file, "unnamespaced Pandoc code or footnote anchor remains in output");
   if (/index_files\/libs\/revealjs|revealjs\/|Reveal\.initialize/.test(html)) fail(deck, file, "reveal.js reference remains in custom renderer output");
   if (mode === "audience" && /<script\b[^>]*\bid="deckNotes"/i.test(html)) fail(deck, file, "audience output contains presenter notes JSON");
   if (mode === "presenter" && !/<script\b[^>]*\bid="deckNotes"/i.test(html)) fail(deck, file, "presenter output is missing presenter notes JSON");
@@ -291,13 +299,7 @@ function presenterNoteSlots(html) {
 }
 
 function splitFrontMatter(text) {
-  if (!text.startsWith("---\n")) return { yaml: "", body: text };
-  const end = text.indexOf("\n---", 4);
-  if (end < 0) return { yaml: "", body: text };
-  return {
-    yaml: text.slice(4, end),
-    body: text.slice(end + 4).replace(/^\s*\n/, ""),
-  };
+  return splitSourceFrontMatter(text);
 }
 
 function parseSimpleYaml(yaml) {
@@ -342,109 +344,11 @@ function stripYamlQuotes(value) {
 }
 
 function parseSlides(body) {
-  const lines = body.split(/\r?\n/);
-  const slides = [];
-  let current = null;
-  let inFence = false;
-  let fenceChar = "";
-  let fenceLen = 0;
-  for (const line of lines) {
-    const fence = /^(`{3,}|~{3,})/.exec(line);
-    if (fence) {
-      const marker = fence[1];
-      if (!inFence) {
-        inFence = true;
-        fenceChar = marker[0];
-        fenceLen = marker.length;
-      } else if (marker[0] === fenceChar && marker.length >= fenceLen) {
-        inFence = false;
-      }
-    }
-
-    const heading = !inFence ? /^##\s+(.+?)(?:\s+(\{.*\}))?\s*$/.exec(line) : null;
-    if (heading) {
-      if (current) slides.push(current);
-      current = {
-        title: heading[1].trim(),
-        attrText: heading[2] || "",
-        bodyLines: [],
-      };
-    } else if (current) {
-      current.bodyLines.push(line);
-    }
-  }
-  if (current) slides.push(current);
-  return slides.map((slide) => ({
-    ...slide,
-    body: slide.bodyLines.join("\n").trim(),
-  }));
+  return parseSourceSlides(body);
 }
 
 function extractNotes(markdown) {
-  if (!markdown.trim()) return { body: markdown, notes: "" };
-  const bodyLines = [];
-  const noteBlocks = [];
-  const lines = markdown.split(/\r?\n/);
-  let inNotes = false;
-  let notesFenceLen = 0;
-  let currentNotes = [];
-  let inCodeFence = false;
-  let codeFenceChar = "";
-  let codeFenceLen = 0;
-
-  for (const line of lines) {
-    const codeFence = /^(`{3,}|~{3,})/.exec(line);
-    if (codeFence) {
-      const marker = codeFence[1];
-      if (!inCodeFence) {
-        inCodeFence = true;
-        codeFenceChar = marker[0];
-        codeFenceLen = marker.length;
-      } else if (marker[0] === codeFenceChar && marker.length >= codeFenceLen) {
-        inCodeFence = false;
-      }
-    }
-
-    if (!inNotes) {
-      const opening = inCodeFence ? null : noteFenceOpening(line);
-      if (opening) {
-        inNotes = true;
-        notesFenceLen = opening.length;
-        currentNotes = [];
-        continue;
-      }
-      bodyLines.push(line);
-      continue;
-    }
-
-    if (!inCodeFence && noteFenceClosing(line, notesFenceLen)) {
-      noteBlocks.push(currentNotes.join("\n").trim());
-      inNotes = false;
-      notesFenceLen = 0;
-      currentNotes = [];
-      continue;
-    }
-
-    currentNotes.push(line);
-  }
-
-  if (inNotes) noteBlocks.push(currentNotes.join("\n").trim());
-
-  return {
-    body: bodyLines.join("\n").trim(),
-    notes: noteBlocks.filter(Boolean).join("\n\n"),
-  };
-}
-
-function noteFenceOpening(line) {
-  const match = /^(:{3,})\s+(?:notes|\{\s*\.notes\s*\})\s*$/.exec(line.trim());
-  return match ? { length: match[1].length } : null;
-}
-
-function noteFenceClosing(line, fenceLen) {
-  const trimmed = line.trim();
-  if (!trimmed || /[^:]/.test(trimmed)) return false;
-  return trimmed.length >= fenceLen;
+  return extractSourceNotes(markdown);
 }
 
 function extractExpectedPreBlocks(qmd) {
@@ -629,7 +533,7 @@ function formatRow(row) {
 }
 
 function stripCodeFences(text) {
-  return text.replace(/^(`{3,}|~{3,})[\s\S]*?^\1\s*$/gm, "");
+  return maskCodeAndMetadata(text);
 }
 
 function stripHtmlPreBlocks(text) {

@@ -10,6 +10,8 @@ template:
 
 - Quarto-run CLI: owns `html -> qmd`, `qmd -> html`, and verification.
 - Runtime assets: custom deck JavaScript, interaction helper, and base CSS.
+- Offline math: bundled KaTeX JS/CSS/fonts/license, staged to each rendered
+  deck's `assets/htmpres-math/`. Viewing requires no network package install.
 - Extension folder: `_extensions/htmpres` contains the runner, packaged runtime
   assets, and authoring templates, so `quarto add` can install it into another
   project.
@@ -59,9 +61,14 @@ htmpres/
     htmpres/
       _extension.yml
       htmpres.ts            # installable Quarto/Deno CLI
+      lib/                  # shared source scanner and HTML fragment helpers
+      vendor/katex/         # pinned math engine, fonts, license and provenance
       runtime/
         htmpres-custom-deck.js
         htmpres-interactions.html
+        htmpres-math.js
+        htmpres-semantic.css
+        htmpres-steps.css
   scripts/
     htmpres.ts              # local shim to _extensions/htmpres/htmpres.ts
     html-to-qmd.mjs         # optional Node fallback
@@ -85,6 +92,8 @@ just convert source.html
 just render decks/example/index.qmd
 just render-all
 just verify
+just lint decks/semantic/index.qmd
+just semantic-test
 just check
 just node-check
 just compat-check
@@ -134,10 +143,16 @@ Use two distribution paths:
   into package-friendly paths. It should wrap the Quarto/Deno CLI rather than
   becoming the required runtime.
 
-This workspace currently has Quarto 1.0.37, which can run the Deno script but
-does not include `quarto add`. Extension installation should be tested on a
-modern Quarto with `quarto add`; the `_extension.yml` declares
-`quarto-required: ">=1.2.0"` for that path.
+The website build pins Quarto 1.8.26; use a modern Quarto with `quarto add`.
+The `_extension.yml` declares `quarto-required: ">=1.2.0"`. Focused tests copy
+the extension into a scratch project and render with its bundled helpers and
+math assets. A workspace init copies the complete extension recursively.
+
+The renderer writes HTML plus local math/theme assets. Copy the entire deck
+folder to share it offline. Presenter notes remain in `presenter.html` only.
+The public website stages one shared math bundle and rewrites its URLs for
+every comparison variant and the semantic demo. KaTeX provenance and hashes
+are recorded under `vendor/katex/provenance.json`.
 
 See `docs/quarto-extension.md` for the install commands and official Quarto
 documentation links that informed this packaging decision.

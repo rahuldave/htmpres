@@ -1,5 +1,8 @@
 # Semantic slides
 
+See the [implementation and browser-test report](semantic-authoring-report.md)
+for the downstream skill contract and feature commits.
+
 Write the argument in QMD; let the theme choose fonts and colors. The complete
 [example source](_generated/source/semantic.qmd.txt) contains no inline styles
 or color values. Open the [audience deck](_generated/semantic/index.html) or

@@ -11,7 +11,7 @@ Included:
 
 - `_extensions/htmpres/`: installable Quarto utility extension and runtime.
 - `decks/tutorial/`: hand-authored tutorial deck and tutorial assets.
-- `decks/example/`: nine-slide Nocturne example with inline speaker notes.
+- `decks/example/`: twelve-slide Nocturne feature tour with inline speaker notes.
 - `decks/semantic/`: semantic importance, offline math, mixed steps and appendix links.
 - `decks/scripts/`: project-local runtime copies used by this workspace.
 - `docs/`: SmallDocs site with authoring guides and a 38-theme comparison.

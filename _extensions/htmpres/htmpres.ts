@@ -1,3 +1,4 @@
+import { readPreviewHtml, queueRenders, shouldWatchPath } from "./lib/preview.mjs";
 import { colorModeControl, colorModeScript, legacyThemes, resolveTheme, themeAssets, themeAttributes, themeStyles, validateThemeName } from "./themes/themes.mjs";
 
 import { assignSlideIds, renderTitle, namespacePandocIds, unnamespacedPandocIds } from "./lib/render.mjs";
@@ -267,7 +268,7 @@ Commands:
   theme     List, inspect, add, or select deck-local theme seeds.
   convert   Convert HTML decks in source_presentations/ to decks/*/index.qmd.
   render    Render QMD decks to index.html and presenter.html.
-  serve     Render and serve one deck folder; --watch rerenders on file changes.
+  serve     Render and serve one deck folder; --watch rebuilds and reloads the browser.
   lint      Reject standalone body --- rules; use ## to start each slide.
   verify    Compare copied source decks, QMD, and rendered HTML outputs.
   all       Run convert, render, and verify.
@@ -622,8 +623,12 @@ async function serveCommand(args: string[]) {
   const deckDir = dirname(deckPath);
   const port = numericOption(args, "--port") ?? 8000;
   const host = optionValue(args, "--host", "127.0.0.1");
-  await renderDeck(deckPath);
-  if (hasFlag(args, "--watch")) watchAndRender(deckPath);
+  const watching = hasFlag(args, "--watch");
+  const session = crypto.randomUUID();
+  let revision = 0;
+  const preview = watching ? () => `${session}:${revision}` : undefined;
+  if (watching) await watchAndRender(deckPath, () => { revision++; });
+  else await renderDeck(deckPath);
 
   const deno = Deno as unknown as {
     listen: typeof Deno.listen;
@@ -636,7 +641,7 @@ async function serveCommand(args: string[]) {
   const listener = deno.listen({ hostname: host, port });
   console.log(`Serving ${relativePath(root, deckDir)} at http://${host}:${port}/`);
   for await (const conn of listener) {
-    handleHttpConnection(conn, deckDir, deno.serveHttp).catch((error) => {
+    handleHttpConnection(conn, deckDir, deno.serveHttp, preview).catch((error) => {
       console.error(error instanceof Error ? error.message : String(error));
     });
   }
@@ -1360,49 +1365,40 @@ function countMatches(text: string, re: RegExp) {
   return text.match(re)?.length || 0;
 }
 
-function watchAndRender(deckPath: string) {
-  const watcher = Deno.watchFs(dirname(deckPath));
-  let pending = false;
+async function watchAndRender(deckPath: string, publish: () => void) {
+  const watchDir = Deno.realPathSync(dirname(deckPath));
+  const watcher = Deno.watchFs(watchDir);
+  const schedule = queueRenders(() => renderDeck(deckPath), publish, (error: unknown) => {
+    console.error(error instanceof Error ? error.message : String(error));
+  });
   (async () => {
     for await (const event of watcher) {
       if (!["create", "modify", "remove"].includes(event.kind)) continue;
-      if (!event.paths.some((path) => shouldRerenderOnPath(path, deckPath))) continue;
-      if (pending) continue;
-      pending = true;
-      setTimeout(async () => {
-        try {
-          await renderDeck(deckPath);
-        } catch (error) {
-          console.error(error instanceof Error ? error.message : String(error));
-        } finally {
-          pending = false;
-        }
-      }, 120);
+      if (event.paths.some((path) => shouldWatchPath(relativePath(watchDir, path)))) schedule();
     }
   })();
-}
-
-function shouldRerenderOnPath(path: string, deckPath: string) {
-  const deckDir = dirname(deckPath);
-  const rel = relativePath(deckDir, path);
-  if (rel.startsWith("assets/htmpres-themes/")) return false;
-  if (rel === "index.html" || rel === "presenter.html") return false;
-  if (rel.endsWith(".qmd") || rel.endsWith(".css")) return true;
-  return rel.startsWith("assets/") || rel.startsWith("_extensions/");
+  if (!await schedule.start()) {
+    watcher.close();
+    throw new Error("Initial preview render failed; fix the source and restart serve.");
+  }
 }
 
 async function handleHttpConnection(
   conn: Deno.Conn,
   deckDir: string,
   serveHttp: (conn: Deno.Conn) => AsyncIterable<{ request: Request; respondWith: (response: Response) => Promise<void> }>,
+  preview?: () => string,
 ) {
   for await (const event of serveHttp(conn)) {
-    await event.respondWith(await staticResponse(event.request, deckDir));
+    await event.respondWith(await staticResponse(event.request, deckDir, preview));
   }
 }
 
-async function staticResponse(request: Request, deckDir: string) {
+async function staticResponse(request: Request, deckDir: string, preview?: () => string) {
   const url = new URL(request.url);
+  if (preview && url.pathname === "/_htmpres/preview.json") {
+    return new Response(JSON.stringify({ revision: preview() }), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+  }
   let pathname = decodeURIComponent(url.pathname);
   if (pathname === "/") pathname = "/index.html";
   const file = resolvePath(deckDir, pathname.slice(1));
@@ -1412,8 +1408,12 @@ async function staticResponse(request: Request, deckDir: string) {
   try {
     const stat = Deno.statSync(file);
     const target = stat.isDirectory ? join(file, "index.html") : file;
-    const body = await Deno.readFile(target);
-    return new Response(body, { headers: { "content-type": contentType(target) } });
+    const headers: Record<string, string> = { "content-type": contentType(target) };
+    if (preview) headers["cache-control"] = "no-store";
+    const content = preview && ["index.html", "presenter.html"].includes(parsePath(target).base)
+      ? await readPreviewHtml(async () => decoder.decode(await Deno.readFile(target)), preview)
+      : await Deno.readFile(target);
+    return new Response(content, { headers });
   } catch (error) {
     if (error instanceof Deno.errors.NotFound) return new Response("Not found", { status: 404 });
     throw error;

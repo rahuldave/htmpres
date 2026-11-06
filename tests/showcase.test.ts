@@ -1,5 +1,5 @@
 import { slideTitles, themeChoices, themeVariant, variantPath } from "../scripts/showcase.mjs";
-import { selection } from "../docs/assets/theme-comparison.mjs";
+import { initialSlide, selection } from "../docs/assets/theme-comparison.mjs";
 
 const read = (path: string) => Deno.readTextFileSync(new URL(`../${path}`, import.meta.url));
 const catalog = JSON.parse(read("_extensions/htmpres/themes/catalog.json"));
@@ -9,6 +9,9 @@ const themes = themeChoices(catalog);
 assert(JSON.stringify(slideTitles('## Real {.hero}\n````markdown\n## Example only\n```\n## Still code\n````\n## Second')) === JSON.stringify(["Real", "Second"]), "Ignore headings in nested fenced examples");
 assert(themes.length === 38 && themes.filter(theme => theme.modes.length === 2).length === 35, "Catalog coverage");
 const manifest = { themes, slides: Array.from({ length: 9 }, (_, index) => `Slide ${index + 1}`) };
+assert(slideTitles('## A *claim*', '<section class="slide" data-title="A claim &amp; evidence">')[0] === "A claim & evidence", "Gallery labels use rendered plain titles");
+throws(() => slideTitles('## One', ''));
+for (const [query, expected] of [["?slide=5", 5], ["?slide=9", 9], ["?slide=0", 1], ["?slide=10", 1], ["?slide=1.5", 1], ["?slide=bad", 1], ["", 1]]) assert(initialSlide(query, manifest) === expected, `Feature link ${query}`);
 const first = selection("nocturne", "light", "audience", 1, manifest);
 const next = selection("nocturne", "light", "audience", 4, manifest);
 assert(first.preview.split("#")[0] !== next.preview.split("#")[0], "Slide changes must reload the document, not only the hash");
@@ -21,6 +24,16 @@ for (const args of [["missing", "light", "audience", 1], ["blank", "dark", "audi
 throws(() => variantPath("../escape", "light", "audience", catalog));
 const canonical = read("decks/example/index.html");
 const presenter = read("decks/example/presenter.html");
+// The main gallery itself must demonstrate the features, not only a separate deck.
+assert((canonical.match(/<section class="slide/g) || []).length === 12, "Main showcase has ten talk slides and two appendix slides");
+for (const id of ["importance", "layering", "code-steps", "equation-steps", "main-result", "appendix-data", "appendix-detail"]) {
+  assert(canonical.includes(`id="${id}"`), `Main showcase demonstrates ${id}`);
+}
+assert((canonical.match(/data-step-indices="1\|3\|7"/g) || []).length === 2, "Code and equation lanes synchronize with explaining text");
+assert(canonical.includes('data-equation-steps="term-a|term-b|term-a,term-b"'), "Main gallery has real equation steps");
+assert(canonical.includes('data-fragment-effect="dim"') && canonical.includes('class="fragment"'), "Main gallery demonstrates span and list layering");
+assert(canonical.includes('<em>source</em>') && canonical.includes('id="slide-3-fn1"') && canonical.includes('id="slide-11-fn1"'), "Title emphasis and repeated footnotes are demonstrated");
+
 const options = { catalog, templateCss: read("_extensions/htmpres/templates/source.css"), localCss: read("decks/example/source.css"), blankCss: "html[data-theme=\"blank\"] { --paper: white; }" };
 for (const theme of themes) for (const mode of theme.modes) {
   for (const input of [canonical, presenter]) {

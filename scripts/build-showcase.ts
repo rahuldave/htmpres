@@ -50,7 +50,7 @@ write("source/semantic.qmd.txt", read("decks/semantic/index.qmd"));
 for (const asset of catalog.themes.nocturne.assets) {
   if (asset.startsWith("fonts/")) copy(new URL(`_extensions/htmpres/themes/${asset}`, root), new URL(`docs/_extensions/nocturne/${asset}`, root));
 }
-const titles = slideTitles(read("decks/example/index.qmd"));
+const titles = slideTitles(read("decks/example/index.qmd"), canonical.audience);
 write("manifest.json", JSON.stringify({ version: 1, themes, slides: titles }, null, 2) + "\n");
 write("source/index.qmd.txt", read("decks/example/index.qmd"));
 write("source/source.css.txt", read("decks/example/source.css"));

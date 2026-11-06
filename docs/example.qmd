@@ -2,8 +2,10 @@
 title: One source. Two views.
 ---
 
-A nine-slide example introduces the workflow and demonstrates columns, a card,
-incremental bullets, code steps, a zoomable SVG and inline presenter notes.
+A twelve-slide feature tour has ten talk slides and two appendix slides. It
+shows semantic importance, synchronized code and text, classed equations,
+hide-then-dim layering, appendix navigation, footnotes, title emphasis, a
+zoomable SVG and inline presenter notes.
 **Nocturne** is its declared theme, with automatic light/dark selection in the
 source. The links here open fixed light and dark examples.
 
@@ -16,11 +18,21 @@ source. The links here open fixed light and dark examples.
 
 ## Try the interactions
 
-- Slide 4: use **Next** or **Space** to reveal the argument one point at a time.
-- Slide 5: step through the code emphasis.
-- Slide 6: click the diagram to zoom, then close it with **Escape**.
-- Slide 7: compare the visible notes syntax with the actual cues in presenter view.
-- Press **O** for the overview. Use the outline to jump to a slide.
+| Feature | Try it | What to do |
+|---|---|---|
+| Inline title emphasis | [Slide 1](compare.qmd?slide=1) | The word “source” is emphasized; navigation uses plain text. |
+| Importance and footnotes | [Slide 3](compare.qmd?slide=3) | Compare key/aside spans and blocks. Follow the footnote and return arrow. |
+| Dim layering | [Slide 4](compare.qmd?slide=4) | Advance four times. Future spans and list items stay hidden; past points dim. |
+| Code + changing text | [Slide 5](compare.qmd?slide=5) | Advance three times. The highlighted line and matching explanation change together. |
+| Equation + changing text | [Slide 6](compare.qmd?slide=6) | Advance three times. Classed math terms and explanations share the same frames. |
+| Media | [Slide 7](compare.qmd?slide=7) | Click the diagram to zoom, then press Escape. |
+| Speaker notes | [Slide 8](compare.qmd?slide=8) | Choose Presenter with notes to see the actual cue beside the source example. |
+| Appendix | [Slide 10](compare.qmd?slide=10) | End/Next stop at 10 / 10. Follow “The supporting data,” visit both appendix slides, and return. |
+
+The appendix reuses the footnote label from slide 3 with independent IDs. Its
+second slide inherits appendix status. Press **O** for the overview or use the
+outline to jump. Read the [exact semantic syntax](semantic-authoring.md),
+including the machine-readable slide-break check.
 
 ## Edit the source
 
@@ -33,8 +45,11 @@ as `assets/two-views.svg`. The complete editable example is also committed under
 `decks/example/` in the repository. Render it with:
 
 ```sh
-just render decks/example/index.qmd
+quarto run scripts/htmpres.ts serve decks/example/index.qmd --watch
 ```
+
+The viewer rebuilds and reloads automatically after saves, keeping the current
+slide and audience/presenter view.
 
 The Markdown download includes the public example's speaking cues. See
 [the authoring guide](build-a-deck-from-markdown.md) for your own decks, or

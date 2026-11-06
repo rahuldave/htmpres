@@ -24,3 +24,5 @@
 body:has(#theme-comparison) #quarto-sidebar { display:none; }
 body:has(#theme-comparison) #quarto-content { grid-template-columns:[body] minmax(0,1fr); --sd-left:0px; }
 body:has(#theme-comparison) .quarto-btn-toggle { display:none; }
+
+.feature-jumps { display:flex; flex-wrap:wrap; align-items:baseline; gap:.6rem 1rem; margin:1rem 0; }

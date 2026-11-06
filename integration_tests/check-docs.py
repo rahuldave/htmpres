@@ -54,7 +54,7 @@ def crawl(site):
             check_url(css, url)
     generated = site / '_generated'
     manifest = json.loads((generated / 'manifest.json').read_text())
-    assert len(manifest['themes']) == 38 and len(manifest['slides']) == 9
+    assert len(manifest['themes']) == 38 and len(manifest['slides']) == 12
     audience_reference = None
     note_reference = None
     count = 0
@@ -65,7 +65,9 @@ def crawl(site):
                 text = page.read_text()
                 # Everything from the first slide through the stage is invariant.
                 slides = re.findall(r'<section\b[^>]*class="[^"]*\bslide\b[^>]*>.*?</section>', text, re.S)
-                assert len(slides) == 9, f'{page}: slide count'
+                assert len(slides) == 12, f'{page}: slide count'
+                for feature in ('id="code-steps"', 'id="equation-steps"', 'data-equation-steps="term-a|term-b|term-a,term-b"', 'id="appendix-data"', 'data-kind="appendix"', 'href="#main-result"', 'id="slide-3-fn1"', 'id="slide-11-fn1"', '<em>source</em>'):
+                    assert feature in text, f'{page}: missing main showcase feature {feature}'
                 if audience_reference is None: audience_reference = slides
                 assert slides == audience_reference, f'{page}: changed slide content'
                 notes = re.search(r'<script id="deckNotes" type="application/json">(.*?)</script>', text, re.S)
@@ -74,7 +76,7 @@ def crawl(site):
                 else:
                     assert notes, f'{page}: missing notes'
                     cues = json.loads(notes[1])
-                    assert len(cues) == 9 and all(f'Presenter cue {i+1}.' in cue for i, cue in enumerate(cues))
+                    assert len(cues) == 12 and all(f'Presenter cue {i+1}.' in cue for i, cue in enumerate(cues))
                     if note_reference is None: note_reference = cues
                     assert cues == note_reference, f'{page}: changed notes'
                 count += 1

@@ -4,16 +4,22 @@ export function selection(theme, mode, view, slide, manifest) {
   if (!entry || !entry.modes.includes(mode) || !["audience", "presenter"].includes(view) ||
       !Number.isInteger(slide) || slide < 1 || slide > manifest.slides.length) throw new Error("Invalid comparison selection");
   const file = view === "presenter" ? "presenter.html" : "index.html";
-  // A changing query forces a document load: the deck reads the hash only at startup.
+  // A changing query forces a document load: each choice starts the slide at its first frame.
   const path = `_generated/decks/${theme}/${mode}/${file}`;
   return { preview: `${path}?compare-slide=${slide}#/${slide}`, open: `${path}#/${slide}`,
     config: `deck:\n  theme: ${theme}${entry.family === "legacy" ? "" : `\n  color-mode: ${mode}`}` };
+}
+
+export function initialSlide(search, manifest) {
+  const slide = Number(new URLSearchParams(search).get("slide"));
+  return Number.isInteger(slide) && slide >= 1 && slide <= manifest.slides.length ? slide : 1;
 }
 
 export async function startComparison(root, manifest) {
   const slideSelect = root.querySelector("#compare-slide");
   const viewSelect = root.querySelector("#compare-view");
   manifest.slides.forEach((title, index) => slideSelect.add(new Option(`${index + 1}. ${title}`, String(index + 1))));
+  slideSelect.value = String(initialSlide(location.search, manifest));
   const panes = [...root.querySelectorAll(".compare-pane")];
   const states = panes.map((pane, index) => ({ pane, theme: index === 0 ? "nocturne" : "simplex-reading", mode: "light" }));
   for (const state of states) {
@@ -52,7 +58,18 @@ export async function startComparison(root, manifest) {
     state.pane.querySelector(".theme-config").textContent = links.config;
     state.pane.querySelector(".theme-detail").textContent = `${entry.family} · ${entry.native} native. ${entry.complementary || "Paired source palettes."}`;
   }
-  for (const select of [slideSelect, viewSelect]) select.addEventListener("change", () => states.forEach(render));
+  function renderBoth() {
+    states.forEach(render);
+    const url = new URL(location.href);
+    url.searchParams.set("slide", slideSelect.value);
+    history.replaceState(null, "", url);
+  }
+  for (const select of [slideSelect, viewSelect]) select.addEventListener("change", renderBoth);
+  for (const link of root.querySelectorAll(".feature-jump")) link.addEventListener("click", event => {
+    event.preventDefault();
+    slideSelect.value = String(initialSlide(new URL(link.href).search, manifest));
+    renderBoth();
+  });
   states.forEach(render);
   root.querySelector("#compare-status").textContent = `${manifest.themes.length} themes · ${manifest.slides.length} slides`;
 }

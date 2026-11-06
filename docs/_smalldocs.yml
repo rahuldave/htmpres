@@ -19,6 +19,7 @@ project:
 website:
   title: htmpres
   description: Markdown presentations with a custom HTML renderer, speaker notes and paired themes.
+  site-url: https://rahuldave.com/htmpres/
   repo-url: https://github.com/rahuldave/htmpres
   page-navigation: true
   navbar:

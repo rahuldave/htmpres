@@ -78,3 +78,21 @@ rerun `just docs` first. To use your own installed SmallDocs executable, set
 `just check` verifies the renderer, example, site and local links. `just
 compat-check` also checks the optional Node renderer. Node is not needed for
 the default build.
+
+## Publish the project website
+
+The project's [live documentation](https://rahuldave.com/htmpres/) is hosted
+on GitHub Pages. The `Website` workflow checks the site on pull requests and
+publishes successful builds of `main`. It uploads only `docs/_site/`, including
+the public example and theme comparison. Private imported decks and internal
+workflow/spec pages are excluded from the publication allowlist.
+
+```sh
+just pages-build
+just pages-deploy
+```
+
+The first command builds and checks the exact Pages artifact locally. The second
+requires GitHub CLI access to this repository and starts a deployment of `main`.
+Follow its progress in the repository's **Actions → Website** page. No generated
+HTML needs to be committed. Pages uses GitHub Actions as its publishing source.

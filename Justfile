@@ -26,6 +26,14 @@ showcase-test: example
 docs-check: docs showcase-test
   python3 integration_tests/check-docs.py docs/_site
 
+# Build the checked Pages artifact with an explicit static-site marker.
+pages-build: docs-check
+  touch docs/_site/.nojekyll
+
+# Redeploy main through the repository's GitHub Pages workflow.
+pages-deploy:
+  gh workflow run pages.yml --ref main
+
 # Preview the documentation. Rerun just docs after changing the example deck.
 docs-serve port="8770": docs
   scripts/smalldocs.sh preview docs --port {{port}} --host 127.0.0.1 --no-browser

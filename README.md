@@ -4,6 +4,9 @@
 that render to a custom HTML presentation shell. The published repo includes
 public tutorial and example decks, reusable renderer code, and a SmallDocs site.
 
+Read the [documentation](https://rahuldave.com/htmpres/) and
+[compare presentation themes](https://rahuldave.com/htmpres/compare.html).
+
 Included:
 
 - `_extensions/htmpres/`: installable Quarto utility extension and runtime.
@@ -26,6 +29,8 @@ just tutorial
 just example
 just docs
 just docs-serve 8770
+just pages-build
+just pages-deploy
 just verify
 just authoring-smoke
 just check
@@ -40,6 +45,13 @@ pinned SmallDocs 0.5.5; the first build may need network access. Use
 Nocturne in light and dark modes, with Nocturne and Simplex Reading as the
 initial comparison pair. `just docs-check` crawls every local page, theme view,
 font and image, and checks notes isolation.
+
+GitHub Actions builds the checked site on pull requests and deploys it to
+[GitHub Pages](https://rahuldave.com/htmpres/) after pushes to `main`. Only
+`docs/_site/` is uploaded, including the explicit public docs allowlist and
+example variants. `just pages-build` creates that verified artifact locally;
+`just pages-deploy` manually reruns the main-branch publishing workflow. GitHub
+Pages must be configured with GitHub Actions as its source.
 
 `just check` uses Quarto/Deno and Python without Node; `just compat-check` also
 exercises the optional Node fallback when Node is available. `just publish`

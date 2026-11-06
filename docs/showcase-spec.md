@@ -33,5 +33,9 @@ decks, specs, or workflow notes. Do not require sibling source checkouts at
 build time. Vendored Nocturne CSS retains source provenance and licenses;
 reuse the already bundled font files during the docs build.
 
-This request creates repository-local documentation and HTML artifacts.
-External hosting and PowerPoint are separate workflows.
+The user subsequently requested GitHub Pages publication and explicitly approved
+making the repository public after GitHub rejected Pages on the private-repo
+plan. Publish the verified `docs/_site/` artifact through GitHub Actions, using
+`https://rahuldave.com/htmpres/` as the canonical site URL. Check pull requests,
+deploy `main`, retain underscore-prefixed resources and verify the live example
+and comparison after merge. PowerPoint remains a separate workflow.

@@ -199,6 +199,8 @@ just example
 just theme-gallery
 just docs
 just docs-check
+just pages-build
+just pages-deploy
 just docs-serve [8770]
 just showcase-test
 just render [decks/tutorial/index.qmd]
@@ -224,6 +226,16 @@ Nocturne site CSS is vendored under `docs/_extensions/nocturne/`; its fonts are
 staged from the existing licensed theme bundle. Generated docs, variants and
 staged fonts remain ignored. `just docs-serve` watches documentation sources;
 rerun `just docs` after changing the deck source or comparison generator.
+
+Website deployment: `.github/workflows/pages.yml` builds with `just pages-build`
+on pull requests and pushes to `main`, and deploys only the verified
+`docs/_site/` artifact on `main`. The Pages source is GitHub Actions. The live
+site is `https://rahuldave.com/htmpres/`. After a merged website change, wait for
+the `Website` workflow and verify the live docs, comparison manifest, and a
+presenter deck. Use `just pages-deploy` to dispatch a retry if necessary. Keep
+repository/source publication separate from the explicit SmallDocs page and
+resource allowlist; do not upload the repository root or ignored private decks.
+`just publish` remains a separate legacy private Sites-preview command.
 
 There is no general typecheck/lint suite yet. For renderer or tutorial
 changes, run `just tutorial` plus `just verify`; use `just check` when changing

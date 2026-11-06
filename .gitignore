@@ -31,3 +31,9 @@ decks/styles/
 !decks/tutorial/assets/**
 !decks/scripts/
 !decks/scripts/**
+
+# Reproducible SmallDocs site, comparison variants and staged theme fonts.
+docs/_site/
+docs/_generated/
+docs/_extensions/nocturne/fonts/
+decks/*/assets/htmpres-themes/

@@ -1,0 +1,46 @@
+---
+title: Compare presentation themes
+toc: false
+sidebar: false
+page-layout: full
+---
+
+The same nine slides, two independent theme choices. Choose a slide and view to
+compare typography, contrast and layout. **35 themes have light/dark pairs**;
+the three original seeds are light only. Complementary palettes are htmpres
+adaptations where the source supplies only one mode.
+
+```{=html}
+<section id="theme-comparison" aria-label="Theme comparison">
+  <div class="compare-toolbar">
+    <label>Compare slide <select id="compare-slide"></select></label>
+    <label>View <select id="compare-view"><option value="audience">Audience slides</option><option value="presenter">Presenter with notes</option></select></label>
+    <span id="compare-status" role="status">Loading theme catalog…</span>
+  </div>
+  <div class="compare-grid">
+    <article class="compare-pane" data-pane="left">
+      <div class="pane-controls"><label>Left theme <select class="theme-select"></select></label><label>Mode <select class="mode-select"></select></label></div>
+      <p class="theme-detail"></p>
+      <div class="deck-preview"><iframe title="Left theme preview" loading="eager"></iframe></div>
+      <p><a class="open-deck" target="_blank" rel="noopener">Open full view ↗</a></p>
+      <pre class="theme-config" aria-label="Left theme declaration"></pre>
+    </article>
+    <article class="compare-pane" data-pane="right">
+      <div class="pane-controls"><label>Right theme <select class="theme-select"></select></label><label>Mode <select class="mode-select"></select></label></div>
+      <p class="theme-detail"></p>
+      <div class="deck-preview"><iframe title="Right theme preview" loading="eager"></iframe></div>
+      <p><a class="open-deck" target="_blank" rel="noopener">Open full view ↗</a></p>
+      <pre class="theme-config" aria-label="Right theme declaration"></pre>
+    </article>
+  </div>
+</section>
+<noscript><p>Enable JavaScript for the comparison, or open the <a href="example.html">example deck</a> and read the <a href="themes.html">theme catalog</a>.</p></noscript>
+<script type="module" src="assets/theme-comparison.mjs"></script>
+```
+
+The shared selector loads the chosen slide in both panes. You can explore each
+embedded deck independently afterward. The pane's mode selector sets its palette;
+open the full view to use the deck's own mode button.
+
+[Download and edit the example](example.qmd#edit-the-source) ·
+[Theme declarations and provenance](themes.md)

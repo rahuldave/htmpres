@@ -1,0 +1,63 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+    - quickstart.qmd
+    - example.qmd
+    - compare.qmd
+    - authoring-cli.md
+    - build-a-deck-from-markdown.md
+    - themes.md
+    - quarto-class-map.md
+    - quarto-extension.md
+    - packaging.md
+    - deckset-feature-status.md
+  resources:
+    - _generated/**
+    - assets/**
+website:
+  title: htmpres
+  description: Markdown presentations with a custom HTML renderer, speaker notes and paired themes.
+  site-url: https://rahuldave.com/htmpres/
+  repo-url: https://github.com/rahuldave/htmpres
+  page-navigation: true
+  navbar:
+    left:
+      - href: quickstart.qmd
+        text: Start a deck
+      - href: example.qmd
+        text: Example
+      - href: compare.qmd
+        text: Compare themes
+    tools:
+      - icon: github
+        href: https://github.com/rahuldave/htmpres
+  sidebar:
+    style: floating
+    contents:
+      - section: Start here
+        contents:
+          - index.qmd
+          - quickstart.qmd
+          - example.qmd
+          - compare.qmd
+      - section: Author
+        contents:
+          - authoring-cli.md
+          - build-a-deck-from-markdown.md
+          - themes.md
+          - quarto-class-map.md
+      - section: Understand & extend
+        contents:
+          - quarto-extension.md
+          - packaging.md
+          - deckset-feature-status.md
+  page-footer:
+    left: htmpres · Markdown to custom HTML
+    right: Built with [SmallDocs](https://github.com/rahuldave/smalldocs) · Nocturne
+
+theme: nocturne
+toc: true
+code-copy: true
+css: assets/site.css

@@ -1,0 +1,9 @@
+{
+  "source": "https://github.com/rahuldave/smalldocs-nocturne",
+  "source_commit": "e9def52c79cb84ec55736a97a4b8cd32cfd12f69",
+  "files": {
+    "nocturne.css": "3b9e625d0706d1863502c0b3ebfffc0e1c4c3a574b27f1da0837c5f9a81a1489",
+    "nocturne-dark.css": "8299682573f7817e9bcd5e4bab04a9e8eb31cbd0e910eeca9ffd748cf9516c1b"
+  },
+  "fonts": "Staged from _extensions/htmpres/themes/fonts by just theme-gallery; OFL notices preserved."
+}

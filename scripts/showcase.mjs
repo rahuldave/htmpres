@@ -1,0 +1,75 @@
+/** Theme variants of one canonical render; no Markdown or note re-parsing. */
+import { colorModeControl, colorModeScript, legacyThemes, resolveTheme, themeAttributes, themeStyles } from "../_extensions/htmpres/themes/themes.mjs";
+
+export function slideTitles(source) {
+  let fence = null;
+  const titles = [];
+  for (const line of source.split(/\r?\n/)) {
+    const marker = /^\s*(`{3,}|~{3,})(.*)$/.exec(line);
+    if (marker) {
+      if (!fence) fence = marker[1];
+      else if (marker[1][0] === fence[0] && marker[1].length >= fence.length && !marker[2].trim()) fence = null;
+      continue;
+    }
+    const heading = /^## (.+?)(?:\s+\{.*\})?$/.exec(line);
+    if (!fence && heading) titles.push(heading[1]);
+  }
+  return titles;
+}
+
+export function themeChoices(catalog) {
+  return [
+    ...Object.entries(catalog.themes).map(([name, entry]) => ({ name, title: entry.title, family: entry.family,
+      modes: ["light", "dark"], native: entry.native, complementary: entry.complementary })),
+    ...legacyThemes.map(name => ({ name, title: name, family: "legacy", modes: ["light"], native: "light",
+      complementary: "Original editable seed; no bundled dark pair." })),
+  ];
+}
+
+export function variantPath(name, mode, view, catalog) {
+  const entry = themeChoices(catalog).find(entry => entry.name === name);
+  if (!entry || !entry.modes.includes(mode) || !["audience", "presenter"].includes(view)) {
+    throw new Error(`Unsupported showcase selection: ${name}/${mode}/${view}`);
+  }
+  return `decks/${name}/${mode}/${view === "presenter" ? "presenter" : "index"}.html`;
+}
+
+function replaceOnce(source, before, after, label) {
+  if (!before || source.split(before).length !== 2) throw new Error(`Showcase renderer boundary changed: ${label}`);
+  return source.replace(before, () => after);
+}
+
+/** Register before the deck's preference listener; full views keep normal behavior. */
+function isolateComparison() {
+  if (!new URLSearchParams(location.search).has("compare-slide")) return;
+  window.addEventListener("storage", event => event.stopImmediatePropagation(), true);
+  document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("colorModeBtn");
+    if (button) button.style.display = "none";
+    const footer = document.querySelector(".footer-controls");
+    if (footer) footer.style.gridTemplateColumns = "minmax(0, 1fr) repeat(4, auto)";
+  });
+}
+
+export function themeVariant(html, { name, mode, catalog, templateCss, localCss, blankCss }) {
+  variantPath(name, mode, "audience", catalog);
+  const base = { light: "nocturne", dark: "nocturne", mode: "auto" };
+  const plan = legacyThemes.includes(name) ? null : resolveTheme({ "deck.theme": name, "deck.color-mode": mode }, catalog);
+  const headEnd = html.indexOf("</head>");
+  if (headEnd < 0) throw new Error("Showcase input has no head");
+  let head = html.slice(0, headEnd);
+  let body = html.slice(headEnd);
+  const oldCss = `${templateCss}\n${themeStyles(base, catalog)}\n${localCss}`;
+  let newCss = `${templateCss}\n${themeStyles(plan, catalog)}\n${name === "blank" ? blankCss : ""}\n${localCss}`;
+  // All variants share the font bundle; slide media remains deck-local.
+  newCss = newCss.replaceAll("assets/htmpres-themes/", "../../../assets/htmpres-themes/");
+  head = replaceOnce(head, oldCss, newCss, "canonical CSS");
+  head = replaceOnce(head, colorModeScript(base), `<script>(${isolateComparison.toString()})();</script>\n${colorModeScript(plan)}`, "color-mode initialization");
+  head = head.replace(/<html\b[^>]*>/, tag => {
+    tag = tag.replace(/ data-(?:theme(?:-light|-dark)?|color-mode(?:-choice)?|bs-theme)="[^"]*"/g, "");
+    const attrs = plan ? themeAttributes(plan) : { "data-theme": name };
+    return tag.slice(0, -1) + Object.entries(attrs).map(([key, value]) => ` ${key}="${value}"`).join("") + ">";
+  });
+  body = replaceOnce(body, colorModeControl(base), colorModeControl(plan), "mode control");
+  return head + body;
+}

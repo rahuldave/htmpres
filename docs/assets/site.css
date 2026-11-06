@@ -1,0 +1,26 @@
+.home-actions { display:flex; flex-wrap:wrap; gap:.65rem; margin:1.8rem 0 2.8rem; }
+.home-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.5rem; margin:2rem 0; }
+.home-grid article { border-top:2px solid var(--bs-primary); padding:1.2rem .3rem; }
+.home-grid h2 { font-size:1.5rem; margin:.7rem 0; border:0; }
+.eyebrow { font:600 .8rem var(--bs-font-sans-serif); text-transform:uppercase; letter-spacing:.08em; color:var(--bs-secondary-color); }
+.example-links { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.compare-toolbar, .pane-controls { display:flex; flex-wrap:wrap; align-items:end; gap:1rem; }
+.compare-toolbar { margin:1.8rem 0; padding:1rem; background:var(--bs-tertiary-bg); border:1px solid var(--bs-border-color); border-radius:.5rem; }
+#theme-comparison label { display:grid; gap:.35rem; min-width:0; max-width:100%; font:600 .85rem var(--bs-font-sans-serif); }
+#theme-comparison select { color:var(--bs-body-color); background:var(--bs-body-bg); border:1px solid var(--bs-border-color); border-radius:.3rem; min-height:2.6rem; padding:.35rem .6rem; max-width:100%; font:400 .9rem var(--bs-font-sans-serif); }
+#theme-comparison label > select { width:100%; min-width:0; }
+#theme-comparison :focus-visible { outline:3px solid var(--bs-primary); outline-offset:3px; }
+#compare-status { font-size:.85rem; margin:auto 0 auto auto; }
+.compare-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.25rem; }
+.compare-pane { min-width:0; }
+.pane-controls label:first-child { flex:1; min-width:10rem; }
+.theme-detail { min-height:3.3em; font-size:.8rem; margin:.8rem 0; }
+.deck-preview { position:relative; width:100%; aspect-ratio:1440/900; overflow:hidden; border:1px solid var(--bs-border-color); border-radius:.4rem; background:var(--bs-tertiary-bg); }
+.deck-preview iframe { position:absolute; top:0; left:0; width:1440px; height:900px; border:0; transform-origin:top left; }
+.theme-config { padding:.9rem; font-size:.8rem; white-space:pre-wrap; border:1px solid var(--bs-border-color); background:var(--bs-tertiary-bg); color:var(--bs-body-color); }
+@media(max-width:1000px) { .compare-grid { grid-template-columns:1fr; } }
+@media(max-width:700px) { .home-grid { grid-template-columns:1fr; } #compare-status { margin:0; width:100%; } }
+/* SmallDocs keeps the site sidebar in its full-page layout; this comparison uses the whole body track. */
+body:has(#theme-comparison) #quarto-sidebar { display:none; }
+body:has(#theme-comparison) #quarto-content { grid-template-columns:[body] minmax(0,1fr); --sd-left:0px; }
+body:has(#theme-comparison) .quarto-btn-toggle { display:none; }

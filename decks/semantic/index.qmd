@@ -1,0 +1,150 @@
+---
+title: A semantic presentation
+deck:
+  theme: nocturne
+  color-mode: auto
+  text-fit: true
+  overflow: fit-scroll
+---
+
+## A *semantic* story {#story .hero-title}
+
+[Structure carries the argument.]{.key}
+
+[The theme supplies its appearance.]{.aside}
+
+An inline equation, $x^2 + y^2 = z^2$, and a source.[^1]
+
+[^1]: This first slide has its own footnote.
+
+::: notes
+Introduce the distinction between story and appearance. The cue can include math: $x^2$.[^1]
+
+[^1]: This note has a separate footnote namespace.
+:::
+
+## Importance survives a theme change {#importance .autoscale}
+
+Ordinary body text provides the comparison.
+
+[The central result.]{.key} [A minor qualification.]{.aside}
+
+:::: {.two-col}
+::: {.key .card}
+The main point can be a whole block.
+:::
+::: {.aside .callout}
+A qualification stays secondary, including during text fitting.
+:::
+::::
+
+This slide reuses a footnote label safely.[^1]
+
+[^1]: A different footnote on the second slide.
+
+::: notes
+Switch between light and dark. The semantic roles keep their meaning.[^1]
+
+[^1]: A different footnote in the second cue.
+:::
+
+## Code and explanation share one clock {#code-steps}
+
+:::: {.two-col}
+::: {}
+```{.python .numberLines data-highlight="4" data-steps="1|2|3" data-step-indices="1|3|7"}
+observations = [2, 4, 6]
+total = sum(observations)
+mean = total / len(observations)
+print(mean)
+```
+:::
+::: {}
+[Collect the observations.]{.fragment data-fragment-index="1"}
+
+[Compute their total.]{.fragment data-fragment-index="3"}
+
+[Divide by the number of observations.]{.fragment data-fragment-index="7"}
+:::
+::::
+
+::: notes
+Advance three times. Each click changes code and reveals its explanation; earlier explanations remain visible.
+:::
+
+## Equations use the same clock {#equation-steps}
+
+:::: {.two-col}
+::: {.equation-steps data-equation-steps="term-a|term-b|term-a,term-b" data-step-indices="1|3|7"}
+$$
+\htmlClass{term-a}{\bar{x}} = \frac{\htmlClass{term-b}{\sum_{i=1}^{n} x_i}}{n}
+$$
+:::
+::: {}
+[The mean is the quantity we want.]{.fragment data-fragment-index="1"}
+
+[Add the observations in the numerator.]{.fragment data-fragment-index="3"}
+
+[Connect the total to the mean.]{.fragment data-fragment-index="7"}
+:::
+::::
+
+::: notes
+The classed terms are addressable after KaTeX typesetting. This cue also renders $\bar{x}=4$.
+:::
+
+## Reveal the story without reading ahead {#layering}
+
+:::: {.two-col}
+::: {.incremental data-fragment-effect="dim"}
+[Establish the question.]{.fragment data-fragment-index="1"}
+
+[State the answer.]{.fragment data-fragment-index="2"}
+:::
+::: {.incremental data-fragment-effect="dim"}
+- Show the evidence.
+- Explain the implication.
+:::
+::::
+
+::: notes
+There are four reveal frames. Future spans and list items stay hidden. Previous points dim only because this slide asks for dim.
+:::
+
+## The result holds {#main-result}
+
+[One source carries meaning across themes.]{.key}
+
+The normal talk ends here. [The data](#appendix-data) is available for discussion.
+
+::: notes
+End and Next stop here. Follow the data link to visit the appendix, then use its return link or browser Back.
+:::
+
+## Supporting data {#appendix-data data-kind="appendix"}
+
+| Observation | Value |
+|---|---:|
+| First | 2 |
+| Second | 4 |
+| Third | 6 |
+
+The mean is $\bar{x}=4$.[^1]
+
+[^1]: The appendix also owns its footnote IDs.
+
+[Back to the result](#main-result) · [More detail](#appendix-detail)
+
+::: notes
+The counter labels the appendix separately; the main talk still has six slides.
+:::
+
+## Additional detail {#appendix-detail}
+
+All slides after the first appendix slide belong to the appendix.
+
+$$
+\frac{2+4+6}{3}=4
+$$
+
+[Back to the result](#main-result)

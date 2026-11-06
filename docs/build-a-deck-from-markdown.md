@@ -5,6 +5,11 @@ the custom `htmpres` slide shell.
 
 The companion deck lives at `decks/tutorial/index.qmd`.
 
+For semantic importance, offline math, shared text/code/equation steps and
+appendix links, see [Semantic slides](semantic-authoring.md) and its complete
+audience/presenter example. New slides start with `##`; standalone body `---`
+outside code is an error. Check with `htmpres.ts lint slides.qmd --json`.
+
 This workspace uses the local shim `scripts/htmpres.ts`. In a separate project
 where the extension has been installed with `quarto add`, use
 `_extensions/htmpres/htmpres.ts` in the commands instead.
@@ -158,13 +163,13 @@ Use Quarto/Pandoc fenced divs for visual blocks:
 
 ```markdown
 :::: three-col
-::: {.card .metric-card style="--accent: var(--teal)"}
+::: {.card .metric-card}
 **Reusable**
 
 Shared patterns become visible.
 :::
 
-::: {.card .metric-card style="--accent: var(--amber)"}
+::: {.card .metric-card}
 **Governed**
 
 Approvals and evidence travel with the work.
@@ -266,22 +271,23 @@ runtime add the matching class:
 Supported slide transitions are `.transition-fade`, `.transition-slide`,
 `.transition-zoom`, and `.transition-none`.
 
-When a slide mixes transition modalities, the runtime uses this order:
+Mixed slides use one step graph. Shared `data-fragment-index` text numbers
+and code/equation `data-step-indices` mappings advance together, even across
+columns. Sparse numbers consume no empty keypresses. Without mappings, mixed
+events run in source order. Ordinary revealed text remains visible; `dim`
+keeps the latest text point current until another text point appears. Only
+legacy unmapped code-only slides retain their first-snapshot baseline and
+shared kth snapshots across code blocks.
 
-1. Generic fragments, including `.incremental` list items, reveal first in
-   source order. Matching `data-fragment-index` values reveal together.
-2. Code line steps run after all generic fragments on the slide are visible.
-   Multiple stepped code blocks share one code-step counter.
-3. The next navigation action changes slides and the destination slide's
-   transition runs.
-
-Persistent `data-highlight` lines are not transition steps. They are applied
-whenever the code block is visible. Slide transitions do not consume a
-navigation step; they run only when entering a slide. When code stepping
-begins, any current-fragment styling is cleared because the active modality has
-moved to code.
+Persistent `data-highlight` lines and slide transitions do not consume a
+navigation step. The transition runs when entering the next slide after all
+frames have completed. See [Semantic slides](semantic-authoring.md) for
+copyable shared code/text/equation examples.
 
 ## 11. Add Images And Deckset-Inspired Layouts
+
+Keep appearance in the theme stylesheet. The examples below use class-based
+structure and theme defaults, with no inline style attributes.
 
 Use normal Markdown image syntax, with Quarto/Pandoc attributes on the media
 itself:
@@ -327,7 +333,7 @@ Half-slide media:
 Split content in normal slide flow:
 
 ```markdown
-:::: {.ds-split style="--ds-gap: 18px; --ds-height: 420px;"}
+:::: {.ds-split}
 ::: {.ds-pane .ds-frame}
 ### Text pane
 :::
@@ -342,7 +348,7 @@ Inline image groups and grids use the same split: the enclosing div lays out
 the group, while each media element keeps its own fit/fill/filter behavior.
 
 ```markdown
-:::: {.ds-grid style="--ds-columns: 3; --ds-gap: 14px;"}
+:::: {.ds-grid}
 ::: {.ds-media}
 ![](assets/photo-1.svg){.ds-fill .ds-bn}
 :::
@@ -351,8 +357,8 @@ the group, while each media element keeps its own fit/fill/filter behavior.
 ![](assets/photo-2.svg){.ds-fill .ds-theme-filter}
 :::
 
-::: {.ds-media .ds-vignette style="--ds-vignette: 0.42;"}
-![](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
+::: {.ds-media .ds-vignette}
+![](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen}
 :::
 ::::
 ```

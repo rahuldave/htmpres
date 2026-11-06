@@ -71,5 +71,8 @@ export function themeVariant(html, { name, mode, catalog, templateCss, localCss,
     return tag.slice(0, -1) + Object.entries(attrs).map(([key, value]) => ` ${key}="${value}"`).join("") + ">";
   });
   body = replaceOnce(body, colorModeControl(base), colorModeControl(plan), "mode control");
+  // Math is a shared offline bundle, just like theme fonts.
+  head = head.replaceAll('href="assets/htmpres-math/', 'href="../../../assets/htmpres-math/');
+  body = body.replaceAll('src="assets/htmpres-math/', 'src="../../../assets/htmpres-math/');
   return head + body;
 }

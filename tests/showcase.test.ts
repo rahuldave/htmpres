@@ -25,8 +25,9 @@ const options = { catalog, templateCss: read("_extensions/htmpres/templates/sour
 for (const theme of themes) for (const mode of theme.modes) {
   for (const input of [canonical, presenter]) {
     const output = themeVariant(input, { ...options, name: theme.name, mode });
-    const withoutControl = (value: string) => value.slice(value.indexOf("</head>")).replace(/<button class="nav-btn" id="colorModeBtn"[^>]*>Color mode<\/button>/, "");
+    const withoutControl = (value: string) => value.slice(value.indexOf("</head>")).replace(/<button class="nav-btn" id="colorModeBtn"[^>]*>Color mode<\/button>/, "").replaceAll("../../../assets/htmpres-math/", "assets/htmpres-math/");
     assert(withoutControl(output) === withoutControl(input), `Body, notes and runtime changed: ${theme.name}/${mode}`);
+    assert(output.includes('href="../../../assets/htmpres-math/katex.min.css"') && output.includes('src="../../../assets/htmpres-math/katex.min.js"'), "Shared offline math URLs");
     assert(output.includes(`data-theme="${theme.name}"`), "Theme attribute");
     assert(output.includes('data-text-fit-min="0.66"') && output.includes('data-overflow="fit-scroll"'), "Unrelated attributes preserved");
     if (theme.family !== "legacy") assert(output.includes(`data-color-mode="${mode}"`), "Explicit mode");

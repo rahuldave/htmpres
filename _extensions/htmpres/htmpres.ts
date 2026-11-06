@@ -1,5 +1,8 @@
 import { colorModeControl, colorModeScript, legacyThemes, resolveTheme, themeAssets, themeAttributes, themeStyles, validateThemeName } from "./themes/themes.mjs";
 
+import { assignSlideIds, renderTitle, namespacePandocIds, unnamespacedPandocIds } from "./lib/render.mjs";
+import { extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, scanSource, splitFrontMatter as splitSourceFrontMatter } from "./lib/source.mjs";
+
 type DeckSource = {
   source: string;
   slug: string;
@@ -12,6 +15,7 @@ type SourceSlide = {
 };
 
 type QmdSlide = {
+  id?: string;
   title: string;
   attrText: string;
   bodyLines: string[];
@@ -217,8 +221,11 @@ async function main() {
       case "theme":
         await themeCommand(args);
         break;
+      case "lint":
+        lintCommand(args);
+        break;
       case "verify":
-        verifyCommand();
+        verifyCommand(args);
         break;
       case "workspace":
         workspaceCommand(args);
@@ -249,7 +256,8 @@ function usage() {
   quarto run ${commandScript} convert [source.html ...]
   quarto run ${commandScript} render [decks/name/index.qmd ...]
   quarto run ${commandScript} serve <deck/index.qmd> [--watch] [--port 8000]
-  quarto run ${commandScript} verify
+  quarto run ${commandScript} lint <deck/index.qmd ...> [--json]
+  quarto run ${commandScript} verify [file.qmd ...]
   quarto run ${commandScript} all
 
 Commands:
@@ -260,6 +268,7 @@ Commands:
   convert   Convert HTML decks in source_presentations/ to decks/*/index.qmd.
   render    Render QMD decks to index.html and presenter.html.
   serve     Render and serve one deck folder; --watch rerenders on file changes.
+  lint      Reject standalone body --- rules; use ## to start each slide.
   verify    Compare copied source decks, QMD, and rendered HTML outputs.
   all       Run convert, render, and verify.
 
@@ -745,25 +754,11 @@ function parseSourceDeck(text: string): SourceDeckDocument {
   const frontMatter = frontMatterBounds(text);
   const lines = sourceLines(text);
   const slides: Omit<SourceSlideSlice, "end" | "endLine" | "raw" | "body" | "section" | "dataTitle" | "kind" | "features" | "preview">[] = [];
-  let inFence = false;
-  let fenceChar = "";
-  let fenceLen = 0;
+  const contentOffsets = new Set(scanSource(text).lines.filter((line) => line.kind === "body").map((line) => line.start));
 
   for (const line of lines) {
-    if (line.start < frontMatter.bodyStart) continue;
-    const fence = /^(`{3,}|~{3,})/.exec(line.text);
-    if (fence) {
-      const marker = fence[1];
-      if (!inFence) {
-        inFence = true;
-        fenceChar = marker[0];
-        fenceLen = marker.length;
-      } else if (marker[0] === fenceChar && marker.length >= fenceLen) {
-        inFence = false;
-      }
-    }
-
-    const heading = !inFence ? /^##\s+(.+?)(?:\s+(\{.*\}))?\s*$/.exec(line.text) : null;
+    if (line.start < frontMatter.bodyStart || !contentOffsets.has(line.start)) continue;
+    const heading = /^##\s+(.+?)(?:\s+(\{.*\}))?\s*$/.exec(line.text);
     if (!heading) continue;
     const attrText = heading[2] || "";
     slides.push({
@@ -1300,6 +1295,18 @@ function copyThemeAssets(deckDir: string, plan: ReturnType<typeof resolveTheme>)
   }
 }
 
+function copyMathAssets(deckDir: string) {
+  const sourceDir = join(extensionDir, "vendor", "katex");
+  for (const source of findFiles(sourceDir, () => true)) {
+    const target = join(deckDir, "assets", "htmpres-math", relativePath(sourceDir, source));
+    const bytes = Deno.readFileSync(source);
+    const previous = exists(target) ? Deno.readFileSync(target) : null;
+    if (previous && previous.length === bytes.length && bytes.every((byte, index) => byte === previous[index])) continue;
+    Deno.mkdirSync(dirname(target), { recursive: true });
+    Deno.writeFileSync(target, bytes);
+  }
+}
+
 function positionalArgs(args: string[]) {
   const withValue = new Set(["--after", "--before", "--from", "--host", "--kind", "--port", "--section", "--theme", "--title", "--color-mode"]);
   const values: string[] = [];
@@ -1640,7 +1647,9 @@ async function renderDeck(file: string) {
   const qmd = Deno.readTextFileSync(qmdPath);
   const { yaml, body } = splitFrontMatter(qmd);
   const meta = parseSimpleYaml(yaml);
-  const slides = parseSlides(body);
+  const diagnostics = lintSource(qmd, file);
+  if (diagnostics.length) throw new Error(diagnostics.map(formatDiagnostic).join("\n"));
+  const slides = assignSlideIds(parseSlides(body), parsePandocAttrs);
   if (!slides.length) {
     throw new Error(`No level-2 slides found in ${file}`);
   }
@@ -1655,6 +1664,7 @@ async function renderDeck(file: string) {
   const themePlan = resolveTheme(meta, bundledThemes, localCss);
   const css = themePlan ? `${readTemplateFile("source.css")}\n${themeStyles(themePlan, bundledThemes)}\n${localCss}` : localCss;
   copyThemeAssets(deckDir, themePlan);
+  copyMathAssets(deckDir);
   const rendered: { slideHtml: string; notesHtml: string }[] = [];
 
   for (let index = 0; index < slides.length; index += 1) {
@@ -1662,7 +1672,7 @@ async function renderDeck(file: string) {
     const cleanSlide = { ...slides[index], body };
     rendered.push({
       slideHtml: await renderSlide(cleanSlide, index, background),
-      notesHtml: namespacePandocCodeIds((await markdownToHtml(notes)).trim(), `notes-${index + 1}`),
+      notesHtml: namespacePandocIds((await markdownToHtml(notes)).trim(), `notes-${index + 1}`),
     });
   }
 
@@ -1710,10 +1720,11 @@ async function renderSlide(slide: QmdSlide, index: number, globalBackground: Dec
   const classes = ["slide", ...attrs.classes];
   if (index === 0) classes.push("active");
   const title = slide.title || attrs.keyValues["data-title"] || `Slide ${index + 1}`;
-  const bodyHtml = namespacePandocCodeIds((await markdownToHtml(slide.body)).trim(), `slide-${index + 1}`);
+  const renderedTitle = renderTitle(await markdownToHtml(`# ${title}`), `slide-${index + 1}`);
+  const bodyHtml = namespacePandocIds((await markdownToHtml(slide.body)).trim(), `slide-${index + 1}`);
   const backgroundHtml = renderBackgroundLayer(attrs, globalBackground);
-  const dataAttrs = { ...attrs.keyValues };
-  if (!dataAttrs["data-title"]) dataAttrs["data-title"] = title;
+  const dataAttrs = { ...attrs.keyValues, id: slide.id || attrs.keyValues.id || `slide-${index + 1}` };
+  if (!dataAttrs["data-title"]) dataAttrs["data-title"] = renderedTitle.plainText;
   const attrText = formatHtmlAttrs({
     class: unique(classes).join(" "),
     ...dataAttrs,
@@ -1721,9 +1732,9 @@ async function renderSlide(slide: QmdSlide, index: number, globalBackground: Dec
   const headingClass = attrs.classes.includes("title-hidden") ? ' class="visually-hidden"' : "";
   return `<section${attrText}>
 ${backgroundHtml ? indentHtml(backgroundHtml, "  ") + "\n" : ""}
-  <h2${headingClass}>${escapeHtml(title)}</h2>
+  <h2${headingClass}>${renderedTitle.inlineHtml}</h2>
 ${indentHtml(bodyHtml, "  ")}
-</section>`;
+${renderedTitle.footnotesHtml ? indentHtml(renderedTitle.footnotesHtml, "  ") + "\n" : ""}</section>`;
 }
 
 type DeckBackground = {
@@ -1839,12 +1850,6 @@ function escapeCssValue(value: string) {
   return String(value).replace(/[;"'<>]/g, "");
 }
 
-function namespacePandocCodeIds(html: string, prefix: string) {
-  return html
-    .replace(/\bid="cb(\d+(?:-\d+)?)"/g, `id="${prefix}-cb$1"`)
-    .replace(/\bhref="#cb(\d+(?:-\d+)?)"/g, `href="#${prefix}-cb$1"`);
-}
-
 function deckShell({
   mode,
   title,
@@ -1899,9 +1904,12 @@ function deckShell({
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)}</title>
   ${colorModeScript(themePlan)}
+  <link rel="stylesheet" href="assets/htmpres-math/katex.min.css">
   <style>
 ${css}
 ${runtimeCss()}
+${readRuntimeFile("htmpres-semantic.css")}
+${readRuntimeFile("htmpres-steps.css")}
   </style>
 </head>
 <body class="${mode}-mode">
@@ -1944,6 +1952,10 @@ ${presenterPanel}
   </svg>
 ${notesScript}
 
+  <script src="assets/htmpres-math/katex.min.js"></script>
+  <script>
+${indent(readRuntimeFile("htmpres-math.js"), "    ")}
+  </script>
   <script>
 ${indent(deckJs, "    ")}
   </script>
@@ -3137,6 +3149,7 @@ async function markdownToHtml(markdown: string) {
       "-t",
       "html",
       "--wrap=none",
+      "--katex",
     ],
     markdown,
   );
@@ -3147,113 +3160,11 @@ async function markdownToHtml(markdown: string) {
 }
 
 function extractNotes(markdown: string) {
-  if (!markdown.trim()) return { body: markdown, notes: "" };
-  const bodyLines: string[] = [];
-  const noteBlocks: string[] = [];
-  const lines = markdown.split(/\r?\n/);
-  let inNotes = false;
-  let notesFenceLen = 0;
-  let currentNotes: string[] = [];
-  let inCodeFence = false;
-  let codeFenceChar = "";
-  let codeFenceLen = 0;
-
-  for (const line of lines) {
-    const codeFence = /^(`{3,}|~{3,})/.exec(line);
-    if (codeFence) {
-      const marker = codeFence[1];
-      if (!inCodeFence) {
-        inCodeFence = true;
-        codeFenceChar = marker[0];
-        codeFenceLen = marker.length;
-      } else if (marker[0] === codeFenceChar && marker.length >= codeFenceLen) {
-        inCodeFence = false;
-      }
-    }
-
-    if (!inNotes) {
-      const opening = inCodeFence ? null : noteFenceOpening(line);
-      if (opening) {
-        inNotes = true;
-        notesFenceLen = opening.length;
-        currentNotes = [];
-        continue;
-      }
-      bodyLines.push(line);
-      continue;
-    }
-
-    if (!inCodeFence && noteFenceClosing(line, notesFenceLen)) {
-      noteBlocks.push(currentNotes.join("\n").trim());
-      inNotes = false;
-      notesFenceLen = 0;
-      currentNotes = [];
-      continue;
-    }
-
-    currentNotes.push(line);
-  }
-
-  if (inNotes) {
-    noteBlocks.push(currentNotes.join("\n").trim());
-  }
-
-  return {
-    body: bodyLines.join("\n").trim(),
-    notes: noteBlocks.filter(Boolean).join("\n\n"),
-  };
-}
-
-function noteFenceOpening(line: string) {
-  const match = /^(:{3,})\s+(?:notes|\{\s*\.notes\s*\})\s*$/.exec(line.trim());
-  return match ? { length: match[1].length } : null;
-}
-
-function noteFenceClosing(line: string, fenceLen: number) {
-  const trimmed = line.trim();
-  if (!trimmed || /[^:]/.test(trimmed)) return false;
-  return trimmed.length >= fenceLen;
+  return extractSourceNotes(markdown);
 }
 
 function parseSlides(body: string): QmdSlide[] {
-  const lines = body.split(/\r?\n/);
-  const slides: QmdSlide[] = [];
-  let current: QmdSlide | null = null;
-  let inFence = false;
-  let fenceChar = "";
-  let fenceLen = 0;
-  for (const line of lines) {
-    const fence = /^(`{3,}|~{3,})/.exec(line);
-    if (fence) {
-      const marker = fence[1];
-      if (!inFence) {
-        inFence = true;
-        fenceChar = marker[0];
-        fenceLen = marker.length;
-      } else if (marker[0] === fenceChar && marker.length >= fenceLen) {
-        inFence = false;
-      }
-    }
-
-    const heading = !inFence ? /^##\s+(.+?)(?:\s+(\{.*\}))?\s*$/.exec(line) : null;
-    if (heading) {
-      if (current) slides.push(current);
-      current = {
-        title: heading[1].trim(),
-        attrText: heading[2] || "",
-        bodyLines: [],
-        body: "",
-      };
-    } else if (current) {
-      current.bodyLines.push(line);
-    }
-  }
-  if (current) slides.push(current);
-  return slides.map((slide) => ({
-    ...slide,
-    title: unescapeHeading(slide.title),
-    body: slide.bodyLines.join("\n").trim(),
-  }));
+  return parseSourceSlides(body);
 }
 
 function parsePandocAttrs(attrText = ""): PandocAttrs {
@@ -3282,13 +3193,7 @@ function parsePandocAttrs(attrText = ""): PandocAttrs {
 }
 
 function splitFrontMatter(text: string) {
-  if (!text.startsWith("---\n")) return { yaml: "", body: text };
-  const end = text.indexOf("\n---", 4);
-  if (end < 0) return { yaml: "", body: text };
-  return {
-    yaml: text.slice(4, end),
-    body: text.slice(end + 4).replace(/^\s*\n/, ""),
-  };
+  return splitSourceFrontMatter(text);
 }
 
 function parseSimpleYaml(yaml: string) {
@@ -3316,11 +3221,33 @@ function formatHtmlAttrs(attrs: Record<string, string>) {
     .join("");
 }
 
-function verifyCommand() {
+function formatDiagnostic(diagnostic: { file: string; line: number; column: number; code: string; message: string }) {
+  return `${diagnostic.file}:${diagnostic.line}:${diagnostic.column}: ${diagnostic.code}: ${diagnostic.message}`;
+}
+
+function lintCommand(args: string[]) {
+  const files = args.filter((arg) => arg !== "--json");
+  const diagnostics = files.flatMap((file) => {
+    try {
+      return lintSource(Deno.readTextFileSync(resolvePath(root, file)), file);
+    } catch (error) {
+      return [{ file, line: 1, column: 1, code: "source-read", severity: "error", message: String(error) }];
+    }
+  });
+  if (!files.length) diagnostics.push({ file: "", line: 1, column: 1, code: "usage", severity: "error", message: "lint requires at least one QMD source file." });
+  const report = { version: 1, ok: diagnostics.length === 0, diagnostics };
+  if (args.includes("--json")) console.log(JSON.stringify(report, null, 2));
+  else if (report.ok) console.log(`Source lint passed (${files.length} files).`);
+  else for (const diagnostic of diagnostics) console.error(formatDiagnostic(diagnostic));
+  if (!report.ok) Deno.exit(1);
+}
+
+function verifyCommand(args: string[] = []) {
   const failures: string[] = [];
+  const selected = args.length ? unique(args.map((file) => resolvePath(root, file))).sort() : discoverQmdDecks();
   const sourceSlugs = new Set<string>();
 
-  for (const sourcePath of discoverSourceDecks()) {
+  for (const sourcePath of args.length ? [] : discoverSourceDecks()) {
     const slug = inferSlug(sourcePath);
     sourceSlugs.add(slug);
     const deckDir = join(decksDir, slug);
@@ -3329,7 +3256,7 @@ function verifyCommand() {
     const audiencePath = join(deckDir, "index.html");
     const presenterPath = join(deckDir, "presenter.html");
 
-    const qmd = readRequired(qmdPath, failures);
+    const qmd = readRequired(qmdPath, failures, "QMD source");
     const audience = readRequired(audiencePath, failures);
     const presenter = readRequired(presenterPath, failures);
     const notes = extractDeckNotes(presenter);
@@ -3381,11 +3308,11 @@ function verifyCommand() {
     console.log(formatRow(row));
   }
 
-  for (const qmdPath of discoverQmdDecks()) {
+  for (const qmdPath of selected) {
     const slug = basename(dirname(qmdPath));
     if (sourceSlugs.has(slug)) continue;
     const deckDir = dirname(qmdPath);
-    const qmd = readRequired(qmdPath, failures);
+    const qmd = readRequired(qmdPath, failures, "QMD source");
     const audiencePath = join(deckDir, "index.html");
     const presenterPath = join(deckDir, "presenter.html");
     const audience = readRequired(audiencePath, failures);
@@ -3452,15 +3379,16 @@ function discoverQmdDecks() {
   return findFiles(decksDir, (file) => basename(file) === "index.qmd").sort();
 }
 
-function readRequired(file: string, failures: string[]) {
+function readRequired(file: string, failures: string[], kind = "generated file") {
   if (!exists(file)) {
-    fail(basename(dirname(file)), file, "missing generated file", failures);
+    fail(basename(dirname(file)), file, `missing ${kind}${kind === "generated file" ? "; render its QMD source first" : ""}`, failures);
     return "";
   }
   return Deno.readTextFileSync(file);
 }
 
 function verifyQmdVerbatimBlocks(slug: string, qmd: string, file: string, failures: string[]) {
+  for (const diagnostic of lintSource(qmd, relativePath(root, file))) failures.push(formatDiagnostic(diagnostic));
   const blocks = extractExpectedPreBlocks(qmd);
   blocks.forEach((block, index) => {
     if (!block.trim()) {
@@ -3506,8 +3434,8 @@ function verifyGeneratedHtml(
   if (/@@HTMPRES_RAW_\d+@@/.test(html)) {
     fail(slug, file, "unrestored raw HTML placeholder token remains in output", failures);
   }
-  if (/\bid="cb\d+(?:-\d+)?"|\bhref="#cb\d+(?:-\d+)?"/.test(html)) {
-    fail(slug, file, "unnamespaced Pandoc code anchor remains in output", failures);
+  if (unnamespacedPandocIds(html).length) {
+    fail(slug, file, "unnamespaced Pandoc code or footnote anchor remains in output", failures);
   }
   if (/index_files\/libs\/revealjs|revealjs\/|Reveal\.initialize/.test(html)) {
     fail(slug, file, "reveal.js reference remains in custom renderer output", failures);
@@ -3775,7 +3703,7 @@ function formatRow(row: Record<string, number | string | boolean>) {
 }
 
 function stripCodeFences(text: string) {
-  return text.replace(/^(`{3,}|~{3,})[\s\S]*?^\1\s*$/gm, "");
+  return maskCodeAndMetadata(text);
 }
 
 function stripHtmlPreBlocks(text: string) {

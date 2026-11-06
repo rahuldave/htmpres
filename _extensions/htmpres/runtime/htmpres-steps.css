@@ -1,0 +1,24 @@
+/* Only named terms participate in equation steps. Future text fragments remain
+   hidden by the shell's fragment rules; this never previews unread text. */
+.slide .equation-term {
+  transition: opacity var(--fragment-duration, 180ms) ease,
+    background-color var(--fragment-duration, 180ms) ease;
+}
+
+.slide .equation-term-dim {
+  opacity: 0.35;
+}
+
+.slide .equation-term-highlight {
+  opacity: 1;
+  background: var(--htmpres-fragment-highlight-bg, rgba(193, 131, 34, 0.14));
+  border-radius: 0.12em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide .equation-term { transition: none; }
+}
+
+@media print {
+  .slide .equation-term-dim { opacity: 1; }
+}

@@ -22,6 +22,11 @@ let viewportFrame = 0;
 const deckNotes = readDeckNotes();
 const slideFragmentStates = new WeakMap();
 const slideCodeStates = new WeakMap();
+const slideEquationStates = new WeakMap();
+const slideStepStates = new WeakMap();
+const firstAppendixIndex = slides.findIndex((slide) => slide.dataset.kind === "appendix");
+const mainSlideCount = firstAppendixIndex < 0 ? slides.length : firstAppendixIndex;
+const lastMainSlide = Math.max(0, mainSlideCount - 1);
 const mobileDeckFlowQuery = "(max-width: 980px)";
 
 function buildNav() {
@@ -29,13 +34,17 @@ function buildNav() {
     const title = slide.dataset.title || slide.querySelector("h2")?.textContent || `Slide ${index + 1}`;
     const section = slide.dataset.section || "";
     const nav = document.createElement("button");
-    nav.textContent = `${index + 1}. ${title}`;
+    nav.textContent = `${slidePosition(index).label}. ${title}`;
     nav.addEventListener("click", () => goTo(index));
     tocList?.appendChild(nav);
 
     const card = document.createElement("button");
     card.className = "overview-card";
-    card.innerHTML = `<small>${index + 1} / ${slides.length}${section ? ` - ${section}` : ""}</small><strong>${title}</strong>`;
+    const label = document.createElement("small");
+    label.textContent = `${slidePosition(index).counter}${section ? ` - ${section}` : ""}`;
+    const heading = document.createElement("strong");
+    heading.textContent = title;
+    card.append(label, heading);
     card.addEventListener("click", () => {
       overview?.classList.remove("visible");
       goTo(index);
@@ -221,7 +230,19 @@ function clampNumber(value, min, max, fallback) {
   return Math.max(min, Math.min(max, number));
 }
 
-function goTo(index) {
+function slidePosition(index) {
+  const inAppendix = firstAppendixIndex >= 0 && index >= firstAppendixIndex;
+  const position = inAppendix ? index - firstAppendixIndex + 1 : index + 1;
+  const total = inAppendix ? slides.length - firstAppendixIndex : mainSlideCount;
+  return {
+    label: inAppendix ? `A${position}` : String(position),
+    counter: `${inAppendix ? "Appendix " : ""}${position} / ${total}`,
+    progress: total ? position / total : 0,
+  };
+}
+
+function goTo(index, options = {}) {
+  if (!slides.length) return;
   const next = Math.max(0, Math.min(slides.length - 1, index));
   const direction = !hasRendered || next === current ? "none" : next > current ? "next" : "prev";
   const shouldResetSteps = !hasRendered || next !== current;
@@ -236,14 +257,20 @@ function goTo(index) {
   updateScrollCue();
   Array.from(tocList?.children || []).forEach((btn, i) => btn.classList.toggle("active", i === current));
   Array.from(overviewGrid?.children || []).forEach((card, i) => card.classList.toggle("active", i === current));
-  if (counter) counter.textContent = `${current + 1} / ${slides.length}`;
-  if (progressBar) progressBar.style.width = `${((current + 1) / slides.length) * 100}%`;
+  const position = slidePosition(current);
+  if (counter) counter.textContent = position.counter;
+  if (progressBar) progressBar.style.width = `${position.progress * 100}%`;
   if (shouldResetSteps) resetSlideSteps(slides[current]);
   updateNotes();
   syncSlideMedia();
   scheduleTextFit();
   hasRendered = true;
-  if (location.hash !== `#/${current + 1}`) history.replaceState(null, "", `#/${current + 1}`);
+  updateNavigationButtons();
+  const hash = options.hash || `#/${current + 1}`;
+  if (options.history !== "none" && location.hash !== hash) {
+    const method = options.history === "push" ? "pushState" : "replaceState";
+    history[method](null, "", hash);
+  }
 }
 
 function prepareSlideTransitions() {
@@ -257,42 +284,31 @@ function prepareFragments() {
   slides.forEach((slide) => {
     const fragments = [];
     const seen = new Set();
-
     slide.querySelectorAll(".fragment").forEach((fragment) => addFragment(fragments, seen, fragment));
     slide.querySelectorAll(".incremental > li, .incremental > ol > li, .incremental > ul > li, ol.incremental > li, ul.incremental > li").forEach((item) => {
       item.classList.add("fragment");
-      const owner = item.closest(".incremental");
-      if (owner?.dataset.fragmentEffect && !item.dataset.fragmentEffect) {
-        item.dataset.fragmentEffect = owner.dataset.fragmentEffect;
-      }
       addFragment(fragments, seen, item);
     });
-
     if (!fragments.length) return;
     slide.classList.add("has-fragments");
-    fragments.sort((a, b) => {
-      if (a.element === b.element) return 0;
-      return a.element.compareDocumentPosition(b.element) & Node.DOCUMENT_POSITION_PRECEDING ? 1 : -1;
-    });
-    let nextIndex = 1;
+    fragments.sort((a, b) => documentOrder(a.element, b.element));
     fragments.forEach((fragment) => {
-      const explicit = Number(fragment.element.dataset.fragmentIndex);
-      if (Number.isFinite(explicit)) {
-        fragment.index = Math.max(0, Math.floor(explicit));
-        nextIndex = Math.max(nextIndex, fragment.index + 1);
-      } else {
-        fragment.index = nextIndex;
-        nextIndex += 1;
-      }
-      const effect = sanitizeClassToken(fragment.element.dataset.fragmentEffect || "");
+      const value = fragment.element.dataset.fragmentIndex;
+      const explicit = value === undefined ? NaN : Number(value);
+      fragment.explicitIndex = Number.isInteger(explicit) && explicit >= 0 ? explicit : null;
+      // An explicit span inherits its nearest incremental container too. It
+      // must not require a list wrapper to receive the author's dim effect.
+      const owner = fragment.element.closest(".incremental[data-fragment-effect]");
+      const effect = sanitizeClassToken(fragment.element.dataset.fragmentEffect || owner?.dataset.fragmentEffect || "");
       if (effect) fragment.element.classList.add(`fragment-${effect}`);
     });
-    slideFragmentStates.set(slide, {
-      fragments,
-      maxSteps: Math.max(...fragments.map((fragment) => fragment.index)),
-      step: 0,
-    });
+    slideFragmentStates.set(slide, { fragments, step: 0 });
   });
+}
+
+function documentOrder(a, b) {
+  if (a === b) return 0;
+  return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_PRECEDING ? 1 : -1;
 }
 
 function addFragment(fragments, seen, element) {
@@ -305,53 +321,102 @@ function sanitizeClassToken(value) {
   return value.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
+// Collapse shared and sparse author indices into real frames. Every event in
+// a frame takes effect together, so no empty indices consume a keypress.
+function compileStepGraph(events) {
+  let nextIndex = 1;
+  const assigned = events.map((event) => {
+    const index = event.explicitIndex === null ? nextIndex : event.explicitIndex;
+    nextIndex = Math.max(nextIndex, index + 1);
+    return { ...event, index };
+  });
+  return { events: assigned, frames: [...new Set(assigned.map((event) => event.index).filter((index) => index > 0))].sort((a, b) => a - b), cursor: 0 };
+}
+
+function prepareStepGraphs() {
+  slides.forEach((slide) => {
+    const fragments = slideFragmentStates.get(slide)?.fragments || [];
+    const codeBlocks = slideCodeStates.get(slide)?.blocks || [];
+    const equationBlocks = slideEquationStates.get(slide)?.blocks || [];
+    const legacyCodeOnly = !fragments.length && !equationBlocks.length && codeBlocks.every((block) => !block.stepIndices);
+    const events = fragments.map((fragment) => ({ type: "fragment", target: fragment, element: fragment.element, explicitIndex: fragment.explicitIndex, snapshot: 0 }));
+    for (const [type, blocks] of [["code", codeBlocks], ["equation", equationBlocks]]) {
+      blocks.forEach((block) => {
+        const snapshots = type === "code" ? block.stepLines : block.stepTerms;
+        // Only legacy code-only decks expose snapshot 1 before advancing.
+        // Mixed lanes include their first snapshot in source order.
+        block.baseline = legacyCodeOnly ? 0 : -1;
+        snapshots.forEach((_, snapshot) => {
+          if (legacyCodeOnly && snapshot === 0) return;
+          events.push({
+            type, target: block, element: block.root, snapshot,
+            explicitIndex: block.stepIndices?.[snapshot] ?? (legacyCodeOnly ? snapshot : null),
+          });
+        });
+      });
+    }
+    events.sort((a, b) => documentOrder(a.element, b.element) || a.snapshot - b.snapshot);
+    const state = compileStepGraph(events);
+    state.events.forEach((event) => {
+      if (event.type === "fragment") event.target.index = event.index;
+    });
+    slideStepStates.set(slide, state);
+  });
+}
+
 function resetSlideSteps(slide) {
-  resetFragmentStep(slide);
-  resetCodeStep(slide);
+  const state = slideStepStates.get(slide);
+  if (state) state.cursor = 0;
+  applySlideStep(slide);
 }
 
-function resetFragmentStep(slide) {
-  const state = slideFragmentStates.get(slide);
+function changeSlideStep(delta) {
+  const slide = slides[current];
+  const state = slideStepStates.get(slide);
+  if (!state || state.cursor + delta < 0 || state.cursor + delta > state.frames.length) return false;
+  state.cursor += delta;
+  applySlideStep(slide);
+  updateNavigationButtons();
+  scheduleTextFit();
+  return true;
+}
+
+function applySlideStep(slide) {
+  const state = slideStepStates.get(slide);
   if (!state) return;
-  state.step = 0;
-  applyFragmentStep(slide);
-}
-
-function advanceFragmentStep() {
-  const state = slideFragmentStates.get(slides[current]);
-  if (!state || state.step >= state.maxSteps) return false;
-  state.step += 1;
-  applyFragmentStep(slides[current]);
-  return true;
-}
-
-function retreatFragmentStep() {
-  const state = slideFragmentStates.get(slides[current]);
-  if (!state || state.step <= 0) return false;
-  state.step -= 1;
-  applyFragmentStep(slides[current]);
-  return true;
+  const frame = state.cursor ? state.frames[state.cursor - 1] : 0;
+  const fragmentState = slideFragmentStates.get(slide);
+  if (fragmentState) {
+    fragmentState.step = frame;
+    applyFragmentStep(slide);
+  }
+  for (const [type, blocks] of [["code", slideCodeStates.get(slide)?.blocks || []], ["equation", slideEquationStates.get(slide)?.blocks || []]]) {
+    blocks.forEach((block) => {
+      block.activeSnapshot = block.baseline;
+      state.events.forEach((event) => {
+        if (event.type === type && event.target === block && event.index <= frame) block.activeSnapshot = event.snapshot;
+      });
+    });
+  }
+  applyCodeStep(slide);
+  applyEquationStep(slide);
+  slide.dataset.activeFrame = String(frame);
 }
 
 function applyFragmentStep(slide) {
   const state = slideFragmentStates.get(slide);
   if (!state) return;
+  const revealed = state.fragments.filter((fragment) => fragment.index <= state.step);
+  const latest = Math.max(0, ...revealed.map((fragment) => fragment.index));
   state.fragments.forEach((fragment) => {
     const visible = fragment.index <= state.step;
-    const currentFragment = fragment.index === state.step && state.step > 0;
+    // A text point stays current while another lane advances. Only a later
+    // text point makes it past; code must not dim every explanation at once.
+    const currentFragment = visible && fragment.index === latest && latest > 0;
     fragment.element.classList.toggle("fragment-visible", visible);
     fragment.element.classList.toggle("fragment-current", currentFragment);
-    fragment.element.classList.toggle("fragment-past", visible && fragment.index < state.step);
+    fragment.element.classList.toggle("fragment-past", visible && fragment.index < latest);
     fragment.element.setAttribute("aria-hidden", visible ? "false" : "true");
-  });
-}
-
-function settleFragmentStep(slide) {
-  const state = slideFragmentStates.get(slide);
-  if (!state || state.step < state.maxSteps) return;
-  state.fragments.forEach((fragment) => {
-    fragment.element.classList.remove("fragment-current");
-    fragment.element.classList.toggle("fragment-past", fragment.index <= state.step);
   });
 }
 
@@ -375,7 +440,8 @@ function prepareCodeSteppers() {
       if (!staticLines.size && !stepLines.length) return;
 
       root.classList.add("code-stepper");
-      blocks.push({ root, lines, staticLines, stepLines });
+      const stepIndices = parseStepIndices(getCodeData(root, code, "stepIndices"), stepLines.length, root);
+      blocks.push({ root, lines, staticLines, stepLines, stepIndices });
     });
 
     if (!blocks.length) return;
@@ -461,27 +527,46 @@ function parseLineSelection(value, lineCount) {
   return selected;
 }
 
-function resetCodeStep(slide) {
-  const state = slideCodeStates.get(slide);
+function parseStepIndices(value, count, root) {
+  if (!value) return null;
+  const parts = value.split("|").map((part) => part.trim());
+  const indices = parts.map(Number);
+  if (indices.length === count && parts.every((part) => /^\d+$/.test(part)) && indices.every((index, offset) => Number.isSafeInteger(index) && index > 0 && (offset === 0 || index > indices[offset - 1]))) return indices;
+  if (root) root.dataset.stepError = "invalid-step-indices";
+  console.warn("htmpres: data-step-indices must contain one strictly increasing positive integer per snapshot; using implicit source order.", root);
+  return null;
+}
+
+function prepareEquationSteppers() {
+  slides.forEach((slide) => {
+    const blocks = [];
+    slide.querySelectorAll(".equation-steps[data-equation-steps]").forEach((root) => {
+      const stepTerms = root.dataset.equationSteps.split("|").map((part) => new Set(part.split(/[,\s]+/).filter((term) => /^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$/.test(term))));
+      if (!stepTerms.length) return;
+      const termNames = [...new Set(stepTerms.flatMap((terms) => [...terms]))];
+      const stepIndices = parseStepIndices(root.dataset.stepIndices, stepTerms.length, root);
+      blocks.push({ root, stepTerms, termNames, stepIndices });
+    });
+    if (blocks.length) slideEquationStates.set(slide, { blocks });
+  });
+}
+
+function applyEquationStep(slide) {
+  const state = slideEquationStates.get(slide);
   if (!state) return;
-  state.step = 0;
-  applyCodeStep(slide);
-}
-
-function advanceCodeStep() {
-  const state = slideCodeStates.get(slides[current]);
-  if (!state || state.maxSteps < 2 || state.step >= state.maxSteps - 1) return false;
-  state.step += 1;
-  applyCodeStep(slides[current]);
-  return true;
-}
-
-function retreatCodeStep() {
-  const state = slideCodeStates.get(slides[current]);
-  if (!state || state.step <= 0) return false;
-  state.step -= 1;
-  applyCodeStep(slides[current]);
-  return true;
+  state.blocks.forEach((block) => {
+    const active = block.activeSnapshot >= 0 ? block.stepTerms[block.activeSnapshot] : null;
+    const selector = block.termNames.map((term) => `.${term}`).join(", ");
+    if (selector) block.root.querySelectorAll(selector).forEach((term) => {
+      const selected = active && [...active].some((name) => term.classList.contains(name));
+      term.classList.add("equation-term");
+      term.classList.toggle("equation-term-highlight", Boolean(selected));
+      term.classList.toggle("equation-term-dim", Boolean(active && active.size && !selected));
+    });
+    block.root.classList.toggle("equation-step-active", Boolean(active));
+    if (active) block.root.dataset.activeStep = String(block.activeSnapshot + 1);
+    else delete block.root.dataset.activeStep;
+  });
 }
 
 function applyCodeStep(slide) {
@@ -489,7 +574,8 @@ function applyCodeStep(slide) {
   if (!state) return;
 
   state.blocks.forEach((block) => {
-    const stepSet = block.stepLines.length ? block.stepLines[Math.min(state.step, block.stepLines.length - 1)] : null;
+    const snapshot = block.activeSnapshot ?? Math.min(state.step, block.stepLines.length - 1);
+    const stepSet = snapshot >= 0 && block.stepLines.length ? block.stepLines[snapshot] : null;
     const activeLines = new Set(block.staticLines);
     if (stepSet) stepSet.forEach((line) => activeLines.add(line));
     const shouldDim = Boolean(stepSet && activeLines.size);
@@ -500,25 +586,36 @@ function applyCodeStep(slide) {
       line.classList.toggle("code-line-dim", shouldDim && !active);
     });
 
-    block.root.classList.toggle("code-step-active", Boolean(block.stepLines.length));
-    if (block.stepLines.length) {
-      block.root.dataset.activeStep = String(Math.min(state.step + 1, block.stepLines.length));
+    block.root.classList.toggle("code-step-active", Boolean(stepSet));
+    if (stepSet) {
+      block.root.dataset.activeStep = String(snapshot + 1);
     } else {
       delete block.root.dataset.activeStep;
     }
   });
 }
 
+function canAdvanceSlide() {
+  return current < slides.length - 1 && !(mainSlideCount > 0 && current === lastMainSlide);
+}
+
+function advanceSlide() {
+  if (canAdvanceSlide()) goTo(current + 1);
+}
+
+function updateNavigationButtons() {
+  const state = slideStepStates.get(slides[current]);
+  if (prevBtn) prevBtn.disabled = current === 0 && !state?.cursor;
+  if (nextBtn) nextBtn.disabled = !canAdvanceSlide() && (!state || state.cursor >= state.frames.length);
+}
+
 function nextStepOrSlide() {
-  if (advanceFragmentStep()) return;
-  settleFragmentStep(slides[current]);
-  if (advanceCodeStep()) return;
-  goTo(current + 1);
+  if (changeSlideStep(1)) return;
+  advanceSlide();
 }
 
 function prevStepOrSlide() {
-  if (retreatCodeStep()) return;
-  if (retreatFragmentStep()) return;
+  if (changeSlideStep(-1)) return;
   goTo(current - 1);
 }
 
@@ -526,10 +623,12 @@ function updateNotes() {
   const noteHtml = deckNotes[current] || "";
   if (presenterNotes) {
     presenterNotes.innerHTML = noteHtml || '<p class="presenter-note-empty">No presenter notes for this slide.</p>';
+    window.htmpresRenderMath?.(presenterNotes);
   }
   if (!notesBox) return;
   const note = slides[current]?.querySelector(".notes");
   notesBox.innerHTML = noteHtml || (note ? note.innerHTML : "No speaker notes for this slide.");
+  window.htmpresRenderMath?.(notesBox);
 }
 
 function toggleNotes() {
@@ -646,7 +745,7 @@ function wireMediaDirectives() {
     if (media.classList.contains("ds-hide")) media.setAttribute("aria-hidden", "true");
     if (media.classList.contains("ds-autoadvance")) {
       media.addEventListener("ended", () => {
-        if (slides[current]?.contains(media)) goTo(current + 1);
+        if (slides[current]?.contains(media)) advanceSlide();
       });
     }
   });
@@ -682,10 +781,41 @@ function readDeckNotes() {
   }
 }
 
-function initialSlideFromHash() {
-  const match = /^#\/(\d+)/.exec(location.hash);
-  if (!match) return 0;
-  return Number(match[1]) - 1;
+function slideTargetFromHash(hash) {
+  const numeric = /^#\/(\d+)$/.exec(hash);
+  if (numeric) {
+    const index = Number(numeric[1]) - 1;
+    return index >= 0 && index < slides.length ? { index, target: null } : null;
+  }
+  let id;
+  try { id = decodeURIComponent(hash.replace(/^#/, "")); } catch { return null; }
+  if (!id) return null;
+  const target = document.getElementById(id);
+  const slide = target?.closest(".slide");
+  const index = slides.indexOf(slide);
+  return index >= 0 ? { index, target: target === slide ? null : target } : null;
+}
+
+function navigateToHash(hash, historyMode = "none") {
+  const destination = slideTargetFromHash(hash);
+  if (!destination) return false;
+  goTo(destination.index, { history: historyMode, hash });
+  destination.target?.scrollIntoView?.({ block: "nearest" });
+  return true;
+}
+
+function wireHashNavigation() {
+  window.addEventListener("hashchange", () => navigateToHash(location.hash));
+  document.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const anchor = event.target instanceof Element ? event.target.closest("a[href]") : null;
+    if (!anchor || anchor.hasAttribute("download") || (anchor.target && anchor.target !== "_self")) return;
+    const url = new URL(anchor.href, location.href);
+    if (url.origin !== location.origin || url.pathname !== location.pathname || url.search !== location.search || !url.hash) return;
+    if (!slideTargetFromHash(url.hash)) return;
+    event.preventDefault();
+    navigateToHash(url.hash, "push");
+  });
 }
 
 prevBtn?.addEventListener("click", prevStepOrSlide);
@@ -710,7 +840,7 @@ document.addEventListener("keydown", (event) => {
     prevStepOrSlide();
   }
   if (event.key === "Home") goTo(0);
-  if (event.key === "End") goTo(slides.length - 1);
+  if (event.key === "End") goTo(lastMainSlide);
   if (event.key.toLowerCase() === "o") toggleOverview();
   if (event.key.toLowerCase() === "n") toggleNotes();
   if (event.key === "Escape") closeOverlays();
@@ -726,8 +856,11 @@ wireZoom();
 wireScrollCue();
 wireTapNavigation();
 wireMediaDirectives();
+wireHashNavigation();
 prepareSlideTransitions();
 prepareFragments();
 prepareCodeSteppers();
+prepareEquationSteppers();
+prepareStepGraphs();
 scaleDeck();
-goTo(initialSlideFromHash());
+if (!navigateToHash(location.hash)) goTo(0);

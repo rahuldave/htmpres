@@ -12,6 +12,7 @@ Included:
 - `_extensions/htmpres/`: installable Quarto utility extension and runtime.
 - `decks/tutorial/`: hand-authored tutorial deck and tutorial assets.
 - `decks/example/`: nine-slide Nocturne example with inline speaker notes.
+- `decks/semantic/`: semantic importance, offline math, mixed steps and appendix links.
 - `decks/scripts/`: project-local runtime copies used by this workspace.
 - `docs/`: SmallDocs site with authoring guides and a 38-theme comparison.
 - `scripts/`: local shim plus optional Node fallback scripts.
@@ -27,6 +28,8 @@ Primary commands:
 ```sh
 just tutorial
 just example
+just semantic
+just semantic-test
 just docs
 just docs-serve 8770
 just pages-build
@@ -79,6 +82,11 @@ The renderer writes:
 
 - `index.html`: audience deck, with speaker notes stripped from slide content.
 - `presenter.html`: presenter deck, with notes shown in a presenter panel.
+
+For `.key`/`.aside`, classed equations, synchronized text/code/math steps,
+appendix navigation, title emphasis, footnotes and machine-readable slide-break
+lint, see [Semantic slides](docs/semantic-authoring.md). Keep generated
+`assets/htmpres-math/` and theme assets with the HTML when sharing it offline.
 
 The tutorial demonstrates:
 

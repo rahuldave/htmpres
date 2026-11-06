@@ -1,0 +1,48 @@
+/* Semantic importance; themes may remap any level without changing QMD. */
+:root {
+  --htmpres-importance-0-scale: .8;
+  --htmpres-importance-0-weight: 400;
+  --htmpres-importance-0-ink: var(--muted, currentColor);
+  --htmpres-importance-1-scale: .9;
+  --htmpres-importance-1-weight: 400;
+  --htmpres-importance-1-ink: var(--muted, currentColor);
+  --htmpres-importance-2-scale: 1;
+  --htmpres-importance-2-weight: 400;
+  --htmpres-importance-2-ink: var(--ink, currentColor);
+  --htmpres-importance-3-scale: 1.12;
+  --htmpres-importance-3-weight: 700;
+  --htmpres-importance-3-ink: var(--ink, currentColor);
+  --htmpres-importance-4-scale: 1.3;
+  --htmpres-importance-4-weight: 800;
+  --htmpres-importance-4-ink: var(--ink, currentColor);
+}
+
+:is(.slide, .presenter-note-body) .key {
+  --htmpres-importance-scale: var(--htmpres-importance-3-scale);
+  --htmpres-importance-weight: var(--htmpres-importance-3-weight);
+  --htmpres-importance-ink: var(--htmpres-importance-3-ink);
+}
+
+:is(.slide, .presenter-note-body) .aside {
+  --htmpres-importance-scale: var(--htmpres-importance-1-scale);
+  --htmpres-importance-weight: var(--htmpres-importance-1-weight);
+  --htmpres-importance-ink: var(--htmpres-importance-1-ink);
+}
+
+:is(.slide, .presenter-note-body) :is(.key, .aside) {
+  font-size: calc(1em * var(--htmpres-importance-scale));
+  font-weight: var(--htmpres-importance-weight);
+  color: var(--htmpres-importance-ink);
+}
+
+/* Block roles start from the theme's body size and retain runtime text fitting. */
+:is(.slide, .presenter-note-body) :is(div, section, aside, blockquote):is(.key, .aside),
+.slide.htmpres-text-fit-active :is(div, section, aside, blockquote):is(.key, .aside) {
+  font-size: calc(var(--htmpres-body-size, 1rem) * var(--htmpres-importance-scale) * var(--htmpres-text-fit-scale, 1));
+}
+
+:is(.slide, .presenter-note-body) :is(.key, .aside) :is(p, ul, ol, li) {
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}

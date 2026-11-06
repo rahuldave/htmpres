@@ -28,6 +28,21 @@ After installing skills, invoke `htmpres-installer` to set up a deck project.
 Invoke `htmpres-authoring` when the project already contains
 `_extensions/htmpres/htmpres.ts`.
 
+## Lint Semantic Source
+
+```sh
+quarto run _extensions/htmpres/htmpres.ts lint slides.qmd other.qmd --json
+```
+
+Standalone body `---` outside code is an error; start a new slide with `##`.
+Initial YAML delimiters are exempt. Output is
+`{version:1,ok,diagnostics:[{file,line,column,code,severity,message}]}`; exit 0
+means valid, exit 1 means diagnostics. The diagnostic code is `slide-break`.
+Rendering and `verify slides.qmd` enforce the same rule. Pass explicit
+source paths to verify filenames such as `slides.qmd`; no-argument verification
+discovers only `decks/**/index.qmd`. For exact importance, math,
+shared-step, appendix and footnote syntax, see [Semantic slides](semantic-authoring.md).
+
 ## Install The Extension
 
 In an existing presentation project, install the Quarto extension:

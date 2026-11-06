@@ -1,0 +1,235 @@
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import { runtimeHarness } from './runtime-harness.mjs';
+
+// Characterization: an unmapped code block starts at snapshot 1, and persistent
+// highlights join each snapshot. The unified clock must preserve this baseline.
+test('legacy code baseline and persistent selections', () => {
+  const { context } = runtimeHarness();
+  vm.runInContext(`
+    const slide = {};
+    const root = fakeElement();
+    const lines = [1, 2, 3].map(line => fakeElement({ line: String(line) }));
+    const block = { root, lines, staticLines: new Set([3]), stepLines: [new Set([1]), new Set([2])] };
+    slideCodeStates.set(slide, { blocks: [block], maxSteps: 2, step: 0 });
+    applyCodeStep(slide);
+  `, context);
+  assert.equal(vm.runInContext('lines[0].classes.has("code-line-highlight")', context), true);
+  assert.equal(vm.runInContext('lines[1].classes.has("code-line-dim")', context), true);
+  assert.equal(vm.runInContext('lines[2].classes.has("code-line-highlight")', context), true);
+  assert.equal(vm.runInContext('root.dataset.activeStep', context), '1');
+  vm.runInContext('slideCodeStates.get(slide).step = 1; applyCodeStep(slide);', context);
+  assert.equal(vm.runInContext('lines[0].classes.has("code-line-dim")', context), true);
+  assert.equal(vm.runInContext('lines[1].classes.has("code-line-highlight")', context), true);
+  assert.equal(vm.runInContext('lines[2].classes.has("code-line-highlight")', context), true);
+});
+
+test('code selections parse ranges, reversed ranges and all', () => {
+  const { context } = runtimeHarness();
+  const selected = expression => [...vm.runInContext(expression, context)];
+  assert.deepEqual(selected('parseLineSelection("2-4, 6", 5)'), [2, 3, 4]);
+  assert.deepEqual(selected('parseLineSelection("4-2", 5)'), [2, 3, 4]);
+  assert.deepEqual(selected('parseLineSelection("all", 3)'), [1, 2, 3]);
+  assert.deepEqual(selected('parseLineSelection("none", 3)'), []);
+});
+
+test('shared sparse indices compile into one clock without empty keypresses', () => {
+  const { run } = runtimeHarness();
+  const graph = run(`compileStepGraph([
+    { type: 'code', explicitIndex: 2 },
+    { type: 'code', explicitIndex: 8 },
+    { type: 'fragment', explicitIndex: 2 },
+    { type: 'fragment', explicitIndex: 8 },
+    { type: 'equation', explicitIndex: 8 },
+  ])`);
+  assert.deepEqual([...graph.frames], [2, 8]);
+  assert.deepEqual([...graph.events].map(event => event.index), [2, 8, 2, 8, 8]);
+});
+
+test('implicit events follow source order and fragment zero stays a baseline', () => {
+  const { run } = runtimeHarness();
+  assert.deepEqual([...run(`compileStepGraph([
+    { explicitIndex: 0 }, { explicitIndex: null },
+    { explicitIndex: 4 }, { explicitIndex: null },
+  ]).frames`)], [1, 4, 5]);
+});
+
+test('mapped snapshots validate cardinality, positivity, integer syntax and strict order', () => {
+  const { run, warnings } = runtimeHarness();
+  assert.deepEqual([...run('parseStepIndices("1|3|8", 3)')], [1, 3, 8]);
+  for (const value of ['0|2', '2|2', '3|1', '1.5|2', '1e1|11', '1|', '1', '1|2|3', '9007199254740992|9007199254740993']) {
+    assert.equal(run(`parseStepIndices(${JSON.stringify(value)}, 2)`), null, value);
+  }
+  assert.equal(warnings.length, 9);
+  assert.equal(run('parseStepIndices("", 2)'), null);
+});
+
+test('two legacy unmapped code blocks share kth snapshots and preserve first snapshot baseline', () => {
+  const { run } = runtimeHarness();
+  run(`
+    const blocks = [2, 3].map(count => ({ root: fakeElement(), lines: [], staticLines: new Set(),
+      stepLines: Array.from({ length: count }, () => new Set([1])), stepIndices: null }));
+    slideCodeStates.set(slides[0], { blocks, step: 0 });
+    prepareStepGraphs(); resetSlideSteps(slides[0]);
+  `);
+  assert.deepEqual([...run('slideStepStates.get(slides[0]).frames')], [1, 2]);
+  assert.deepEqual([...run('blocks.map(block => block.activeSnapshot)')], [0, 0]);
+  run('changeSlideStep(1)');
+  assert.deepEqual([...run('blocks.map(block => block.activeSnapshot)')], [1, 1]);
+  run('changeSlideStep(1)');
+  assert.deepEqual([...run('blocks.map(block => block.activeSnapshot)')], [1, 2]);
+  assert.equal(run('changeSlideStep(1)'), false);
+});
+
+test('mapped code and text advance together, hold state, retreat and reset', () => {
+  const { run } = runtimeHarness();
+  run(`
+    const lineNodes = [1, 2, 3].map(line => fakeElement({ line: String(line) }));
+    const block = { root: fakeElement(), lines: lineNodes, staticLines: new Set([3]),
+      stepLines: [new Set([1]), new Set([2])], stepIndices: [2, 8] };
+    const text = [fakeElement(), fakeElement()].map((element, offset) => ({ element, explicitIndex: [2, 8][offset] }));
+    slideCodeStates.set(slides[0], { blocks: [block], step: 0 });
+    slideFragmentStates.set(slides[0], { fragments: text, step: 0 });
+    prepareStepGraphs(); resetSlideSteps(slides[0]);
+  `);
+  assert.equal(run('block.root.dataset.activeStep'), undefined);
+  assert.equal(run('lineNodes[2].classes.has("code-line-highlight")'), true);
+  assert.equal(run('text[0].element.classes.has("fragment-visible")'), false);
+  run('changeSlideStep(1)');
+  assert.equal(run('block.root.dataset.activeStep'), '1');
+  assert.equal(run('text[0].element.classes.has("fragment-visible")'), true);
+  assert.equal(run('text[1].element.classes.has("fragment-visible")'), false);
+  run('changeSlideStep(1)');
+  assert.equal(run('block.root.dataset.activeStep'), '2');
+  assert.equal(run('text[0].element.classes.has("fragment-visible")'), true);
+  assert.equal(run('text[1].element.classes.has("fragment-current")'), true);
+  run('changeSlideStep(-1)');
+  assert.equal(run('block.root.dataset.activeStep'), '1');
+  assert.equal(run('text[1].element.classes.has("fragment-visible")'), false);
+  run('resetSlideSteps(slides[0])');
+  assert.equal(run('block.root.dataset.activeStep'), undefined);
+  assert.equal(run('text[0].element.classes.has("fragment-visible")'), false);
+});
+
+test('dim current text holds while only another lane advances, future text stays hidden', () => {
+  const { run } = runtimeHarness();
+  run(`
+    const fragments = [1, 3].map(index => ({ element: fakeElement(), index }));
+    slideFragmentStates.set(slides[0], { fragments, step: 2 });
+    applyFragmentStep(slides[0]);
+  `);
+  assert.equal(run('fragments[0].element.classes.has("fragment-current")'), true);
+  assert.equal(run('fragments[0].element.classes.has("fragment-past")'), false);
+  assert.equal(run('fragments[1].element.classes.has("fragment-visible")'), false);
+  assert.equal(run('fragments[1].element.attributes.get("aria-hidden")'), 'true');
+  run('slideFragmentStates.get(slides[0]).step = 3; applyFragmentStep(slides[0])');
+  assert.equal(run('fragments[0].element.classes.has("fragment-past")'), true);
+  assert.equal(run('fragments[1].element.classes.has("fragment-current")'), true);
+});
+
+test('spans and list items inside columns inherit incremental dim; explicit effects win', () => {
+  const { run } = runtimeHarness();
+  run(`
+    const owner = fakeElement({ fragmentEffect: 'dim' }); owner.classes.add('incremental');
+    const column = fakeElement(); column.parentElement = owner;
+    const span = fakeElement(); span.parentElement = column;
+    const list = fakeElement(); list.classes.add('incremental'); list.parentElement = column;
+    const item = fakeElement(); item.parentElement = list;
+    const custom = fakeElement({ fragmentEffect: 'highlight' }); custom.parentElement = column;
+    slides[0].queries.set('.fragment', [span, custom]);
+    slides[0].queries.set('.incremental > li, .incremental > ol > li, .incremental > ul > li, ol.incremental > li, ul.incremental > li', [item]);
+    prepareFragments(); prepareStepGraphs(); resetSlideSteps(slides[0]);
+  `);
+  assert.equal(run('span.classes.has("fragment-dim")'), true);
+  assert.equal(run('item.classes.has("fragment-dim")'), true);
+  assert.equal(run('custom.classes.has("fragment-highlight")'), true);
+  assert.equal(run('custom.classes.has("fragment-dim")'), false);
+  assert.equal(run('span.attributes.get("aria-hidden")'), 'true');
+});
+
+test('mapped equation terms follow the shared clock and leave text revealed', () => {
+  const { run } = runtimeHarness();
+  run(`
+    const a = fakeElement(); a.classes.add('term-a');
+    const b = fakeElement(); b.classes.add('term-b');
+    const root = fakeElement({ equationSteps: 'term-a|term-b|term-a,term-b', stepIndices: '1|4|9' });
+    root.queries.set('.term-a, .term-b', [a, b]);
+    slides[0].queries.set('.equation-steps[data-equation-steps]', [root]);
+    const text = [1, 4, 9].map(index => ({ element: fakeElement(), explicitIndex: index }));
+    slideFragmentStates.set(slides[0], { fragments: text, step: 0 });
+    prepareEquationSteppers(); prepareStepGraphs(); resetSlideSteps(slides[0]);
+  `);
+  assert.equal(run('root.dataset.activeStep'), undefined);
+  assert.equal(run('a.classes.has("equation-term-dim")'), false);
+  run('changeSlideStep(1)');
+  assert.equal(run('a.classes.has("equation-term-highlight")'), true);
+  assert.equal(run('b.classes.has("equation-term-dim")'), true);
+  assert.equal(run('text[0].element.classes.has("fragment-visible")'), true);
+  run('changeSlideStep(1)');
+  assert.equal(run('a.classes.has("equation-term-dim")'), true);
+  assert.equal(run('b.classes.has("equation-term-highlight")'), true);
+  assert.equal(run('text[0].element.classes.has("fragment-visible")'), true);
+  run('changeSlideStep(1)');
+  assert.equal(run('a.classes.has("equation-term-highlight")'), true);
+  assert.equal(run('b.classes.has("equation-term-highlight")'), true);
+  run('changeSlideStep(-1)');
+  assert.equal(run('a.classes.has("equation-term-dim")'), true);
+});
+
+test('mixed implicit fragment then code follows source order from an inactive baseline', () => {
+  const { run } = runtimeHarness();
+  run(`
+    const text = { element: fakeElement(), explicitIndex: null };
+    const block = { root: fakeElement(), lines: [], staticLines: new Set(),
+      stepLines: [new Set([1]), new Set([2])], stepIndices: null };
+    slideFragmentStates.set(slides[0], { fragments: [text], step: 0 });
+    slideCodeStates.set(slides[0], { blocks: [block], step: 0 });
+    prepareStepGraphs(); resetSlideSteps(slides[0]);
+  `);
+  assert.equal(run('block.baseline'), -1);
+  assert.equal(run('block.activeSnapshot'), -1);
+  assert.equal(run('block.root.dataset.activeStep'), undefined);
+  assert.deepEqual([...run('slideStepStates.get(slides[0]).frames')], [1, 2, 3]);
+  run('changeSlideStep(1)');
+  assert.equal(run('text.element.classes.has("fragment-visible")'), true);
+  assert.equal(run('block.activeSnapshot'), -1);
+  run('changeSlideStep(1)');
+  assert.equal(run('block.activeSnapshot'), 0);
+  assert.equal(run('block.root.dataset.activeStep'), '1');
+  run('changeSlideStep(1)');
+  assert.equal(run('block.activeSnapshot'), 1);
+  assert.equal(run('block.root.dataset.activeStep'), '2');
+  run('changeSlideStep(-1); changeSlideStep(-1)');
+  assert.equal(run('block.activeSnapshot'), -1);
+});
+
+test('mixed implicit fragment then equation schedules its first snapshot after the text', () => {
+  const { run } = runtimeHarness();
+  run(`
+    const text = { element: fakeElement(), explicitIndex: null };
+    const a = fakeElement(); a.classes.add('term-a');
+    const b = fakeElement(); b.classes.add('term-b');
+    const root = fakeElement({ equationSteps: 'term-a|term-b' });
+    root.queries.set('.term-a, .term-b', [a, b]);
+    slides[0].queries.set('.equation-steps[data-equation-steps]', [root]);
+    slideFragmentStates.set(slides[0], { fragments: [text], step: 0 });
+    prepareEquationSteppers(); prepareStepGraphs(); resetSlideSteps(slides[0]);
+  `);
+  assert.equal(run('slideEquationStates.get(slides[0]).blocks[0].baseline'), -1);
+  assert.equal(run('root.dataset.activeStep'), undefined);
+  assert.equal(run('a.classes.has("equation-term-highlight")'), false);
+  assert.deepEqual([...run('slideStepStates.get(slides[0]).frames')], [1, 2, 3]);
+  run('changeSlideStep(1)');
+  assert.equal(run('text.element.classes.has("fragment-visible")'), true);
+  assert.equal(run('root.dataset.activeStep'), undefined);
+  run('changeSlideStep(1)');
+  assert.equal(run('root.dataset.activeStep'), '1');
+  assert.equal(run('a.classes.has("equation-term-highlight")'), true);
+  assert.equal(run('b.classes.has("equation-term-dim")'), true);
+  run('changeSlideStep(1)');
+  assert.equal(run('root.dataset.activeStep'), '2');
+  assert.equal(run('b.classes.has("equation-term-highlight")'), true);
+  run('resetSlideSteps(slides[0])');
+  assert.equal(run('root.dataset.activeStep'), undefined);
+});

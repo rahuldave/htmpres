@@ -15,6 +15,12 @@ function copy(source: URL, target: URL) {
   Deno.mkdirSync(new URL("./", target), { recursive: true });
   Deno.copyFileSync(source, target);
 }
+function copyTree(source: URL, target: URL) {
+  for (const entry of Deno.readDirSync(source)) {
+    if (entry.isDirectory) copyTree(new URL(`${entry.name}/`, source), new URL(`${entry.name}/`, target));
+    else if (entry.isFile) copy(new URL(entry.name, source), new URL(entry.name, target));
+  }
+}
 const catalog = JSON.parse(read("_extensions/htmpres/themes/catalog.json"));
 const themes = themeChoices(catalog);
 const canonical = { audience: read("decks/example/index.html"), presenter: read("decks/example/presenter.html") };
@@ -32,6 +38,14 @@ for (const theme of themes) {
   for (const asset of themeAssets({ light: theme.name, dark: theme.name, mode: "auto" }, catalog)) assets.add(asset);
 }
 for (const asset of assets) copy(new URL(`_extensions/htmpres/themes/${asset}`, root), new URL(`assets/htmpres-themes/${asset}`, output));
+copyTree(new URL("_extensions/htmpres/vendor/katex/", root), new URL("assets/htmpres-math/", output));
+for (const view of ["index", "presenter"]) {
+  write(`semantic/${view}.html`, read(`decks/semantic/${view}.html`)
+    .replaceAll('href="assets/htmpres-math/', 'href="../assets/htmpres-math/')
+    .replaceAll('src="assets/htmpres-math/', 'src="../assets/htmpres-math/')
+    .replaceAll("assets/htmpres-themes/", "../assets/htmpres-themes/"));
+}
+write("source/semantic.qmd.txt", read("decks/semantic/index.qmd"));
 // Vendor site fonts from the same licensed bundle; do not depend on a sibling checkout.
 for (const asset of catalog.themes.nocturne.assets) {
   if (asset.startsWith("fonts/")) copy(new URL(`_extensions/htmpres/themes/${asset}`, root), new URL(`docs/_extensions/nocturne/${asset}`, root));

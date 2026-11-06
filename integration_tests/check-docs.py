@@ -82,7 +82,16 @@ def crawl(site):
     for filename in ('index.qmd', 'source.css'):
         assert (generated / 'source' / f'{filename}.txt').read_bytes() == (repo / 'decks/example' / filename).read_bytes()
     assert (generated / 'source/two-views.svg').read_bytes() == (repo / 'decks/example/assets/two-views.svg').read_bytes()
-    assert not any((site / name).exists() for name in ('showcase-spec.html', 'theme-catalog-spec.html', 'tag_dependency_workflow.html', 'authoring-cli-spec.html'))
+    assert (generated / 'source/semantic.qmd.txt').read_bytes() == (repo / 'decks/semantic/index.qmd').read_bytes()
+    for view in ('index', 'presenter'):
+        text = (generated / 'semantic' / f'{view}.html').read_text()
+        assert len(re.findall(r'<section\b[^>]*class="[^"]*\bslide\b', text)) == 8, 'Semantic demo slide count'
+        assert 'href="../assets/htmpres-math/katex.min.css"' in text
+        assert 'src="../assets/htmpres-math/katex.min.js"' in text
+        notes = re.search(r'<script id="deckNotes" type="application/json">(.*?)</script>', text, re.S)
+        if view == 'index': assert notes is None, 'Semantic demo audience note leak'
+        else: assert notes and len(json.loads(notes[1])) == 8, 'Semantic presenter notes'
+    assert not any((site / name).exists() for name in ('showcase-spec.html', 'semantic-authoring-spec.html', 'theme-catalog-spec.html', 'tag_dependency_workflow.html', 'authoring-cli-spec.html'))
     assert (site / 'site_libs/themes/nocturne/nocturne.css').exists(), 'Nocturne site CSS missing'
     if errors:
         raise SystemExit('\n'.join(errors))

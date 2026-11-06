@@ -23,6 +23,26 @@ Common slide classes:
 - `.no-autoscale`: opts one slide out of deck-level text fitting.
 - `.no-background`: opts one slide out of a global deck background.
 
+## Semantic Importance, Math And Titles
+
+Use `[The point.]{.key}` and `[A qualification.]{.aside}`, or fenced
+`::: {.key}` / `::: {.aside}` blocks. The theme maps importance to weight,
+size and ink; keep authored QMD free of inline styles, colors and font choices.
+All paired themes support both modes. `.key` uses importance token level 3,
+`.aside` level 1, ordinary body level 2; themes expose levels 0–4 as
+`--htmpres-importance-N-scale`, `-weight` and `-ink` for future remapping.
+There are no numbered author classes.
+
+Titles accept inline Markdown: `## Why *structure* matters {#structure}`.
+Math uses `$x^2$` / `$$...$$` and local KaTeX assets. Name a term with
+`\htmlClass{term-a}{x}`; only this KaTeX HTML extension is trusted. Keep the
+rendered `assets/htmpres-math/` folder with the HTML for offline viewing.
+Standard footnotes are unique across slides, title notes and presenter cues;
+write `[^1]` and `[^1]: Source.` normally.
+
+See [Semantic slides](semantic-authoring.md) for complete, copyable examples
+and the [audience demo](_generated/semantic/index.html).
+
 ## Presenter Notes
 
 Speaker notes are authored as a fenced div:
@@ -38,11 +58,12 @@ the presenter notes panel in `presenter.html`.
 
 ## Layout Blocks
 
-Use fenced divs for layout and styling:
+Use fenced divs for structure. These examples use theme defaults; customize
+appearance in the theme stylesheet, keeping QMD semantic:
 
 ```markdown
 :::: three-col
-::: {.card .metric-card style="--accent: var(--teal)"}
+::: {.card .metric-card}
 **Reusable**
 
 Shared patterns become visible.
@@ -179,7 +200,7 @@ Half-slide media:
 Split flow layout:
 
 ```markdown
-:::: {.ds-split style="--ds-gap: 18px; --ds-height: 420px;"}
+:::: {.ds-split}
 ::: {.ds-pane .ds-frame}
 ### Text pane
 :::
@@ -212,7 +233,7 @@ container, because they use pseudo-elements around the media.
 Three inline images laid out by an enclosing div:
 
 ```markdown
-:::: {.ds-grid style="--ds-columns: 3; --ds-gap: 14px;"}
+:::: {.ds-grid}
 ::: {.ds-media}
 ![](assets/photo-1.svg){.ds-fill .ds-bn}
 :::
@@ -221,8 +242,8 @@ Three inline images laid out by an enclosing div:
 ![](assets/photo-2.svg){.ds-fill .ds-theme-filter}
 :::
 
-::: {.ds-media .ds-vignette style="--ds-vignette: 0.42;"}
-![](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
+::: {.ds-media .ds-vignette}
+![](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen}
 :::
 ::::
 ```
@@ -230,6 +251,9 @@ Three inline images laid out by an enclosing div:
 `ds-noir`, `ds-chrome`, `ds-fade`, exposure, and sharpen are Core
 Image-inspired browser approximations. They are stable CSS/SVG mappings, not
 pixel-exact Apple Core Image output.
+
+Set custom media filter, gap, height and grid variables in the theme
+stylesheet. The QMD examples use the theme defaults.
 
 Media playback directive classes:
 
@@ -282,6 +306,7 @@ Supported code attributes:
 - `data-highlight="2,4-5"` applies persistent line highlights.
 - `data-steps="none|2|3-4|all"` adds per-slide code steps before moving to the next slide.
 - `data-highlight-steps` is accepted as a more explicit alias for `data-steps`.
+- `data-step-indices="1|3|7"` maps code snapshots to shared text/equation frames.
 
 ## Transitions And Fragments
 
@@ -324,19 +349,26 @@ Supported slide transition classes:
 The equivalent `data-transition="fade|slide|zoom"` attribute can be used on a
 slide heading when the author prefers data attributes.
 
-Mixed-modality slides use fixed navigation precedence:
+Mixed slides use one ordered step graph. Match text
+`data-fragment-index="1"` with code `data-step-indices="1|3|7"` to change both
+columns together. A mapped code/equation lane starts inactive and holds its
+latest snapshot until its next mapped frame. Sparse indices consume no empty
+keypresses. Earlier ordinary fragments stay visible; `dim` is opt-in.
 
-1. `.fragment` blocks and `.incremental` list items reveal first in source
-   order. Fragments with the same `data-fragment-index` reveal together.
-2. Code blocks with `data-steps` or `data-highlight-steps` step after all
-   generic fragments are visible. Multiple stepped code blocks share one
-   code-step counter.
-3. Slide navigation runs when no fragment or code step remains. The incoming
-   slide's transition animation then plays.
+For equations, wrap classed math in
+`::: {.equation-steps data-equation-steps="term-a|term-b|term-a,term-b" data-step-indices="1|3|7"}`.
+Use `\htmlClass{term-a}{x}` and `\htmlClass{term-b}{y}` in the equation.
+Only referenced named terms dim; unrelated operators keep their appearance.
+Mappings require one decimal positive safe integer per snapshot, strictly
+increasing within a block. Invalid mappings warn and fall back to source order.
 
-When code stepping begins, `.fragment-current` is cleared from visible
-fragments. They remain visible and are treated as past fragments while code
-line highlighting advances.
+Unmapped mixed events run in source order. Existing unmapped code-only slides
+retain their first snapshot as a baseline, with multiple blocks sharing kth
+snapshots. `data-fragment-index="0"` remains a baseline reveal. Spans with
+`.fragment` and list items inherit `data-fragment-effect="dim"` from their
+incremental container, including inside columns. Future text stays hidden;
+earlier text dims and the latest text point stays current while another lane
+advances. No mode shows future text in grey.
 
 The following do not consume navigation steps:
 
@@ -363,6 +395,22 @@ Surfaces call the same runtime contract.
 
 The interaction helper scopes updates to the current custom `.slide`, falling
 back to the document only when necessary.
+
+## Slide IDs, Appendix And Breaks
+
+`## Extra {#appendix-data data-kind="appendix"}` starts a trailing appendix.
+All later slides belong to it. Normal counters, Next, End and media
+advancement stop at the final main slide; appendix counters are separate.
+Use `[The data](#appendix-data)` and `[Back](#main-result)` to navigate to
+explicit slide IDs with live hash/history support. Same-slide footnote links
+retain the reveal frame. Fallback IDs are collision-safe `slide-N`; duplicate
+explicit slide IDs are rejected.
+
+A slide starts only at `##`. Standalone body `---` outside code is an error,
+even directly before a heading; initial YAML delimiters are exempt. Run
+`quarto run _extensions/htmpres/htmpres.ts lint slides.qmd --json` for versioned
+JSON diagnostics and a nonzero exit on errors. Rendering and verification
+apply the same scanner.
 
 ## Workflow
 

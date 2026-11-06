@@ -13,7 +13,7 @@ Quarto containers are more general.
 | Split flow layouts | Done | Use `.ds-split` with child `.ds-pane` or `.ds-media` containers. |
 | Fit and fill behavior | Done | `.ds-fit` contains the whole asset; `.ds-fill` covers and crops. |
 | Filter presets and custom filters | Done | `.ds-bn`, `.ds-bw`, `.ds-vivid`, `.ds-noir`, `.ds-chrome`, `.ds-fade`, `.ds-filter`, `.ds-sharpen`, `.ds-alpha`, `.ds-original`, `.ds-vignette`, and `.ds-readable` are available. |
-| Theme-selected colors, filters, and typography | Done | `deck.theme` becomes `data-theme` on `<html>`; the tutorial ships `sage` and `mono-grid` token sets, including code colors and `.ds-theme-filter`. |
+| Theme-selected colors, filters, and typography | Done | `deck.theme` selects local seeds or bundled Bootstrap/Bootswatch/Elegant/Reading/Tufte adapters. Imported themes support light/dark/auto color modes and paired names; see `themes.md`. |
 | Global background image | Done | Use `deck.background-image` plus optional `deck.background-fit`, `deck.background-filter`, `deck.background-opacity`, and slide-level `data-background-*` overrides. |
 | Theme-level text fitting and overflow policy | Done | Use `deck.text-fit: true`, `.autoscale`, `.no-autoscale`, theme typography tokens that respond to `--htmpres-text-fit-scale`, and `deck.overflow: hidden|scroll|fit|fit-scroll`; `fit` modes trigger runtime fitting, and scrollable slides show a bottom cue. |
 | Zoomable images | Done | Add `.zoomable` to open the runtime zoom modal. |

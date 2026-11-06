@@ -111,11 +111,20 @@ Always inspect with `slide list` and `slide show` before replacing a slide.
 
 ## Themes
 
-Packaged themes are starter CSS blocks, not hidden global state:
+Bundled themes can be selected directly with `deck.theme`; see
+[the full catalog and color modes](themes.md). The original editable seeds are:
 
 - `sage`
 - `mono-grid`
 - `blank`
+
+The catalog also includes Bootstrap, the 25 SmallDocs Bootswatch themes,
+Folio/Atelier/Nocturne, five Reading refinements, and Tufte. Use
+`deck.color-mode: light`, `dark`, or `auto` with imported themes. For example:
+
+```sh
+quarto run _extensions/htmpres/htmpres.ts deck new demo --theme folio --color-mode auto
+```
 
 `deck new --theme sage` writes editable deck-local CSS. To create a custom
 theme, copy a seed into the deck CSS and set the deck front matter:

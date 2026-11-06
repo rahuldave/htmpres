@@ -72,6 +72,10 @@ the reusable class map documents it.
 
 ## Themes
 
+For Bootstrap, Bootswatch, Elegant, Reading, and Tufte adapters and their
+light/dark/auto selection, see [Presentation themes](themes.md). Existing
+deck-local theme blocks continue to work as described below.
+
 Set `deck.theme` in front matter to select a CSS variable set:
 
 ```yaml

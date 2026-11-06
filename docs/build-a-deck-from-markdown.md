@@ -48,6 +48,8 @@ deck:
 
 `deck.css` tells the renderer which CSS file to inline into the generated HTML.
 `deck.theme` is copied to `data-theme` on the generated `<html>` element.
+Bundled Bootstrap, Bootswatch, Elegant, Reading, and Tufte themes can be selected
+directly, with `deck.color-mode: light|dark|auto`; see [Presentation themes](themes.md).
 `deck.background-*` options create a global background layer, and
 `deck.text-fit` enables runtime typography fitting. `deck.overflow` controls
 what happens when content is still too tall; `fit` and `fit-scroll`

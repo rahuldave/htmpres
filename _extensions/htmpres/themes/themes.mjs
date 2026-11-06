@@ -43,12 +43,25 @@ export function resolveTheme(meta, catalog, localCss = "") {
 function tokens(entry, mode) {
   const p = entry.palettes[mode];
   const dark = mode === "dark";
+  // Semantic roles can gain additional mappings without changing authored QMD.
+  const importance = [
+    [0.8, 400, p.muted],
+    [0.9, 400, p.muted],
+    [1, 400, p.ink],
+    [1.12, 700, p.ink],
+    [1.3, 800, p.ink],
+  ];
   const values = {
     "bg": p.panel, "paper": p.paper, "surface": p.panel,
     "ink": p.ink, "muted": p.muted, "line": p.line,
     "teal": p.accent, "amber": p.secondary, "rose": p.secondary,
     "indigo": p.accent, "violet": p.secondary,
     "font-body": entry.body, "font-display": entry.heading, "font-mono": entry.mono,
+    ...Object.fromEntries(importance.flatMap(([scale, weight, ink], level) => [
+      [`htmpres-importance-${level}-scale`, scale],
+      [`htmpres-importance-${level}-weight`, weight],
+      [`htmpres-importance-${level}-ink`, ink],
+    ])),
     "shadow": dark ? "0 18px 45px rgba(0,0,0,.4)" : "0 18px 45px rgba(0,0,0,.14)",
     "toc-bg": p.panel, "toc-ink": p.ink, "toc-hover-border": p.line,
     "footer-label": p.muted, "hero-copy": p.ink, "source-copy": p.muted,

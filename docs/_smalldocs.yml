@@ -11,6 +11,7 @@ project:
     - themes.md
     - quarto-class-map.md
     - semantic-authoring.md
+    - semantic-authoring-report.md
     - quarto-extension.md
     - packaging.md
     - deckset-feature-status.md

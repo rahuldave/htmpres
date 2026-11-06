@@ -1,7 +1,9 @@
+import { htmlToPlainText } from "../_extensions/htmpres/lib/render.mjs";
+
 /** Theme variants of one canonical render; no Markdown or note re-parsing. */
 import { colorModeControl, colorModeScript, legacyThemes, resolveTheme, themeAttributes, themeStyles } from "../_extensions/htmpres/themes/themes.mjs";
 
-export function slideTitles(source) {
+export function slideTitles(source, renderedHtml) {
   let fence = null;
   const titles = [];
   for (const line of source.split(/\r?\n/)) {
@@ -13,6 +15,12 @@ export function slideTitles(source) {
     }
     const heading = /^## (.+?)(?:\s+\{.*\})?$/.exec(line);
     if (!fence && heading) titles.push(heading[1]);
+  }
+  if (renderedHtml !== undefined) {
+    const labels = [...renderedHtml.matchAll(/<section\b[^>]*class="[^"]*\bslide\b[^"]*"[^>]*>/g)]
+      .map(([tag]) => htmlToPlainText(/\sdata-title="([^"]*)"/.exec(tag)?.[1] || ""));
+    if (labels.length !== titles.length || labels.some(label => !label)) throw new Error("Showcase source and rendered titles differ");
+    return labels;
   }
   return titles;
 }

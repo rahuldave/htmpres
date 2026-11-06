@@ -5,13 +5,23 @@ sidebar: false
 page-layout: full
 ---
 
-The same nine slides, two independent theme choices. Choose a slide and view to
+The same twelve slides (ten in the talk, two in the appendix), two independent theme choices. Choose a slide and view to
 compare typography, contrast and layout. **35 themes have light/dark pairs**;
 the three original seeds are light only. Complementary palettes are htmpres
 adaptations where the source supplies only one mode.
 
 ```{=html}
 <section id="theme-comparison" aria-label="Theme comparison">
+  <nav class="feature-jumps" aria-label="Try a feature">
+    <strong>Try a feature:</strong>
+    <a class="feature-jump" href="?slide=3">Importance and footnotes</a>
+    <a class="feature-jump" href="?slide=4">Dim layering</a>
+    <a class="feature-jump" href="?slide=5">Code + changing text</a>
+    <a class="feature-jump" href="?slide=6">Equation + changing text</a>
+    <a class="feature-jump" href="?slide=10">Appendix round trip</a>
+    <a class="feature-jump" href="?slide=8">Speaker notes</a>
+  </nav>
+  <p>Use <strong>Next inside each preview</strong> to advance its steps, or open its full view for a larger slide. Code and equation examples reveal their explanations in sync; earlier explanations stay visible.</p>
   <div class="compare-toolbar">
     <label>Compare slide <select id="compare-slide"></select></label>
     <label>View <select id="compare-view"><option value="audience">Audience slides</option><option value="presenter">Presenter with notes</option></select></label>

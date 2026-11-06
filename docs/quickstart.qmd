@@ -25,8 +25,8 @@ quarto run scripts/htmpres.ts deck new decks/my-talk --theme nocturne
 quarto run scripts/htmpres.ts serve decks/my-talk/index.qmd --watch
 ```
 
-The server rerenders after source or stylesheet changes; refresh the browser to
-see the result. Edit `index.qmd` for
+The server rebuilds and reloads the browser after source, stylesheet or asset
+changes, keeping the current slide and view. Edit `index.qmd` for
 content, `source.css` for layout, and `assets/` for local media. Stop the preview
 with Ctrl+C. See the [CLI guide](authoring-cli.md) for preview options.
 

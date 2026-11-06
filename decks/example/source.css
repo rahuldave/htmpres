@@ -45,3 +45,7 @@
   .example-path strong { margin: 8px 0; }
   .example-media { height: 280px; padding: 10px; }
 }
+
+.example-step-copy { padding: 12px 20px; }
+.example-step-copy p { margin-bottom: 32px; }
+.example-equation { display: flex; align-items: center; justify-content: center; min-height: 260px; font-size: 1.45em; }

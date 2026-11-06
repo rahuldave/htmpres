@@ -14,10 +14,12 @@ deck:
   overflow: fit-scroll
 ---
 
-## One source. Two views. {.hero-title .example-cover data-section="htmpres example"}
+## One *source*. Two views. {.hero-title .example-cover data-section="htmpres example"}
 
 ::: hero-subtitle
-Write your deck in Markdown. Give the audience the slides and yourself the cues.
+[Write the story in Markdown.]{.key}
+
+[Give the audience the slides and yourself the cues.]{.aside}
 :::
 
 ::: example-byline
@@ -50,68 +52,108 @@ Quarto runs the script and converts Markdown fragments; htmpres owns the
 presentation layout and browser behavior.
 :::
 
-## Give each idea enough space {data-section="Layout"}
+## Give each idea its importance {#importance data-section="Meaning and layout"}
 
-:::: two-col
-::: example-copy
-### Start with the claim
+Ordinary body text sets the reference size. A theme interprets the semantic roles.
 
-A short heading tells the audience what to look for. The body supplies the
-reason, example, or evidence.
+[The central claim.]{.key} [A minor qualification.]{.aside}
 
-Keep the explanation here brief. Put your longer speaking cues in the notes.
+:::: {.two-col}
+::: {.key .card .example-principle}
+The main point can be a whole block.
 :::
-
-::: {.card .example-principle}
-### A useful slide has a job
-
-- State one claim.
-- Make the supporting detail readable.
-- Leave room for the speaker.
+::: {.aside .callout .example-principle}
+Supporting context stays secondary. Meaning is separate from appearance.[^1]
 :::
 ::::
 
+[^1]: This slide owns its footnote, even when another slide reuses the label.
+
 ::: notes
-Presenter cue 3. Point out that the two columns are Quarto fenced divs. The
-content and layout stay the same when a different theme changes fonts, colors,
-panels, and code tokens.
+Presenter cue 3. Compare ordinary text, key and aside in both themes and modes.
+The source contains roles, not font sizes or color instructions. Follow the
+footnote and its return arrow; the appendix safely reuses the same label.
 :::
 
-## Reveal the argument one step at a time {data-section="Progressive disclosure"}
+## Reveal the argument one step at a time {#layering data-section="Progressive disclosure"}
 
-::: {.incremental .example-reveals}
-- Write a clear claim.
-- Add the evidence that supports it.
-- End with the action or question it raises.
+:::: {.two-col}
+::: {.incremental data-fragment-effect="dim"}
+[Start with the question.]{.fragment data-fragment-index="1"}
+
+[Then state the answer.]{.fragment data-fragment-index="2"}
 :::
+::: {.incremental data-fragment-effect="dim"}
+- Show the evidence.
+- Explain the implication.
+:::
+::::
 
 ::: example-caption
-Use Next, Space, or the right arrow to reveal each point.
+Advance four times. Future points stay hidden; only earlier points dim.
 :::
 
 ::: notes
-Presenter cue 4. Advance three times to reveal the list before leaving this
-slide. A fragment is a presentation step, so Next does not always mean the next
-slide. The comparison page can jump directly to this slide in both panes.
+Presenter cue 4. The left column uses spans; the right uses list items. Next,
+Space or Right reveals one point. The dim effect comes from each incremental
+container. The audience cannot read future points ahead of the speaker.
 :::
 
-## Walk through code without a wall of text {data-section="Code"}
+## Code and explanation share one clock {#code-steps data-section="Synchronized code"}
 
-```{.typescript .numberLines data-steps="1|2|3-4"}
-const source = "index.qmd";
-const slides = parseSlides(source);
-const audience = renderAudience(slides);
-const presenter = renderWithNotes(slides);
+:::: {.two-col}
+::: {}
+```{.python .numberLines data-steps="1|2|3" data-step-indices="1|3|7"}
+observations = [2, 4, 6]
+total = sum(observations)
+mean = total / len(observations)
 ```
+:::
+::: {.example-step-copy}
+[Collect three observations.]{.fragment data-fragment-index="1"}
+
+[Add them to get a total of 12.]{.fragment data-fragment-index="3"}
+
+[Divide by three to get a mean of 4.]{.fragment data-fragment-index="7"}
+:::
+::::
 
 ::: example-caption
-Illustrative pseudocode. Advance to move the line highlight.
+Advance three times: code and text move together. Earlier explanations stay readable.
 :::
 
 ::: notes
-Presenter cue 5. The names above explain the workflow; they are pseudocode,
-not a public programming API. Advance through the line highlights. Fonts and
-syntax colors come from the active presentation theme.
+Presenter cue 5. Start with all explanations hidden. Each Next highlights one
+code line and reveals its matching explanation. Prior explanations stay fully
+visible. Sparse frame labels 1, 3 and 7 still take just three clicks. Previous
+reverses both lanes together.
+:::
+
+## Equations use the same clock {#equation-steps data-section="Synchronized equations"}
+
+:::: {.two-col}
+::: {.equation-steps .example-equation data-equation-steps="term-a|term-b|term-a,term-b" data-step-indices="1|3|7"}
+$$
+\htmlClass{term-a}{\bar{x}} = \frac{\htmlClass{term-b}{\sum_{i=1}^{n} x_i}}{n}
+$$
+:::
+::: {.example-step-copy}
+[The mean is the quantity we want.]{.fragment data-fragment-index="1"}
+
+[Add the observations in the numerator.]{.fragment data-fragment-index="3"}
+
+[Connect the total to the mean.]{.fragment data-fragment-index="7"}
+:::
+::::
+
+::: example-caption
+Local KaTeX typesets the equation. Named terms and explanations advance together.
+:::
+
+::: notes
+Presenter cue 6. Advance three times to emphasize the mean, the numerator and
+then both. Other named terms dim. The operators remain unchanged. The same
+locally bundled math engine typesets this cue: $\bar{x}=4$.
 :::
 
 ## Let a visual carry part of the explanation {data-section="Media"}
@@ -125,7 +167,7 @@ Click the diagram to zoom. The asset is a local, editable SVG.
 :::
 
 ::: notes
-Presenter cue 6. Open the diagram to demonstrate zoom, then close it with
+Presenter cue 7. Open the diagram to demonstrate zoom, then close it with
 Escape. The image uses fit behavior, so its full content remains visible.
 :::
 
@@ -146,7 +188,7 @@ Notes stay in the QMD source and appear only in the presenter HTML.
 :::
 
 ::: notes
-Presenter cue 7. This actual note is separate from the literal Markdown example
+Presenter cue 8. This actual note is separate from the literal Markdown example
 on screen. Show the presenter link in the documentation, then point out the
 notes panel beside or above the slide.
 :::
@@ -174,12 +216,12 @@ Then change the source declaration and render again.
 ::::
 
 ::: notes
-Presenter cue 8. Nocturne is the default for this example. The documentation's
+Presenter cue 9. Nocturne is the default for this example. The documentation's
 comparison page starts with Nocturne and Simplex Reading. All imported themes
 have two presentation modes; three older seeds remain light-only.
 :::
 
-## Make the deck your own {.section-divider data-section="Your next deck"}
+## Make the deck your own {#main-result .section-divider data-section="Your next deck"}
 
 ::: lead
 Replace the claims. Keep your notes beside them. Render, compare, and present.
@@ -187,10 +229,48 @@ Replace the claims. Keep your notes beside them. Render, compare, and present.
 
 ::: example-final-command
 `just example` · `just docs`
+
+[The supporting data](#appendix-data) is here for questions.
 :::
 
 ::: notes
-Presenter cue 9. The example QMD, stylesheet, and diagram are all editable.
+Presenter cue 10. The example QMD, stylesheet, and diagram are all editable.
 End by opening the quick-start guide or downloading the source from the
 documentation site.
+:::
+
+## Supporting data {#appendix-data data-kind="appendix" data-section="Appendix"}
+
+| Observation | Value |
+|---|---:|
+| First | 2 |
+| Second | 4 |
+| Third | 6 |
+
+The mean is $\bar{x}=4$.[^1]
+
+[^1]: The appendix footnote has its own ID, separate from slide 3.
+
+[Back to the result](#main-result) · [More detail](#appendix-detail)
+
+::: notes
+Presenter cue 11. The counter labels this as appendix 1 of 2. The main talk has
+ten slides; Next and End on the main result stop there. Use this link, its
+return link or browser Back to visit and return during questions.
+:::
+
+## Additional detail {#appendix-detail data-section="Appendix"}
+
+All slides after the first appendix slide belong to the appendix.
+
+$$
+\frac{2+4+6}{3}=4
+$$
+
+[Back to the result](#main-result)
+
+::: notes
+Presenter cue 12. This slide inherits appendix status without another
+appendix attribute. The main counter remains separate. Return to the result
+when the audience has the detail it needs.
 :::

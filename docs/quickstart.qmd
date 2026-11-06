@@ -1,0 +1,80 @@
+---
+title: Start a deck
+---
+
+## Run the public example
+
+Install [Quarto](https://quarto.org/docs/get-started/) and
+[Just](https://just.systems/man/en/), then clone the project:
+
+```sh
+git clone https://github.com/rahuldave/htmpres.git
+cd htmpres
+just example
+```
+
+Open `decks/example/index.html` for the audience, or
+`decks/example/presenter.html` for slides with speaker notes. Both are direct
+HTML from the htmpres renderer. Quarto's bundled Pandoc handles Markdown; the
+presentation does not use Reveal.js.
+
+## Create your own
+
+```sh
+quarto run scripts/htmpres.ts deck new decks/my-talk --theme nocturne
+quarto run scripts/htmpres.ts serve decks/my-talk/index.qmd --watch
+```
+
+The server rerenders after source or stylesheet changes; refresh the browser to
+see the result. Edit `index.qmd` for
+content, `source.css` for layout, and `assets/` for local media. Stop the preview
+with Ctrl+C. See the [CLI guide](authoring-cli.md) for preview options.
+
+Use `##` for each slide and a notes block for its cues:
+
+````markdown
+## A useful claim
+
+Evidence your audience can see.
+
+::: notes
+Explain the evidence, then pause for a question.
+:::
+````
+
+Notes are included in presenter HTML and removed from audience HTML. The source
+and presenter download contain those notes; share the audience output when cues
+should stay private. The two windows navigate independently.
+
+## Choose a theme
+
+```yaml
+deck:
+  css: source.css
+  theme: nocturne
+  color-mode: auto
+```
+
+Imported themes support `light`, `dark` and `auto`. See the
+[theme catalog](themes.md) or [compare the example](compare.qmd).
+
+## Build this documentation
+
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) as well as
+Quarto and Just. The build runs pinned **SmallDocs 0.5.5** in an isolated tool
+environment; the first build may need network access.
+
+```sh
+just docs
+just docs-serve 8770
+```
+
+`just docs` renders the example, generates all comparison variants, checks the
+SmallDocs sources and writes `docs/_site/`. `just docs-serve` serves the site and
+reloads documentation edits. For changes to the example or comparison generator,
+rerun `just docs` first. To use your own installed SmallDocs executable, set
+`SMALLDOCS_BIN` to its path.
+
+`just check` verifies the renderer, example, site and local links. `just
+compat-check` also checks the optional Node renderer. Node is not needed for
+the default build.

@@ -1,0 +1,196 @@
+---
+pagetitle: "htmpres — one source, two views"
+execute:
+  enabled: false
+resources:
+  - assets/**
+deck:
+  renderer: custom
+  css: source.css
+  theme: nocturne
+  color-mode: auto
+  text-fit: true
+  text-fit-min: 0.66
+  overflow: fit-scroll
+---
+
+## One source. Two views. {.hero-title .example-cover data-section="htmpres example"}
+
+::: hero-subtitle
+Write your deck in Markdown. Give the audience the slides and yourself the cues.
+:::
+
+::: example-byline
+An editable example of the htmpres HTML renderer
+:::
+
+::: notes
+Presenter cue 1. Open with the distinction between the audience page and this
+presenter page. Both come from the same QMD file. The audience never receives
+the notes below each slide.
+:::
+
+## Follow the idea from source to screen {data-section="The workflow"}
+
+<div class="example-path" role="img" aria-label="QMD source becomes HTML slides, with separate audience and presenter views">
+  <div><small>Write</small><strong>QMD source</strong><span>Content, layouts, and notes</span></div>
+  <span class="example-arrow" aria-hidden="true">→</span>
+  <div><small>Render</small><strong>Custom HTML</strong><span>Quarto supplies Pandoc</span></div>
+  <span class="example-arrow" aria-hidden="true">→</span>
+  <div><small>Present</small><strong>Two views</strong><span>Slides for them. Cues for you.</span></div>
+</div>
+
+::: example-caption
+The slide shell, navigation, and interactions belong to htmpres.
+:::
+
+::: notes
+Presenter cue 2. This diagram is ordinary HTML inside the Markdown source.
+Quarto runs the script and converts Markdown fragments; htmpres owns the
+presentation layout and browser behavior.
+:::
+
+## Give each idea enough space {data-section="Layout"}
+
+:::: two-col
+::: example-copy
+### Start with the claim
+
+A short heading tells the audience what to look for. The body supplies the
+reason, example, or evidence.
+
+Keep the explanation here brief. Put your longer speaking cues in the notes.
+:::
+
+::: {.card .example-principle}
+### A useful slide has a job
+
+- State one claim.
+- Make the supporting detail readable.
+- Leave room for the speaker.
+:::
+::::
+
+::: notes
+Presenter cue 3. Point out that the two columns are Quarto fenced divs. The
+content and layout stay the same when a different theme changes fonts, colors,
+panels, and code tokens.
+:::
+
+## Reveal the argument one step at a time {data-section="Progressive disclosure"}
+
+::: {.incremental .example-reveals}
+- Write a clear claim.
+- Add the evidence that supports it.
+- End with the action or question it raises.
+:::
+
+::: example-caption
+Use Next, Space, or the right arrow to reveal each point.
+:::
+
+::: notes
+Presenter cue 4. Advance three times to reveal the list before leaving this
+slide. A fragment is a presentation step, so Next does not always mean the next
+slide. The comparison page can jump directly to this slide in both panes.
+:::
+
+## Walk through code without a wall of text {data-section="Code"}
+
+```{.typescript .numberLines data-steps="1|2|3-4"}
+const source = "index.qmd";
+const slides = parseSlides(source);
+const audience = renderAudience(slides);
+const presenter = renderWithNotes(slides);
+```
+
+::: example-caption
+Illustrative pseudocode. Advance to move the line highlight.
+:::
+
+::: notes
+Presenter cue 5. The names above explain the workflow; they are pseudocode,
+not a public programming API. Advance through the line highlights. Fonts and
+syntax colors come from the active presentation theme.
+:::
+
+## Let a visual carry part of the explanation {data-section="Media"}
+
+::: {.ds-media .ds-frame .example-media}
+![A source document branches into audience slides and presenter notes.](assets/two-views.svg){.ds-fit .zoomable}
+:::
+
+::: example-caption
+Click the diagram to zoom. The asset is a local, editable SVG.
+:::
+
+::: notes
+Presenter cue 6. Open the diagram to demonstrate zoom, then close it with
+Escape. The image uses fit behavior, so its full content remains visible.
+:::
+
+## Keep your cues with the slide {data-section="Speaker notes"}
+
+````markdown
+## A heading the audience sees
+
+The audience content goes here.
+
+::: notes
+A reminder for the person giving the talk.
+:::
+````
+
+::: example-caption
+Notes stay in the QMD source and appear only in the presenter HTML.
+:::
+
+::: notes
+Presenter cue 7. This actual note is separate from the literal Markdown example
+on screen. Show the presenter link in the documentation, then point out the
+notes panel beside or above the slide.
+:::
+
+## Change the theme, keep the story {data-section="Themes"}
+
+:::: two-col
+::: example-copy
+### Two choices in the source
+
+```yaml
+deck:
+  theme: nocturne
+  color-mode: auto
+```
+:::
+::: example-copy
+### Compare before choosing
+
+Try the same deck in two themes. Compare headings, body text, code, and media
+in both light and dark modes.
+
+Then change the source declaration and render again.
+:::
+::::
+
+::: notes
+Presenter cue 8. Nocturne is the default for this example. The documentation's
+comparison page starts with Nocturne and Simplex Reading. All imported themes
+have two presentation modes; three older seeds remain light-only.
+:::
+
+## Make the deck your own {.section-divider data-section="Your next deck"}
+
+::: lead
+Replace the claims. Keep your notes beside them. Render, compare, and present.
+:::
+
+::: example-final-command
+`just example` · `just docs`
+:::
+
+::: notes
+Presenter cue 9. The example QMD, stylesheet, and diagram are all editable.
+End by opening the quick-start guide or downloading the source from the
+documentation site.
+:::

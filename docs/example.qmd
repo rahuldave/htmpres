@@ -1,0 +1,41 @@
+---
+title: One source. Two views.
+---
+
+A nine-slide example introduces the workflow and demonstrates columns, a card,
+incremental bullets, code steps, a zoomable SVG and inline presenter notes.
+**Nocturne** is its declared theme, with automatic light/dark selection in the
+source. The links here open fixed light and dark examples.
+
+```{=html}
+<div class="home-grid example-links">
+<article><span class="eyebrow">Audience</span><h2>Share the slides</h2><p>Outline, navigation and presentation interactions. Actual speaking cues are removed from this file.</p><p><a href="_generated/decks/nocturne/light/index.html" target="_blank" rel="noopener">Open light slides ↗</a> · <a href="_generated/decks/nocturne/dark/index.html" target="_blank" rel="noopener">Dark slides ↗</a></p></article>
+<article><span class="eyebrow">Presenter</span><h2>Keep the cues close</h2><p>The same slides, with a notes panel for each slide. Audience and presenter windows navigate independently.</p><p><a href="_generated/decks/nocturne/light/presenter.html" target="_blank" rel="noopener">Open light presenter ↗</a> · <a href="_generated/decks/nocturne/dark/presenter.html" target="_blank" rel="noopener">Dark presenter ↗</a></p></article>
+</div>
+```
+
+## Try the interactions
+
+- Slide 4: use **Next** or **Space** to reveal the argument one point at a time.
+- Slide 5: step through the code emphasis.
+- Slide 6: click the diagram to zoom, then close it with **Escape**.
+- Slide 7: compare the visible notes syntax with the actual cues in presenter view.
+- Press **O** for the overview. Use the outline to jump to a slide.
+
+## Edit the source
+
+```{=html}
+<p class="download-links"><a href="_generated/source/index.qmd.txt" download="index.qmd">Download Markdown</a> · <a href="_generated/source/source.css.txt" download="source.css">Download CSS</a> · <a href="_generated/source/two-views.svg" download="two-views.svg">Download SVG</a></p>
+```
+
+Save the Markdown as `index.qmd`, the CSS beside it as `source.css`, and the SVG
+as `assets/two-views.svg`. The complete editable example is also committed under
+`decks/example/` in the repository. Render it with:
+
+```sh
+just render decks/example/index.qmd
+```
+
+The Markdown download includes the public example's speaking cues. See
+[the authoring guide](build-a-deck-from-markdown.md) for your own decks, or
+[compare this deck across themes](compare.qmd).

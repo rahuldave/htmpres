@@ -1,0 +1,40 @@
+---
+title: Present the idea. Keep the source.
+toc: false
+---
+
+htmpres turns Quarto enhanced Markdown into a custom HTML slide deck, with an
+outline, progressive reveals, zoomable media and a separate presenter view.
+Edit one readable file; render two useful views.
+
+```{=html}
+<div class="home-actions">
+  <a class="btn btn-primary" href="quickstart.html">Start a deck</a>
+  <a class="btn btn-outline-primary" href="example.html">Explore the example</a>
+  <a class="btn btn-outline-primary" href="compare.html">Compare all 38 themes</a>
+</div>
+<div class="home-grid">
+  <article><span class="eyebrow">01 · Write</span><h2>Markdown, with room to grow</h2><p>Use level-two headings for slides, fenced blocks for layouts and inline notes for your speaking cues.</p></article>
+  <article><span class="eyebrow">02 · Render</span><h2>A custom HTML shell</h2><p>Quarto supplies Pandoc and the runtime. htmpres builds the slide layout, outline and navigation directly.</p></article>
+  <article><span class="eyebrow">03 · Present</span><h2>One story, two views</h2><p>Share the audience page. Open the presenter page for the same slides with notes beside them.</p></article>
+</div>
+```
+
+## See the same story in different type
+
+The comparison page holds the content constant while you change theme and mode.
+It starts with **Nocturne** and **Simplex Reading**, then lets you explore
+Bootstrap, Bootswatch, Elegant, Reading, Tufte and the original htmpres seeds.
+
+[Open the theme comparison](compare.qmd)
+
+## Find your next step
+
+- [Quick start](quickstart.qmd): prerequisites, the example and your first deck.
+- [Authoring guide](build-a-deck-from-markdown.md): layouts, code, images and notes.
+- [Authoring CLI](authoring-cli.md): create, inspect, edit and preview decks.
+- [Class reference](quarto-class-map.md): the supported layout and interaction vocabulary.
+- [Extension internals](quarto-extension.md): how the custom renderer works.
+
+This documentation site is built with **SmallDocs and Nocturne**. The slide decks
+are built with **Quarto and the htmpres custom HTML renderer**.

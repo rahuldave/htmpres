@@ -195,6 +195,12 @@ prefer the Just targets below.
 
 ```bash
 just tutorial
+just example
+just theme-gallery
+just docs
+just docs-check
+just docs-serve [8770]
+just showcase-test
 just render [decks/tutorial/index.qmd]
 just render-all
 just convert [source.html ...]
@@ -209,12 +215,23 @@ npm run render -- decks/tutorial/index.qmd
 npm run verify
 ```
 
-There is no separate typecheck/lint/test suite yet. For renderer or tutorial
+The SmallDocs targets use pinned SmallDocs 0.5.5 via `uvx` (or
+`SMALLDOCS_BIN`). `just docs` renders the public example, generates all theme
+variants, checks the explicit public page allowlist and builds `docs/_site/`.
+`just docs-check` adds focused showcase tests and a complete local link/asset
+crawl, including all variant HTML and audience/presenter note checks. The
+Nocturne site CSS is vendored under `docs/_extensions/nocturne/`; its fonts are
+staged from the existing licensed theme bundle. Generated docs, variants and
+staged fonts remain ignored. `just docs-serve` watches documentation sources;
+rerun `just docs` after changing the deck source or comparison generator.
+
+There is no general typecheck/lint suite yet. For renderer or tutorial
 changes, run `just tutorial` plus `just verify`; use `just check` when changing
 the renderer, runtime, verifier, docs, or Justfile because it exercises the
 normal Quarto/Deno path and diff hygiene without requiring Node. Use
 `just compat-check` when the optional Node fallback scripts changed or when a
-release checkpoint should prove Node fallback parity too. For CSS or
+release checkpoint should prove Node fallback parity too. For showcase changes,
+also run `just docs-check`. For CSS or
 browser-visible behavior, inspect `decks/tutorial/index.html` visually when
 practical and mention whether browser verification was performed.
 

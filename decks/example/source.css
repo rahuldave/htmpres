@@ -1,0 +1,47 @@
+/* Structural example styling; palette and font families come from deck.theme. */
+:root {
+  --htmpres-hero-title-size: 4.1rem;
+  --htmpres-h2-size: 2.8rem;
+  --htmpres-h3-size: 1.35rem;
+  --htmpres-body-size: 1.15rem;
+  --htmpres-code-size: 1rem;
+}
+
+.example-cover { padding-top: 100px; }
+.example-cover h2 { max-width: 900px; line-height: 1.04; }
+.example-cover .hero-subtitle { max-width: 780px; margin-top: 30px; font-size: 1.55rem; }
+.example-byline { margin-top: 90px; color: var(--muted); font: .85rem var(--font-mono); }
+.example-copy { padding-top: 10px; }
+.example-copy p { max-width: 44ch; }
+.example-principle { padding: 30px; border-left: 3px solid var(--teal); }
+.example-principle ul { padding-left: 22px; line-height: 1.7; }
+.example-caption { margin-top: 28px; color: var(--muted); font-size: var(--htmpres-small-size); }
+.example-reveals { padding-top: 38px; }
+.example-reveals li { margin-bottom: 26px; font-size: 1.55rem; }
+.example-final-command { margin-top: 45px; color: var(--teal); }
+.example-media { margin-top: 30px; height: 390px; padding: 24px; }
+.example-media img { width: 100%; height: 100%; max-height: 340px; }
+
+.example-path {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 24px;
+  align-items: center;
+  margin: 72px 0 44px;
+}
+.example-path > div { border-top: 2px solid var(--teal); padding-top: 20px; }
+.example-path small { display: block; color: var(--teal); font: .75rem var(--font-mono); }
+.example-path strong { display: block; margin: 14px 0; color: var(--ink); font: 1.6rem var(--font-display); }
+.example-path div > span { display: block; color: var(--muted); font-size: .95rem; line-height: 1.5; }
+.example-arrow { color: var(--teal); font-size: 1.8rem; }
+
+@media (max-width: 980px) {
+  .example-cover { padding-top: 56px; }
+  .example-cover .hero-subtitle { font-size: 1.25rem; }
+  .example-byline { margin-top: 60px; }
+  .example-path { grid-template-columns: 1fr; margin: 30px 0; gap: 15px; }
+  .example-arrow { display: none; }
+  .example-path > div { padding-top: 12px; }
+  .example-path strong { margin: 8px 0; }
+  .example-media { height: 280px; padding: 10px; }
+}

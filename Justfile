@@ -5,6 +5,31 @@ default:
 tutorial:
   quarto run scripts/htmpres.ts render decks/tutorial/index.qmd
 
+# Render the public example with inline speaker notes.
+example:
+  quarto run scripts/htmpres.ts render decks/example/index.qmd
+
+# Generate every catalog palette from the canonical example render.
+theme-gallery: example
+  quarto run scripts/build-showcase.ts
+
+# Build the SmallDocs site (requires uv; SmallDocs is pinned by the wrapper).
+docs: theme-gallery
+  scripts/smalldocs.sh check docs
+  scripts/smalldocs.sh render docs --strict
+
+# Focused showcase tests, usable with Quarto's bundled Deno.
+showcase-test: example
+  quarto run tests/showcase.test.ts
+
+# Crawl the whole site, including every selector-generated deck view.
+docs-check: docs showcase-test
+  python3 integration_tests/check-docs.py docs/_site
+
+# Preview the documentation. Rerun just docs after changing the example deck.
+docs-serve port="8770": docs
+  scripts/smalldocs.sh preview docs --port {{port}} --host 127.0.0.1 --no-browser
+
 # Render one deck. Defaults to the tutorial.
 render deck="decks/tutorial/index.qmd":
   quarto run scripts/htmpres.ts render {{deck}}
@@ -39,7 +64,7 @@ diff-check:
 
 # Run the normal local verification path for renderer/tutorial changes.
 # This path uses Quarto's bundled Deno runtime and does not require Node.
-check: tutorial verify authoring-smoke diff-check
+check: tutorial example verify authoring-smoke docs-check diff-check
 
 # Prepare the private Sites preview app with both tutorial themes.
 # Saving and deploying still happens through the Sites connector.
@@ -50,4 +75,4 @@ publish theme_dir="/private/tmp/htmpres-theme-preview" site_dir="/private/tmp/ht
 node-check: node-render node-verify
 
 # Run the core Deno checks plus optional Node fallback parity checks.
-compat-check: tutorial verify node-render node-verify diff-check
+compat-check: tutorial example verify node-render node-verify diff-check

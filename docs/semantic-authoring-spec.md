@@ -48,10 +48,18 @@ without requiring inline styling or Deckset syntax.
 7. Namespace actual generated `fn*`, `fnref*`, `footnotes` and code IDs by slide
    or note fragment, including references. Do not alter literal code examples.
 8. Render inline Markdown in `##` titles; keep navigation text plain.
-9. `lint <file.qmd> [more.qmd...] --json` rejects standalone body `---` outside
-   code. Initial YAML delimiters are exempt. JSON schema: version, ok,
-   diagnostics with file,line,column,code,severity,message; exit 0 valid, 1 errors.
-   Share the scanner with verify; support CRLF and backtick/tilde fences.
+9. Top-level standalone `---` and `##` headings start slides. A separator then
+   blanks then a heading is one slide. Empty headings carry attributes without
+   a visible title; untitled navigation uses `data-title` or `Slide N`. Initial
+   YAML stays metadata; body scans must not reinterpret a leading separator as
+   YAML. Fenced/indented/raw code, comments and fenced divs protect boundaries.
+   Notes retain nested divs and horizontal rules. Initial content is an implicit
+   untitled slide; leading comments do not add a slide. Consecutive or trailing
+   separators producing empty slides fail `empty-slide` lint. JSON remains
+   version 1 with ok and diagnostics (file,line,column,code,severity,message),
+   exit 0 valid / 1 errors. Share segmentation across both renderers/verifiers,
+   source list/show/insert/replace and showcase labels. See the exact boundary
+   subset and three-slide example in `semantic-authoring.md` section 9.
 
 ## Scope and ownership
 

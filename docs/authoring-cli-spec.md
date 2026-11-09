@@ -99,7 +99,9 @@ quarto run _extensions/htmpres/htmpres.ts slide replace presentations/my-talk/in
 - `slide insert <deck> --before|--after <n> --kind <kind>` inserts a source
   template above or below a target slide.
 - `slide replace <deck> <n> --from <file>` replaces exactly one slide source
-  slice and rejects replacement files with zero or multiple level-2 headings.
+  slice and rejects replacement files with zero or multiple slides. Top-level
+  `---` and `##` share the boundary rules in `semantic-authoring.md`. A body-only
+  replacement receives an explicit separator so it cannot merge into its neighbor.
 - `theme list`, `theme show <name>`, and `theme add <deck> <name> --from
   <seed>` expose the theme catalog.
 - `theme set <deck> <name>` updates front matter to select an existing

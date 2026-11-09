@@ -6,7 +6,9 @@ with navigation, overview, zoom, presenter notes, and small interactions.
 
 ## Slide Syntax
 
-Each slide starts with a level-2 heading. Heading classes and data attributes
+Slides start with top-level `---` or a level-2 heading; a separator immediately
+before a heading makes one slide. Empty headings carry untitled-slide settings.
+Heading classes and data attributes
 are copied to the generated `<section class="slide">`.
 
 ```markdown
@@ -406,8 +408,10 @@ explicit slide IDs with live hash/history support. Same-slide footnote links
 retain the reveal frame. Fallback IDs are collision-safe `slide-N`; duplicate
 explicit slide IDs are rejected.
 
-A slide starts only at `##`. Standalone body `---` outside code is an error,
-even directly before a heading; initial YAML delimiters are exempt. Run
+A slide starts at top-level `---` or `##`. A separator followed by a heading
+(with only blank lines between) makes one slide. Empty headings carry attributes
+without a visible title. Code, comments, initial YAML and fenced divs protect
+boundaries; rules inside notes stay in the notes. Run
 `quarto run _extensions/htmpres/htmpres.ts lint slides.qmd --json` for versioned
 JSON diagnostics and a nonzero exit on errors. Rendering and verification
 apply the same scanner.

@@ -271,11 +271,11 @@ function countAttr(html, attr) {
 }
 
 function countQmdSlides(qmd) {
-  return (stripCodeFences(qmd).match(/^##\s+/gm) || []).length;
+  return parseSlides(splitFrontMatter(qmd).body).length;
 }
 
 function countQmdNotes(qmd) {
-  return (stripCodeFences(qmd).match(/^:{3,}\s+(?:notes|\{\s*\.notes\s*\})\s*$/gm) || []).length;
+  return parseSlides(splitFrontMatter(qmd).body).filter(slide => extractNotes(slide.body).notes).length;
 }
 
 function countQmdZoomable(qmd) {

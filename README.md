@@ -126,3 +126,10 @@ Useful docs:
 - `docs/deckset-feature-status.md`
 - `docs/quarto-extension.md`
 - `docs/packaging.md`
+
+
+Slides can begin with top-level `---` or `##`. A separator followed by a heading
+makes one slide; an empty heading carries settings for an untitled slide. See
+[the boundary contract](docs/semantic-authoring.md)
+and the three-slide [mixed example](decks/slide-breaks/index.qmd), rendered with
+`just slide-breaks`.

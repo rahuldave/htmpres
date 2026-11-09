@@ -1,6 +1,6 @@
 // The renderer, linter and verifiers share this line scanner. Offsets refer to
 // the original source, including CRLF; masked output retains source line numbers.
-export function scanSource(text) {
+export function scanSource(text, { frontMatter = true } = {}) {
   const lines = [];
   const lineRe = /([^\r\n]*)(\r\n|\n|\r|$)/g;
   let match;
@@ -8,14 +8,24 @@ export function scanSource(text) {
     lines.push({ text: match[1], number: lines.length + 1, start: match.index, end: lineRe.lastIndex, kind: "body" });
   }
   let yamlEnd = -1;
-  if (lines[0]?.text.replace(/^\uFEFF/, "").trimEnd() === "---") {
+  if (frontMatter && lines[0]?.text.replace(/^\uFEFF/, "").trimEnd() === "---") {
     yamlEnd = lines.findIndex((line, index) => index > 0 && /^(?:---|\.\.\.)[ \t]*$/.test(line.text));
     if (yamlEnd >= 0) for (let index = 0; index <= yamlEnd; index++) lines[index].kind = "yaml";
   }
   let fence = null;
   let rawTag = "";
+  let comment = false;
+  let divDepth = 0;
   for (const line of lines) {
+    line.divDepth = divDepth;
     if (line.kind === "yaml") continue;
+    if (comment) {
+      line.inComment = true;
+      const visible = stripComments(line.text, comment);
+      comment = visible.open;
+      line.kind = visible.text.trim() ? "body" : "comment";
+      continue;
+    }
     if (rawTag) {
       line.kind = "code";
       if (new RegExp(`</${rawTag}\\s*>`, "i").test(line.text)) rawTag = "";
@@ -39,9 +49,46 @@ export function scanSource(text) {
       if (!new RegExp(`</${rawOpening[1]}\\s*>`, "i").test(line.text)) rawTag = rawOpening[1];
     } else if (/^(?: {4}|\t)/.test(line.text)) {
       line.kind = "code";
+    } else {
+      // Ignore comment markers shown as inline code; an actual comment may
+      // start after prose and continue across apparent slide boundaries.
+      const commentText = line.text.replace(/(`+).*?\1/g, match => "x".repeat(match.length));
+      const visible = stripComments(commentText);
+      comment = visible.open;
+      if (commentText.includes("<!--") && !visible.text.trim()) {
+        line.kind = "comment";
+        continue;
+      }
+      const div = /^ {0,3}(:{3,})[ \t]*(.*?)\s*$/.exec(line.text);
+      if (div?.[2]) {
+        line.divOpen = div[2];
+        divDepth++;
+      } else if (div && divDepth) {
+        line.divClose = true;
+        divDepth--;
+      }
     }
   }
   return { lines, yamlEnd };
+}
+
+// Preserve content outside comments, including when one closes and another
+// opens on the same line. Original source bytes remain on the scanned line.
+function stripComments(text, open = false) {
+  let cursor = 0;
+  let visible = "";
+  while (cursor < text.length) {
+    const marker = open ? "-->" : "<!--";
+    const index = text.indexOf(marker, cursor);
+    if (index < 0) {
+      if (!open) visible += text.slice(cursor);
+      break;
+    }
+    if (!open) visible += text.slice(cursor, index);
+    cursor = index + marker.length;
+    open = !open;
+  }
+  return { text: visible, open };
 }
 
 export function splitFrontMatter(text) {
@@ -57,45 +104,77 @@ export function maskCodeAndMetadata(text) {
   return scanSource(text).lines.map(line => line.kind === "body" ? line.text : "").join("\n");
 }
 
+// Use document mode for complete QMD, body mode after removing front matter.
+// Keeping source offsets here makes list/show/insert/replace agree with rendering.
+export function slideSegments(text, { frontMatter = true } = {}) {
+  const slides = [];
+  let current = null;
+  let leadingComments = [];
+  for (const line of scanSource(text, { frontMatter }).lines) {
+    if (line.kind === "yaml") continue;
+    const topLevel = line.kind === "body" && !line.inComment && line.divDepth === 0;
+    const separator = topLevel && /^ {0,3}---[ \t]*$/.test(line.text);
+    const heading = topLevel ? /^ {0,3}##(?:[ \t]+(.*?))?[ \t]*$/.exec(line.text) : null;
+    if (separator || heading) {
+      leadingComments = [];
+      // A heading immediately following a separator labels that same slide.
+      const coalesce = heading && current?.boundary === "separator" && current.bodyLines.every(line => !line.trim());
+      if (!coalesce) {
+        if (current) slides.push({ ...current, end: line.start });
+        current = { title: "", attrText: "", bodyLines: [], start: line.start, startLine: line.number,
+          column: line.text.search(/\S/) + 1, boundary: separator ? "separator" : "heading", headingLine: "" };
+      }
+      if (heading) {
+        const content = (heading[1] || "").trim();
+        const attrs = /(?:^|[ \t]+)(\{.*\})$/.exec(content);
+        current.title = (attrs ? content.slice(0, attrs.index) : content).trim().replace(/\\([{}])/g, "$1");
+        current.attrText = attrs?.[1] || "";
+        current.headingLine = line.text;
+        current.boundary = "heading";
+      }
+    } else {
+      if (!current && line.kind !== "comment" && line.text.trim()) {
+        const first = leadingComments[0] || line;
+        current = { title: "", attrText: "", bodyLines: leadingComments.map(line => line.text), start: first.start, startLine: first.number,
+          column: 1, boundary: "implicit", headingLine: "" };
+        leadingComments = [];
+      }
+      if (current) current.bodyLines.push(line.text);
+      else if (line.kind === "comment" || leadingComments.length) leadingComments.push(line);
+    }
+  }
+  if (current) slides.push({ ...current, end: text.length });
+  return slides.map(slide => ({ ...slide, body: slide.bodyLines.join("\n").trim() }));
+}
+
 export function lintSource(text, file = "<source>") {
-  return scanSource(text).lines.filter(line => line.kind === "body" && /^ {0,3}---[ \t]*$/.test(line.text)).map(line => ({
+  return slideSegments(text).filter(slide => !slide.title && !slide.body).map(slide => ({
     file,
-    line: line.number,
-    column: line.text.indexOf("---") + 1,
-    code: "slide-break",
+    line: slide.startLine,
+    column: slide.column,
+    code: "empty-slide",
     severity: "error",
-    message: "Standalone --- is not a slide break in htmpres. Start a slide with ##; remove this rule. Initial YAML delimiters and code examples are exempt.",
+    message: "Empty slide: add content or remove this slide boundary. A --- followed by ## (with only blank lines between) starts one slide.",
   }));
 }
 
-
+// This API receives the body, not a complete document. A leading --- is a
+// slide boundary even if another separator occurs later in the body.
 export function parseSlides(body) {
-  const slides = [];
-  let current = null;
-  for (const line of scanSource(body).lines) {
-    const heading = line.kind === "body" ? /^##\s+(.+?)(?:\s+(\{.*\}))?\s*$/.exec(line.text) : null;
-    if (heading) {
-      if (current) slides.push(current);
-      current = { title: heading[1].trim().replace(/\\([{}])/g, "$1"), attrText: heading[2] || "", bodyLines: [] };
-    } else if (current) {
-      current.bodyLines.push(line.text);
-    }
-  }
-  if (current) slides.push(current);
-  return slides.map(slide => ({ ...slide, body: slide.bodyLines.join("\n").trim() }));
+  return slideSegments(body, { frontMatter: false });
 }
 
 export function extractNotes(markdown) {
   const body = [];
   const notes = [];
   let current = null;
-  let fenceLength = 0;
-  for (const line of scanSource(markdown).lines) {
-    const opening = line.kind === "body" && /^(:{3,})\s+(?:notes|\{\s*\.notes\s*\})\s*$/.exec(line.text.trim());
+  let notesDepth = 0;
+  for (const line of scanSource(markdown, { frontMatter: false }).lines) {
+    const opening = line.divOpen && /^(?:notes|\{\s*\.notes\s*\})$/.test(line.divOpen);
     if (!current && opening) {
       current = [];
-      fenceLength = opening[1].length;
-    } else if (current && line.kind === "body" && new RegExp(`^:{${fenceLength},}$`).test(line.text.trim())) {
+      notesDepth = line.divDepth;
+    } else if (current && line.divClose && line.divDepth === notesDepth + 1) {
       notes.push(current.join("\n").trim());
       current = null;
     } else if (current) {

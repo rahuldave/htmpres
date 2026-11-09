@@ -1,0 +1,781 @@
+{
+  "renderer_commit": "04cef45c3374a018d3b32b9c53a2e4e43e7c88ec",
+  "renderer_command": "quarto run PINNED_CHECKOUT/scripts/htmpres.ts render ABSOLUTE_PLACEMENT/index.qmd",
+  "slide_css_px": [
+    1280,
+    720
+  ],
+  "insets_css_px": 64,
+  "available_css_px": [
+    1152,
+    592
+  ],
+  "plot_css_px": [
+    1152,
+    489.6
+  ],
+  "responsive_policy": "Image max-width100%; effective labels24*(actual measured image width/1152). Native-size acceptance only when actual image width1152 and slide1280x720; smaller browser shell has proportionally smaller type.",
+  "heading_css_px": 36,
+  "records": [
+    {
+      "key": "folio-light-reading",
+      "category_count": 3,
+      "profile": "reading",
+      "width_css_px": 640,
+      "height_css_px": 272.0,
+      "label_css_px": 16,
+      "texts": [
+        {
+          "text": "A",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "B",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "C",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "Time",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "5",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "10",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "Value",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "-0.25",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.00",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.25",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.50",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.75",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "1.00",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "1.25",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        }
+      ]
+    },
+    {
+      "key": "folio-light-reading-five",
+      "category_count": 5,
+      "profile": "reading",
+      "width_css_px": 640,
+      "height_css_px": 272.0,
+      "label_css_px": 16,
+      "texts": [
+        {
+          "text": "A",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "B",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "C",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "D",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "E",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "Time",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "5",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "10",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "Value",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "-0.25",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.00",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.25",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.50",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.75",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "1.00",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "1.25",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        }
+      ]
+    },
+    {
+      "key": "folio-dark-reading",
+      "category_count": 3,
+      "profile": "reading",
+      "width_css_px": 640,
+      "height_css_px": 272.0,
+      "label_css_px": 16,
+      "texts": [
+        {
+          "text": "A",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "B",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "C",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "Time",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "5",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "10",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "Value",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "-0.25",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.00",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.25",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.50",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.75",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "1.00",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "1.25",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        }
+      ]
+    },
+    {
+      "key": "folio-dark-reading-five",
+      "category_count": 5,
+      "profile": "reading",
+      "width_css_px": 640,
+      "height_css_px": 272.0,
+      "label_css_px": 16,
+      "texts": [
+        {
+          "text": "A",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "B",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "C",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "D",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "E",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "Time",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "5",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "10",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "Value",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "-0.25",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.00",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.25",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.50",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "0.75",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "1.00",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        },
+        {
+          "text": "1.25",
+          "points": 14.4,
+          "effective_css_px": 16.0
+        }
+      ]
+    },
+    {
+      "key": "folio-light-presentation",
+      "category_count": 3,
+      "profile": "presentation",
+      "width_css_px": 1152,
+      "height_css_px": 489.59999999999997,
+      "label_css_px": 24,
+      "texts": [
+        {
+          "text": "A",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "B",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "C",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "Time",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "5",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "10",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "Value",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "-0.2",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.0",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.2",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.4",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.6",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.8",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "1.0",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "1.2",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "1.4",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        }
+      ]
+    },
+    {
+      "key": "folio-light-presentation-five",
+      "category_count": 5,
+      "profile": "presentation",
+      "width_css_px": 1152,
+      "height_css_px": 489.59999999999997,
+      "label_css_px": 24,
+      "texts": [
+        {
+          "text": "A",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "B",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "C",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "D",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "E",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "Time",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "5",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "10",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "Value",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "-0.2",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.0",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.2",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.4",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.6",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.8",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "1.0",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "1.2",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "1.4",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        }
+      ]
+    },
+    {
+      "key": "folio-dark-presentation",
+      "category_count": 3,
+      "profile": "presentation",
+      "width_css_px": 1152,
+      "height_css_px": 489.59999999999997,
+      "label_css_px": 24,
+      "texts": [
+        {
+          "text": "A",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "B",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "C",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "Time",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "5",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "10",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "Value",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "-0.2",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.0",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.2",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.4",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.6",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.8",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "1.0",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "1.2",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "1.4",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        }
+      ]
+    },
+    {
+      "key": "folio-dark-presentation-five",
+      "category_count": 5,
+      "profile": "presentation",
+      "width_css_px": 1152,
+      "height_css_px": 489.59999999999997,
+      "label_css_px": 24,
+      "texts": [
+        {
+          "text": "A",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "B",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "C",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "D",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "E",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "Time",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "5",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "10",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "Value",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "-0.2",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.0",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.2",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.4",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.6",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "0.8",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "1.0",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "1.2",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        },
+        {
+          "text": "1.4",
+          "points": 12.0,
+          "effective_css_px": 24.0
+        }
+      ]
+    }
+  ]
+}

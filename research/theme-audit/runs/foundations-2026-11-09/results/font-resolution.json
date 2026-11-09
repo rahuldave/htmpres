@@ -1,0 +1,296 @@
+{
+  "folio": {
+    "ui": {
+      "file": "inputs/fonts/dm-sans-400-normal.ttf",
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "internal_family": "DM Sans",
+      "weight": 400,
+      "requested_family": "DM Sans",
+      "notice_paths": [
+        "inputs/licenses/folio-dmsans-OFL.txt"
+      ],
+      "package_source": null,
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": false,
+      "reason": "Owned licensed chart UI face; independent from prose font"
+    },
+    "heading": {
+      "file": "inputs/fonts/dm-sans-600-normal.ttf",
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "internal_family": "DM Sans SemiBold",
+      "weight": 600,
+      "requested_family": "DM Sans SemiBold",
+      "notice_paths": [
+        "inputs/licenses/folio-dmsans-OFL.txt"
+      ],
+      "package_source": null,
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": false,
+      "reason": "Owned licensed chart UI face; independent from prose font"
+    }
+  },
+  "atelier": {
+    "ui": {
+      "file": "inputs/fonts/dm-sans-400-normal.ttf",
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "internal_family": "DM Sans",
+      "weight": 400,
+      "requested_family": "DM Sans",
+      "notice_paths": [
+        "inputs/licenses/atelier-dmsans-OFL.txt"
+      ],
+      "package_source": null,
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": false,
+      "reason": "Owned licensed chart UI face; independent from prose font"
+    },
+    "heading": {
+      "file": "inputs/fonts/dm-sans-600-normal.ttf",
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "internal_family": "DM Sans SemiBold",
+      "weight": 600,
+      "requested_family": "DM Sans SemiBold",
+      "notice_paths": [
+        "inputs/licenses/atelier-dmsans-OFL.txt"
+      ],
+      "package_source": null,
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": false,
+      "reason": "Owned licensed chart UI face; independent from prose font"
+    }
+  },
+  "nocturne": {
+    "ui": {
+      "file": "inputs/fonts/dm-sans-400-normal.ttf",
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "internal_family": "DM Sans",
+      "weight": 400,
+      "requested_family": "DM Sans",
+      "notice_paths": [
+        "inputs/licenses/nocturne-dmsans-OFL.txt"
+      ],
+      "package_source": null,
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": false,
+      "reason": "Owned licensed chart UI face; independent from prose font"
+    },
+    "heading": {
+      "file": "inputs/fonts/dm-sans-600-normal.ttf",
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "internal_family": "DM Sans SemiBold",
+      "weight": 600,
+      "requested_family": "DM Sans SemiBold",
+      "notice_paths": [
+        "inputs/licenses/nocturne-dmsans-OFL.txt"
+      ],
+      "package_source": null,
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": false,
+      "reason": "Owned licensed chart UI face; independent from prose font"
+    }
+  },
+  "tufte": {
+    "ui": {
+      "file": "fonts/et-book-roman-line-figures.ttf",
+      "sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500",
+      "internal_family": "ETBembo",
+      "weight": 400,
+      "requested_family": "ETBembo",
+      "notice_paths": [
+        "inputs/licenses/tufte-LICENSE"
+      ],
+      "package_source": null,
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": false,
+      "reason": "Owned licensed chart UI face; independent from prose font",
+      "conversion": {
+        "source": "inputs/fonts/et-book-roman-line-figures.woff",
+        "source_sha256": "be0f2c061cd8c57b38b5edd8c03dac72ca7d87fb5c3f7f5c32ed72dede39a601",
+        "family": "ETBembo",
+        "weight": 400,
+        "embedding_flags": 4,
+        "tool": "fontTools 4.68.0",
+        "operation": "Decode WOFF to sfnt; retain outlines/names/flags/timestamps",
+        "license": "inputs/licenses/tufte-LICENSE",
+        "output": "fonts/et-book-roman-line-figures.ttf",
+        "output_sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500"
+      }
+    },
+    "heading": {
+      "file": "fonts/et-book-bold-line-figures.ttf",
+      "sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb",
+      "internal_family": "ETBembo",
+      "weight": 700,
+      "requested_family": "ETBembo",
+      "notice_paths": [
+        "inputs/licenses/tufte-LICENSE"
+      ],
+      "package_source": null,
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": false,
+      "reason": "Owned licensed chart UI face; independent from prose font",
+      "conversion": {
+        "source": "inputs/fonts/et-book-bold-line-figures.woff",
+        "source_sha256": "ea6efd96090dc2d0be0a826d1f2b79b07ca9af21f6483f2f96694b761d669ddc",
+        "family": "ETBembo",
+        "weight": 700,
+        "embedding_flags": 4,
+        "tool": "fontTools 4.68.0",
+        "operation": "Decode WOFF to sfnt; retain outlines/names/flags/timestamps",
+        "license": "inputs/licenses/tufte-LICENSE",
+        "output": "fonts/et-book-bold-line-figures.ttf",
+        "output_sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb"
+      }
+    }
+  },
+  "zephyr-reading": {
+    "ui": {
+      "file": "inputs/fonts/inter-400-normal.ttf",
+      "sha256": "1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba",
+      "internal_family": "Inter",
+      "weight": 400,
+      "requested_family": "Inter",
+      "notice_paths": [
+        "inputs/licenses/zephyr-reading-inter-OFL.txt"
+      ],
+      "package_source": null,
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": false,
+      "reason": "Owned licensed chart UI face; independent from prose font"
+    },
+    "heading": {
+      "file": "inputs/fonts/inter-600-normal.ttf",
+      "sha256": "e7a1aaf7eda9f2fad4131725fa556265ec75ca7b2d756260173a040363e8d4f7",
+      "internal_family": "Inter SemiBold",
+      "weight": 600,
+      "requested_family": "Inter SemiBold",
+      "notice_paths": [
+        "inputs/licenses/zephyr-reading-inter-OFL.txt"
+      ],
+      "package_source": null,
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": false,
+      "reason": "Owned licensed chart UI face; independent from prose font"
+    }
+  },
+  "simplex-reading": {
+    "ui": {
+      "file": "inputs/fonts/open-sans-400-normal.ttf",
+      "sha256": "47ed1cfaa7ffca04a04ab850b2938fd52c09d1b44cfa3e2980878e166b0cbd87",
+      "internal_family": "Open Sans",
+      "weight": 400,
+      "requested_family": "Open Sans",
+      "notice_paths": [
+        "inputs/licenses/simplex-reading-open-sans-OFL.txt"
+      ],
+      "package_source": null,
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": false,
+      "reason": "Owned licensed chart UI face; independent from prose font"
+    },
+    "heading": {
+      "file": "inputs/fonts/open-sans-600-normal.ttf",
+      "sha256": "733eb93b167e6d45de09aa768f6c0355647c2c26f5416dbc7407a08ed41e81c6",
+      "internal_family": "Open Sans SemiBold",
+      "weight": 600,
+      "requested_family": "Open Sans SemiBold",
+      "notice_paths": [
+        "inputs/licenses/simplex-reading-open-sans-OFL.txt"
+      ],
+      "package_source": null,
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": false,
+      "reason": "Owned licensed chart UI face; independent from prose font"
+    }
+  },
+  "pulse-reading": {
+    "ui": {
+      "file": "fonts/dejavu-sans-400.ttf",
+      "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+      "internal_family": "DejaVu Sans",
+      "weight": 400,
+      "requested_family": "platform UI sans",
+      "notice_paths": [
+        "fonts/DejaVu-LICENSE"
+      ],
+      "package_source": "Matplotlib 3.11.2 mpl-data/fonts/ttf/DejaVuSans.ttf",
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": true,
+      "reason": "Pinned portable fallback for platform UI stack"
+    },
+    "heading": {
+      "file": "fonts/dejavu-sans-700.ttf",
+      "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+      "internal_family": "DejaVu Sans",
+      "weight": 700,
+      "requested_family": "platform UI sans",
+      "notice_paths": [
+        "fonts/DejaVu-LICENSE"
+      ],
+      "package_source": "Matplotlib 3.11.2 mpl-data/fonts/ttf/DejaVuSans-Bold.ttf",
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": true,
+      "reason": "Pinned portable fallback for platform UI stack"
+    }
+  },
+  "litera-reading": {
+    "ui": {
+      "file": "fonts/dejavu-sans-400.ttf",
+      "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+      "internal_family": "DejaVu Sans",
+      "weight": 400,
+      "requested_family": "platform UI sans",
+      "notice_paths": [
+        "fonts/DejaVu-LICENSE"
+      ],
+      "package_source": "Matplotlib 3.11.2 mpl-data/fonts/ttf/DejaVuSans.ttf",
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": true,
+      "reason": "Pinned portable fallback for platform UI stack"
+    },
+    "heading": {
+      "file": "fonts/dejavu-sans-700.ttf",
+      "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+      "internal_family": "DejaVu Sans",
+      "weight": 700,
+      "requested_family": "platform UI sans",
+      "notice_paths": [
+        "fonts/DejaVu-LICENSE"
+      ],
+      "package_source": "Matplotlib 3.11.2 mpl-data/fonts/ttf/DejaVuSans-Bold.ttf",
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": true,
+      "reason": "Pinned portable fallback for platform UI stack"
+    }
+  },
+  "darkly-reading": {
+    "ui": {
+      "file": "inputs/fonts/lato-400-normal.ttf",
+      "sha256": "f43f1c7780d69792278f04b136c934a0298fc66f2e974bac13dd2e53adc52bde",
+      "internal_family": "Lato",
+      "weight": 400,
+      "requested_family": "Lato",
+      "notice_paths": [
+        "inputs/licenses/darkly-reading-lato-OFL.txt"
+      ],
+      "package_source": null,
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": false,
+      "reason": "Owned licensed chart UI face; independent from prose font"
+    },
+    "heading": {
+      "file": "inputs/fonts/lato-700-normal.ttf",
+      "sha256": "02e8f4be57ddc47cb7882c41b60216b6085b1ceaf717514be2b88fa15396238d",
+      "internal_family": "Lato",
+      "weight": 700,
+      "requested_family": "Lato",
+      "notice_paths": [
+        "inputs/licenses/darkly-reading-lato-OFL.txt"
+      ],
+      "package_source": null,
+      "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+      "fallback": false,
+      "reason": "Owned licensed chart UI face; independent from prose font"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "nativeViewport": {
+    "width": 1680,
+    "height": 1000
+  },
+  "nativeLight": {
+    "effectiveLabelPx": 24,
+    "height": 489.59375,
+    "inside": true,
+    "loaded": true,
+    "mode": "light",
+    "slideHeight": 720,
+    "slideWidth": 1280,
+    "width": 1152
+  },
+  "nativeDark": {
+    "effectiveLabelPx": 24,
+    "height": 489.59375,
+    "inside": true,
+    "loaded": true,
+    "mode": "dark",
+    "slideHeight": 720,
+    "slideWidth": 1280,
+    "source": "plot.png",
+    "width": 1152
+  },
+  "reducedViewport": {
+    "width": 1280,
+    "height": 720,
+    "imageWidth": 880,
+    "imageHeight": 374,
+    "slideWidth": 1008,
+    "slideHeight": 567,
+    "effectiveLabelPx": 18.333333333333332,
+    "inside": true
+  },
+  "reading": [
+    {
+      "height": 272,
+      "loaded": true,
+      "source": "folio-light-reading.png",
+      "width": 640
+    },
+    {
+      "height": 272,
+      "loaded": true,
+      "source": "folio-dark-reading.png",
+      "width": 640
+    }
+  ],
+  "screenshots": [
+    "browser-slide-light.png",
+    "browser-slide-dark.png"
+  ],
+  "method": "Parent CUA read-only DOM measurements after real htmpres render; native and reduced browser viewports; static mode-matched chart images"
+}

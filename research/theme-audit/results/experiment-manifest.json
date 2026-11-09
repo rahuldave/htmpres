@@ -1,0 +1,38 @@
+{
+  "seed": 20261109,
+  "samples_per_map": 256,
+  "themes": [
+    "folio",
+    "atelier",
+    "nocturne",
+    "tufte",
+    "zephyr-reading",
+    "simplex-reading",
+    "pulse-reading",
+    "litera-reading",
+    "darkly-reading"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "visions": [
+    "normal",
+    "deuteranomaly",
+    "protanomaly",
+    "tritanomaly"
+  ],
+  "cvd_severity": 100,
+  "common_maps": 25,
+  "brand_maps": 18,
+  "map_metric_rows": 196,
+  "background_rows": 936,
+  "category_rows": 2304,
+  "versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "matplotlib": "3.11.2",
+    "seaborn": "0.13.2",
+    "colorspacious": "1.1.2"
+  }
+}

@@ -63,7 +63,13 @@
   justify-content: safe center;
   text-align: center;
 }
-.slide > .statement:only-child { margin: 0; }
+/* Auto margins center spare copy and collapse to zero when it must scroll. */
+.slide > .statement:only-child { margin: auto 0; }
+
+/* A stepped equation is focal content; authored math rules can still override it. */
+:where(.slide .equation-steps .math.display) {
+  font-size: calc(1em * var(--htmpres-equation-scale, 2));
+}
 
 /* Purpose-specific level 0 labels; no generic tiny-text author class. */
 :is(.slide, .presenter-note-body) :is(.credit, .source) {

@@ -167,6 +167,8 @@ $$
 
 `|` separates snapshots; commas combine term classes. Only referenced named
 terms dim. Use matching text fragment indices 1, 3, 7 to explain each snapshot.
+Stepped display math is twice the surrounding fitted body size by default;
+themes can set `--htmpres-equation-scale`. Do not add font sizes to QMD.
 Gaps consume no extra keypresses. Mapped lanes start inactive and hold their
 latest snapshot. Earlier ordinary text stays visible without dimming. Each
 mapping must have one decimal, positive safe integer per snapshot, strictly
@@ -204,6 +206,10 @@ Do not hand-number the summary; it follows all real events automatically.
   Ranges must be in bounds, disjoint, and refer to a `data-match` explanation.
 - Equation: use `\htmlClass{mean}{\bar{x}}` inside an `.equation-steps` block.
   Use `mean` in that block's `data-equation-steps` and on its explanation.
+- To demonstrate the final overview clearly, teach one distinct named part
+  per frame (for example `mean|total|count`) and match each explanation. The
+  overview restores all parts to full strength on the same slide. A last
+  snapshot that already selects every part leaves little visible change.
 - Keys start with a lowercase letter; remaining characters are lowercase
   letters, digits or hyphens. `enclosing` is reserved for KaTeX. Repeated keys retain one color per slide.
 

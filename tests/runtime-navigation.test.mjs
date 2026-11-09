@@ -1,6 +1,42 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { runtimeHarness } from './runtime-harness.mjs';
+import { chooseDeckSlide } from '../integration_tests/deck-browser.mjs';
+
+function browserNavigationFixture(listVisible=false) {
+  const state={opened:false,selected:null};
+  const cards=['1 / 2 Same title?','2 / 2 - A section, with a source Same title?','Appendix 1 / 2 Same title?','Appendix 2 / 2 - Further detail Same title?'];
+  const tab={getAXState:async()=>'',playwright:{locator:selector=>({
+    isVisible:async()=>state.opened,
+    click:async()=>{assert.equal(selector,'#overviewBtn');state.opened=true;},
+    getByRole:(_role,{name})=>({
+      isVisible:async()=>{assert.equal(selector,'#tocList');return listVisible;},
+      click:async()=>{
+        if(selector==='#tocList'){state.selected=name;return;}
+        assert.equal(selector,'#overviewGrid');
+        const selected=cards.filter(card=>name.test(card));
+        assert.equal(selected.length,1,'Number and exact title select one overview card');
+        state.selected=selected[0];
+      },
+    }),
+  })}};
+  return {tab,state};
+}
+
+test('browser overview selection disambiguates duplicate and punctuation-bearing titles',async()=>{
+  const {tab,state}=browserNavigationFixture();
+  await chooseDeckSlide(tab,'2. Same title?');
+  assert.equal(state.selected,'2 / 2 - A section, with a source Same title?');
+  await chooseDeckSlide(tab,'A2. Same title?');
+  assert.equal(state.selected,'Appendix 2 / 2 - Further detail Same title?');
+});
+
+test('browser navigation uses the scoped visible presenter list',async()=>{
+  const {tab,state}=browserNavigationFixture(true);
+  await chooseDeckSlide(tab,'2. Same title?');
+  assert.equal(state.selected,'2. Same title?');
+  assert.equal(state.opened,false);
+});
 
 test('credit reserve is remeasured at the fitted scale and after disabling fit', () => {
   const { run } = runtimeHarness();

@@ -73,7 +73,7 @@ def crawl(site):
                 # Everything from the first slide through the stage is invariant.
                 slides = re.findall(r'<section\b[^>]*class="[^"]*\bslide\b[^>]*>.*?</section>', text, re.S)
                 assert len(slides) == 12, f'{page}: slide count'
-                for feature in ('id="code-steps"', 'id="equation-steps"', 'data-equation-steps="mean|total|mean,total"', 'id="appendix-data"', 'data-kind="appendix"', 'href="#main-result"', 'id="slide-3-fn1"', 'id="slide-11-fn1"', '<em>source</em>'):
+                for feature in ('id="code-steps"', 'id="equation-steps"', 'data-equation-steps="mean|total|count"', 'data-match="count"', 'id="appendix-data"', 'data-kind="appendix"', 'href="#main-result"', 'id="slide-3-fn1"', 'id="slide-11-fn1"', '<em>source</em>'):
                     assert feature in text, f'{page}: missing main showcase feature {feature}'
                 if audience_reference is None: audience_reference = slides
                 assert slides == audience_reference, f'{page}: changed slide content'

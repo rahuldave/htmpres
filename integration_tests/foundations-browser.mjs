@@ -2,6 +2,7 @@
  * Read-only style inspection; ordinary controls perform navigation and gestures.
  * Narrow screenshots and calibrated projection checks remain separate gates.
  */
+import { chooseDeckSlide } from './deck-browser.mjs';
 export function inspectFoundationView() {
   const slide = document.querySelector('.slide.active');
   const snapshot = element => {
@@ -39,7 +40,7 @@ export function inspectFoundationView() {
 export async function checkFoundationBrowser(tab) {
   const observe = () => tab.getAXState({emit:false});
   const assert = (condition, message) => { if (!condition) throw new Error(message); };
-  const choose = async name => { await tab.playwright.getByRole('button',{name,exact:true}).click(); await observe(); };
+  const choose = name => chooseDeckSlide(tab,name);
   await observe();
   await choose('1. Foundation title');
   let initial = await tab.playwright.evaluate(inspectFoundationView);

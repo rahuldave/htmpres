@@ -131,6 +131,185 @@ multiple unmapped code blocks share their kth snapshots. Explicit fragment
 index `0` remains a baseline reveal. Prefer explicit shared numbers whenever
 two columns should advance together.
 
+## Finish with matched colors
+
+Opt in on a slide with `data-step-summary="match"`. After the last teaching
+step, **one more advance** shows a color-matched overview. Code line numbers
+or equation terms share the color of their explanation. The last highlight
+and dimming clear; all revealed explanations remain readable. Previous
+returns to the last teaching step. Restart restores the initial slide.
+
+You choose this behavior in the QMD before rendering. Without the attribute,
+the slide keeps its existing final highlight. The extra step is calculated
+from the shared step graph: adding a reveal or changing sparse indices needs
+no manually numbered summary step. A valid opted-in slide with no reveals has
+one summary step.
+
+### Code: name the relationship
+
+This complete slide has three teaching steps and a fourth summary step:
+
+````markdown
+## Compute the mean {#mean-code data-step-summary="match"}
+
+:::: {.two-col}
+::: {}
+```{.python .numberLines data-steps="1|2|3" data-step-indices="1|3|7" data-line-matches="1:observations|2:total|3:mean"}
+observations = [2, 4, 6]
+total = sum(observations)
+mean = total / len(observations)
+```
+:::
+::: {}
+[Collect the observations.]{.fragment data-fragment-index="1" data-match="observations"}
+
+[Add their values.]{.fragment data-fragment-index="3" data-match="total"}
+
+[Divide by their count.]{.fragment data-fragment-index="7" data-match="mean"}
+:::
+::::
+````
+
+`data-match="mean"` is a semantic relationship, not a color. Names start with
+a lowercase letter, followed by lowercase letters, digits or hyphens. Reuse
+the same name for related spans or blocks. A name is local to its slide.
+`enclosing` is reserved because KaTeX uses it internally.
+
+`data-line-matches` maps source line positions to those names. Separate entries
+with `|`; use `2-4:total` for a range or `1,3:observations` for separate lines.
+Selections must be positive, in bounds and non-overlapping. Every mapped name
+needs a `data-match` explanation. These mappings are independent of
+`data-steps`: repeated or cumulative highlights do not change a group's color.
+In the summary, every line number is visible, including for code without
+`.numberLines`; only mapped numbers receive a matching color. Code syntax
+colors remain intact.
+
+### Equation: reuse the name on the term
+
+For a term inside a larger equation, use the same name in `\htmlClass` and
+`data-match`:
+
+```markdown
+## Explain the equation {#mean-equation data-step-summary="match"}
+
+:::: {.two-col}
+::: {.equation-steps data-equation-steps="mean|total|mean,total" data-step-indices="1|3|7"}
+$$
+\htmlClass{mean}{\bar{x}} = \frac{\htmlClass{total}{\sum_{i=1}^{n} x_i}}{n}
+$$
+:::
+::: {}
+[The mean is the quantity we want.]{.fragment data-fragment-index="1" data-match="mean"}
+
+[Add the observations in the numerator.]{.fragment data-fragment-index="3" data-match="total"}
+
+[Connect the total to the mean.]{.fragment data-fragment-index="7"}
+:::
+::::
+```
+
+On the fourth advance, `mean` and `total` each get their own color. Their
+individual explanations share it; the combined explanation stays ordinary
+text. Different groups must not overlap on the same source term or code line.
+The theme supplies colors unless you override them below. Try both complete
+patterns in the [interactive example](example.qmd?slide=6).
+
+### Set a color directly on a span or term
+
+Add `data-match-color` to a span with `data-match`. This sets the color for the
+**whole named pair**, including its code numbers or classed equation terms:
+
+```markdown
+[The mean is the quantity we want.]{.key .fragment data-fragment-index="1" data-match="mean" data-match-color="#245c88" data-match-color-dark="#91c9f0"}
+```
+
+For an individual inline math term, Pandoc's bracket-and-brace syntax works:
+
+```markdown
+## A named term {data-step-summary="match"}
+
+[$\bar{x}$]{data-match="mean" data-match-color="#245c88" data-match-color-dark="#91c9f0"}
+
+[The mean of the observations.]{data-match="mean"}
+```
+
+Those colors appear only in the final summary. For a term **inside** a larger
+display equation, keep `\htmlClass{mean}{...}` and set the shared color on its
+explanation or slide palette.
+Pandoc `{...}` attributes do not go inside TeX. Do not add KaTeX HTML styles.
+
+`data-match-color` supplies the default for both modes;
+`data-match-color-dark` optionally replaces it in dark mode. Hex values, CSS
+color names, `rgb(...)`, `hsl(...)`, `oklch(...)` and `var(--token)` are
+supported. Conflicting inline colors for one name on the same slide are an
+error; put the choice on just one occurrence or repeat the identical choice.
+
+### Set a palette on one slide
+
+You do not have to edit CSS. Put the palette in the slide heading's metadata:
+
+```markdown
+## Compute the mean {data-step-summary="match" data-match-colors="mean=#245c88|total=#765013" data-match-colors-dark="mean=#91c9f0|total=#edc37d"}
+```
+
+Then use `data-match="mean"` / `data-match="total"` and the code or equation
+mappings above. Separate `name=color` entries with `|`. Omitted names use the
+theme palette. Inline color attributes override the slide palette for that
+name. In htmpres the heading's `{...}` is the place for per-slide metadata;
+do not add another YAML block. A top-level `---` can separate slides, but put these settings on a heading (including an empty `## {...}` heading for an untitled slide).
+
+### Set semantic colors in the deck stylesheet
+
+For a deck-wide choice in `source.css`, set named variables:
+
+```css
+.slide {
+  --htmpres-match-mean: #245c88;
+  --htmpres-match-total: #765013;
+}
+
+html[data-color-mode="dark"] .slide {
+  --htmpres-match-mean: #91c9f0;
+  --htmpres-match-total: #edc37d;
+}
+```
+
+You can use a color directly, such as `rebeccapurple`, or a theme token such as
+`var(--teal)`. Semantic names remain the QMD contract. Specific slide/inline
+declarations override these ordinary deck-wide rules. Theme authors may also
+replace generated ordinal slots `--htmpres-match-1`, `--htmpres-match-2`, etc.;
+named variables are preferable when a concept should retain its color across
+slides.
+
+### How the theme chooses readable colors
+
+The renderer generates as many slots as the largest matching slide needs.
+Slot order follows the first `data-match` explanations in source order, not
+the temporal highlight indices. Hues start at the theme accent and spread by
+the golden angle; saturation follows that accent within a moderate range.
+Adding another name keeps earlier slot colors stable. Lightness is selected
+separately for light and dark backgrounds.
+
+The generated palette targets **4.8:1** text/background contrast, above the
+[WCAG minimum of 4.5:1 for normal text](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html).
+Tests independently check 12 slots across every bundled mode and the legacy
+seeds. Ordinary themes are checked against paper and panel. Code numbers have
+opaque paper backplates, so their exact color can match text even on dark
+code panels. A medium-tone theme such as Quartz dark instead gets an opaque,
+theme-related backing behind the matched text and terms; its palette is
+checked against that actual backing.
+
+These are background-contrast checks, not a guarantee that every pair of hues
+is distinguishable with every form of color vision. Keep descriptive wording
+and line numbers; do not make color the sole explanation. With many groups,
+consider splitting the slide. Direct colors and CSS overrides are preserved
+exactly and are **not** contrast-adjusted. Check both modes after overriding,
+especially on custom backgrounds or images. A custom theme can supply the
+same named variables and the `--htmpres-summary-surface` /
+`--htmpres-summary-number-bg` background tokens. Bundled themes and the three
+legacy seeds have generated palettes; a custom theme without named colors or
+ordinal slots falls back to its ordinary foreground color.
+
 ## 4. Layering without reading ahead
 
 The `dim` effect hides future points, shows the current point normally, and

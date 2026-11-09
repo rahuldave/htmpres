@@ -24,6 +24,7 @@ const slideFragmentStates = new WeakMap();
 const slideCodeStates = new WeakMap();
 const slideEquationStates = new WeakMap();
 const slideStepStates = new WeakMap();
+const slideMatchStates = new WeakMap();
 const firstAppendixIndex = slides.findIndex((slide) => slide.dataset.kind === "appendix");
 const mainSlideCount = firstAppendixIndex < 0 ? slides.length : firstAppendixIndex;
 const lastMainSlide = Math.max(0, mainSlideCount - 1);
@@ -360,6 +361,11 @@ function prepareStepGraphs() {
     state.events.forEach((event) => {
       if (event.type === "fragment") event.target.index = event.index;
     });
+    if (slide.dataset.stepSummary === "match" && slide.dataset.matchGroups) {
+      prepareMatchSummary(slide);
+      // A marker avoids inventing an author index (including safe-integer overflow).
+      state.frames.push("summary");
+    }
     slideStepStates.set(slide, state);
   });
 }
@@ -384,7 +390,9 @@ function changeSlideStep(delta) {
 function applySlideStep(slide) {
   const state = slideStepStates.get(slide);
   if (!state) return;
-  const frame = state.cursor ? state.frames[state.cursor - 1] : 0;
+  const summary = state.cursor > 0 && state.frames[state.cursor - 1] === "summary";
+  const frame = summary ? Math.max(0, ...state.events.map(event => event.index)) : state.cursor ? state.frames[state.cursor - 1] : 0;
+  slide.classList.toggle("step-summary-active", summary);
   const fragmentState = slideFragmentStates.get(slide);
   if (fragmentState) {
     fragmentState.step = frame;
@@ -400,14 +408,59 @@ function applySlideStep(slide) {
   }
   applyCodeStep(slide);
   applyEquationStep(slide);
-  slide.dataset.activeFrame = String(frame);
+  applyMatchSummary(slide, summary);
+  slide.dataset.activeFrame = summary ? "summary" : String(frame);
+}
+
+function prepareMatchSummary(slide) {
+  const groups = slide.dataset.matchGroups.split("|");
+  const targets = new Map();
+  const add = (element, slot) => {
+    if (targets.has(element) && targets.get(element) !== slot) throw new Error("htmpres: one source element cannot belong to two match groups.");
+    targets.set(element, slot);
+  };
+  slide.querySelectorAll("[data-match]").forEach(element => {
+    const slot = groups.indexOf(element.dataset.match) + 1;
+    if (slot) add(element, slot);
+  });
+  for (const block of slideCodeStates.get(slide)?.blocks || []) {
+    const ranges = (block.matchRanges || block.root.dataset.matchRanges || "").split("|").filter(Boolean).map(part => part.match(/^(\d+)-(\d+):(\d+)$/).slice(1).map(Number));
+    ranges.forEach(([start, end, slot]) => {
+      const selected = block.lines.filter(line => Number(line.dataset.line) >= start && Number(line.dataset.line) <= end);
+      if (selected.length !== end - start + 1) throw new Error(`htmpres: data-line-matches range ${start}-${end} exceeds the code block.`);
+      selected.forEach(line => add(line, slot));
+    });
+  }
+  for (const block of slideEquationStates.get(slide)?.blocks || []) {
+    // KaTeX gives explicit \htmlClass wrappers .enclosing; ignore its internal
+    // classes even if an author uses a semantic name such as "base".
+    groups.forEach((key, index) => block.root.querySelectorAll(`.enclosing.${key}`).forEach(term => add(term, index + 1)));
+  }
+  targets.forEach((slot, element) => targets.forEach((otherSlot, other) => {
+    if (slot !== otherSlot && element.contains(other)) throw new Error("htmpres: nested equation or text match groups overlap.");
+  }));
+  slideMatchStates.set(slide, { groups, targets });
+}
+
+function applyMatchSummary(slide, active) {
+  const matches = slideMatchStates.get(slide);
+  if (!matches) return;
+  matches.targets.forEach((slot, element) => {
+    if (active) {
+      element.dataset.matchSlot = String(slot);
+      element.style.setProperty("--_htmpres-match-ink", `var(--htmpres-match-${matches.groups[slot - 1]}, var(--htmpres-match-${slot}, var(--ink)))`);
+    } else {
+      delete element.dataset.matchSlot;
+      element.style.removeProperty("--_htmpres-match-ink");
+    }
+  });
 }
 
 function applyFragmentStep(slide) {
   const state = slideFragmentStates.get(slide);
   if (!state) return;
   const revealed = state.fragments.filter((fragment) => fragment.index <= state.step);
-  const latest = Math.max(0, ...revealed.map((fragment) => fragment.index));
+  const latest = slide.classList.contains("step-summary-active") ? 0 : Math.max(0, ...revealed.map((fragment) => fragment.index));
   state.fragments.forEach((fragment) => {
     const visible = fragment.index <= state.step;
     // A text point stays current while another lane advances. Only a later
@@ -425,7 +478,7 @@ function prepareCodeSteppers() {
     const blocks = [];
     slide.querySelectorAll("div.sourceCode, pre, code").forEach((root) => {
       if (!hasCodeDirective(root)) return;
-      if (root.matches("pre, code") && root.closest("div.sourceCode[data-highlight], div.sourceCode[data-steps], div.sourceCode[data-highlight-steps]")) return;
+      if (root.matches("pre, code") && root.closest("div.sourceCode[data-highlight], div.sourceCode[data-steps], div.sourceCode[data-highlight-steps], div.sourceCode[data-match-ranges]")) return;
 
       const code = root.matches("code") ? root : root.querySelector("code");
       if (!code) return;
@@ -437,11 +490,11 @@ function prepareCodeSteppers() {
       const steps = getCodeData(root, code, "steps") || getCodeData(root, code, "highlightSteps");
       const staticLines = parseLineSelection(highlight, lines.length);
       const stepLines = parseStepSelections(steps, lines.length);
-      if (!staticLines.size && !stepLines.length) return;
+      if (!staticLines.size && !stepLines.length && !getCodeData(root, code, "matchRanges")) return;
 
       root.classList.add("code-stepper");
       const stepIndices = parseStepIndices(getCodeData(root, code, "stepIndices"), stepLines.length, root);
-      blocks.push({ root, lines, staticLines, stepLines, stepIndices });
+      blocks.push({ root, lines, staticLines, stepLines, stepIndices, matchRanges: getCodeData(root, code, "matchRanges") });
     });
 
     if (!blocks.length) return;
@@ -454,7 +507,7 @@ function prepareCodeSteppers() {
 }
 
 function hasCodeDirective(root) {
-  return Boolean(root.dataset.highlight || root.dataset.steps || root.dataset.highlightSteps);
+  return Boolean(root.dataset.highlight || root.dataset.steps || root.dataset.highlightSteps || root.dataset.matchRanges);
 }
 
 function getCodeData(root, code, key) {
@@ -555,7 +608,7 @@ function applyEquationStep(slide) {
   const state = slideEquationStates.get(slide);
   if (!state) return;
   state.blocks.forEach((block) => {
-    const active = block.activeSnapshot >= 0 ? block.stepTerms[block.activeSnapshot] : null;
+    const active = !slide.classList.contains("step-summary-active") && block.activeSnapshot >= 0 ? block.stepTerms[block.activeSnapshot] : null;
     const selector = block.termNames.map((term) => `.${term}`).join(", ");
     if (selector) block.root.querySelectorAll(selector).forEach((term) => {
       const selected = active && [...active].some((name) => term.classList.contains(name));
@@ -575,8 +628,9 @@ function applyCodeStep(slide) {
 
   state.blocks.forEach((block) => {
     const snapshot = block.activeSnapshot ?? Math.min(state.step, block.stepLines.length - 1);
-    const stepSet = snapshot >= 0 && block.stepLines.length ? block.stepLines[snapshot] : null;
-    const activeLines = new Set(block.staticLines);
+    const summary = slide.classList.contains("step-summary-active");
+    const stepSet = !summary && snapshot >= 0 && block.stepLines.length ? block.stepLines[snapshot] : null;
+    const activeLines = new Set(summary ? [] : block.staticLines);
     if (stepSet) stepSet.forEach((line) => activeLines.add(line));
     const shouldDim = Boolean(stepSet && activeLines.size);
 

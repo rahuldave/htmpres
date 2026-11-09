@@ -1,4 +1,5 @@
 import { themeStyles } from "../_extensions/htmpres/themes/themes.mjs";
+import "./matched-colors.test.ts";
 const root = new URL("../", import.meta.url);
 const read = (path: string) => Deno.readTextFileSync(new URL(path, root));
 const catalog = JSON.parse(read("_extensions/htmpres/themes/catalog.json"));

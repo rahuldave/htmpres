@@ -67,7 +67,7 @@ half-media layouts, and `two-card` or `three-card` for comparison slides.
 ## Semantic Source
 
 Write structure, importance and reveal order in QMD. Do not put `style=`, CSS
-color values, color names or font choices in authored slides. Select a theme
+color values, color names or font choices in ordinary authored slides. Select a theme
 in front matter; put custom appearance in the theme stylesheet.
 
 Slides start at top-level `---` (exactly three hyphens) or `## Title`. A
@@ -170,6 +170,44 @@ For deliberate layering, wrap spans or a list in
 
 Future points remain hidden; only earlier visible points dim. The effect works
 for spans and list items inside columns. Never preview future text in grey.
+
+## Optional Matched Summary
+
+Use `## Result {data-step-summary="match"}` to add one final advance after the
+shared teaching frames. The summary removes highlights/dimming and matches
+source parts to explaining text. Previous restores the last teaching frame.
+Do not hand-number the summary; it follows all real events automatically.
+
+- Text: `[Explain the mean.]{.fragment data-fragment-index="3" data-match="mean"}`.
+- Code fence: add `data-line-matches="1:observations|2:total|3:mean"`; line ranges
+  such as `2-4:total` and comma selections such as `1,3:observations` work.
+  Ranges must be in bounds, disjoint, and refer to a `data-match` explanation.
+- Equation: use `\htmlClass{mean}{\bar{x}}` inside an `.equation-steps` block.
+  Use `mean` in that block's `data-equation-steps` and on its explanation.
+- Keys start with a lowercase letter; remaining characters are lowercase
+  letters, digits or hyphens. `enclosing` is reserved for KaTeX. Repeated keys retain one color per slide.
+
+Let the theme choose colors by default. When the human asks for direct colors,
+these are supported exceptions to semantic-only source:
+
+```markdown
+[The mean.]{data-match="mean" data-match-color="#245c88" data-match-color-dark="#91c9f0"}
+
+## Result {data-step-summary="match" data-match-colors="mean=#245c88|total=#765013" data-match-colors-dark="mean=#91c9f0|total=#edc37d"}
+```
+
+One occurrence's color sets the whole named pair. Inline colors override a
+slide palette; `data-match-color` is the default for both modes, with the
+`-dark` attribute replacing it in dark mode. An inline math term can use
+`[$\bar{x}$]{data-match="mean" data-match-color="#245c88"}`. Inside a larger
+equation keep `\htmlClass` and set the shared color on its explanation or slide.
+Do not put Pandoc attributes inside TeX or enable KaTeX HTML styles.
+
+Deck-wide CSS uses `--htmpres-match-mean: #245c88` (or a CSS color name or
+`var(--teal)`) on `.slide`, with a dark-mode selector for a different value.
+Generated palettes target 4.8:1 text/background contrast; custom colors are
+preserved exactly, so inspect both modes. The online semantic authoring guide
+has complete code/equation slides and contrast policy.
 
 ## Appendix And Footnotes
 

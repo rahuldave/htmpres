@@ -15,6 +15,44 @@
   border-radius: 0.12em;
 }
 
+/* Summary colors appear only after the final shared frame. Named CSS tokens
+   override generated slots; code glyphs retain their syntax colors. */
+.slide.step-summary-active [data-match-slot]:not(.code-line) {
+  color: var(--_htmpres-match-ink);
+  background: var(--htmpres-summary-surface, transparent);
+  opacity: 1;
+}
+
+.slide.step-summary-active [data-match] :is(p, li) {
+  color: inherit;
+}
+
+.slide.step-summary-active code > .code-line {
+  position: relative;
+  padding-left: 3.1rem;
+  opacity: 1;
+  background: transparent;
+  box-shadow: none;
+}
+
+.slide.step-summary-active code > .code-line > a:first-child[href^="#"] {
+  visibility: hidden;
+}
+
+/* A paper backplate lets the same exact ink work on legacy dark code panels. */
+.slide.step-summary-active code > .code-line::before {
+  content: attr(data-line);
+  position: absolute;
+  left: .15rem;
+  width: 2.15rem;
+  padding-right: .3rem;
+  border-radius: .15rem;
+  text-align: right;
+  color: var(--_htmpres-match-ink, var(--muted));
+  background: var(--htmpres-summary-number-bg, var(--paper));
+  font-weight: 700;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .slide .equation-term { transition: none; }
 }

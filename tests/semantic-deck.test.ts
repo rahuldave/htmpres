@@ -14,7 +14,7 @@ for (const view of ["index", "presenter"]) {
   assert(ids.length === new Set(ids).size, `${view}: unique generated IDs`);
   assert(html.includes('<h2>A <em>semantic</em> story</h2>'), `${view}: inline title Markdown`);
   assert([...html.matchAll(/data-step-indices="1\|3\|7"/g)].length === 2 && html.includes('data-steps="1|2|3"'), `${view}: code and equation both retain sparse shared step mappings`);
-  assert(html.includes('data-equation-steps="term-a|term-b|term-a,term-b"'), `${view}: named equation terms`);
+  assert(html.includes('data-equation-steps="mean|total|mean,total"'), `${view}: named equation terms`);
   assert(html.includes('data-kind="appendix"') && html.includes('id="appendix-detail"'), `${view}: trailing appendix fixture`);
   assert(html.includes('href="#slide-1-fn1"') && html.includes('href="#slide-2-fn1"'), `${view}: independent footnotes`);
   assert(html.includes('src="assets/htmpres-math/katex.min.js"') && html.includes('href="assets/htmpres-math/katex.min.css"'), `${view}: local math bundle`);

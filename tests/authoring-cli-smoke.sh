@@ -115,3 +115,4 @@ echo "authoring CLI smoke passed in $SCRATCH"
 python3 "$ROOT/integration_tests/preview-server.py"
 
 python3 "$ROOT/integration_tests/check-quickstart.py"
+python3 "$ROOT/integration_tests/check-match-syntax.py"

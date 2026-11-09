@@ -1,5 +1,10 @@
 # Presentation themes
 
+For theme-colored code/equation summaries and semantic overrides such as
+`--htmpres-match-mean`, see [matched final views](semantic-authoring.md#finish-with-matched-colors).
+The guide covers per-term, per-slide and stylesheet choices, including dark
+mode and the generated palette's contrast checks.
+
 Select a bundled theme directly in a deck's front matter:
 
 ```yaml

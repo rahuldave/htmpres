@@ -3,8 +3,9 @@ import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { colorModeControl, colorModeScript, resolveTheme, themeAssets, themeAttributes, themeStyles } from "../_extensions/htmpres/themes/themes.mjs";
+import { matchThemeStyles } from "../_extensions/htmpres/themes/matches.mjs";
 
-import { assignSlideIds, renderTitle, namespacePandocIds } from "../_extensions/htmpres/lib/render.mjs";
+import { assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds } from "../_extensions/htmpres/lib/render.mjs";
 import { extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, splitFrontMatter as splitSourceFrontMatter } from "../_extensions/htmpres/lib/source.mjs";
 
 const themeDirectory = new URL("../_extensions/htmpres/themes/", import.meta.url);
@@ -44,7 +45,6 @@ function renderDeck(file) {
   const localCss = existsSync(cssPath) ? readFileSync(cssPath, "utf8") : "";
   const themePlan = resolveTheme(meta, bundledThemes, localCss);
   const baseCss = themePlan ? readFileSync(new URL("../_extensions/htmpres/templates/source.css", import.meta.url), "utf8") : "";
-  const css = themePlan ? `${baseCss}\n${themeStyles(themePlan, bundledThemes)}\n${localCss}` : localCss;
   for (const file of themeAssets(themePlan, bundledThemes)) {
     const bytes = readFileSync(new URL(file, themeDirectory));
     const target = path.join(deckDir, "assets", "htmpres-themes", file);
@@ -62,6 +62,8 @@ function renderDeck(file) {
     };
   });
   const htmlSlides = rendered.map((slide) => slide.slideHtml).join("\n\n");
+  const matchCss = matchThemeStyles(themePlan, bundledThemes, maximumMatchGroups(htmlSlides), theme);
+  const css = themePlan ? `${baseCss}\n${themeStyles(themePlan, bundledThemes)}${matchCss}\n${localCss}` : `${matchCss}${localCss}`;
   const notes = rendered.map((slide) => slide.notesHtml);
   const audienceHtml = deckShell({
     mode: "audience",
@@ -104,16 +106,22 @@ function renderSlide(slide, index, globalBackground) {
   if (index === 0) classes.push("active");
   const title = slide.title;
   const renderedTitle = title ? renderTitle(markdownToHtml(`# ${title}`), `slide-${index + 1}`) : { inlineHtml: "", plainText: "", footnotesHtml: "" };
-  const bodyHtml = namespacePandocIds(markdownToHtml(slide.body).trim(), `slide-${index + 1}`);
+  let bodyHtml = namespacePandocIds(markdownToHtml(slide.body).trim(), `slide-${index + 1}`);
+  let matches;
+  try {
+    matches = compileMatchSummary(bodyHtml, attrs.keyValues["data-step-summary"], { id: slide.id, colors: attrs.keyValues["data-match-colors"], darkColors: attrs.keyValues["data-match-colors-dark"] });
+  } catch (error) { throw new Error(`Slide ${index + 1} (${title}): ${error.message}`); }
+  bodyHtml = matches.html;
   const backgroundHtml = renderBackgroundLayer(attrs, globalBackground);
   const dataAttrs = { ...attrs.keyValues, id: slide.id || attrs.keyValues.id || `slide-${index + 1}` };
+  if (matches.groups.length) dataAttrs["data-match-groups"] = matches.groups.join("|");
   if (!dataAttrs["data-title"]) dataAttrs["data-title"] = renderedTitle.plainText || `Slide ${index + 1}`;
   const attrText = formatHtmlAttrs({
     class: unique(classes).join(" "),
     ...dataAttrs,
   });
   const headingClass = attrs.classes.includes("title-hidden") ? " class=\"visually-hidden\"" : "";
-  return `<section${attrText}>
+  return `${matches.css ? `<style>${matches.css}</style>\n` : ""}<section${attrText}>
 ${backgroundHtml ? indentHtml(backgroundHtml, "  ") + "\n" : ""}
 ${title ? `  <h2${headingClass}>${renderedTitle.inlineHtml}</h2>\n` : ""}
 ${indentHtml(bodyHtml, "  ")}

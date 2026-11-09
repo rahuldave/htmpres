@@ -13,7 +13,7 @@ export async function checkShowcaseBrowser(tab) {
       nextDisabled: document.querySelector('#nextBtn').disabled,
       fragments: [...slide.querySelectorAll('.fragment')].map(el => ({ hidden: el.getAttribute('aria-hidden') === 'true', opacity: Number(getComputedStyle(el).opacity), visibility: getComputedStyle(el).visibility })),
       lines: [...slide.querySelectorAll('.code-line-highlight')].map(el => Number(el.dataset.line)),
-      terms: [...slide.querySelectorAll('.equation-term')].map(el => ({ a: el.classList.contains('term-a'), b: el.classList.contains('term-b'), highlighted: el.classList.contains('equation-term-highlight') })) };
+      terms: [...slide.querySelectorAll('.equation-term')].map(el => ({ a: el.classList.contains('mean'), b: el.classList.contains('total'), highlighted: el.classList.contains('equation-term-highlight') })) };
   });
   await choose('1. One source. Two views.');
   assert(await tab.playwright.evaluate(() => document.querySelector('.slide.active h2 em').textContent === 'source'), 'Title emphasis renders as markup');

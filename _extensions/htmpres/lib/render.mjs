@@ -74,6 +74,131 @@ function mapTags(html, transform) {
   return output + html.slice(previous);
 }
 
+/** Semantic keys are safe in both data attributes and KaTeX class selectors. */
+function matchKey(value) {
+  if (!/^[a-z][a-z0-9-]*$/.test(value)) throw new Error(`Invalid match key: ${JSON.stringify(value)}`);
+  if (value === "enclosing") throw new Error('Reserved match key: enclosing is a KaTeX structural class.');
+  return value;
+}
+
+export function parseLineMatches(value) {
+  const ranges = [];
+  for (const entry of value.split("|")) {
+    const pair = /^([^:]+):([a-z][a-z0-9-]*)$/.exec(entry.trim());
+    if (!pair) throw new Error(`Invalid data-line-matches entry: ${entry}`);
+    for (const selection of pair[1].split(",")) {
+      const range = /^(\d+)(?:-(\d+))?$/.exec(selection.trim());
+      const start = Number(range?.[1]), end = Number(range?.[2] || range?.[1]);
+      if (!range || !Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start < 1 || end < start) throw new Error(`Invalid data-line-matches range: ${selection}`);
+      if (ranges.some(previous => start <= previous.end && end >= previous.start)) throw new Error(`Overlapping data-line-matches range: ${selection}`);
+      ranges.push({ start, end, group: pair[2] });
+    }
+  }
+  return ranges;
+}
+
+export function matchSummaryGroups(html, option) {
+  if (!option) return [];
+  if (option !== "match") throw new Error(`Invalid data-step-summary: ${option}. Use match or omit the attribute.`);
+  const groups = [], lineGroups = [], ancestors = [];
+  for (const tag of htmlTags(html)) {
+    if (tag.skip) continue;
+    if (tag.closing) {
+      const index = ancestors.map(ancestor => ancestor.name).lastIndexOf(tag.name);
+      if (index >= 0) ancestors.length = index;
+      continue;
+    }
+    const parentKey = ancestors.at(-1)?.key;
+    const ownKey = tag.attributes.find(attr => attr.name === "data-match")?.value;
+    if (ownKey && parentKey && ownKey !== parentKey) throw new Error(`Nested match groups ${parentKey} and ${ownKey} overlap.`);
+    if (!/^(?:area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/.test(tag.name)) ancestors.push({ name: tag.name, key: ownKey || parentKey });
+    for (const attr of tag.attributes) {
+      if (attr.name === "data-match") {
+        const key = matchKey(attr.value);
+        if (!groups.includes(key)) groups.push(key);
+      }
+      if (attr.name === "data-line-matches") lineGroups.push(...parseLineMatches(attr.value).map(range => range.group));
+    }
+  }
+  if (!groups.length) throw new Error('data-step-summary="match" needs at least one data-match explanation.');
+  for (const key of lineGroups) if (!groups.includes(key)) throw new Error(`data-line-matches refers to missing data-match="${key}" explanation.`);
+  return groups;
+}
+
+/** Compile line names to small numeric ranges; runtime never parses author syntax. */
+function matchColor(value) {
+  if (/^(?:#[a-f\d]{3,4}|#[a-f\d]{6}|#[a-f\d]{8}|[a-z]+|var\(--[a-z][a-z\d-]*\)|(?:rgba?|hsla?|oklch|oklab|lab|lch)\([\d.,% /+-]+\))$/i.test(value)) return value;
+  throw new Error(`Invalid match color: ${JSON.stringify(value)}. Use a CSS color or var(--token).`);
+}
+
+function matchColorMap(value, groups) {
+  const result = new Map();
+  if (!value) return result;
+  for (const entry of value.split("|")) {
+    const separator = entry.indexOf("=");
+    const key = entry.slice(0, separator).trim();
+    if (separator < 0 || !groups.includes(key)) throw new Error(`Unknown match color key: ${key}`);
+    if (result.has(key)) throw new Error(`Duplicate match color key: ${key}`);
+    result.set(key, matchColor(entry.slice(separator + 1).trim()));
+  }
+  return result;
+}
+
+export function compileMatchSummary(html, option, settings = {}) {
+  const groups = matchSummaryGroups(html, option);
+  if (!groups.length) return { html, groups, css: "" };
+  const colors = matchColorMap(settings.colors, groups), darkColors = matchColorMap(settings.darkColors, groups);
+  const inlineColors = new Map(), inlineDark = new Map();
+  const tags = htmlTags(html);
+  for (const tag of tags) {
+    if (tag.skip || tag.closing) continue;
+    const key = tag.attributes.find(attr => attr.name === "data-match")?.value;
+    for (const [attrName, target] of [["data-match-color", inlineColors], ["data-match-color-dark", inlineDark]]) {
+      const value = tag.attributes.find(attr => attr.name === attrName)?.value;
+      if (value === undefined) continue;
+      if (!key) throw new Error(`${attrName} needs data-match on the same element.`);
+      const color = matchColor(value);
+      if (target.has(key) && target.get(key) !== color) throw new Error(`Conflicting match colors for ${key}`);
+      target.set(key, color);
+    }
+  }
+  inlineColors.forEach((value, key) => { colors.set(key, value); darkColors.set(key, value); });
+  inlineDark.forEach((value, key) => darkColors.set(key, value));
+  // IDs are authored; escape every character with meaning inside a CSS string.
+  const id = String(settings.id || "").replace(/[^a-zA-Z0-9_-]/g, char => `\\${char.codePointAt(0).toString(16)} `);
+  const declarations = values => [...values].map(([key, value]) => `  --htmpres-match-${key}: ${value};`).join("\n");
+  const css = (colors.size ? `\nhtml .slide[id="${id}"] {\n${declarations(colors)}\n}\n` : "") + (darkColors.size ? `\nhtml[data-color-mode="dark"] .slide[id="${id}"] {\n${declarations(darkColors)}\n}\n` : "");
+  return { groups, css, html: mapTags(html, tag => {
+    const mapping = tag.attributes.find(attr => attr.name === "data-line-matches");
+    if (!mapping) return tag.raw;
+    const classes = tag.attributes.find(attr => attr.name === "class")?.value.split(/\s+/) || [];
+    if (!["code", "pre"].includes(tag.name) && !(tag.name === "div" && classes.includes("sourceCode"))) throw new Error("data-line-matches belongs on a fenced code block, not a surrounding div.");
+    const parsed = parseLineMatches(mapping.value);
+    const startIndex = tags.findIndex(candidate => candidate.start === tag.start);
+    let depth = 1, endIndex = startIndex + 1;
+    for (; endIndex < tags.length; endIndex++) {
+      if (tags[endIndex].name !== tag.name) continue;
+      depth += tags[endIndex].closing ? -1 : 1;
+      if (!depth) break;
+    }
+    const codeIndex = tags.findIndex((candidate, index) => index >= startIndex && index < endIndex && candidate.name === "code" && !candidate.closing);
+    const codeEnd = tags.find((candidate, index) => index > codeIndex && index <= endIndex && candidate.name === "code" && candidate.closing);
+    if (codeIndex < 0 || !codeEnd) throw new Error("data-line-matches belongs on a fenced code block.");
+    const codeHtml = html.slice(tags[codeIndex].end, codeEnd.start);
+    let text = "", previous = 0;
+    for (const token of htmlTags(codeHtml)) { text += codeHtml.slice(previous, token.start); previous = token.end; }
+    text += codeHtml.slice(previous);
+    const lineCount = text.replace(/\n$/, "").split("\n").length;
+    if (parsed.some(range => range.end > lineCount)) throw new Error(`data-line-matches exceeds the code block's ${lineCount} lines.`);
+    const ranges = parsed.map(({ start, end, group }) => `${start}-${end}:${groups.indexOf(group) + 1}`).join("|");
+    return tag.raw.replace(/\s*\/?>(?=$)/, ending => ` data-match-ranges="${ranges}"${ending}`);
+  }) };
+}
+
+export function maximumMatchGroups(html) {
+  return Math.max(0, ...htmlTags(html).flatMap(tag => tag.attributes.filter(attr => attr.name === "data-match-groups").map(attr => attr.value.split("|").filter(Boolean).length)));
+}
+
 function isPandocId(id) {
   return /^(?:cb\d+(?:-\d+)?|fn(?:ref)?\d+(?::\d+)?|footnotes)$/.test(id);
 }

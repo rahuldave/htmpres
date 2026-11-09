@@ -137,6 +137,11 @@ and replace its content:
 - [Speaker notes](example.qmd?slide=8): switch between audience and presenter views of one source.
 - [Appendix links](example.qmd?slide=10): keep supporting detail after the main ending and return to the result.
 
+The code and equation examples include an optional fourth advance: a
+[matched-color summary](semantic-authoring.md#finish-with-matched-colors).
+The guide shows how to keep theme defaults or set a color on a term, on one
+slide, or in CSS.
+
 For a simple two-column slide, append:
 
 ```markdown

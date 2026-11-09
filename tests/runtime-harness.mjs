@@ -23,7 +23,8 @@ export function runtimeHarness(kinds = [''], { notes = false, buttons = false } 
           toggle: (value, enabled) => { if (enabled) this.classes.add(value); else this.classes.delete(value); },
           contains: value => this.classes.has(value),
         };
-        this.style = { setProperty() {}, removeProperty() {} };
+        this.properties = new Map();
+        this.style = { setProperty: (key, value) => this.properties.set(key, value), removeProperty: key => this.properties.delete(key) };
       }
       querySelectorAll(selector) { return this.queries.get(selector) || []; }
       querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }

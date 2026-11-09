@@ -45,6 +45,30 @@ write `[^1]` and `[^1]: Source.` normally.
 See [Semantic slides](semantic-authoring.md) for complete, copyable examples
 and the [audience demo](_generated/semantic/index.html).
 
+## Matched Final View
+
+`## A result {data-step-summary="match"}` adds one automatic final step after
+all text/code/equation reveals. On that step, named source parts and explaining
+text share theme colors; the last highlight and dimming clear. Previous
+restores the final teaching highlight. Omit the attribute to retain normal
+behavior.
+
+| Author syntax | Meaning |
+|---|---|
+| `[The mean.]{data-match="mean"}` | Name an explaining span; also works on a fenced block. |
+| `data-line-matches="1:observations\|2:total\|3:mean"` on a code fence | Match code line numbers to the explanations. Ranges and comma selections are supported. |
+| `\htmlClass{mean}{\bar{x}}` inside an `.equation-steps` block | Match that equation term to `data-match="mean"`. |
+| `data-match-color="#245c88" data-match-color-dark="#91c9f0"` beside `data-match` | Override a pair's colors directly on one span. |
+| `data-match-colors="mean=#245c88\|total=#765013"` on the slide heading | Define a slide palette without editing CSS. Add `data-match-colors-dark` for dark-mode values. |
+| `--htmpres-match-mean: #245c88;` in CSS | Set a semantic color across slides. |
+
+Names begin with a lowercase letter and contain lowercase letters, digits or
+hyphens (`enclosing` is reserved for KaTeX). They are independent of step indices; the renderer computes the extra
+frame and required color slots. The [complete syntax and color guide](semantic-authoring.md#finish-with-matched-colors)
+includes copyable code/equation slides, direct inline-math attributes, defaults,
+override precedence and contrast limits. Semantic-only QMD remains the default;
+the optional color attributes are explicit author overrides.
+
 ## Presenter Notes
 
 Speaker notes are authored as a fenced div:

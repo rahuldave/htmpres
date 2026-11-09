@@ -35,6 +35,7 @@ Quarto containers are more general.
 | Imported HTML preservation for media containers | Done | The converter protects the documented `ds-*` container/filter wrapper classes when converting HTML snapshots to QMD. |
 | Code step transitions | Done | Line-step navigation works; a leading `none` step starts with no highlighted line. |
 | Mixed fragments, bullets, code and equation steps | Done | A shared step graph supports explicit synchronized frames and implicit source order. Ordinary explanations remain visible. |
+| Matched final summaries | Done | `data-step-summary="match"` adds one final frame pairing source parts and explanations by semantic name. Theme colors can be overridden per span, per slide or in CSS; see [matched summaries](semantic-authoring.md#finish-with-matched-colors). |
 | Source-order interleaving of code and text fragments | Done | Use `data-step-indices` to map snapshots to shared `data-fragment-index` values; unmapped mixed events follow source order. See [Semantic slides](semantic-authoring.md). |
 | Core Image-style filter matching | Done by browser approximation | `noir`, `chrome`, `fade`, `vivid`, exposure, and `sharpen` now use stable CSS/SVG mappings and compose in a single filter chain. |
 | Pixel-exact Apple Core Image output | Open | Browser CSS/SVG filters do not expose Apple's private photo-effect lookup tables, so exact pixel parity would need a heavier preprocessing/export path. |

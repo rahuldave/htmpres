@@ -1,0 +1,101 @@
+{
+  "run": "foundations-2026-11-09",
+  "seed": 20261109,
+  "slide_commit": "04cef45c3374a018d3b32b9c53a2e4e43e7c88ec",
+  "themes": [
+    "folio",
+    "atelier",
+    "nocturne",
+    "tufte",
+    "zephyr-reading",
+    "simplex-reading",
+    "pulse-reading",
+    "litera-reading",
+    "darkly-reading"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "surfaces": [
+    "paper",
+    "panel"
+  ],
+  "profiles": [
+    "reading",
+    "presentation"
+  ],
+  "visions": [
+    "normal",
+    "deuteranomaly",
+    "protanomaly",
+    "tritanomaly"
+  ],
+  "conditions": [
+    [
+      "srgb",
+      1.0,
+      0.0
+    ],
+    [
+      "srgb",
+      0.7,
+      0.0
+    ],
+    [
+      "srgb",
+      0.4,
+      0.0
+    ],
+    [
+      "linear-light",
+      0.7,
+      0.0
+    ],
+    [
+      "linear-light",
+      0.4,
+      0.0
+    ],
+    [
+      "srgb",
+      1.0,
+      0.1
+    ],
+    [
+      "srgb",
+      1.0,
+      0.2
+    ],
+    [
+      "srgb",
+      0.4,
+      0.2
+    ]
+  ],
+  "counts": {
+    "ui_roles": 270,
+    "map_rows": 176,
+    "category_rows": 32256,
+    "background_rows": 3024,
+    "placements": 72,
+    "agg_validation": 27
+  },
+  "versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "matplotlib": "3.11.2",
+    "seaborn": "0.13.2",
+    "colorspacious": "1.1.2",
+    "fonttools": "4.68.0",
+    "pillow": "13.0.0"
+  },
+  "methods": {
+    "current_experiments.py": "9f8153df5c54702b945850c23edd9ef39730abe75d84a8d27f550ac3278733c8",
+    "experiments.py": "5f9643ca4b1be64810a2fef64ae60e381a727981e6cbb45b587cc18de24a6c56",
+    "measure.py": "f94fd0a05714418cc1d9d778d8c486aa2d61739c7e8335f3a67f60e6ea286cee"
+  },
+  "input_provenance_sha256": "f6462348dd65fd2c0e32882d103d843789b0c6e08a3176356e200489622f7d67",
+  "palette_samples_sha256": "b5a6bc7a25c0ec7e65be16a9236f689a3d9ef0fb0ff9208bb6fc7df09192ba4f",
+  "font_resolution_sha256": "49fcdf01cd18de5f8fcc2ea5bbf776b3ff7e1865c3e1b2ba93758a5e8402c629"
+}

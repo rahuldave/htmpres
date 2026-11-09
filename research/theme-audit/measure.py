@@ -9,7 +9,8 @@ from matplotlib.colors import to_rgb
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-CATALOG = ROOT / "_extensions/htmpres/themes/catalog.json"
+BASELINE_INPUTS = HERE / "historical/inputs"
+CATALOG = BASELINE_INPUTS / "catalog.json"
 PRIORITY = ["folio", "atelier", "nocturne", "tufte", "zephyr-reading",
             "simplex-reading", "pulse-reading", "litera-reading", "darkly-reading"]
 

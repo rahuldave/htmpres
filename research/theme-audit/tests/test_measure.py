@@ -3,7 +3,8 @@
 import numpy as np
 import pytest
 
-from measure import contrast, luminance, measure_catalog
+from measure import contrast, luminance, HERE
+import pandas as pd
 
 
 def test_reference_luminance_and_contrast() -> None:
@@ -19,7 +20,7 @@ def test_reference_luminance_and_contrast() -> None:
 
 def test_all_modes_and_surface_specific_failure() -> None:
     """An accent passing on paper can fail on its panel; do not collapse roles."""
-    rows = measure_catalog().set_index(["theme", "mode"])
+    rows = pd.read_csv(HERE / "results/theme-roles.csv").set_index(["theme", "mode"])
     assert len(rows) == 70
     assert not rows.index.has_duplicates
     pulse = rows.loc[("pulse-reading", "dark")]

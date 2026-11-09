@@ -7,13 +7,13 @@ Approved 9 November 2026, after joint review of Doc 1 (design language) and Doc 
 | 1: freeze small shared contract and nine independent seeds | `ptoxmryr` | Complete | Contract/schema, reference coverage, exact approved candidates and contrast checks |
 | 2: adopt in independent custom, Reading and Tufte repositories | `uykmynuu`, `utxuylpm`, `osmysomq` | Complete | Reproducible source builds, paired modes and scoped Quarto overlays |
 | 3: upstream verification | `rroytwov` | Passed | Numerical, asset/font, build and browser checks before slide imports |
-| 4: slide consumer adoption | `pvttvwwo` | Active | Import authoritative manifests from merged upstream revisions; audience-scale and browser QA |
-| 5: rerun scientific experiments | `xrtvkvpx` | Pending | Reading/presentation comparisons and role separation |
-| 6: plotting API/package | `vxltssko` | Pending | Verified upstream and slide contracts plus experiment evidence |
+| 4: slide consumer adoption | `pvttvwwo` | Complete | Import authoritative manifests from merged upstream revisions; audience-scale and browser QA |
+| 5: rerun scientific experiments | `xrtvkvpx` | Complete — review checkpoint | Reading/presentation comparisons and role separation |
+| 6: plotting API/package | `vxltssko` | Awaiting user palette review | Verified upstream and slide contracts plus experiment evidence |
 
 Upstream adoption used nine independent physical worktrees managed by three owners/workstreams: custom three, Reading five, and Tufte. Shared build patterns do not create a central runtime dependency. Later phases wait for preceding gates.
 
-The [upstream verification record](upstream-verification.md) pins all nine merged source revisions, published manifest hashes and rerunnable browser helpers. The upstream gate passed; slide consumer adoption is active.
+The [upstream verification record](upstream-verification.md) pins all nine merged source revisions, published manifest hashes and rerunnable browser helpers. The upstream gate passed; slide consumer adoption passed at verified commit `04cef45c3374a018d3b32b9c53a2e4e43e7c88ec`. The scientific run and rewritten Doc3 form a verified review checkpoint. Its palette choices are recommendations awaiting user review; phase6 package implementation is on hold until that decision.
 
 ## Frozen v1 source and publication contract
 

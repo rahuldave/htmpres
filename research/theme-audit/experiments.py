@@ -19,7 +19,7 @@ import pandas as pd
 import seaborn as sns
 from colorspacious import cspace_convert
 
-from measure import CATALOG, HERE, ROOT, PRIORITY, contrast, luminance
+from measure import CATALOG, HERE, ROOT, PRIORITY, BASELINE_INPUTS, contrast, luminance
 
 SEQUENTIAL = ["viridis", "cividis", "plasma", "inferno", "magma", "Blues",
               "Greens", "Purples", "YlOrBr", "YlGnBu", "Greys", "cubehelix",
@@ -262,7 +262,7 @@ def theme_figures(themes: dict, maps: dict[str, np.ndarray]) -> None:
     families = {"DM Sans", "Inter", "Open Sans", "Lato"}
     font_manager.fontManager.ttflist = [
         entry for entry in font_manager.fontManager.ttflist if entry.name not in families]
-    for font in (ROOT / "_extensions/htmpres/themes/fonts").glob("*.ttf"):
+    for font in (BASELINE_INPUTS / "fonts").glob("*.ttf"):
         font_manager.fontManager.addfont(font)
     resolved_fonts = {}
     for family in sorted(families | {"DejaVu Sans", "DejaVu Serif"}):

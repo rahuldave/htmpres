@@ -13,7 +13,7 @@ measure: sync
 experiments: sync
     uv run --frozen python experiments.py
 
-reports: foundations
+reports: sync
     uv run --frozen python build_reports.py
 
 test: sync
@@ -22,7 +22,20 @@ test: sync
 foundations: sync
     uv run --frozen python foundations.py
 
-check: measure experiments foundations reports contract test
+# Current verification never invokes historical generators.
+check: reports test
+
+current: sync
+    uv run --frozen python current_experiments.py
+    uv run --frozen python build_current_placements.py
+    uv run --frozen python current_treatment.py
+    uv run --frozen python build_current_report.py
+    uv run --frozen python build_reports.py
+    uv run --frozen python finalize_current_evidence.py
+
+# Explicit opt-in; these commands regenerate historical baseline outputs.
+historical-reproduce: measure experiments foundations contract
+
 
 specimens: sync
     uv run --frozen python build_specimens.py

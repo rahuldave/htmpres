@@ -76,7 +76,8 @@ def main() -> None:
         first_section = body.find("<h2")
         toc = f'<details><summary>In this review</summary>{converter.toc}</details>'
         body = body[:first_section] + toc + body[first_section:]
-        html = f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title}</title><style>{CSS}</style></head><body><header><nav aria-label="Three dependent reviews">{nav}</nav></header><main>{body}<footer>Decision draft · 9 November 2026 · <a href="{slug}.md">Markdown source</a> · Synthetic data; production themes unchanged.</footer></main></body></html>\n'
+        footer = 'Current frozen foundations study; synthetic data and explicit placement geometry.' if slug == '03-scientific-palettes' else 'Synthetic data; production themes unchanged.'
+        html = f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title}</title><style>{CSS}</style></head><body><header><nav aria-label="Three dependent reviews">{nav}</nav></header><main>{body}<footer>Decision draft · 9 November 2026 · <a href="{slug}.md">Markdown source</a> · {footer}</footer></main></body></html>\n'
         (HERE / f"{slug}.html").write_text(html)
     for slug in REPORTS:
         check_links(HERE / f"{slug}.html")

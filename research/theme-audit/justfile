@@ -1,0 +1,28 @@
+# Research-only pipeline. Dependencies execute in the written order.
+# https://just.systems/man/en/dependencies.html
+
+default:
+    @just --list
+
+sync:
+    uv sync --frozen
+
+measure: sync
+    uv run --frozen python measure.py
+
+experiments: sync
+    uv run --frozen python experiments.py
+
+reports: sync
+    uv run --frozen python build_reports.py
+
+test: sync
+    uv run --frozen python -m pytest -q
+
+check: measure experiments reports test
+
+specimens: sync
+    uv run --frozen python build_specimens.py
+
+serve: reports
+    uv run --frozen python -m http.server 8773 --bind 127.0.0.1

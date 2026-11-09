@@ -1,0 +1,492 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>1. Which themes have a coherent design language?</title><style>
+:root{color-scheme:light;--ink:#233b38;--paper:#faf8f2;--accent:#246665}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.65 system-ui,sans-serif}
+a{color:var(--accent);text-underline-offset:3px}header{padding:22px max(5vw,20px);background:#e9efea;border-bottom:1px solid #cbd8d1}
+nav{display:flex;flex-wrap:wrap;gap:12px 28px;max-width:1180px;margin:auto}nav a[aria-current]{font-weight:750}
+main{max-width:1180px;padding:42px 28px 80px;margin:auto}h1{font:650 clamp(30px,4vw,46px)/1.16 Georgia,serif;max-width:1000px;letter-spacing:-.025em}
+h2{font:650 29px/1.25 Georgia,serif;margin:64px 0 20px;padding-top:18px;border-top:1px solid #cbd8d1}h3{font-size:23px;margin-top:40px}
+p,ul,ol{max-width:83ch}li{margin:8px 0}strong{font-weight:700}img{display:block;max-width:100%;height:auto;margin:25px 0;border:1px solid #d4ddd7;border-radius:5px}
+.table-wrap{overflow:auto;margin:26px 0;border:1px solid #ccd7d0;border-radius:5px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.5;min-width:650px}th,td{text-align:left;vertical-align:top;padding:13px 15px;border-bottom:1px solid #dce3dd}th{background:#e6ede7;font-weight:750}tr:nth-child(even){background:#f0f3ee}tr:last-child td{border-bottom:0}
+pre{overflow:auto;background:#e9eeea;padding:22px;border-radius:6px;line-height:1.5;font-size:14px}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code{background:#e9eeea;padding:2px 4px;border-radius:3px}
+details{background:#eef2ec;padding:14px 22px;border:1px solid #d4ddd4;border-radius:5px;margin:30px 0}summary{cursor:pointer;font-weight:700}.toc ul{list-style:none;padding-left:18px;font-size:15px}.toc>ul{padding:0}footer{border-top:1px solid #ccd7d0;margin-top:60px;padding-top:20px;font-size:14px}
+@media(max-width:680px){main{padding:25px 18px}body{font-size:16px}h2{font-size:25px}nav{gap:8px 16px}table{font-size:13px}}
+@media print{header,details{display:none}body{background:white;font-size:10pt}main{padding:0}h2{break-after:avoid}img{break-inside:avoid}table{font-size:8pt;min-width:0}.table-wrap{overflow:visible}a{color:inherit}}
+</style></head><body><header><nav aria-label="Three dependent reviews"><a href="01-design-language.html" aria-current="page">1 · Design language</a><a href="02-presentation-color.html">2 · Presentation color</a><a href="03-scientific-palettes.html">3 · Scientific palettes</a></nav></header><main><h1 id="1-which-themes-have-a-coherent-design-language">1. Which themes have a coherent design language?</h1>
+<p><strong>Decision draft · 9 November 2026 · no production theme changes</strong></p>
+<p>Folio, Atelier and Nocturne are the strongest complete light/dark identities in
+the current htmpres adapter. Atelier is the most promising general presentation
+base; Folio and Nocturne offer more distinctive editorial voices. Tufte is a
+valuable restrained alternative, but the surrounding card-and-shadow slide UI
+does not yet express its philosophy. All five Reading themes deserve the same
+depth of investigation: their native modes are good candidates, while their
+derived complementary modes need specific repairs.</p>
+<p>This is the first of three linked decisions. <a href="02-presentation-color.html">Part 2</a>
+tests these judgments against Schwabish's visual presentation guidance.
+<a href="03-scientific-palettes.md">Part 3</a> tests scientific color systems for all nine
+priority themes. These are recommendations for selection, not an approved redesign.</p>
+<details><summary>In this review</summary><div class="toc">
+<ul>
+<li><a href="#what-is-actually-being-reviewed">What is actually being reviewed</a></li>
+<li><a href="#evidence-and-review-method">Evidence and review method</a></li>
+<li><a href="#what-the-original-book-adds-to-this-review">What the original book adds to this review</a></li>
+<li><a href="#shared-problems-that-theme-selection-cannot-solve">Shared problems that theme selection cannot solve</a></li>
+<li><a href="#detailed-review-of-the-nine-priority-themes">Detailed review of the nine priority themes</a></li>
+<li><a href="#complete-catalog-critique">Complete catalog critique</a></li>
+<li><a href="#what-should-carry-back-to-smalldocs-and-quarto">What should carry back to SmallDocs and Quarto</a></li>
+<li><a href="#provisional-selection-for-part-2">Provisional selection for Part 2</a></li>
+</ul>
+</div>
+</details><h2 id="what-is-actually-being-reviewed">What is actually being reviewed</h2>
+<p>The current catalog contains <strong>35 paired themes / 70 modes</strong>, not 32: Bootstrap,
+25 Bootswatch themes, Folio, Atelier, Nocturne, five Reading refinements, and
+Tufte. The three older unpaired seeds, Sage, Mono Grid and Blank, are outside
+this paired-theme audit. Thus the CLI's 38 names and this report's 35 pairs
+describe different scopes. Archived original/refined designs in Elegant are
+also not extra htmpres themes.</p>
+<p>The unit of assessment is the <strong>current htmpres rendering</strong>, not an upstream
+Bootswatch demo. Its adapter imports palette roles and font stacks, then applies
+the same navigation, slide surface, cards, spacing and code system. It does not
+import most source component styling, reading widths, margins, buttons or
+responsive typography. This explains why many stock themes look similar here,
+and why an excellent source documentation theme can still have slide problems.</p>
+<p>The four custom/Tufte pairs have designed complementary palettes. Light-native
+stock themes use Bootstrap dark variables. Dark-native stock themes and Reading
+refinements use htmpres complementary adaptations. Do not count those derived
+modes as upstream-designed or inherit the upstream review's scores for them.</p>
+<h2 id="evidence-and-review-method">Evidence and review method</h2>
+<p>The rubric comes from the earlier Elegant review of <em>Refactoring UI</em>, checked
+against the original 252-page PDF for this pass. The authors did not evaluate
+these themes. Its six lenses are:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Lens</th>
+<th>What earns confidence</th>
+<th>Source locations in the previously reviewed 252-page edition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hierarchy</td>
+<td>Size, weight, tone and spacing establish clear priorities without making secondary information unreadable</td>
+<td>pp. 36–47, 54–59</td>
+</tr>
+<tr>
+<td>Spacing and grouping</td>
+<td>Related content is close; section gaps and inner padding have consistent jobs</td>
+<td>pp. 66–74, 96–99</td>
+</tr>
+<tr>
+<td>Color roles</td>
+<td>Text, surfaces, accents and states have distinct readable roles</td>
+<td>pp. 42–44, 142–168</td>
+</tr>
+<tr>
+<td>Layout and scale</td>
+<td>Width and responsive changes fit the content and viewing task</td>
+<td>pp. 76–81, 92–95, 114–116</td>
+</tr>
+<tr>
+<td>Surfaces and restraint</td>
+<td>Edges, shadows and fills explain groups without competing with them</td>
+<td>pp. 190–192, 224–241</td>
+</tr>
+<tr>
+<td>Personality</td>
+<td>Typography, palette and component shape describe the same character</td>
+<td>pp. 20–26, 108–112</td>
+</tr>
+</tbody>
+</table></div>
+<p>We used the existing <a href="https://rahuldave.com/elegant-themes/ui-design-guide.html">Elegant UI guide</a>
+and <a href="https://rahuldave.com/elegant-themes/visual-design-report.html">design assessment</a>,
+including their source-code rubric and disclosed self-review limits. We also
+read the original PDF at pp. 20–22, 36–44, 66–68, 142–160 and 162–168, and
+visually checked the illustrations at pp. 147, 154 and 164. Remaining page
+pointers in the rubric come from the earlier Elegant review. The original is
+kept in the ignored sibling <code>nossaifd-talks/books</code> folder; no book pages are
+redistributed here. The present classifications are our own judgments, and no
+numerical aesthetic leaderboard is implied. Source fingerprints are recorded in
+<a href="results/source-manifest.json">source-manifest.json</a>.</p>
+<p>Fresh evidence comprises the checked-in catalog, its shared adapter, a complete
+35-theme renderer smoke run, solid-color measurements for all 70 modes, and nine
+browser contact sheets of the same actual rendered slide in all 70 modes.
+Atelier was also inspected full size, switched from light to dark, and advanced
+to its code slide. Contact sheets establish composition and relative character;
+they are not a small-text legibility or interaction audit of every theme.
+No physical projector, phone or reader study was used.</p>
+<p>The <a href="results/theme-roles.csv">raw role table</a> reports unrounded calculations.
+The numeric screen uses 4.5:1 for normal text on paper/panel/code and 3:1 for
+large text only where applicable. These thresholds come from
+<a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html">WCAG</a>, not
+Refactoring UI. A ratio is evidence about one color pair, not a whole-theme
+accessibility certificate. Borders and decorative surfaces are not normal text.</p>
+<p><img alt="Four priority pairs in the actual slide renderer" src="figures/contact-0.png" /></p>
+<h2 id="what-the-original-book-adds-to-this-review">What the original book adds to this review</h2>
+<p>Refactoring UI's pp. 142–151 describe a vocabulary of neutral shades, primary
+shades and additional semantic colors, anchored to actual uses such as text,
+buttons and tinted backgrounds. Page 147 explicitly recognizes that graph
+categories can need more accent colors. A five-swatch mood board is therefore
+not a sufficient theme specification, and our five aliases collapsing to one
+or two colors is a substantive limitation.</p>
+<p>The same book recommends keeping those choices finite rather than inventing
+another shade for every component. A useful revision would define separate
+accent ink, accent fill, focus, context and state roles, then test each on its
+allowed surfaces. The dark-text/pale-fill example on p. 164 is particularly
+relevant: making every accent darker or brighter cannot solve every role at
+once without changing visual emphasis.</p>
+<p>Pages 152–157 also show why equal HSL lightness does not mean equal perceived
+brightness. Their practical hue/shade adjustments help UI design; they do not
+establish that a generated scientific color scale has equal perceptual steps.
+Part 3 measures that separately. Pages 166–168 reinforce the need for cues
+besides color; chart labels, line styles and symbols belong in the design
+contract, not merely in accessibility footnotes.</p>
+<h2 id="shared-problems-that-theme-selection-cannot-solve">Shared problems that theme selection cannot solve</h2>
+<ol>
+<li><strong>The UI adapts color more than design language.</strong> Every theme gets a rounded,
+   shadowed slide and similar cards. This supports consistency for Atelier, but
+   makes Tufte less booklike and weakens the distinctive shape systems of stock
+   themes. Audit the selected theme's structural variant before editing its hues.</li>
+<li><strong>Body copy is often treated as secondary.</strong> The specimen's <code>.card p</code> uses
+   muted ink. That is a meaningful reading role, not optional decoration. Weak
+   muted colors therefore affect ordinary explanations, not just footnotes.</li>
+<li><strong>The accent vocabulary overstates its distinctions.</strong> <code>teal</code> and <code>indigo</code>
+   become the same accent; <code>amber</code>, <code>rose</code> and <code>violet</code> become the same secondary.
+   Four Reading pairs also set accent equal to secondary. Those aliases cannot
+   stand for five categories or five semantic states. Use semantic role names
+   and a separate chart cycle in a future change.</li>
+<li><strong>Role validation is surface-specific.</strong> Several derived accents were made
+   readable against paper but fail the same screen on panels. The light/dark
+   pair must be validated as a matrix of roles and surfaces.</li>
+<li><strong>Syntax colors are shared across families.</strong> Code keeps its function, but
+   its blue/purple/green/yellow/pink grammar can feel imported into Folio or
+   Nocturne. A selected family should get a deliberate code and figure policy;
+   coloring every token with a brand hue would destroy useful distinctions.</li>
+<li><strong>Reading scale is not presentation scale.</strong> In the full-size 1280×720
+   Atelier specimen, the title was 37.6px, card headings 18.88px, card text
+   16px and code 14.4px. That is evidence about this fixture/layout, not every
+   slide. It nevertheless requires a dedicated projected-presentation profile.</li>
+<li><strong>Font names are not proof of font delivery.</strong> Custom and Reading families
+   bundle local fonts; stock families may fall back if their named typeface is
+   absent. Judge the delivered font, and verify fallbacks before attributing
+   fine typographic character to a stock font name.</li>
+</ol>
+<h2 id="detailed-review-of-the-nine-priority-themes">Detailed review of the nine priority themes</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Theme</th>
+<th>Light mode</th>
+<th>Dark mode</th>
+<th>Design judgment and next decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Folio</strong></td>
+<td>Warm paper, green text/accent and restrained rust form a convincing literary family. Display and body serifs have clear roles.</td>
+<td>Green-black paper and pale sage retain that family instead of becoming generic charcoal.</td>
+<td><strong>Retain both.</strong> Strong source identity survives adaptation. Reduce the common slide shadow for a more editorial expression; test display-serif readability at projection distance.</td>
+</tr>
+<tr>
+<td><strong>Atelier</strong></td>
+<td>Cool near-white, teal-grey text and DM Sans give the clearest technical/studio voice. Quiet panels support grouping.</td>
+<td>Blue-green near-black and pale teal preserve the same relationships.</td>
+<td><strong>Primary presentation candidate.</strong> Retain both. Give primary content a stronger role than the current muted card text; tune a presentation scale and chart typography together.</td>
+</tr>
+<tr>
+<td><strong>Nocturne</strong></td>
+<td>Pearl-grey with brown and purple is coherent, though less immediately recognizable than its dark counterpart.</td>
+<td>Ink-blue, warm brass and literary serif create a distinctive evening palette.</td>
+<td><strong>Retain both; lead with dark as its identity.</strong> Use brass selectively. Review chart/title emphasis together so warm highlights do not compete.</td>
+</tr>
+<tr>
+<td><strong>Tufte</strong></td>
+<td>Cream paper and near-black serif are highly restrained; italic headings preserve character.</td>
+<td>Neutral near-black/grey is a convincing reading companion.</td>
+<td><strong>Retain as a different philosophy.</strong> The shared shadowed frame and cards work against the identity. Its accent equals ink, so distinguish links by underline and figure emphasis by an explicit optional color.</td>
+</tr>
+<tr>
+<td><strong>Zephyr Reading</strong></td>
+<td>Inter, controlled blue and quiet grey-blue panels make a strong modern UI.</td>
+<td>The blue-tinted adaptation is coherent in hue; accent-on-panel is only <strong>3.97:1</strong>.</td>
+<td><strong>Retain native light; repair dark before recommendation.</strong> It offers a distinct neutral sans alternative to Atelier, not merely a lesser custom theme.</td>
+</tr>
+<tr>
+<td><strong>Simplex Reading</strong></td>
+<td>Open Sans, warm neutrals and deep red form an economical, coherent identity.</td>
+<td>Warm dark surfaces preserve character; red-on-panel is <strong>4.13:1</strong>.</td>
+<td><strong>Equal-priority candidate.</strong> Retain light and repair dark. Reserve red branding from negative-data semantics, or use a different chart highlight.</td>
+</tr>
+<tr>
+<td><strong>Pulse Reading</strong></td>
+<td>Deep purple, soft lavender panels and system sans are restrained and legible.</td>
+<td>Its complementary accent reaches <strong>4.53:1</strong> on paper but <strong>3.90:1</strong> on panel.</td>
+<td><strong>Equal-priority candidate.</strong> Retain light and repair dark. Purple offers a useful identity outside the many blue/teal options.</td>
+</tr>
+<tr>
+<td><strong>Litera Reading</strong></td>
+<td>Serif body plus clear sans headings is a useful reading/presentation hybrid. Blue links are much stronger than stock Litera.</td>
+<td>Ink-blue adaptation has strong main text, but accent-on-panel is <strong>3.93:1</strong>.</td>
+<td><strong>Retain light; repair dark.</strong> Confirm that prose, lists, captions and chart text maintain intentional font roles rather than inconsistent local overrides.</td>
+</tr>
+<tr>
+<td><strong>Darkly Reading</strong></td>
+<td>The complementary blue-grey light palette is restrained and has usable primary text.</td>
+<td>Charcoal, Lato and pale blue links form a practical dark UI. The secondary is dark blue: only <strong>1.86:1</strong> on panel.</td>
+<td><strong>Retain dark with a secondary-role repair; retain light as conditional companion.</strong> A dark secondary fill can be useful with suitable text, but it must not be reused as a readable text/line accent.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The four custom/Tufte identities remain candidates because they provide different
+visual purposes, not because they are ours. The same principle keeps Simplex
+and Pulse Reading in the detailed experiments. Their native palettes are
+arguably cleaner than some more celebrated stock alternatives.</p>
+<p><img alt="Reading theme specimens" src="figures/contact-1.png" /></p>
+<h2 id="complete-catalog-critique">Complete catalog critique</h2>
+<p>The judgments below concern the current adaptation. A theme whose source relies
+on gradients, unusual borders or special component styling may lose much of
+that personality when only its colors and fonts are imported. Every row includes
+both modes; the nine priority rows above supply their fuller interpretation.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Theme</th>
+<th>Light-mode critique</th>
+<th>Dark-mode critique</th>
+<th>Decision for this workstream</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bootstrap</td>
+<td>Clear neutral baseline; blue accent is marginal on paper and 4.27 on panel.</td>
+<td>Conventional charcoal; readable main accent, less dependable secondary text.</td>
+<td>Keep as baseline, not a distinctive finalist.</td>
+</tr>
+<tr>
+<td>Cerulean</td>
+<td>Pleasant blue identity undermined by accent 2.77 on paper and muted panel text 4.01.</td>
+<td>Generic Bootstrap structure with a much more readable light blue.</td>
+<td>Defer; native light needs substantive contrast work.</td>
+</tr>
+<tr>
+<td>Cosmo</td>
+<td>Calm thin/sans direction, but blue links are 3.97 on paper.</td>
+<td>More readable accent, but source typography/shape distinction is diminished.</td>
+<td>Defer in favor of Atelier/Zephyr Reading.</td>
+</tr>
+<tr>
+<td>Cyborg</td>
+<td>Clean light adaptation, but blue panel links fall to 4.37.</td>
+<td>Severe black surface gives strong contrast but harder outlines and less calm grouping.</td>
+<td>Specialist high-contrast character; not a first refinement target.</td>
+</tr>
+<tr>
+<td>Darkly</td>
+<td>Restrained light adaptation; panel accent 4.13.</td>
+<td>Strong main text with more conspicuous panel boundaries.</td>
+<td>Prefer Darkly Reading for detailed work.</td>
+</tr>
+<tr>
+<td>Flatly</td>
+<td>Familiar clear layout; green link 2.41 on paper is a serious role mismatch.</td>
+<td>Accent remains 4.45 on paper / 3.84 on panel.</td>
+<td>Defer both until role repair.</td>
+</tr>
+<tr>
+<td>Journal</td>
+<td>Heading/body contrast offers character, but coral links are weak.</td>
+<td>Stronger accent readability; heavy headings can dominate shared cards.</td>
+<td>Conditional editorial alternative; Folio more coherent as a pair.</td>
+</tr>
+<tr>
+<td>Litera</td>
+<td>Useful serif/sans pairing, weak blue links (3.71 on paper).</td>
+<td>Readable primary colors; upstream reading repairs are absent.</td>
+<td>Prefer Litera Reading.</td>
+</tr>
+<tr>
+<td>Lumen</td>
+<td>Neutral working surface; link 3.82 on paper.</td>
+<td>Clear colors but little distinctiveness survives the shared shell.</td>
+<td>Defer.</td>
+</tr>
+<tr>
+<td>Lux</td>
+<td>Monochrome restraint works; muted panel text is 3.66.</td>
+<td>Dark link 3.83 on paper / 3.18 on panel breaks the monochrome promise.</td>
+<td>Defer; Tufte is the stronger restrained direction.</td>
+</tr>
+<tr>
+<td>Materia</td>
+<td>Generic but coherent sans; accent 3.12 on paper.</td>
+<td>Stronger colors; material-specific component grammar is mostly absent.</td>
+<td>Defer.</td>
+</tr>
+<tr>
+<td>Minty</td>
+<td>Pastel personality is visible, but body text is 3.54 and muted panel text 2.31.</td>
+<td>Readable Bootstrap-derived dark mode loses much of the pastel identity.</td>
+<td>Reject as a ready-to-use pair for this purpose.</td>
+</tr>
+<tr>
+<td>Morph</td>
+<td>Tinted surface and pale text collapse hierarchy: body 2.63.</td>
+<td>Text improves, but differently tinted outer surface/panels feel less unified.</td>
+<td>Reject until substantial redesign.</td>
+</tr>
+<tr>
+<td>Pulse</td>
+<td>Deep purple and quiet neutrals work in light.</td>
+<td>Native stock dark variables are relatively readable; less distinct from other dark variants.</td>
+<td>Retain as comparator to Pulse Reading, which is not automatically superior in dark.</td>
+</tr>
+<tr>
+<td>Quartz</td>
+<td>Neutral light adaptation loses the theatrical source character.</td>
+<td>Violet ground is distinctive, but muted panel text is 2.93 and links 4.04.</td>
+<td>Defer; background competes with the content.</td>
+</tr>
+<tr>
+<td>Sandstone</td>
+<td>Warm accent is only 2.03 on white; subdued palette erases emphasis.</td>
+<td>More usable main accent; secondary panel text still 3.83.</td>
+<td>Defer.</td>
+</tr>
+<tr>
+<td>Simplex</td>
+<td>Red with neutral text is coherent; sampled text roles largely robust.</td>
+<td>Readable main accent; generic dark companion changes its character.</td>
+<td>Strong stock comparator; refine Simplex Reading instead.</td>
+</tr>
+<tr>
+<td>Sketchy</td>
+<td>Playful handwriting survives; crisp stock cards create a mixed shape language.</td>
+<td>Main accent 4.18 on paper, 3.80 on panel; handwriting still dominates.</td>
+<td>Keep for deliberate informal use, not this scientific default.</td>
+</tr>
+<tr>
+<td>Slate</td>
+<td>Neutral light adaptation, panel links 4.26.</td>
+<td>Strongly outlined panels; muted panel text 3.63 is too weak.</td>
+<td>Defer.</td>
+</tr>
+<tr>
+<td>Solar</td>
+<td>Readable ordinary text in derived light; links weaken on panels.</td>
+<td>Dark teal identity is strong but body 4.75 has little reserve; muted panel text 3.00.</td>
+<td>Defer for projection; color atmosphere is not readability.</td>
+</tr>
+<tr>
+<td>Spacelab</td>
+<td>Grey body 4.48 and muted panel text 2.70 undermine the calm aesthetic.</td>
+<td>More robust text; source distinction limited in shared shell.</td>
+<td>Defer.</td>
+</tr>
+<tr>
+<td>Superhero</td>
+<td>Clear derived light with weak panel accents.</td>
+<td>Navy/orange pairing is memorable; orange panel accent only 3.83.</td>
+<td>Specialist alternative after repair.</td>
+</tr>
+<tr>
+<td>United</td>
+<td>Warm orange personality; links 3.65 on paper.</td>
+<td>Readable dark accent, less distinctive overall pair.</td>
+<td>Defer; Simplex Reading supplies a cleaner warm-accent candidate.</td>
+</tr>
+<tr>
+<td>Vapor</td>
+<td>Clear pastel-tinted adaptation without much neon personality.</td>
+<td>Saturated cyan type and purple field retain character but make everything compete.</td>
+<td>Reject as a default analytical/presentation UI; retain for intentional style.</td>
+</tr>
+<tr>
+<td>Yeti</td>
+<td>Quiet layout, but pale-weight heading and weak blue links need review.</td>
+<td>More readable blue; lightness of heading weight remains a distance concern.</td>
+<td>Defer.</td>
+</tr>
+<tr>
+<td>Zephyr</td>
+<td>Coherent blue/Inter UI; muted panel copy 4.01 is a defect.</td>
+<td>Readable ordinary main colors, generic dark companion.</td>
+<td>Prefer Zephyr Reading light; keep stock dark as a repair comparator.</td>
+</tr>
+<tr>
+<td>Folio</td>
+<td>Coherent warm editorial identity.</td>
+<td>Coherent green-black companion.</td>
+<td>Advance both.</td>
+</tr>
+<tr>
+<td>Atelier</td>
+<td>Coherent technical/studio identity.</td>
+<td>Coherent teal-black companion.</td>
+<td>Advance both; primary base.</td>
+</tr>
+<tr>
+<td>Nocturne</td>
+<td>Coherent pearl/brown/purple identity.</td>
+<td>Coherent ink/brass identity.</td>
+<td>Advance both.</td>
+</tr>
+<tr>
+<td>Tufte</td>
+<td>Restrained serif; shared cards weaken the language.</td>
+<td>Restrained neutral pair; same structural mismatch.</td>
+<td>Advance as minimalist alternative.</td>
+</tr>
+<tr>
+<td>Zephyr Reading</td>
+<td>Strong modern blue/sans direction.</td>
+<td>Panel-accent repair required.</td>
+<td>Advance with explicit condition.</td>
+</tr>
+<tr>
+<td>Simplex Reading</td>
+<td>Strong economical warm/red direction.</td>
+<td>Panel-accent repair required.</td>
+<td>Advance with equal priority.</td>
+</tr>
+<tr>
+<td>Pulse Reading</td>
+<td>Strong purple/system-sans direction.</td>
+<td>Panel-accent repair required.</td>
+<td>Advance with equal priority.</td>
+</tr>
+<tr>
+<td>Litera Reading</td>
+<td>Clear prose hierarchy and stronger blue.</td>
+<td>Panel-accent repair required.</td>
+<td>Advance with equal priority.</td>
+</tr>
+<tr>
+<td>Darkly Reading</td>
+<td>Usable restrained complementary light.</td>
+<td>Strong main accent; weak secondary role.</td>
+<td>Advance with equal priority.</td>
+</tr>
+</tbody>
+</table></div>
+<p>More evidence: contact sheets <a href="figures/contact-2.png">2</a>,
+<a href="figures/contact-3.png">3</a>, <a href="figures/contact-4.png">4</a>, <a href="figures/contact-5.png">5</a>,
+<a href="figures/contact-6.png">6</a>, <a href="figures/contact-7.png">7</a>, <a href="figures/contact-8.png">8</a>.</p>
+<h2 id="what-should-carry-back-to-smalldocs-and-quarto">What should carry back to SmallDocs and Quarto</h2>
+<p>Carry back a <strong>role contract</strong>, not slide pixel sizes: readable ink on each
+surface, accent text separate from accent fill, state semantics separate from
+category colors, explicit body/heading/code font roles, and consistent light/dark
+relationships. Audit the paired SmallDocs CSS and Quarto Sass together if those
+roles change. The existing 640px reading width and 1.45 leading are document
+decisions; a projection profile needs different size/space decisions.</p>
+<p>Do not overwrite a source Reading theme with an htmpres-derived dark palette
+merely because it exists here. First decide whether that source project should
+publish a designed pair at all. Fixing htmpres adaptation defects can stay local
+to the importer/adapter unless a native source defect is independently reproduced.</p>
+<h2 id="provisional-selection-for-part-2">Provisional selection for Part 2</h2>
+<p>Advance <strong>all nine priority themes</strong>. Within them, test Atelier as the practical
+presentation default; Folio/Nocturne for distinct editorial voices; Tufte for a
+minimal direction; and all five Reading alternatives with the repairs described
+above. Retain Bootstrap and stock Pulse/Simplex/Zephyr as comparison controls.
+No theme is selected for implementation yet.</p><footer>Decision draft · 9 November 2026 · <a href="01-design-language.md">Markdown source</a> · Synthetic data; production themes unchanged.</footer></main></body></html>

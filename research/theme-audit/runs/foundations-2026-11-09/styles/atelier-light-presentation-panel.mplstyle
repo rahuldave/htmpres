@@ -1,0 +1,23 @@
+# Furniture only; explicit font registration and data encodings required.
+figure.facecolor: eef3f1
+axes.facecolor: eef3f1
+savefig.facecolor: eef3f1
+savefig.transparent: False
+text.color: 253e42
+axes.labelcolor: 253e42
+xtick.color: 253e42
+ytick.color: 253e42
+axes.edgecolor: 858d8b
+grid.color: cddbd7
+font.size: 12.0
+axes.titlesize: 12.0
+axes.labelsize: 12.0
+xtick.labelsize: 12.0
+ytick.labelsize: 12.0
+legend.fontsize: 12.0
+lines.linewidth: 1.25
+axes.spines.top: False
+axes.spines.right: False
+pdf.fonttype: 42
+svg.fonttype: path
+axes.unicode_minus: False

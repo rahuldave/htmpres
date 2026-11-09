@@ -45,6 +45,14 @@ for (const view of ["index", "presenter"]) {
     .replaceAll('src="assets/htmpres-math/', 'src="../assets/htmpres-math/')
     .replaceAll("assets/htmpres-themes/", "../assets/htmpres-themes/"));
 }
+for (const view of ["index", "presenter"]) {
+  write(`authoring-hooks/${view}.html`, read(`decks/authoring-hooks/${view}.html`)
+    .replaceAll('href="assets/htmpres-math/', 'href="../assets/htmpres-math/')
+    .replaceAll('src="assets/htmpres-math/', 'src="../assets/htmpres-math/')
+    .replaceAll("assets/htmpres-themes/", "../assets/htmpres-themes/"));
+}
+copy(new URL("decks/authoring-hooks/assets/two-views.svg", root), new URL("authoring-hooks/assets/two-views.svg", output));
+write("source/authoring-hooks.qmd.txt", read("decks/authoring-hooks/index.qmd"));
 write("source/semantic.qmd.txt", read("decks/semantic/index.qmd"));
 // Vendor site fonts from the same licensed bundle; do not depend on a sibling checkout.
 for (const asset of catalog.themes.nocturne.assets) {

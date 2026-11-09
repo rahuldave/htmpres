@@ -15,32 +15,28 @@
   border-radius: 0.12em;
 }
 
-/* Summary colors appear only after the final shared frame. Named CSS tokens
-   override generated slots; code glyphs retain their syntax colors. */
-.slide.step-summary-active [data-match-slot]:not(.code-line) {
+/* Named pairs gain their colors on reveal. Hidden future text keeps the shell's
+   visibility rules; teaching highlights and dimming still describe the current step. */
+.slide[data-step-summary="match"] [data-match-slot]:not(.code-line) {
   color: var(--_htmpres-match-ink);
   background: var(--htmpres-summary-surface, transparent);
-  opacity: 1;
 }
+.slide[data-step-summary="match"] [data-match-slot] :is(p, li) { color: inherit; }
+.slide.step-summary-active [data-match-slot]:not(.code-line) { opacity: 1; }
 
-.slide.step-summary-active [data-match] :is(p, li) {
-  color: inherit;
-}
-
-.slide.step-summary-active code > .code-line {
+.slide[data-step-summary="match"] code > .code-line {
   position: relative;
   padding-left: 3.1rem;
+}
+.slide.step-summary-active code > .code-line {
   opacity: 1;
   background: transparent;
   box-shadow: none;
 }
+.slide[data-step-summary="match"] code > .code-line > a:first-child[href^="#"] { visibility: hidden; }
 
-.slide.step-summary-active code > .code-line > a:first-child[href^="#"] {
-  visibility: hidden;
-}
-
-/* A paper backplate lets the same exact ink work on legacy dark code panels. */
-.slide.step-summary-active code > .code-line::before {
+/* An opaque theme-paper gutter keeps active numbers consistent with explaining text. */
+.slide[data-step-summary="match"] code > .code-line::before {
   content: attr(data-line);
   position: absolute;
   left: .15rem;

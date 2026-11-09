@@ -6,8 +6,8 @@ import path from "node:path";
 import { colorModeControl, colorModeScript, resolveTheme, themeAssets, themeAttributes, themeStyles } from "../_extensions/htmpres/themes/themes.mjs";
 import { matchThemeStyles } from "../_extensions/htmpres/themes/matches.mjs";
 
-import { assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds } from "../_extensions/htmpres/lib/render.mjs";
-import { extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, splitFrontMatter as splitSourceFrontMatter } from "../_extensions/htmpres/lib/source.mjs";
+import { arrangeSlideCredits, assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds } from "../_extensions/htmpres/lib/render.mjs";
+import { deckCounter, extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, splitFrontMatter as splitSourceFrontMatter } from "../_extensions/htmpres/lib/source.mjs";
 
 const themeDirectory = new URL("../_extensions/htmpres/themes/", import.meta.url);
 const bundledThemes = JSON.parse(readFileSync(new URL("catalog.json", themeDirectory), "utf8"));
@@ -42,6 +42,7 @@ function renderDeck(file) {
   const theme = meta["deck.theme"] || meta.theme || "";
   const background = deckBackground(meta);
   const textFit = deckTextFit(meta);
+  const counterPolicy = deckCounter(qmd).value;
   const cssPath = path.join(deckDir, meta["deck.css"] || "source.css");
   const localCss = existsSync(cssPath) ? readFileSync(cssPath, "utf8") : "";
   const themePlan = resolveTheme(meta, bundledThemes, localCss);
@@ -77,6 +78,7 @@ function renderDeck(file) {
     theme,
     themePlan,
     textFit,
+    counterPolicy,
   });
   const presenterHtml = deckShell({
     mode: "presenter",
@@ -89,6 +91,7 @@ function renderDeck(file) {
     theme,
     themePlan,
     textFit,
+    counterPolicy,
   });
 
   const outPath = path.join(deckDir, "index.html");
@@ -112,7 +115,7 @@ function renderSlide(slide, index, globalBackground) {
   try {
     matches = compileMatchSummary(bodyHtml, attrs.keyValues["data-step-summary"], { id: slide.id, colors: attrs.keyValues["data-match-colors"], darkColors: attrs.keyValues["data-match-colors-dark"] });
   } catch (error) { throw new Error(`Slide ${index + 1} (${title}): ${error.message}`); }
-  bodyHtml = matches.html;
+  bodyHtml = arrangeSlideCredits(matches.html);
   const backgroundHtml = renderBackgroundLayer(attrs, globalBackground);
   const dataAttrs = { ...attrs.keyValues, id: slide.id || attrs.keyValues.id || `slide-${index + 1}` };
   if (matches.groups.length) dataAttrs["data-match-groups"] = matches.groups.join("|");
@@ -221,7 +224,7 @@ function escapeCssValue(value) {
 }
 
 
-function deckShell({ mode, title, tocTitle, css, slides, slideCount, notes, theme, themePlan, textFit }) {
+function deckShell({ mode, title, tocTitle, css, slides, slideCount, notes, theme, themePlan, textFit, counterPolicy }) {
   const deckJs = readRuntimeFile("htmpres-custom-deck.js");
   const interactions = readRuntimeFile("htmpres-interactions.html");
   const isPresenter = mode === "presenter";
@@ -237,6 +240,7 @@ function deckShell({ mode, title, tocTitle, css, slides, slideCount, notes, them
     : "";
   const htmlAttrs = formatHtmlAttrs({
     lang: "en",
+    "data-counter": counterPolicy || "true",
     "data-theme": theme || "",
     ...themeAttributes(themePlan),
     "data-text-fit": textFit?.enabled ? "true" : "",
@@ -254,6 +258,7 @@ function deckShell({ mode, title, tocTitle, css, slides, slideCount, notes, them
   <style>
 ${css}
 ${runtimeCss()}
+.counter[hidden] { display: none !important; }
 ${readRuntimeFile("htmpres-semantic.css")}
 ${readRuntimeFile("htmpres-steps.css")}
   </style>
@@ -277,7 +282,7 @@ ${presenterPanel}
 
     <footer class="footer-controls">
       <div class="progress" aria-label="Deck progress"><span id="progressBar"></span></div>
-      <div class="counter" id="counter">1 / ${slideCount}</div>
+      <div class="counter" id="counter"${counterPolicy === "false" || (counterPolicy === "presenter" && !isPresenter) ? " hidden" : ""}>1 / ${slideCount}</div>
       ${colorModeControl(themePlan)}
       <button class="nav-btn" id="overviewBtn" aria-label="Open overview">O</button>
       <button class="nav-btn" id="prevBtn" aria-label="Previous slide">Prev</button>
@@ -645,7 +650,7 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
   color: var(--htmpres-code-token-base, #f8fafc);
 }
 
-.slide > :not(.ds-full):not(.ds-left):not(.ds-right) {
+.slide > :not(.ds-full):not(.ds-left):not(.ds-right):not(.slide-credits) {
   position: relative;
   z-index: 1;
 }
@@ -1203,6 +1208,17 @@ body.presenter-mode .stage-wrap {
 
 body.presenter-mode .footer-controls {
   grid-column: 2 / 4 !important;
+}
+
+/* scaleDeck reserves the transformed canvas size on its slide-fit wrapper. */
+@media (min-width: 981px) {
+  body.presenter-mode .slides {
+    width: 1280px;
+    height: 720px;
+    max-height: none;
+    transform: scale(var(--deck-scale, 1));
+    transform-origin: top left;
+  }
 }
 
 .presenter-notes {

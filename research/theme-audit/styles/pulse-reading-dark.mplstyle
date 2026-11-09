@@ -1,0 +1,18 @@
+# Experimental plot chrome; choose data palette explicitly.
+figure.facecolor: 1b1d2b
+axes.facecolor: 1b1d2b
+text.color: e8edf2
+axes.labelcolor: e8edf2
+xtick.color: e8edf2
+ytick.color: e8edf2
+axes.edgecolor: bfc3ca
+grid.color: 50535f
+font.family: DejaVu Sans
+font.size: 12
+axes.titlesize: 14
+axes.spines.top: False
+axes.spines.right: False
+axes.grid: False
+savefig.facecolor: 1b1d2b
+savefig.transparent: False
+lines.linewidth: 2.2

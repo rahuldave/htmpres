@@ -1,0 +1,50 @@
+[
+  {
+    "mode": "light",
+    "width_css_px": 1152,
+    "output_pixels": [
+      1152,
+      288
+    ],
+    "device_pixel_ratio": 1,
+    "foreground_css_px": 2.5,
+    "understroke_css_px": 5.5,
+    "uniform_core_pixels": 550,
+    "uniform_ink_edge_pixels": 550,
+    "antialiased_pixels": 2200,
+    "antialias_contrast_range": [
+      5.497692757825142,
+      5.90978435238316
+    ],
+    "crossing_unique_rgb": 38,
+    "crossing_contrast_range": [
+      1.0,
+      11.514356712016852
+    ],
+    "scope": "Local Agg pixels at1x placement scale; antialias/overlap ranges are observed evidence, not uniform-edge contrast guarantees. Later trace occludes earlier trace at crossing."
+  },
+  {
+    "mode": "dark",
+    "width_css_px": 1152,
+    "output_pixels": [
+      1152,
+      288
+    ],
+    "device_pixel_ratio": 1,
+    "foreground_css_px": 2.5,
+    "understroke_css_px": 5.5,
+    "uniform_core_pixels": 550,
+    "uniform_ink_edge_pixels": 550,
+    "antialiased_pixels": 2200,
+    "antialias_contrast_range": [
+      4.412941768810051,
+      7.885612870101019
+    ],
+    "crossing_unique_rgb": 30,
+    "crossing_contrast_range": [
+      1.0,
+      13.034027763229773
+    ],
+    "scope": "Local Agg pixels at1x placement scale; antialias/overlap ranges are observed evidence, not uniform-edge contrast guarantees. Later trace occludes earlier trace at crossing."
+  }
+]

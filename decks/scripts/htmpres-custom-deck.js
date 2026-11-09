@@ -130,10 +130,12 @@ function fitSlideText(slide) {
   slide.classList.remove("htmpres-text-fit-overflow");
   if (!slideTextFitEnabled(slide)) {
     resetTextFit(slide);
+    updateCreditLayout(slide);
     updateScrollCue();
     return;
   }
   if (!slide.classList.contains("active")) {
+    updateCreditLayout(slide);
     updateScrollCue();
     return;
   }
@@ -142,6 +144,7 @@ function fitSlideText(slide) {
   let scale = 1;
   slide.classList.add("htmpres-text-fit-active");
   slide.style.setProperty("--htmpres-text-fit-scale", "1");
+  updateCreditLayout(slide);
 
   let overflow = slideOverflowRatio(slide);
   for (let attempt = 0; attempt < 8 && overflow > 1.01 && scale > minScale; attempt += 1) {
@@ -149,12 +152,26 @@ function fitSlideText(slide) {
     if (Math.abs(nextScale - scale) < 0.002) break;
     scale = nextScale;
     slide.style.setProperty("--htmpres-text-fit-scale", scale.toFixed(4));
+    updateCreditLayout(slide);
     overflow = slideOverflowRatio(slide);
   }
 
   slide.dataset.textFitScale = scale.toFixed(3);
   slide.classList.toggle("htmpres-text-fit-overflow", overflow > 1.02 && scale <= minScale + 0.002);
   updateScrollCue();
+}
+
+// Credit height depends on wrapping, fonts and the current audience viewport.
+function updateCreditLayout(slide) {
+  const lane = slide.querySelector('.slide-credits');
+  if (!lane) return;
+  slide.classList.remove('htmpres-has-credits');
+  const base = getComputedStyle(slide).paddingBottom;
+  slide.style.setProperty('--htmpres-credit-base-padding', base);
+  slide.classList.add('htmpres-has-credits');
+  const height = lane.offsetHeight;
+  slide.style.setProperty('--htmpres-credit-height', `${height}px`);
+  slide.style.setProperty('--htmpres-credit-reserve', `${height + 48}px`);
 }
 
 function resetTextFit(slide) {
@@ -362,7 +379,7 @@ function prepareStepGraphs() {
       if (event.type === "fragment") event.target.index = event.index;
     });
     if (slide.dataset.stepSummary === "match" && slide.dataset.matchGroups) {
-      prepareMatchSummary(slide);
+      prepareMatchSummary(slide, state.frames[0] ?? Infinity);
       // A marker avoids inventing an author index (including safe-integer overflow).
       state.frames.push("summary");
     }
@@ -408,20 +425,30 @@ function applySlideStep(slide) {
   }
   applyCodeStep(slide);
   applyEquationStep(slide);
-  applyMatchSummary(slide, summary);
+  applyMatchSummary(slide, summary, frame);
   slide.dataset.activeFrame = summary ? "summary" : String(frame);
 }
 
-function prepareMatchSummary(slide) {
+function prepareMatchSummary(slide, firstFrame) {
   const groups = slide.dataset.matchGroups.split("|");
-  const targets = new Map();
+  const targets = new Map(), revealAt = new Map(), onsets = new Map();
+  const fragments = slideFragmentStates.get(slide)?.fragments || [];
   const add = (element, slot) => {
     if (targets.has(element) && targets.get(element) !== slot) throw new Error("htmpres: one source element cannot belong to two match groups.");
     targets.set(element, slot);
   };
   slide.querySelectorAll("[data-match]").forEach(element => {
     const slot = groups.indexOf(element.dataset.match) + 1;
-    if (slot) add(element, slot);
+    if (slot) {
+      add(element, slot);
+      const owners = fragments.filter(fragment => fragment.element.contains(element));
+      const children = fragments.filter(fragment => element.contains(fragment.element));
+      // A nested target cannot appear until every containing fragment appears.
+      const visibleAt = owners.length ? Math.max(...owners.map(fragment => fragment.index)) : 0;
+      revealAt.set(element, visibleAt);
+      const onset = owners.length ? visibleAt : children.length ? Math.min(...children.map(fragment => fragment.index)) : null;
+      if (onset !== null) onsets.set(slot, Math.min(onsets.get(slot) ?? Infinity, onset));
+    }
   });
   for (const block of slideCodeStates.get(slide)?.blocks || []) {
     const ranges = (block.matchRanges || block.root.dataset.matchRanges || "").split("|").filter(Boolean).map(part => part.match(/^(\d+)-(\d+):(\d+)$/).slice(1).map(Number));
@@ -439,14 +466,16 @@ function prepareMatchSummary(slide) {
   targets.forEach((slot, element) => targets.forEach((otherSlot, other) => {
     if (slot !== otherSlot && element.contains(other)) throw new Error("htmpres: nested equation or text match groups overlap.");
   }));
-  slideMatchStates.set(slide, { groups, targets });
+  // Static labels join the first teaching frame; a static-only slide waits for its summary.
+  groups.forEach((_, index) => { if (!onsets.has(index + 1)) onsets.set(index + 1, firstFrame); });
+  slideMatchStates.set(slide, { groups, targets, revealAt, onsets });
 }
 
-function applyMatchSummary(slide, active) {
+function applyMatchSummary(slide, active, frame) {
   const matches = slideMatchStates.get(slide);
   if (!matches) return;
   matches.targets.forEach((slot, element) => {
-    if (active) {
+    if (active || (frame >= matches.onsets.get(slot) && frame >= (matches.revealAt.get(element) || 0))) {
       element.dataset.matchSlot = String(slot);
       element.style.setProperty("--_htmpres-match-ink", `var(--htmpres-match-${matches.groups[slot - 1]}, var(--htmpres-match-${slot}, var(--ink)))`);
     } else {

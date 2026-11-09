@@ -12,7 +12,7 @@
   --htmpres-importance-3-scale: 1.12;
   --htmpres-importance-3-weight: 700;
   --htmpres-importance-3-ink: var(--ink, currentColor);
-  --htmpres-importance-4-scale: 1.3;
+  --htmpres-importance-4-scale: 3;
   --htmpres-importance-4-weight: 800;
   --htmpres-importance-4-ink: var(--ink, currentColor);
 }
@@ -29,20 +29,95 @@
   --htmpres-importance-ink: var(--htmpres-importance-1-ink);
 }
 
-:is(.slide, .presenter-note-body) :is(.key, .aside) {
+:is(.slide, .presenter-note-body) :is(.key, .aside, .statement) {
   font-size: calc(1em * var(--htmpres-importance-scale));
   font-weight: var(--htmpres-importance-weight);
   color: var(--htmpres-importance-ink);
 }
 
 /* Block roles start from the theme's body size and retain runtime text fitting. */
-:is(.slide, .presenter-note-body) :is(div, section, aside, blockquote):is(.key, .aside),
-.slide.htmpres-text-fit-active :is(div, section, aside, blockquote):is(.key, .aside) {
+:is(.slide, .presenter-note-body) :is(div, section, aside, blockquote):is(.key, .aside, .statement),
+.slide.htmpres-text-fit-active :is(div, section, aside, blockquote):is(.key, .aside, .statement) {
   font-size: calc(var(--htmpres-body-size, 1rem) * var(--htmpres-importance-scale) * var(--htmpres-text-fit-scale, 1));
 }
 
-:is(.slide, .presenter-note-body) :is(.key, .aside) :is(p, ul, ol, li) {
+:is(.slide, .presenter-note-body) :is(.key, .aside, .statement) :is(p, ul, ol, li) {
   font-size: inherit;
   font-weight: inherit;
   color: inherit;
 }
+:is(.slide, .presenter-note-body) .statement :is(p, ul, ol, li) { line-height: inherit; }
+
+/* A statement names the dominant idea; foundations can map level 4 to their real type scale. */
+:is(.slide, .presenter-note-body) .statement {
+  --htmpres-importance-scale: var(--htmpres-importance-4-scale);
+  --htmpres-importance-weight: var(--htmpres-importance-4-weight);
+  --htmpres-importance-ink: var(--htmpres-importance-4-ink);
+  line-height: var(--htmpres-statement-leading, 1.15);
+}
+.slide.active:has(> .statement:only-child) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Oversized fit-scroll statements keep a reachable scroll origin. */
+  justify-content: safe center;
+  text-align: center;
+}
+.slide > .statement:only-child { margin: 0; }
+
+/* Purpose-specific level 0 labels; no generic tiny-text author class. */
+:is(.slide, .presenter-note-body) :is(.credit, .source) {
+  font-size: calc(var(--htmpres-body-size, 1rem) * var(--htmpres-importance-0-scale) * var(--htmpres-text-fit-scale, 1));
+  font-weight: var(--htmpres-importance-0-weight);
+  color: var(--htmpres-importance-0-ink);
+  line-height: var(--htmpres-attribution-leading, 1.4);
+}
+:is(.slide, .presenter-note-body) :is(.credit, .source) :is(p, ul, ol, li, a) {
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+:is(.slide, .presenter-note-body) .source { color: var(--htmpres-source-ink, var(--htmpres-importance-0-ink)); }
+.slide.htmpres-has-credits {
+  padding-bottom: calc(var(--htmpres-credit-base-padding, 48px) + var(--htmpres-credit-reserve, 0px));
+}
+.slide.htmpres-has-credits::after {
+  bottom: calc(var(--htmpres-credit-inset, 24px) + var(--htmpres-credit-height, 0px) + 12px);
+}
+.slide > .slide-credits {
+  font-size: calc(var(--htmpres-body-size, 1rem) * var(--htmpres-importance-0-scale) * var(--htmpres-text-fit-scale, 1));
+  line-height: var(--htmpres-attribution-leading, 1.4);
+  position: absolute;
+  right: var(--htmpres-credit-inset, 24px);
+  bottom: var(--htmpres-credit-inset, 24px);
+  z-index: 2;
+  max-width: calc(100% - 2 * var(--htmpres-credit-inset, 24px));
+  display: grid;
+  gap: .25em;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+.slide .slide-credits .credit {
+  display: block;
+  font-size: calc(var(--htmpres-body-size, 1rem) * var(--htmpres-importance-0-scale) * var(--htmpres-text-fit-scale, 1));
+  margin: 0;
+  padding: var(--htmpres-credit-padding, .35em .6em);
+  background: var(--htmpres-credit-bg, var(--paper));
+  color: var(--htmpres-credit-ink, var(--ink));
+}
+.slide .slide-credits > p { margin: 0; font-size: inherit; line-height: inherit; }
+.slide .slide-credits .credit :last-child { margin-bottom: 0; }
+.slide .slide-credits .credit a { color: inherit; text-decoration: underline; }
+
+.slide.quote blockquote {
+  margin: var(--htmpres-quote-margin, 1.5rem auto);
+  padding: var(--htmpres-quote-padding, 0);
+  max-width: var(--htmpres-quote-width, 48ch);
+  border: 0;
+  font-size: calc(var(--htmpres-body-size, 1rem) * var(--htmpres-quote-scale, 1.3) * var(--htmpres-text-fit-scale, 1));
+  color: var(--ink);
+  line-height: var(--htmpres-quote-leading, 1.5);
+}
+.slide.quote blockquote p { font-size: inherit; color: inherit; }
+.slide.quote blockquote p:has(> .source:only-child),
+.slide.quote > :is(.source, p:has(> .source:only-child)) { text-align: right; }

@@ -148,7 +148,7 @@ export function slideSegments(text, { frontMatter = true } = {}) {
 }
 
 export function lintSource(text, file = "<source>") {
-  return slideSegments(text).filter(slide => !slide.title && !slide.body).map(slide => ({
+  const diagnostics = slideSegments(text).filter(slide => !slide.title && !slide.body).map(slide => ({
     file,
     line: slide.startLine,
     column: slide.column,
@@ -156,6 +156,28 @@ export function lintSource(text, file = "<source>") {
     severity: "error",
     message: "Empty slide: add content or remove this slide boundary. A --- followed by ## (with only blank lines between) starts one slide.",
   }));
+  return [...deckCounter(text, file).diagnostics, ...diagnostics];
+}
+
+/** Counter policy uses block-style deck metadata; retain empty values for diagnostics. */
+export function deckCounter(text, file = "<source>") {
+  const stack = [], diagnostics = [];
+  let value = 'true';
+  for (const line of scanSource(text).lines.filter(line => line.kind === 'yaml')) {
+    if (!line.text.trim() || line.text.trim().startsWith('#')) continue;
+    const match = /^([ \t]*)([^:]+):[ \t]*(.*)$/.exec(line.text);
+    if (!match) continue;
+    const indent = match[1].length;
+    while (stack.length && stack.at(-1).indent >= indent) stack.pop();
+    const key = [...stack.map(item => item.key), match[2].trim()].join('.');
+    stack.push({ indent, key: match[2].trim() });
+    if (key !== 'deck.counter') continue;
+    const raw = match[3].replace(/\s+#.*$/, '').trim();
+    const normalized = raw.replace(/^(["'])(.*)\1$/, '$2').toLowerCase();
+    if (['true', 'false', 'presenter'].includes(normalized)) value = normalized;
+    else diagnostics.push({ file, line: line.number, column: indent + 1, code: 'deck-counter', severity: 'error', message: 'deck.counter must be true, false, or presenter; omit it to show the counter in both views.' });
+  }
+  return { value, diagnostics };
 }
 
 // This API receives the body, not a complete document. A leading --- is a

@@ -250,7 +250,16 @@ test('matching adds exactly one real final frame and restores the last teaching 
     prepareStepGraphs(); resetSlideSteps(slides[0]);
   `);
   assert.equal(run('slideStepStates.get(slides[0]).frames.length'), 3, 'two real frames plus summary, not eight');
-  run('changeSlideStep(1); changeSlideStep(1)');
+  assert.equal(run('lines[0].dataset.matchSlot'), undefined);
+  run('changeSlideStep(1)');
+  assert.equal(run('lines[0].dataset.matchSlot'), '1', 'First teaching reveal colors its source number');
+  assert.equal(run('text[0].element.dataset.matchSlot'), '1');
+  assert.equal(run('lines[1].dataset.matchSlot'), undefined);
+  assert.equal(run('text[1].element.attributes.get("aria-hidden")'), 'true');
+  run('changeSlideStep(1)');
+  assert.equal(run('lines[0].dataset.matchSlot'), '1', 'Earlier matches retain their colors');
+  assert.equal(run('lines[1].dataset.matchSlot'), '2');
+  assert.equal(run('text[1].element.dataset.matchSlot'), '2');
   assert.equal(run('lines[1].classes.has("code-line-highlight")'), true);
   assert.equal(run('slides[0].classes.has("step-summary-active")'), false);
   run('changeSlideStep(1)');
@@ -265,6 +274,10 @@ test('matching adds exactly one real final frame and restores the last teaching 
   assert.equal(run('slides[0].classes.has("step-summary-active")'), false);
   assert.equal(run('lines[1].classes.has("code-line-highlight")'), true);
   assert.equal(run('text[0].element.classes.has("fragment-past")'), true);
+  assert.equal(run('lines[1].dataset.matchSlot'), '2', 'Leaving summary retains revealed matches');
+  run('changeSlideStep(-1)');
+  assert.equal(run('lines[0].dataset.matchSlot'), '1');
+  assert.equal(run('lines[1].dataset.matchSlot'), undefined, 'Reverse removes unrevealed colors');
   run('resetSlideSteps(slides[0])');
   assert.equal(run('lines[0].dataset.matchSlot'), undefined);
   assert.equal(run('text[1].element.dataset.matchSlot'), undefined);
@@ -281,8 +294,18 @@ test('equation matching colors each named term independently of cumulative snaps
     slides[0].queries.set('.equation-steps[data-equation-steps]', [root]);
     const text = ['term-a','term-b'].map(match => fakeElement({ match }));
     slides[0].queries.set('[data-match]', text);
+    slideFragmentStates.set(slides[0], { fragments: text.map((element,i)=>({element, explicitIndex:[1,3][i]})), step:0 });
     prepareEquationSteppers(); prepareStepGraphs(); resetSlideSteps(slides[0]);
-    changeSlideStep(1); changeSlideStep(1); changeSlideStep(1); changeSlideStep(1);
+    changeSlideStep(1);
+  `);
+  assert.equal(run('a.dataset.matchSlot'), '1'); assert.equal(run('b.dataset.matchSlot'), undefined);
+  assert.equal(run('text[1].attributes.get("aria-hidden")'), 'true');
+  run(`
+    changeSlideStep(1);
+  `);
+  assert.equal(run('a.dataset.matchSlot'), '1'); assert.equal(run('b.dataset.matchSlot'), '2');
+  run(`
+    changeSlideStep(1); changeSlideStep(1);
   `);
   assert.equal(run('a.dataset.matchSlot'), '1'); assert.equal(run('b.dataset.matchSlot'), '2');
   assert.equal(run('a.classes.has("equation-term-highlight") || b.classes.has("equation-term-dim")'), false);
@@ -321,4 +344,24 @@ test('semantic keys cannot collide with internal effective ink or background var
   assert.equal(run('targets[2].properties.get("--_htmpres-match-ink")'), 'var(--htmpres-match-number-bg, var(--htmpres-match-3, var(--ink)))');
   run('resetSlideSteps(slides[0])');
   assert.equal(run('targets.every(target => target.properties.size === 0)'), true);
+});
+
+test('matching onset follows enclosing fragments, repeated explanations and explicit baseline zero', () => {
+  const {run}=runtimeHarness();
+  run(`
+    slides[0].dataset.stepSummary='match'; slides[0].dataset.matchGroups='mean|baseline';
+    const wrapper=fakeElement(), early=fakeElement({match:'mean'}), later=fakeElement({match:'mean'}), baseline=fakeElement({match:'baseline'});
+    wrapper.children.push(early); early.parentElement=wrapper;
+    slides[0].queries.set('[data-match]',[early,later,baseline]);
+    slideFragmentStates.set(slides[0],{fragments:[{element:wrapper,explicitIndex:1},{element:later,explicitIndex:3},{element:baseline,explicitIndex:0}],step:0});
+    prepareStepGraphs(); resetSlideSteps(slides[0]);
+  `);
+  assert.equal(run('early.dataset.matchSlot'), undefined);
+  assert.equal(run('baseline.dataset.matchSlot'), '2');
+  run('changeSlideStep(1)');
+  assert.equal(run('early.dataset.matchSlot'), '1');
+  assert.equal(run('later.dataset.matchSlot'), undefined, 'A repeated hidden explanation is not activated early');
+  assert.equal(run('later.attributes.get("aria-hidden")'), 'true');
+  run('changeSlideStep(1)'); assert.equal(run('later.dataset.matchSlot'),'1');
+  run('changeSlideStep(-1)'); assert.equal(run('later.dataset.matchSlot'),undefined);
 });

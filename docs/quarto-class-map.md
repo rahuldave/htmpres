@@ -27,11 +27,11 @@ Common slide classes:
 
 ## Semantic Importance, Math And Titles
 
-Use `[The point.]{.key}` and `[A qualification.]{.aside}`, or fenced
+Use `[The claim.]{.statement}`, `[The point.]{.key}` and `[A qualification.]{.aside}`, or fenced
 `::: {.key}` / `::: {.aside}` blocks. The theme maps importance to weight,
 size and ink; keep authored QMD free of inline styles, colors and font choices.
 All paired themes support both modes. `.key` uses importance token level 3,
-`.aside` level 1, ordinary body level 2; themes expose levels 0–4 as
+`.aside` level 1, `.statement` level 4, `.credit`/`.source` level 0 and ordinary body level 2; themes expose levels 0–4 as
 `--htmpres-importance-N-scale`, `-weight` and `-ink` for future remapping.
 There are no numbered author classes.
 
@@ -45,11 +45,76 @@ write `[^1]` and `[^1]: Source.` normally.
 See [Semantic slides](semantic-authoring.md) for complete, copyable examples
 and the [audience demo](_generated/semantic/index.html).
 
+## Statement, Picture Credit, Quote Source And Counter
+
+Jonathan Schwabish's *Better Presentations* (2017) motivates these hooks:
+dominant claims (pp. 70–72), spare statement/header slides (pp. 139–140), picture
+credits and endnotes (pp. 128–129), quotations with highlighted passages and
+sources (pp. 72–73), and omitting audience slide numbers (pp. 69–70).
+
+| Hook | Meaning |
+|---|---|
+| `.statement` span or block | Dominant claim; importance level 4. A solo block on an untitled slide is centered and supports text fit. |
+| `.credit` span or block | Picture attribution; level-0 type in a reserved lower-right lane with opaque theme backing. Multiple credits stack. |
+| `.quote` on a slide heading | Quotation treatment for an ordinary Markdown blockquote. |
+| `.source` span or block | Level-0 source line kept with the quotation. `.key` works inside the quote. |
+| `deck.counter: presenter` in initial YAML | Hide the counter in audience output and retain it in presenter output, including the appendix. |
+
+Level 0 has purpose-specific attribution marks, not a generic small-text class.
+There are no numbered author classes. This complete deck demonstrates all hooks
+(replace `assets/photo.jpg` with your own picture):
+
+```markdown
+---
+pagetitle: Semantic hooks
+deck:
+  theme: nocturne
+  text-fit: true
+  counter: presenter
+---
+
+## {#claim data-title="The claim"}
+
+::: {.statement}
+Structure makes the argument memorable.
+:::
+
+## A picture {#picture}
+
+::: {.ds-full .ds-media .ds-fill .ds-no-pad}
+![A description of the picture](assets/photo.jpg)
+:::
+
+[Photo: Creator, [source record](#sources).]{.credit}
+
+## One idea {.quote}
+
+> An effective slide gives the audience [one idea to remember.]{.key}
+>
+> [Example quotation written for this demonstration.]{.source}
+
+## Source record {#sources data-kind="appendix"}
+
+The complete picture attribution belongs here.
+
+[Back to the picture](#picture).
+```
+
+`counter: true` (the default) shows both counters; `false` hides both;
+`presenter` hides only the audience counter. Empty/unknown values are
+`deck-counter` lint errors; verification catches stale generated visibility.
+A block credit/source uses `::: {.credit}` / `::: {.source}`, text, then `:::`.
+Picture credits move to their lane; source lines stay with the quote. Keep
+lengthy attribution in endnotes so the picture credit remains short and readable.
+See the [complete guide](semantic-authoring.md#picture-credits) and
+[runnable example](_generated/authoring-hooks/index.html).
+
 ## Matched Final View
 
 `## A result {data-step-summary="match"}` adds one automatic final step after
-all text/code/equation reveals. On that step, named source parts and explaining
-text share theme colors; the last highlight and dimming clear. Previous
+all text/code/equation reveals. Named source parts and explaining text share their colors from each group's
+first reveal, retaining earlier colors as the slide builds. On the final step,
+the last teaching highlight and dimming clear. Previous
 restores the final teaching highlight. Omit the attribute to retain normal
 behavior.
 

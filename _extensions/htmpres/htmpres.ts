@@ -3,8 +3,8 @@ import { readPreviewHtml, queueRenders, shouldWatchPath } from "./lib/preview.mj
 import { colorModeControl, colorModeScript, legacyThemes, resolveTheme, themeAssets, themeAttributes, themeStyles, validateThemeName } from "./themes/themes.mjs";
 import { matchThemeStyles } from "./themes/matches.mjs";
 
-import { assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds, unnamespacedPandocIds } from "./lib/render.mjs";
-import { extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, slideSegments, splitFrontMatter as splitSourceFrontMatter } from "./lib/source.mjs";
+import { counterPolicyFailures, arrangeSlideCredits, assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds, unnamespacedPandocIds } from "./lib/render.mjs";
+import { deckCounter, extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, slideSegments, splitFrontMatter as splitSourceFrontMatter } from "./lib/source.mjs";
 
 type DeckSource = {
   source: string;
@@ -1658,6 +1658,7 @@ async function renderDeck(file: string) {
   const theme = meta["deck.theme"] || meta.theme || "";
   const background = deckBackground(meta);
   const textFit = deckTextFit(meta);
+  const counterPolicy = deckCounter(qmd).value;
   const overflow = deckOverflow(meta);
   const cssPath = join(deckDir, meta["deck.css"] || "source.css");
   const localCss = exists(cssPath) ? Deno.readTextFileSync(cssPath) : "";
@@ -1690,6 +1691,7 @@ async function renderDeck(file: string) {
     theme,
     themePlan,
     textFit,
+    counterPolicy,
     overflow,
   });
   const presenterHtml = deckShell({
@@ -1703,6 +1705,7 @@ async function renderDeck(file: string) {
     theme,
     themePlan,
     textFit,
+    counterPolicy,
     overflow,
   });
 
@@ -1727,7 +1730,7 @@ async function renderSlide(slide: QmdSlide, index: number, globalBackground: Dec
   try {
     matches = compileMatchSummary(bodyHtml, attrs.keyValues["data-step-summary"], { id: slide.id, colors: attrs.keyValues["data-match-colors"], darkColors: attrs.keyValues["data-match-colors-dark"] });
   } catch (error) { throw new Error(`Slide ${index + 1} (${title}): ${error.message}`); }
-  bodyHtml = matches.html;
+  bodyHtml = arrangeSlideCredits(matches.html);
   const backgroundHtml = renderBackgroundLayer(attrs, globalBackground);
   const dataAttrs = { ...attrs.keyValues, id: slide.id || attrs.keyValues.id || `slide-${index + 1}` };
   if (matches.groups.length) dataAttrs["data-match-groups"] = matches.groups.join("|");
@@ -1868,6 +1871,7 @@ function deckShell({
   theme,
   themePlan,
   textFit,
+  counterPolicy,
   overflow,
 }: {
   mode: "audience" | "presenter";
@@ -1880,6 +1884,7 @@ function deckShell({
   theme?: string;
   themePlan?: ReturnType<typeof resolveTheme>;
   textFit?: DeckTextFit;
+  counterPolicy?: string;
   overflow?: string;
 }) {
   const deckJs = readRuntimeFile("htmpres-custom-deck.js");
@@ -1897,6 +1902,7 @@ function deckShell({
     : "";
   const htmlAttrs = formatHtmlAttrs({
     lang: "en",
+    "data-counter": counterPolicy || "true",
     "data-theme": theme || "",
     ...themeAttributes(themePlan),
     "data-text-fit": textFit?.enabled ? "true" : "",
@@ -1915,6 +1921,7 @@ function deckShell({
   <style>
 ${css}
 ${runtimeCss()}
+.counter[hidden] { display: none !important; }
 ${readRuntimeFile("htmpres-semantic.css")}
 ${readRuntimeFile("htmpres-steps.css")}
   </style>
@@ -1939,7 +1946,7 @@ ${presenterPanel}
 
     <footer class="footer-controls">
       <div class="progress" aria-label="Deck progress"><span id="progressBar"></span></div>
-      <div class="counter" id="counter">1 / ${slideCount}</div>
+      <div class="counter" id="counter"${counterPolicy === "false" || (counterPolicy === "presenter" && !isPresenter) ? " hidden" : ""}>1 / ${slideCount}</div>
       ${colorModeControl(themePlan)}
       <button class="nav-btn" id="overviewBtn" aria-label="Open overview">O</button>
       <button class="nav-btn" id="prevBtn" aria-label="Previous slide">Prev</button>
@@ -2382,7 +2389,7 @@ html[data-overflow="fit"] .slide {
   color: var(--htmpres-code-token-base, #f8fafc);
 }
 
-.slide > :not(.ds-full):not(.ds-left):not(.ds-right) {
+.slide > :not(.ds-full):not(.ds-left):not(.ds-right):not(.slide-credits) {
   position: relative;
   z-index: 1;
 }
@@ -2945,6 +2952,17 @@ body.presenter-mode .footer-controls {
   grid-row: 2 !important;
 }
 
+/* scaleDeck reserves the transformed canvas size on its slide-fit wrapper. */
+@media (min-width: 981px) {
+  body.presenter-mode .slides {
+    width: 1280px;
+    height: 720px;
+    max-height: none;
+    transform: scale(var(--deck-scale, 1));
+    transform-origin: top left;
+  }
+}
+
 .presenter-notes {
   grid-column: 3;
   grid-row: 1;
@@ -3418,6 +3436,7 @@ function verifyGeneratedHtml(
 ) {
   const expected = extractExpectedPreBlocks(qmd);
   const actual = extractHtmlPreBlocks(html);
+  for (const message of counterPolicyFailures(qmd, html, mode)) fail(slug, file, message, failures);
 
   if (actual.length !== expected.length) {
     fail(slug, file, `rendered verbatim block count ${actual.length} did not match QMD ${expected.length}`, failures);

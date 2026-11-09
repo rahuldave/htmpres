@@ -8,6 +8,18 @@ const read = path => readFileSync(new URL('../' + path, import.meta.url), 'utf8'
 const catalog = JSON.parse(read('_extensions/htmpres/themes/catalog.json'));
 const plan = name => ({light:name,dark:name,mode:'auto'});
 
+test('owned foundations and semantic talk attribution share the generated theme', () => {
+  for (const [name, entry] of Object.entries(catalog.themes)) {
+    if (!entry.foundation) continue;
+    const css = themeStyles(plan(name), catalog);
+    assert.match(css, /--htmpres-credit-bg: var\(--paper\)/, name);
+    assert.match(css, /--htmpres-credit-ink: var\(--ink\)/, name);
+    assert.match(css, /--htmpres-source-ink: var\(--htmpres-importance-0-ink\)/, name);
+    assert.match(css, /--foundation-default-htmpres-body-size: 30px/, name);
+    assert.match(css, /--htmpres-code-emphasis-weight: (500|700)/, name);
+  }
+});
+
 test('all 26 stock entries and source records stay exactly frozen', () => {
   const snapshots = JSON.parse(read('tests/fixtures/stock-theme-snapshots.json'));
   assert.equal(Object.keys(snapshots).length, 26);

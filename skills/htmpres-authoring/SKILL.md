@@ -106,10 +106,27 @@ A minor qualification.
 :::
 ```
 
-`.key` maps to importance level 3 and `.aside` to level 1; normal body text is
-level 2. Theme tokens `--htmpres-importance-{0..4}-{scale,weight,ink}` support
+`.statement` maps to importance level 4, `.key` to 3 and `.aside` to 1;
+normal body text is level 2. `.credit` and `.source` use level 0 for attribution,
+with no generic tiny-text or numbered author class. Theme tokens `--htmpres-importance-{0..4}-{scale,weight,ink}` support
 future remapping; there are no numbered author classes. Titles render inline
 Markdown; navigation labels are plain text.
+
+For a solo statement use `## {#claim .autoscale data-title="The claim"}`,
+then a fenced `::: {.statement}` block. Themes choose its size, weight and ink.
+For picture attribution write `[Photo: Creator.]{.credit}` or a fenced `.credit`
+block. Credits are collected into a reserved lower-right lane with an opaque
+theme backing; long records belong on an appendix slide linked from the credit.
+For quotations use `## One idea {.quote}`, ordinary `>` blockquote lines, and
+`> [Author, work.]{.source}`. `.key` still emphasizes text inside the quote.
+These roles follow Jonathan Schwabish, *Better Presentations* (2017),
+pp. 70–73, 128–129 and 139–140.
+
+Set `deck.counter: presenter` in initial front matter to hide the audience
+counter while retaining it for the speaker (Schwabish, pp. 69–70). `true`
+(default) shows both; `false` hides both. Main/appendix counters obey the same
+policy. Unknown/empty values are `deck-counter` lint errors; rerender after a
+policy change so verify can confirm both outputs.
 
 Math uses `$x^2$` or `$$...$$`, with local KaTeX assets. Use
 `\htmlClass{term-a}{x}` inside math to name a term. Keep the generated
@@ -175,7 +192,10 @@ for spans and list items inside columns. Never preview future text in grey.
 
 Use `## Result {data-step-summary="match"}` to add one final advance after the
 shared teaching frames. The summary removes highlights/dimming and matches
-source parts to explaining text. Previous restores the last teaching frame.
+source parts to explaining text. Matching colors already start on each group's
+first teaching reveal and accumulate; future explanations stay hidden. Back
+removes colors for groups no longer revealed; Previous from the summary
+restores the last teaching frame with its colors.
 Do not hand-number the summary; it follows all real events automatically.
 
 - Text: `[Explain the mean.]{.fragment data-fragment-index="3" data-match="mean"}`.

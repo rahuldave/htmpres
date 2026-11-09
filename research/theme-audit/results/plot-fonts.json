@@ -1,0 +1,26 @@
+{
+  "DM Sans": {
+    "file": "_extensions/htmpres/themes/fonts/dm-sans-400-normal.ttf",
+    "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9"
+  },
+  "DejaVu Sans": {
+    "file": "research/theme-audit/.venv/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+    "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22"
+  },
+  "DejaVu Serif": {
+    "file": "research/theme-audit/.venv/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf",
+    "sha256": "107244956e9962b9e96faccdc551825e0ae0898ae13737133e1b921a2fd35ffa"
+  },
+  "Inter": {
+    "file": "_extensions/htmpres/themes/fonts/inter-400-normal.ttf",
+    "sha256": "1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba"
+  },
+  "Lato": {
+    "file": "_extensions/htmpres/themes/fonts/lato-400-normal.ttf",
+    "sha256": "f43f1c7780d69792278f04b136c934a0298fc66f2e974bac13dd2e53adc52bde"
+  },
+  "Open Sans": {
+    "file": "_extensions/htmpres/themes/fonts/open-sans-400-normal.ttf",
+    "sha256": "47ed1cfaa7ffca04a04ab850b2938fd52c09d1b44cfa3e2980878e166b0cbd87"
+  }
+}

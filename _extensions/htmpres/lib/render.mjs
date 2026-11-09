@@ -1,3 +1,18 @@
+import { deckCounter } from './source.mjs';
+
+/** Both verifiers compare the source policy with each actual output view. */
+export function counterPolicyFailures(source, html, mode) {
+  const policy = deckCounter(source).value;
+  const tags = htmlTags(html);
+  const root = tags.find(tag => tag.name === 'html' && !tag.closing);
+  const counter = tags.find(tag => !tag.closing && tag.attributes.some(attr => attr.name === 'id' && attr.value === 'counter'));
+  const failures = [];
+  if (root?.attributes.find(attr => attr.name === 'data-counter')?.value !== policy) failures.push('Counter policy is stale or missing; render the source again.');
+  const hidden = policy === 'false' || (policy === 'presenter' && mode === 'audience');
+  if (!counter || counter.attributes.some(attr => attr.name === 'hidden') !== hidden) failures.push(`Counter visibility does not match deck.counter=${policy} in ${mode} output.`);
+  return failures;
+}
+
 // Scan tags and attribute values separately. Quoted payloads may contain > or
 // snippets such as id='fn1'; neither is HTML structure. Offsets retain the
 // original bytes so rewriting does not reserialize author markup.
@@ -13,7 +28,7 @@ function tagAttributes(tag) {
     if (index === start) { index++; continue; }
     const name = tag.slice(start, index).toLowerCase();
     while (index < tag.length && /\s/.test(tag[index])) index++;
-    if (tag[index] !== "=") continue;
+    if (tag[index] !== "=") { attributes.push({ name, value: "", start: index, end: index }); continue; }
     index++;
     while (index < tag.length && /\s/.test(tag[index])) index++;
     const quote = tag[index] === '"' || tag[index] === "'" ? tag[index++] : "";
@@ -72,6 +87,40 @@ function mapTags(html, transform) {
     previous = tag.end;
   }
   return output + html.slice(previous);
+}
+
+/** Collect picture attribution in a single slide lane; preserve source lines and code examples. */
+export function arrangeSlideCredits(html) {
+  const stack = [], credits = [];
+  for (const tag of htmlTags(html)) {
+    if (tag.skip) continue;
+    if (tag.closing) {
+      const index = stack.map(node => node.name).lastIndexOf(tag.name);
+      if (index < 0) continue;
+      const node = stack[index];
+      node.closeStart = tag.start; node.end = tag.end;
+      if (node.credit) credits.push({ start: node.start, end: tag.end, node });
+      stack.length = index;
+      continue;
+    }
+    const classes = tag.attributes.find(attr => attr.name === 'class')?.value.split(/\s+/) || [];
+    const credit = classes.includes('credit') && !stack.some(node => node.credit || /^(pre|code)$/.test(node.name));
+    if (!/^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/.test(tag.name)) stack.push({ name: tag.name, start: tag.start, openEnd: tag.end, credit, parent: stack.at(-1) });
+  }
+  if (!credits.length) return html;
+  for (const range of credits) {
+    let parent = range.node.parent;
+    while (parent && /^(p|a|span|em|strong|b|i|small)$/.test(parent.name) && parent.end &&
+      !html.slice(parent.openEnd, range.start).trim() && !html.slice(range.end, parent.closeStart).trim()) {
+      range.start = parent.start; range.end = parent.end; parent = parent.parent;
+    }
+  }
+  credits.sort((a, b) => a.start - b.start);
+  const lane = credits.map(range => html.slice(range.start, range.end)).join('\n');
+  let body = html;
+  for (const range of [...credits].reverse()) body = body.slice(0, range.start) + body.slice(range.end);
+  body = body.replace(/<p>\s*<\/p>/g, '').trimEnd();
+  return `${body}\n<div class="slide-credits" aria-label="Picture credits">${lane}</div>`;
 }
 
 /** Semantic keys are safe in both data attributes and KaTeX class selectors. */

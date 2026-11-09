@@ -1,5 +1,6 @@
 import { slideTitles, themeChoices, themeVariant, variantPath } from "../scripts/showcase.mjs";
 import { initialSlide, selection } from "../docs/assets/theme-comparison.mjs";
+import { matchThemeStyles } from "../_extensions/htmpres/themes/matches.mjs";
 
 const read = (path: string) => Deno.readTextFileSync(new URL(`../${path}`, import.meta.url));
 const catalog = JSON.parse(read("_extensions/htmpres/themes/catalog.json"));
@@ -30,7 +31,7 @@ for (const id of ["importance", "layering", "code-steps", "equation-steps", "mai
   assert(canonical.includes(`id="${id}"`), `Main showcase demonstrates ${id}`);
 }
 assert((canonical.match(/data-step-indices="1\|3\|7"/g) || []).length === 2, "Code and equation lanes synchronize with explaining text");
-assert(canonical.includes('data-equation-steps="term-a|term-b|term-a,term-b"'), "Main gallery has real equation steps");
+assert(canonical.includes('data-equation-steps="mean|total|mean,total"'), "Main gallery has real equation steps");
 assert(canonical.includes('data-fragment-effect="dim"') && canonical.includes('class="fragment"'), "Main gallery demonstrates span and list layering");
 assert(canonical.includes('<em>source</em>') && canonical.includes('id="slide-3-fn1"') && canonical.includes('id="slide-11-fn1"'), "Title emphasis and repeated footnotes are demonstrated");
 
@@ -45,6 +46,8 @@ for (const theme of themes) for (const mode of theme.modes) {
     assert(output.includes('data-text-fit-min="0.66"') && output.includes('data-overflow="fit-scroll"'), "Unrelated attributes preserved");
     if (theme.family !== "legacy") assert(output.includes(`data-color-mode="${mode}"`), "Explicit mode");
     else assert(!output.slice(0, output.indexOf("<head>")).includes("data-color-mode"), "Legacy attrs removed");
+    const matchPlan = theme.family === 'legacy' ? null : { light: theme.name, dark: theme.name, mode };
+    assert(output.includes(matchThemeStyles(matchPlan, catalog, 3, theme.name)), `Theme's matching palette regenerated: ${theme.name}/${mode}`);
   }
 }
 throws(() => themeVariant(canonical.replace(options.localCss, "changed"), { ...options, name: "nocturne", mode: "light" }));

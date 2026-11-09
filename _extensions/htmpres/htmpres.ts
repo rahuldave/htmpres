@@ -1,7 +1,8 @@
 import { readPreviewHtml, queueRenders, shouldWatchPath } from "./lib/preview.mjs";
 import { colorModeControl, colorModeScript, legacyThemes, resolveTheme, themeAssets, themeAttributes, themeStyles, validateThemeName } from "./themes/themes.mjs";
+import { matchThemeStyles } from "./themes/matches.mjs";
 
-import { assignSlideIds, renderTitle, namespacePandocIds, unnamespacedPandocIds } from "./lib/render.mjs";
+import { assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds, unnamespacedPandocIds } from "./lib/render.mjs";
 import { extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, scanSource, splitFrontMatter as splitSourceFrontMatter } from "./lib/source.mjs";
 
 type DeckSource = {
@@ -1662,7 +1663,6 @@ async function renderDeck(file: string) {
   const cssPath = join(deckDir, meta["deck.css"] || "source.css");
   const localCss = exists(cssPath) ? Deno.readTextFileSync(cssPath) : "";
   const themePlan = resolveTheme(meta, bundledThemes, localCss);
-  const css = themePlan ? `${readTemplateFile("source.css")}\n${themeStyles(themePlan, bundledThemes)}\n${localCss}` : localCss;
   copyThemeAssets(deckDir, themePlan);
   copyMathAssets(deckDir);
   const rendered: { slideHtml: string; notesHtml: string }[] = [];
@@ -1677,6 +1677,8 @@ async function renderDeck(file: string) {
   }
 
   const htmlSlides = rendered.map((slide) => slide.slideHtml).join("\n\n");
+  const matchCss = matchThemeStyles(themePlan, bundledThemes, maximumMatchGroups(htmlSlides), theme);
+  const css = themePlan ? `${readTemplateFile("source.css")}\n${themeStyles(themePlan, bundledThemes)}${matchCss}\n${localCss}` : `${matchCss}${localCss}`;
   const notes = rendered.map((slide) => slide.notesHtml);
   const audienceHtml = deckShell({
     mode: "audience",
@@ -1721,16 +1723,22 @@ async function renderSlide(slide: QmdSlide, index: number, globalBackground: Dec
   if (index === 0) classes.push("active");
   const title = slide.title || attrs.keyValues["data-title"] || `Slide ${index + 1}`;
   const renderedTitle = renderTitle(await markdownToHtml(`# ${title}`), `slide-${index + 1}`);
-  const bodyHtml = namespacePandocIds((await markdownToHtml(slide.body)).trim(), `slide-${index + 1}`);
+  let bodyHtml = namespacePandocIds((await markdownToHtml(slide.body)).trim(), `slide-${index + 1}`);
+  let matches;
+  try {
+    matches = compileMatchSummary(bodyHtml, attrs.keyValues["data-step-summary"], { id: slide.id, colors: attrs.keyValues["data-match-colors"], darkColors: attrs.keyValues["data-match-colors-dark"] });
+  } catch (error) { throw new Error(`Slide ${index + 1} (${title}): ${error.message}`); }
+  bodyHtml = matches.html;
   const backgroundHtml = renderBackgroundLayer(attrs, globalBackground);
   const dataAttrs = { ...attrs.keyValues, id: slide.id || attrs.keyValues.id || `slide-${index + 1}` };
+  if (matches.groups.length) dataAttrs["data-match-groups"] = matches.groups.join("|");
   if (!dataAttrs["data-title"]) dataAttrs["data-title"] = renderedTitle.plainText;
   const attrText = formatHtmlAttrs({
     class: unique(classes).join(" "),
     ...dataAttrs,
   });
   const headingClass = attrs.classes.includes("title-hidden") ? ' class="visually-hidden"' : "";
-  return `<section${attrText}>
+  return `${matches.css ? `<style>${matches.css}</style>\n` : ""}<section${attrText}>
 ${backgroundHtml ? indentHtml(backgroundHtml, "  ") + "\n" : ""}
   <h2${headingClass}>${renderedTitle.inlineHtml}</h2>
 ${indentHtml(bodyHtml, "  ")}

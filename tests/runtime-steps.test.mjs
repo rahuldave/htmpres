@@ -2,13 +2,14 @@ import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { runtimeHarness } from './runtime-harness.mjs';
+import './match-summary.test.mjs';
 
 // Characterization: an unmapped code block starts at snapshot 1, and persistent
 // highlights join each snapshot. The unified clock must preserve this baseline.
 test('legacy code baseline and persistent selections', () => {
   const { context } = runtimeHarness();
   vm.runInContext(`
-    const slide = {};
+    const slide = fakeElement();
     const root = fakeElement();
     const lines = [1, 2, 3].map(line => fakeElement({ line: String(line) }));
     const block = { root, lines, staticLines: new Set([3]), stepLines: [new Set([1]), new Set([2])] };
@@ -232,4 +233,92 @@ test('mixed implicit fragment then equation schedules its first snapshot after t
   assert.equal(run('b.classes.has("equation-term-highlight")'), true);
   run('resetSlideSteps(slides[0])');
   assert.equal(run('root.dataset.activeStep'), undefined);
+});
+
+test('matching adds exactly one real final frame and restores the last teaching frame on reverse/reset', () => {
+  const { run } = runtimeHarness();
+  run(`
+    slides[0].dataset.stepSummary = 'match'; slides[0].dataset.matchGroups = 'input|mean';
+    const text = [1, 7].map((index, i) => ({ element: fakeElement({ match: ['input', 'mean'][i] }), explicitIndex: index }));
+    text.forEach(t => t.element.classes.add('fragment-dim'));
+    slides[0].queries.set('[data-match]', text.map(t => t.element));
+    const lines = [1,2].map(line => fakeElement({ line: String(line) }));
+    const root = fakeElement({ matchRanges: '1-1:1|2-2:2' });
+    const block = { root, lines, staticLines: new Set([1]), stepLines: [new Set([1]), new Set([2])], stepIndices: [1,7] };
+    slideCodeStates.set(slides[0], { blocks: [block], step: 0 });
+    slideFragmentStates.set(slides[0], { fragments: text, step: 0 });
+    prepareStepGraphs(); resetSlideSteps(slides[0]);
+  `);
+  assert.equal(run('slideStepStates.get(slides[0]).frames.length'), 3, 'two real frames plus summary, not eight');
+  run('changeSlideStep(1); changeSlideStep(1)');
+  assert.equal(run('lines[1].classes.has("code-line-highlight")'), true);
+  assert.equal(run('slides[0].classes.has("step-summary-active")'), false);
+  run('changeSlideStep(1)');
+  assert.equal(run('slides[0].classes.has("step-summary-active")'), true);
+  assert.equal(run('lines.some(line => line.classes.has("code-line-highlight") || line.classes.has("code-line-dim"))'), false);
+  assert.equal(run('lines[0].dataset.matchSlot'), '1');
+  assert.equal(run('lines[1].dataset.matchSlot'), '2');
+  assert.equal(run('text[1].element.dataset.matchSlot'), '2');
+  assert.equal(run('text.every(t => t.element.classes.has("fragment-visible"))'), true);
+  assert.equal(run('changeSlideStep(1)'), false);
+  run('changeSlideStep(-1)');
+  assert.equal(run('slides[0].classes.has("step-summary-active")'), false);
+  assert.equal(run('lines[1].classes.has("code-line-highlight")'), true);
+  assert.equal(run('text[0].element.classes.has("fragment-past")'), true);
+  run('resetSlideSteps(slides[0])');
+  assert.equal(run('lines[0].dataset.matchSlot'), undefined);
+  assert.equal(run('text[1].element.dataset.matchSlot'), undefined);
+  assert.equal(run('text[0].element.classes.has("fragment-visible")'), false);
+});
+
+test('equation matching colors each named term independently of cumulative snapshots', () => {
+  const { run } = runtimeHarness();
+  run(`
+    slides[0].dataset.stepSummary = 'match'; slides[0].dataset.matchGroups = 'term-a|term-b';
+    const a = fakeElement(); a.classes.add('term-a'); const b = fakeElement(); b.classes.add('term-b');
+    const root = fakeElement({ equationSteps: 'term-a|term-b|term-a,term-b', stepIndices: '1|3|7' });
+    root.queries.set('.term-a, .term-b', [a,b]); root.queries.set('.enclosing.term-a', [a]); root.queries.set('.enclosing.term-b', [b]);
+    slides[0].queries.set('.equation-steps[data-equation-steps]', [root]);
+    const text = ['term-a','term-b'].map(match => fakeElement({ match }));
+    slides[0].queries.set('[data-match]', text);
+    prepareEquationSteppers(); prepareStepGraphs(); resetSlideSteps(slides[0]);
+    changeSlideStep(1); changeSlideStep(1); changeSlideStep(1); changeSlideStep(1);
+  `);
+  assert.equal(run('a.dataset.matchSlot'), '1'); assert.equal(run('b.dataset.matchSlot'), '2');
+  assert.equal(run('a.classes.has("equation-term-highlight") || b.classes.has("equation-term-dim")'), false);
+  run('changeSlideStep(-1)');
+  assert.equal(run('a.classes.has("equation-term-highlight") && b.classes.has("equation-term-highlight")'), true);
+});
+
+test('static matched slides have one summary frame; safe-integer last events and legacy baseline remain valid', () => {
+  const { run } = runtimeHarness();
+  run(`
+    slides[0].dataset.stepSummary = 'match'; slides[0].dataset.matchGroups = 'mean';
+    const text = fakeElement({ match: 'mean' }); slides[0].queries.set('[data-match]', [text]);
+    prepareStepGraphs(); resetSlideSteps(slides[0]);
+  `);
+  assert.deepEqual([...run('slideStepStates.get(slides[0]).frames')], ['summary']);
+  run('changeSlideStep(1)');
+  assert.equal(run('slides[0].dataset.activeFrame'), 'summary');
+  run(`
+    slideFragmentStates.set(slides[0], { fragments: [{ element: text, explicitIndex: Number.MAX_SAFE_INTEGER }], step: 0 });
+    prepareStepGraphs(); resetSlideSteps(slides[0]); changeSlideStep(1); changeSlideStep(1);
+  `);
+  assert.deepEqual([...run('slideStepStates.get(slides[0]).frames')], [Number.MAX_SAFE_INTEGER, 'summary']);
+  assert.equal(run('text.classes.has("fragment-visible")'), true);
+});
+
+test('semantic keys cannot collide with internal effective ink or background variables', () => {
+  const { run } = runtimeHarness();
+  run(`
+    slides[0].dataset.stepSummary = 'match'; slides[0].dataset.matchGroups = 'ink|surface|number-bg';
+    const targets = ['ink','surface','number-bg'].map(match => fakeElement({ match }));
+    slides[0].queries.set('[data-match]', targets);
+    prepareStepGraphs(); resetSlideSteps(slides[0]); changeSlideStep(1);
+  `);
+  assert.equal(run('targets[0].properties.get("--_htmpres-match-ink")'), 'var(--htmpres-match-ink, var(--htmpres-match-1, var(--ink)))');
+  assert.equal(run('targets[1].properties.get("--_htmpres-match-ink")'), 'var(--htmpres-match-surface, var(--htmpres-match-2, var(--ink)))');
+  assert.equal(run('targets[2].properties.get("--_htmpres-match-ink")'), 'var(--htmpres-match-number-bg, var(--htmpres-match-3, var(--ink)))');
+  run('resetSlideSteps(slides[0])');
+  assert.equal(run('targets.every(target => target.properties.size === 0)'), true);
 });

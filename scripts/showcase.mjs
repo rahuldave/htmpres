@@ -1,5 +1,7 @@
 import { scanSource } from "../_extensions/htmpres/lib/source.mjs";
 import { htmlToPlainText } from "../_extensions/htmpres/lib/render.mjs";
+import { maximumMatchGroups } from "../_extensions/htmpres/lib/render.mjs";
+import { matchThemeStyles } from "../_extensions/htmpres/themes/matches.mjs";
 
 /** Theme variants of one canonical render; no Markdown or note re-parsing. */
 import { colorModeControl, colorModeScript, legacyThemes, resolveTheme, themeAttributes, themeStyles } from "../_extensions/htmpres/themes/themes.mjs";
@@ -84,7 +86,7 @@ function isolateComparison() {
         const slide = slides[current];
         const state = slideStepStates.get(slide);
         return { slide: current + 1, cursor: state?.cursor || 0, total: state?.frames.length || 0,
-          frame: Number(slide.dataset.activeFrame) };
+          frame: slide.dataset.activeFrame === "summary" ? "summary" : Number(slide.dataset.activeFrame) };
       },
       setState(number, cursor) {
         goTo(number - 1);
@@ -109,8 +111,9 @@ export function themeVariant(html, { name, mode, catalog, templateCss, localCss,
   if (headEnd < 0) throw new Error("Showcase input has no head");
   let head = html.slice(0, headEnd);
   let body = html.slice(headEnd);
-  const oldCss = `${templateCss}\n${themeStyles(base, catalog)}\n${localCss}`;
-  let newCss = `${templateCss}\n${themeStyles(plan, catalog)}\n${name === "blank" ? blankCss : ""}\n${localCss}`;
+  const matchCount = maximumMatchGroups(body);
+  const oldCss = `${templateCss}\n${themeStyles(base, catalog)}${matchThemeStyles(base, catalog, matchCount, "nocturne")}\n${localCss}`;
+  let newCss = `${templateCss}\n${themeStyles(plan, catalog)}${matchThemeStyles(plan, catalog, matchCount, name)}\n${name === "blank" ? blankCss : ""}\n${localCss}`;
   // All variants share the font bundle; slide media remains deck-local.
   newCss = newCss.replaceAll("assets/htmpres-themes/", "../../../assets/htmpres-themes/");
   head = replaceOnce(head, oldCss, newCss, "canonical CSS");

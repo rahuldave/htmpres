@@ -25,7 +25,7 @@ export async function checkSemanticBrowser(tab) {
       })),
       highlighted: [...slide.querySelectorAll('.code-line-highlight')].map(el => Number(el.dataset.line)),
       terms: [...slide.querySelectorAll('.equation-term')].map(el => ({
-        a: el.classList.contains('term-a'), b: el.classList.contains('term-b'),
+        a: el.classList.contains('mean'), b: el.classList.contains('total'),
         highlight: el.classList.contains('equation-term-highlight'),
         dim: el.classList.contains('equation-term-dim'),
       })),

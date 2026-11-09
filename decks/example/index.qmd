@@ -99,60 +99,60 @@ Space or Right reveals one point. The dim effect comes from each incremental
 container. The audience cannot read future points ahead of the speaker.
 :::
 
-## Code and explanation share one clock {#code-steps data-section="Synchronized code"}
+## Code and explanation share one clock {#code-steps data-section="Synchronized code" data-step-summary="match"}
 
 :::: {.two-col}
 ::: {}
-```{.python .numberLines data-steps="1|2|3" data-step-indices="1|3|7"}
+```{.python .numberLines data-steps="1|2|3" data-step-indices="1|3|7" data-line-matches="1:observations|2:total|3:mean"}
 observations = [2, 4, 6]
 total = sum(observations)
 mean = total / len(observations)
 ```
 :::
 ::: {.example-step-copy}
-[Collect three observations.]{.fragment data-fragment-index="1"}
+[Collect three observations.]{.fragment data-match="observations" data-fragment-index="1"}
 
-[Add them to get a total of 12.]{.fragment data-fragment-index="3"}
+[Add them to get a total of 12.]{.fragment data-match="total" data-fragment-index="3"}
 
-[Divide by three to get a mean of 4.]{.fragment data-fragment-index="7"}
+[Divide by three to get a mean of 4.]{.fragment data-match="mean" data-fragment-index="7"}
 :::
 ::::
 
 ::: example-caption
-Advance three times: code and text move together. Earlier explanations stay readable.
+Three reveals explain the code. One more advance matches line numbers to explanations in color.
 :::
 
 ::: notes
 Presenter cue 5. Start with all explanations hidden. Each Next highlights one
 code line and reveals its matching explanation. Prior explanations stay fully
 visible. Sparse frame labels 1, 3 and 7 still take just three clicks. Previous
-reverses both lanes together.
+reverses both lanes together. A fourth click shows the theme-colored matching summary; Previous returns to the last teaching highlight.
 :::
 
-## Equations use the same clock {#equation-steps data-section="Synchronized equations"}
+## Equations use the same clock {#equation-steps data-section="Synchronized equations" data-step-summary="match"}
 
 :::: {.two-col}
-::: {.equation-steps .example-equation data-equation-steps="term-a|term-b|term-a,term-b" data-step-indices="1|3|7"}
+::: {.equation-steps .example-equation data-equation-steps="mean|total|mean,total" data-step-indices="1|3|7"}
 $$
-\htmlClass{term-a}{\bar{x}} = \frac{\htmlClass{term-b}{\sum_{i=1}^{n} x_i}}{n}
+\htmlClass{mean}{\bar{x}} = \frac{\htmlClass{total}{\sum_{i=1}^{n} x_i}}{n}
 $$
 :::
 ::: {.example-step-copy}
-[The mean is the quantity we want.]{.fragment data-fragment-index="1"}
+[The mean is the quantity we want.]{.fragment data-match="mean" data-fragment-index="1"}
 
-[Add the observations in the numerator.]{.fragment data-fragment-index="3"}
+[Add the observations in the numerator.]{.fragment data-match="total" data-fragment-index="3"}
 
 [Connect the total to the mean.]{.fragment data-fragment-index="7"}
 :::
 ::::
 
 ::: example-caption
-Local KaTeX typesets the equation. Named terms and explanations advance together.
+Three reveals explain the equation. One more advance matches terms to explanations in color.
 :::
 
 ::: notes
 Presenter cue 6. Advance three times to emphasize the mean, the numerator and
-then both. Other named terms dim. The operators remain unchanged. The same
+then both. A fourth advance gives mean and total their own theme colors, shared with the explaining text. Other named terms dim during teaching. The operators remain unchanged. The same
 locally bundled math engine typesets this cue: $\bar{x}=4$.
 :::
 

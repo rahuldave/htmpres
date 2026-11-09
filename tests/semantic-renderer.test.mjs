@@ -18,6 +18,57 @@ const nodeRenderer = path.join(root, "scripts/qmd-to-html.mjs");
 const scratch = mkdtempSync(path.join(tmpdir(), "htmpres-semantic-"));
 test.after(() => rmSync(scratch, { recursive: true, force: true }));
 
+test('matched summary compilation and direct colors agree across Deno and Node renderers', () => {
+  const dir = path.join(scratch, 'matching'); mkdirSync(dir);
+  const file = path.join(dir, 'slides.qmd');
+  const source = `---
+pagetitle: "Matched parity"
+deck:
+  theme: nocturne
+  color-mode: light
+---
+## Compute {#compute data-step-summary="match" data-match-colors="mean=#245c88" data-match-colors-dark="mean=#91c9f0"}
+
+\`\`\`{.python .numberLines data-steps="1|2" data-step-indices="1|3" data-line-matches="1:total|2:mean"}
+total = 12
+mean = total / 3
+\`\`\`
+
+[The total.]{.fragment data-fragment-index="1" data-match="total" data-match-color="#765013" data-match-color-dark="#edc37d"}
+
+[The mean.]{.fragment data-fragment-index="3" data-match="mean"}
+
+::: {.equation-steps data-equation-steps="total|mean" data-step-indices="1|3"}
+$$\\htmlClass{mean}{x} = \\htmlClass{total}{y}/3$$
+:::
+`;
+  writeFileSync(file, source);
+  runDeno(['render', file]);
+  const deno = readFileSync(path.join(dir, 'index.html'), 'utf8');
+  execFileSync('node', [nodeRenderer, file], { cwd: root });
+  const node = readFileSync(path.join(dir, 'index.html'), 'utf8');
+  const installed = path.join(dir, 'installed');
+  runDeno(['workspace', 'init', installed]);
+  writeFileSync(path.join(installed, 'slides.qmd'), source);
+  execFileSync('quarto', ['run', path.join(installed, '_extensions/htmpres/htmpres.ts'), 'render', path.join(installed, 'slides.qmd')], { cwd: installed });
+  const packaged = readFileSync(path.join(installed, 'index.html'), 'utf8');
+  for (const html of [deno, node, packaged]) {
+    assert.match(html, /data-match-groups="total\|mean"/);
+    assert.match(html, /data-match-ranges="1-1:1\|2-2:2"/);
+    assert.match(html, /--htmpres-match-mean: #245c88;/);
+    assert.match(html, /--htmpres-match-total: #edc37d;/);
+    assert.match(html, /--htmpres-match-2:/);
+    assert.doesNotMatch(html, /--htmpres-match-3:/);
+    assert.match(html, /html\[data-color-mode="dark"\] \.slide\[id="compute"\]/);
+  }
+  for (const invalid of ['data-line-matches="1:unknown|2:mean"', 'data-line-matches="1:total|3:mean"']) {
+    writeFileSync(file, source.replace('data-line-matches="1:total|2:mean"', invalid));
+    const result = spawnSync('quarto', ['run', cli, 'render', file], { cwd: root, encoding: 'utf8' });
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr + result.stdout, /Slide 1 \(Compute\)/);
+  }
+});
+
 function runDeno(args, cwd = root) {
   return execFileSync("quarto", ["run", cli, ...args], { cwd, encoding: "utf8" });
 }

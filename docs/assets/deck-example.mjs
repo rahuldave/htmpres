@@ -43,7 +43,7 @@ export function startExample(root, manifest) {
       const changed = slide !== state.slide;
       slide = state.slide; cursor = state.cursor; total = state.total;
       if (changed) displaySource();
-      status.textContent = total ? `Step ${cursor} of ${total}${cursor === 0 ? ' · before reveals' : ''}` : 'This slide has no reveal steps';
+      status.textContent = total ? `Step ${cursor} of ${total}${state.frame === 'summary' ? ' · matched summary' : cursor === 0 ? ' · before reveals' : ''}` : 'This slide has no reveal steps';
     }
     buttons.forEach(button => {
       const action = button.dataset.stepAction;

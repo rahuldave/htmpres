@@ -8,7 +8,10 @@ named `slides.qmd`. htmpres does not read the planning worksheet.
 
 The following contracts are implemented in
 [`b8fee29`](https://github.com/rahuldave/htmpres/commit/b8fee29).
-They extend the original report below.
+They were merged as
+[`3919357`](https://github.com/rahuldave/htmpres/commit/3919357)
+in [PR #18](https://github.com/rahuldave/htmpres/pull/18), extending the original
+report below.
 
 ### Dominant statements and level 0
 
@@ -121,6 +124,41 @@ See the complete [code and equation examples](example.qmd?slide=6) and
 equality, hidden future text, final overview, backward navigation and reset in
 audience/presenter views, light and dark. The interactive Markdown page's
 keyboard controls, view/mode changes and appendix navigation were also tested.
+
+### Equation example and minimum-fit correction
+
+Implemented in
+[`5cbf7ea`](https://github.com/rahuldave/htmpres/commit/5cbf7ea).
+The equation example now teaches three distinct pairs, with
+`data-equation-steps="mean|total|count"` and the same sparse
+`data-step-indices="1|3|7"`. The denominator is `\htmlClass{count}{n}` and its
+third explanation is:
+
+```markdown
+[Divide by the number of observations.]{.fragment data-fragment-index="7" data-match="count"}
+```
+
+On the third advance, the denominator is emphasized and the earlier two terms
+are dimmed. The fourth advance restores all three colored terms to full
+strength; it is an extra frame on the same slide. The former unpaired
+“Connect the total to the mean” sentence is removed. See the complete
+[copyable equation slide](semantic-authoring.md#equation-reuse-the-name-on-the-term)
+and [interactive example](example.qmd?slide=6).
+
+The same correction keeps an overlong solo `.statement` reachable when it
+hits the theme's minimum fit size in a compact presenter preview. With
+`overflow: fit-scroll`, short statements stay centered; excess copy starts
+inside the scrollport and can be scrolled through to its end. No new author
+syntax or smaller theme size is introduced.
+
+**Browser test:** both failures were reproduced on the previous published
+output. The corrected audience/presenter decks pass in light/dark modes:
+three term/explanation color pairs, two dimmed terms before the overview,
+all three restored afterward, Back/reset, short-statement centering and real
+scrolling from the first to last line at minimum fit. The interactive
+Markdown page and exact displayed denominator mapping also pass.
+`just check`, 35 focused runtime/navigation/hook tests and skill validation/lint
+passed; independent review found no remaining issues.
 
 **Verification:** `just check`, `just compat-check`, final 70 Node tests,
 `just semantic-test`, `just docs-check` (164 HTML pages), actual Deno/Node hook

@@ -132,9 +132,9 @@ reverses both lanes together. A fourth click shows the theme-colored matching su
 ## Equations use the same clock {#equation-steps data-section="Synchronized equations" data-step-summary="match"}
 
 :::: {.two-col}
-::: {.equation-steps .example-equation data-equation-steps="mean|total|mean,total" data-step-indices="1|3|7"}
+::: {.equation-steps .example-equation data-equation-steps="mean|total|count" data-step-indices="1|3|7"}
 $$
-\htmlClass{mean}{\bar{x}} = \frac{\htmlClass{total}{\sum_{i=1}^{n} x_i}}{n}
+\htmlClass{mean}{\bar{x}} = \frac{\htmlClass{total}{\sum_{i=1}^{n} x_i}}{\htmlClass{count}{n}}
 $$
 :::
 ::: {.example-step-copy}
@@ -142,17 +142,17 @@ $$
 
 [Add the observations in the numerator.]{.fragment data-match="total" data-fragment-index="3"}
 
-[Connect the total to the mean.]{.fragment data-fragment-index="7"}
+[Divide by the number of observations.]{.fragment data-match="count" data-fragment-index="7"}
 :::
 ::::
 
 ::: example-caption
-Each reveal colors its term and explanation. One more advance shows every match together.
+Each reveal colors its term and explanation. One more advance shows all three pairs at full strength.
 :::
 
 ::: notes
 Presenter cue 6. Advance three times to emphasize the mean, the numerator and
-then both. Mean and total gain their shared explanation colors from their first reveal. A fourth advance clears teaching dimming for the overview. Other named terms dim during teaching. The operators remain unchanged. The same
+the denominator. Each term gains its shared explanation color on its own reveal. At the third reveal only the denominator is emphasized. A fourth advance restores the mean and numerator to full strength alongside it, showing all three colored pairs. The operators remain unchanged. The same
 locally bundled math engine typesets this cue: $\bar{x}=4$.
 :::
 

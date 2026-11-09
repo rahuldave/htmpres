@@ -204,6 +204,10 @@ Do not hand-number the summary; it follows all real events automatically.
   Ranges must be in bounds, disjoint, and refer to a `data-match` explanation.
 - Equation: use `\htmlClass{mean}{\bar{x}}` inside an `.equation-steps` block.
   Use `mean` in that block's `data-equation-steps` and on its explanation.
+- To demonstrate the final overview clearly, teach one distinct named part
+  per frame (for example `mean|total|count`) and match each explanation. The
+  overview restores all parts to full strength on the same slide. A last
+  snapshot that already selects every part leaves little visible change.
 - Keys start with a lowercase letter; remaining characters are lowercase
   letters, digits or hyphens. `enclosing` is reserved for KaTeX. Repeated keys retain one color per slide.
 

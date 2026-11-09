@@ -25,7 +25,7 @@ export async function checkSemanticBrowser(tab) {
       })),
       highlighted: [...slide.querySelectorAll('.code-line-highlight')].map(el => Number(el.dataset.line)),
       terms: [...slide.querySelectorAll('.equation-term')].map(el => ({
-        a: el.classList.contains('mean'), b: el.classList.contains('total'),
+        a: el.classList.contains('mean'), b: el.classList.contains('total'), c: el.classList.contains('count'),
         highlight: el.classList.contains('equation-term-highlight'),
         dim: el.classList.contains('equation-term-dim'),
       })),
@@ -85,8 +85,8 @@ export async function checkSemanticBrowser(tab) {
   for (const [offset, frame] of [1, 3, 7].entries()) {
     await next();
     const current = await state();
-    assert(current.frame === frame && current.terms.length === 2, `Real equation frame ${frame}`);
-    assert(current.terms.every(term => term.highlight === (offset === 2 || (offset === 0 ? term.a : term.b))), `Selected equation terms ${frame}`);
+    assert(current.frame === frame && current.terms.length === 3, `Real equation frame ${frame}`);
+    assert(current.terms.every(term => term.highlight === (offset === 0 ? term.a : offset === 1 ? term.b : term.c)), `Selected equation terms ${frame}`);
     assert(current.fragments.slice(0, offset + 1).every(fragment => fragment.opacity === 1), 'Equation explanations do not dim');
   }
   passed.push('real classed KaTeX terms synchronize with ordinary text');

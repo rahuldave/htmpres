@@ -75,9 +75,9 @@ Advance three times to teach, then once more for a color-matched overview. Previ
 ## Equations use the same clock {#equation-steps data-step-summary="match"}
 
 :::: {.two-col}
-::: {.equation-steps data-equation-steps="mean|total|mean,total" data-step-indices="1|3|7"}
+::: {.equation-steps data-equation-steps="mean|total|count" data-step-indices="1|3|7"}
 $$
-\htmlClass{mean}{\bar{x}} = \frac{\htmlClass{total}{\sum_{i=1}^{n} x_i}}{n}
+\htmlClass{mean}{\bar{x}} = \frac{\htmlClass{total}{\sum_{i=1}^{n} x_i}}{\htmlClass{count}{n}}
 $$
 :::
 ::: {}
@@ -85,12 +85,12 @@ $$
 
 [Add the observations in the numerator.]{.fragment data-match="total" data-fragment-index="3"}
 
-[Connect the total to the mean.]{.fragment data-fragment-index="7"}
+[Divide by the number of observations.]{.fragment data-match="count" data-fragment-index="7"}
 :::
 ::::
 
 ::: notes
-The classed terms are addressable after KaTeX typesetting. This cue also renders $\bar{x}=4$.
+Mean, total and count each have a matching explanation. The fourth advance restores all three terms to full strength. The classed terms are addressable after KaTeX typesetting. This cue also renders $\bar{x}=4$.
 :::
 
 ## Reveal the story without reading ahead {#layering}

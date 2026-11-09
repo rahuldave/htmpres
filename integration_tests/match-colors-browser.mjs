@@ -11,7 +11,7 @@ export async function checkMatchColorsBrowser(tab) {
       fragments: [...slide.querySelectorAll('.fragment')].map(el => ({visible: el.getAttribute('aria-hidden') === 'false', opacity:getComputedStyle(el).opacity})),
       text: [...slide.querySelectorAll('[data-match]')].map(el => ({key:el.dataset.match, color:getComputedStyle(el).color, slot:el.dataset.matchSlot})),
       code: [...slide.querySelectorAll('.code-line')].map(el => ({line:el.dataset.line, slot:el.dataset.matchSlot, color:getComputedStyle(el,'::before').color, number:getComputedStyle(el,'::before').content, backing:getComputedStyle(el,'::before').backgroundColor})),
-      terms: [...slide.querySelectorAll('.enclosing[data-match-slot]')].map(el => ({slot:el.dataset.matchSlot,color:getComputedStyle(el).color})),
+      terms: [...slide.querySelectorAll('.enclosing[data-match-slot]')].map(el => ({slot:el.dataset.matchSlot,color:getComputedStyle(el).color,opacity:getComputedStyle(el).opacity})),
       mode:document.documentElement.dataset.colorMode,
     };
   });
@@ -34,6 +34,7 @@ export async function checkMatchColorsBrowser(tab) {
         assert(teaching.fragments.slice(i+1).every(fragment => !fragment.visible), 'Future explaining text stays hidden');
       }
       const teaching = await snapshot(); assert(teaching.frame === '7' && !teaching.summary, 'Last teaching highlight remains available');
+      if(type==='equation') assert(teaching.terms.length===3 && teaching.terms.filter(term=>Number(term.opacity)<1).length===2, 'Three equation pairs finish on one active term; the overview has two dimmed terms to restore');
       await next();
       const summary = await snapshot();
       assert(summary.summary && summary.frame === 'summary' && !summary.highlights, `${mode}/${type}: final highlight/dimming clears`);
@@ -41,6 +42,7 @@ export async function checkMatchColorsBrowser(tab) {
       assert(new Set(summary.text.map(t=>t.color)).size === summary.text.length, 'Pairs receive distinct theme colors');
       const source = type === 'code' ? summary.code.filter(c=>c.slot) : summary.terms;
       assert(source.length === summary.text.length && source.every(part=>summary.text.some(text=>text.slot === part.slot && text.color === part.color)), `${mode}/${type}: source and explanation colors agree`);
+      if(type==='equation') assert(summary.terms.every(term=>term.opacity==='1'), 'Equation overview visibly restores all three colored terms');
       if(type === 'code') assert(source.every(part=>part.number === `"${part.line}"` && part.backing !== 'rgba(0, 0, 0, 0)'), 'Summary has real visible line numbers on opaque backing');
       await tab.playwright.locator('#prevBtn').click(); await observe();
       const previous = await snapshot(); assert(previous.frame === '7' && !previous.summary && previous.highlights, 'Previous restores the final teaching frame');

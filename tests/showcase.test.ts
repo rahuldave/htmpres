@@ -31,7 +31,7 @@ for (const id of ["importance", "layering", "code-steps", "equation-steps", "mai
   assert(canonical.includes(`id="${id}"`), `Main showcase demonstrates ${id}`);
 }
 assert((canonical.match(/data-step-indices="1\|3\|7"/g) || []).length === 2, "Code and equation lanes synchronize with explaining text");
-assert(canonical.includes('data-equation-steps="mean|total|mean,total"'), "Main gallery has real equation steps");
+assert(canonical.includes('data-equation-steps="mean|total|count"') && canonical.includes('data-match="count"'), "Main gallery teaches three named equation pairs");
 assert(canonical.includes('data-fragment-effect="dim"') && canonical.includes('class="fragment"'), "Main gallery demonstrates span and list layering");
 assert(canonical.includes('<em>source</em>') && canonical.includes('id="slide-3-fn1"') && canonical.includes('id="slide-11-fn1"'), "Title emphasis and repeated footnotes are demonstrated");
 

@@ -60,6 +60,9 @@ The solo block is centered. Both `[The claim.]{.statement}` and fenced statement
 blocks also work within a normal slide. Themes supply level-4 size, emphasis weight and ink; text fitting scales the block and its
 paragraphs together. Prefer one short claim. Long copy may still need splitting
 when it reaches the theme's minimum fit size.
+With `overflow: fit-scroll`, excess copy remains reachable from its beginning
+to its end, including in the smaller presenter preview; only fitting copy is
+vertically centered.
 
 ## Picture credits
 
@@ -326,9 +329,9 @@ For a term inside a larger equation, use the same name in `\htmlClass` and
 ## Explain the equation {#mean-equation data-step-summary="match"}
 
 :::: {.two-col}
-::: {.equation-steps data-equation-steps="mean|total|mean,total" data-step-indices="1|3|7"}
+::: {.equation-steps data-equation-steps="mean|total|count" data-step-indices="1|3|7"}
 $$
-\htmlClass{mean}{\bar{x}} = \frac{\htmlClass{total}{\sum_{i=1}^{n} x_i}}{n}
+\htmlClass{mean}{\bar{x}} = \frac{\htmlClass{total}{\sum_{i=1}^{n} x_i}}{\htmlClass{count}{n}}
 $$
 :::
 ::: {}
@@ -336,15 +339,19 @@ $$
 
 [Add the observations in the numerator.]{.fragment data-fragment-index="3" data-match="total"}
 
-[Connect the total to the mean.]{.fragment data-fragment-index="7"}
+[Divide by the number of observations.]{.fragment data-fragment-index="7" data-match="count"}
 :::
 ::::
 ```
 
-`mean` gets its color on the first reveal and `total` on the second;
-both keep their colors through the third reveal and fourth-advance overview. Their
-individual explanations share it; the combined explanation stays ordinary
-text. Different groups must not overlap on the same source term or code line.
+`mean` gets its color on the first reveal, `total` on the second and `count` on
+the third. Each has its own matching explanation. On the third reveal, only
+the denominator is emphasized; the earlier terms remain colored but dimmed.
+The fourth advance removes that dimming so all three pairs are visible at
+full strength. This is an extra frame on the same slide. If the last teaching
+snapshot already selects every term, the overview will have little visible
+change; keep the last snapshot focused on its own term when demonstrating
+the overview. Different groups must not overlap on the same source term or code line.
 The theme supplies colors unless you override them below. Try both complete
 patterns in the [interactive example](example.qmd?slide=6).
 

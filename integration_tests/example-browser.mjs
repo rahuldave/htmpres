@@ -41,6 +41,7 @@ export async function checkExampleBrowser(tab) {
   await bodyKey('Home'); await waitStep('Step 0 of 4 · before reveals');
   const source = await tab.playwright.locator('#example-markdown').textContent();
   assert(source.includes('\\htmlClass{mean}') && source.includes('data-step-indices="1|3|7"') && source.includes('::: notes'),'Equation source includes actual math, mappings and cue');
+  assert(source.includes('\\htmlClass{count}{n}') && source.includes('data-match="count"'),'The third explanation maps to the denominator');
 
   await tab.playwright.locator('#example-slide').selectOption('10'); ax=await waitStep('This slide has no reveal steps');
   const link = ax.split('\n').find(line=>/link Description: The supporting data/.test(line));

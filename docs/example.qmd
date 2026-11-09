@@ -52,7 +52,7 @@ how the same content looks in different themes.
 | [Importance and footnotes](example.qmd?slide=3) | Compare `.key` and `.aside` roles and follow the footnote's return arrow. |
 | [Dim layering](example.qmd?slide=4) | Advance four times. Future spans and list items stay hidden; earlier points dim. |
 | [Code with an explanation](example.qmd?slide=5) | Each reveal colors its line number and explanation; a fourth advance clears dimming for the overview. Previous restores the last highlight. |
-| [A stepped equation](example.qmd?slide=6) | Each reveal colors its term and explanation; a fourth advance clears dimming for the overview. |
+| [A stepped equation](example.qmd?slide=6) | Reveal the mean, total and count in turn; the fourth advance restores all three colored pairs to full strength on the same slide. |
 | [Speaker notes](example.qmd?slide=8) | Switch between Audience and Presenter to see how one source produces two views. |
 | [The appendix](example.qmd?slide=10) | Follow “The supporting data,” visit the detail slide, then return. The Markdown follows your navigation. |
 

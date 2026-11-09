@@ -1,4 +1,4 @@
-/** Run using CUA against decks/authoring-hooks/index.html or presenter.html. */
+/** Detailed audience checks using CUA against decks/authoring-hooks/index.html. */
 export async function checkTalkHooksBrowser(tab) {
   const assert=(value,message)=>{if(!value) throw new Error(message);};
   const observe=()=>tab.getAXState({emit:false});
@@ -32,6 +32,39 @@ export async function checkTalkHooksBrowser(tab) {
     state=await tab.playwright.evaluate(()=>{const s=document.querySelector('.slide.active');return {scale:Number(s.dataset.textFitScale),overflow:s.scrollHeight-s.clientHeight};});
     assert(state.scale<1 && state.overflow<=4,`${mode}: long statement actually shrinks and fits`);
     passed.push(`${mode}: statement/span/block/fit, full-picture credits, quote/key/source`);
+  }
+  return passed;
+}
+
+/** Center short statements; keep both ends reachable after minimum-fit overflow. */
+export async function checkStatementReachabilityBrowser(tab) {
+  const assert=(value,message)=>{if(!value) throw new Error(message);};
+  const observe=()=>tab.getAXState({emit:false});
+  const choose=async name=>{await tab.playwright.getByRole('button',{name,exact:true}).click();await observe();};
+  const snapshot=()=>tab.playwright.evaluate(()=>{
+    const s=document.querySelector('.slide.active'),b=s.querySelector('.statement');
+    return {slide:s.getBoundingClientRect().toJSON(),block:b.getBoundingClientRect().toJSON(),
+      overflow:s.scrollHeight-s.clientHeight,scrollTop:s.scrollTop,overflowY:getComputedStyle(s).overflowY,
+      scale:Number(s.dataset.textFitScale),minimum:Number(getComputedStyle(s).getPropertyValue('--htmpres-text-fit-min'))};
+  });
+  const passed=[];
+  for(const mode of ['light','dark']) {
+    for(let i=0;i<3;i++) {
+      if(await tab.playwright.evaluate(()=>document.documentElement.dataset.colorModeChoice)===mode) break;
+      await tab.playwright.locator('#colorModeBtn').click();await observe();
+    }
+    await choose('1. A statement');
+    let state=await snapshot();
+    assert(Math.abs((state.block.top+state.block.bottom)-(state.slide.top+state.slide.bottom))/2<4,`${mode}: short statement stays centered`);
+    await choose('5. A fitted statement');state=await snapshot();
+    assert(state.scale<1 && state.block.top>=state.slide.top,`${mode}: fitted statement starts inside the reachable scrollport`);
+    if(state.overflow>4) {
+      assert(state.scale<=state.minimum+.002 && /auto|scroll/.test(state.overflowY),`${mode}: excess copy uses the documented minimum-fit scroll fallback`);
+      await tab.scroll([state.slide.left+state.slide.width/2,state.slide.top+state.slide.height/2],'down',8);await observe();
+      state=await snapshot();
+      assert(state.scrollTop>0 && state.block.bottom<=state.slide.bottom+4,`${mode}: scrolling reaches the end of the statement`);
+    }
+    passed.push(`${mode}: centered short statement and reachable fitted copy`);
   }
   return passed;
 }

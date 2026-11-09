@@ -13,7 +13,7 @@ export async function checkShowcaseBrowser(tab) {
       nextDisabled: document.querySelector('#nextBtn').disabled,
       fragments: [...slide.querySelectorAll('.fragment')].map(el => ({ hidden: el.getAttribute('aria-hidden') === 'true', opacity: Number(getComputedStyle(el).opacity), visibility: getComputedStyle(el).visibility })),
       lines: [...slide.querySelectorAll('.code-line-highlight')].map(el => Number(el.dataset.line)),
-      terms: [...slide.querySelectorAll('.equation-term')].map(el => ({ a: el.classList.contains('mean'), b: el.classList.contains('total'), highlighted: el.classList.contains('equation-term-highlight') })) };
+      terms: [...slide.querySelectorAll('.equation-term')].map(el => ({ a: el.classList.contains('mean'), b: el.classList.contains('total'), c: el.classList.contains('count'), highlighted: el.classList.contains('equation-term-highlight') })) };
   });
   await choose('1. One source. Two views.');
   assert(await tab.playwright.evaluate(() => document.querySelector('.slide.active h2 em').textContent === 'source'), 'Title emphasis renders as markup');
@@ -43,7 +43,7 @@ export async function checkShowcaseBrowser(tab) {
       assert(current.frame === frame, `${lane} shared frame ${frame}`);
       assert(current.fragments.every((item, i) => i <= offset ? !item.hidden && item.opacity === 1 : item.hidden && item.visibility === 'hidden'), `${lane} text stays visible as next explanation appears`);
       if (lane === 'code') assert(JSON.stringify(current.lines) === JSON.stringify([offset + 1]), `code line ${offset + 1}`);
-      else assert(current.terms.length === 2 && current.terms.every(term => term.highlighted === (offset === 2 || (offset === 0 ? term.a : term.b))), `equation terms ${frame}`);
+      else assert(current.terms.length === 3 && current.terms.every(term => term.highlighted === (offset === 0 ? term.a : offset === 1 ? term.b : term.c)), `equation terms ${frame}`);
     }
     await tab.playwright.locator('#prevBtn').click(); await observe();
     assert((await state()).frame === 3 && (await state()).fragments[2].hidden, `${lane} reverses both lanes`);

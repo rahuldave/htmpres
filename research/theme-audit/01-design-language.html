@@ -13,13 +13,15 @@ details{background:#eef2ec;padding:14px 22px;border:1px solid #d4ddd4;border-rad
 @media print{header,details{display:none}body{background:white;font-size:10pt}main{padding:0}h2{break-after:avoid}img{break-inside:avoid}table{font-size:8pt;min-width:0}.table-wrap{overflow:visible}a{color:inherit}}
 </style></head><body><header><nav aria-label="Three dependent reviews"><a href="01-design-language.html" aria-current="page">1 · Design language</a><a href="02-presentation-color.html">2 · Presentation color</a><a href="03-scientific-palettes.html">3 · Scientific palettes</a></nav></header><main><h1 id="1-which-themes-have-a-coherent-design-language">1. Which themes have a coherent design language?</h1>
 <p><strong>Decision draft · 9 November 2026 · no production theme changes</strong></p>
-<p>Folio, Atelier and Nocturne are the strongest complete light/dark identities in
-the current htmpres adapter. Atelier is the most promising general presentation
-base; Folio and Nocturne offer more distinctive editorial voices. Tufte is a
-valuable restrained alternative, but the surrounding card-and-shadow slide UI
-does not yet express its philosophy. All five Reading themes deserve the same
-depth of investigation: their native modes are good candidates, while their
-derived complementary modes need specific repairs.</p>
+<p>Folio, Atelier and Nocturne have coherent light/dark identities in the current
+htmpres adapter. Atelier fits its shared presentation shell particularly well;
+Folio and Nocturne offer distinct editorial voices. Tufte is a valuable restrained
+alternative, but the surrounding card-and-shadow slide UI does not yet express
+its philosophy. All five Reading themes deserve equal attention. The
+<a href="#proposed-changes-to-our-nine-themes-a-shared-foundation-two-reading-conditions">actionable specification at the bottom</a>
+defines proposed changes for all nine owned themes, separately for blogs and
+slides, with swatches, typography and spacing ladders. Stock Bootswatch is
+reference material only.</p>
 <p>This is the first of three linked decisions. <a href="02-presentation-color.html">Part 2</a>
 tests these judgments against Schwabish's visual presentation guidance.
 <a href="03-scientific-palettes.md">Part 3</a> tests scientific color systems for all nine
@@ -34,6 +36,16 @@ priority themes. These are recommendations for selection, not an approved redesi
 <li><a href="#complete-catalog-critique">Complete catalog critique</a></li>
 <li><a href="#what-should-carry-back-to-smalldocs-and-quarto">What should carry back to SmallDocs and Quarto</a></li>
 <li><a href="#provisional-selection-for-part-2">Provisional selection for Part 2</a></li>
+<li><a href="#proposed-changes-to-our-nine-themes-a-shared-foundation-two-reading-conditions">Proposed changes to our nine themes: a shared foundation, two reading conditions</a><ul>
+<li><a href="#compatibility-with-part-2-before-choosing-values">Compatibility with Part 2, before choosing values</a></li>
+<li><a href="#foundation-a-colors-are-named-by-job-with-explicit-combinations">Foundation A: colors are named by job, with explicit combinations</a></li>
+<li><a href="#foundation-b-a-finite-typography-ladder-and-explicit-font-jobs">Foundation B: a finite typography ladder and explicit font jobs</a></li>
+<li><a href="#foundation-c-spacing-measure-and-surface-treatment">Foundation C: spacing, measure and surface treatment</a></li>
+<li><a href="#the-swatches-and-ladders-to-use">The swatches and ladders to use</a></li>
+<li><a href="#concrete-changes-by-theme-at-both-levels">Concrete changes by theme, at both levels</a></li>
+<li><a href="#what-gets-implemented-where-after-we-choose">What gets implemented where, after we choose</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </details><h2 id="what-is-actually-being-reviewed">What is actually being reviewed</h2>
@@ -101,8 +113,9 @@ these themes. Its six lenses are:</p>
 <p>We used the existing <a href="https://rahuldave.com/elegant-themes/ui-design-guide.html">Elegant UI guide</a>
 and <a href="https://rahuldave.com/elegant-themes/visual-design-report.html">design assessment</a>,
 including their source-code rubric and disclosed self-review limits. We also
-read the original PDF at pp. 20–22, 36–44, 66–68, 142–160 and 162–168, and
-visually checked the illustrations at pp. 147, 154 and 164. Remaining page
+read the original PDF at pp. 20–22, 36–44, 66–74, 76–81, 96–99, 102–107,
+114–116, 142–160 and 162–168, and visually checked the illustrations at
+pp. 73, 105, 147, 154 and 164. Remaining page
 pointers in the rubric come from the earlier Elegant review. The original is
 kept in the ignored sibling <code>nossaifd-talks/books</code> folder; no book pages are
 redistributed here. The present classifications are our own judgments, and no
@@ -190,9 +203,9 @@ contract, not merely in accessibility footnotes.</p>
 </tr>
 <tr>
 <td><strong>Atelier</strong></td>
-<td>Cool near-white, teal-grey text and DM Sans give the clearest technical/studio voice. Quiet panels support grouping.</td>
+<td>Cool near-white, teal-grey text and DM Sans give a clear technical/studio voice. Quiet panels support grouping.</td>
 <td>Blue-green near-black and pale teal preserve the same relationships.</td>
-<td><strong>Primary presentation candidate.</strong> Retain both. Give primary content a stronger role than the current muted card text; tune a presentation scale and chart typography together.</td>
+<td><strong>Practical comparison base.</strong> Retain both. Give primary content a stronger role than the current muted card text; tune a presentation scale and chart typography together.</td>
 </tr>
 <tr>
 <td><strong>Nocturne</strong></td>
@@ -247,7 +260,10 @@ arguably cleaner than some more celebrated stock alternatives.</p>
 <p>The judgments below concern the current adaptation. A theme whose source relies
 on gradients, unusual borders or special component styling may lose much of
 that personality when only its colors and fonts are imported. Every row includes
-both modes; the nine priority rows above supply their fuller interpretation.</p>
+both modes; the nine priority rows above supply their fuller interpretation.
+Stock-theme repair language describes limitations for comparison and adoption;
+it is not a proposal to edit the original Bootswatch themes. Only our nine owned
+variants enter the change specification below.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -424,7 +440,7 @@ both modes; the nine priority rows above supply their fuller interpretation.</p>
 <td>Atelier</td>
 <td>Coherent technical/studio identity.</td>
 <td>Coherent teal-black companion.</td>
-<td>Advance both; primary base.</td>
+<td>Advance both; practical comparison base.</td>
 </tr>
 <tr>
 <td>Nocturne</td>
@@ -478,15 +494,2174 @@ both modes; the nine priority rows above supply their fuller interpretation.</p>
 surface, accent text separate from accent fill, state semantics separate from
 category colors, explicit body/heading/code font roles, and consistent light/dark
 relationships. Audit the paired SmallDocs CSS and Quarto Sass together if those
-roles change. The existing 640px reading width and 1.45 leading are document
-decisions; a projection profile needs different size/space decisions.</p>
+roles change. The current 640px reading width and 1.45 leading are document
+decisions; the proposal below revisits prose leading and defines a separate
+projection profile with different size/space assignments.</p>
 <p>Do not overwrite a source Reading theme with an htmpres-derived dark palette
 merely because it exists here. First decide whether that source project should
 publish a designed pair at all. Fixing htmpres adaptation defects can stay local
 to the importer/adapter unless a native source defect is independently reproduced.</p>
 <h2 id="provisional-selection-for-part-2">Provisional selection for Part 2</h2>
-<p>Advance <strong>all nine priority themes</strong>. Within them, test Atelier as the practical
-presentation default; Folio/Nocturne for distinct editorial voices; Tufte for a
+<p>Advance <strong>all nine priority themes</strong>. Within them, test Atelier as a practical
+presentation comparison; Folio/Nocturne for distinct editorial voices; Tufte for a
 minimal direction; and all five Reading alternatives with the repairs described
 above. Retain Bootstrap and stock Pulse/Simplex/Zephyr as comparison controls.
-No theme is selected for implementation yet.</p><footer>Decision draft · 9 November 2026 · <a href="01-design-language.md">Markdown source</a> · Synthetic data; production themes unchanged.</footer></main></body></html>
+No theme is selected for implementation yet.</p>
+<h2 id="proposed-changes-to-our-nine-themes-a-shared-foundation-two-reading-conditions">Proposed changes to our nine themes: a shared foundation, two reading conditions</h2>
+<p><strong>Working specification for joint review, added 9 November 2026.</strong> This is the
+actionable conclusion of Part 1. It supersedes any implication above that we
+should redesign stock Bootswatch themes or select one winner before defining
+the system. Our editable scope is <strong>Folio, Atelier, Nocturne, Tufte and all five
+Reading variants</strong>. Stock Bootswatch remains comparison material. Changes to a
+Reading variant belong to our named override/extension, not the upstream theme.
+For Tufte, the proposal concerns our adaptation, not a fork of its upstream philosophy.</p>
+<p>The aim is to give each family a complete vocabulary for text and interface
+components, then map that vocabulary deliberately to <strong>blogs/documents</strong> and
+<strong>presentations</strong>. Shared meaning does not require identical geometry. A Tufte
+text group and an Atelier panel can express the same grouping role without
+having the same border, background or shadow.</p>
+<p>The earlier observations measure the current htmpres adaptation. The proposal
+below also checks the owned Elegant sources: the custom themes' <code>theme.json</code>,
+<code>common.css</code> and <code>design.css</code>, and the Reading variants' <code>theme.json</code> and
+<code>reading.css</code>. That distinction matters: Reading sources already separate
+<code>link</code>, <code>button</code>, <code>on-button</code> and semantic-state colors. We should preserve that
+work, not recreate it under new names or “repair” a good button fill because it
+failed when the slide adapter reused it as text.</p>
+<h3 id="compatibility-with-part-2-before-choosing-values">Compatibility with Part 2, before choosing values</h3>
+<p>I read Part 2 before deriving this proposal. Its core recommendations complement
+this foundation: readable primary prose, surface-specific text roles, separate
+accent ink/fill, deliberate emphasis, and different document/projection scales.
+It does not require every theme to become a neutral sans-serif presentation.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Part 2 recommendation</th>
+<th>Part 1 foundation</th>
+<th>Relationship / decision still to make</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ordinary explanations must remain readable</td>
+<td>Paragraphs and list items use primary ink, including inside a card; supporting metadata alone uses secondary ink</td>
+<td>Agreement. This changes role assignment before changing every shade.</td>
+</tr>
+<tr>
+<td>Text accent must work on every intended surface</td>
+<td>Separate accent text, accent fill and text-on-fill; publish tested combinations</td>
+<td>Agreement. Carry the existing Reading source distinction through the adapter.</td>
+</tr>
+<tr>
+<td>Reduce competing visual emphasis</td>
+<td>Quiet default headings, one deliberate emphasis role, neutral secondary actions</td>
+<td>Agreement. A large palette is available vocabulary, not a demand to use every hue on one screen.</td>
+</tr>
+<tr>
+<td>Projection needs larger, stronger type</td>
+<td>Same finite type vocabulary; separate blog and audience-slide subsets</td>
+<td>Agreement on direction. Exact slide sizes below are proposed starting values, not a room-tested guarantee.</td>
+</tr>
+<tr>
+<td>Sans often survives projection better</td>
+<td>Preserve serif identities; propose stronger regular serif text and sans UI labels</td>
+<td>Open choice for Folio, Nocturne, Litera and Tufte: test serif body versus a sans projection profile. Do not silently remove their identity.</td>
+</tr>
+<tr>
+<td>Subtle panels may vanish in projection</td>
+<td>Blog panels may use quiet fills; slides must also group through spacing, headings and alignment</td>
+<td>Open choice: strengthen the boundary only when grouping needs it, or remove the box. Tufte starts with no box.</td>
+</tr>
+<tr>
+<td>Use brass/rust/red sparingly</td>
+<td>Retain family hues but stop automatically coloring all headings, controls and chart marks with them</td>
+<td>Open choice about the amount of emphasis, especially Nocturne and Simplex.</td>
+</tr>
+<tr>
+<td>Few typefaces simplify a slide</td>
+<td>Preserve distinct display/prose/UI/code roles, using only the needed subset in each view</td>
+<td>Folio's optional display face adds a fourth family on a code-heavy page. Compare keeping it only for covers versus simplifying to Source Serif + DM Sans + mono.</td>
+</tr>
+<tr>
+<td>Figures require data-appropriate colors</td>
+<td>UI swatches below are not a category cycle or scientific colormap</td>
+<td>Agreement. Part 3 chooses data encodings after these interface roles are stable.</td>
+</tr>
+</tbody>
+</table></div>
+<p>We will use that table when reviewing Part 2 together. The unresolved rows are
+choices to compare; this addition does not quietly decide all of them.</p>
+<h3 id="foundation-a-colors-are-named-by-job-with-explicit-combinations">Foundation A: colors are named by job, with explicit combinations</h3>
+<p>Keep the existing characteristic paper colors and hue families. Add the shades
+and distinct roles needed to use them consistently. The finite swatches below
+are <strong>candidate UI shades</strong>, derived from current anchors and checked after
+rounding to actual hex values. They are not claimed to be perceptually uniform
+scientific ramps. Named current anchors remain available when a useful existing
+color does not fall on a newly generated shade step.</p>
+<p>Use three layers: <strong>swatch → semantic role → component use</strong>. A component asks
+for <code>accent-text</code> or <code>surface-panel</code>, not “blue-500”; the light/dark role mapping
+chooses the swatch. A figure asks a different data-color API, not these UI roles.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Role contract</th>
+<th>Blog / general-theme use</th>
+<th>Presentation use</th>
+<th>What to stop doing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Paper, panel, code surface</td>
+<td>Page, optional grouped region, code block respectively</td>
+<td>Slide canvas, genuinely useful grouping, code area</td>
+<td>Do not nest tinted cards merely to fill the page, or force all prose onto a panel.</td>
+</tr>
+<tr>
+<td>Primary ink</td>
+<td>Article prose, list items, meaningful table values, field labels, callout body</td>
+<td>All audience explanations, data labels and essential captions</td>
+<td>Do not make <code>.card p</code> secondary by default.</td>
+</tr>
+<tr>
+<td>Secondary ink</td>
+<td>Dates, bylines, supporting descriptions, nonessential UI metadata</td>
+<td>Only supporting information, still large enough and visibly separated</td>
+<td>Do not use reduced opacity as a substitute for a tested color.</td>
+</tr>
+<tr>
+<td>Accent text</td>
+<td>Links, selected labels, deliberate inline emphasis</td>
+<td>One intended emphasis; links with a non-color cue</td>
+<td>Do not reuse button fill as small text merely because both belong to the same hue family.</td>
+</tr>
+<tr>
+<td>Accent fill + on-accent ink</td>
+<td>Primary button, checked control, selected control when a fill is needed</td>
+<td>Sparse diagram/emphasis fill or local controls</td>
+<td>Do not assume on-fill ink is always white, or always the page color. Test the pair.</td>
+</tr>
+<tr>
+<td>Secondary action / secondary text</td>
+<td>Neutral alternative button; an optional second accent only for a defined job</td>
+<td>Mostly neutral supporting labels; editorial secondary hue used deliberately</td>
+<td>Do not give four Reading themes arbitrary extra hues merely to fill five legacy color aliases.</td>
+</tr>
+<tr>
+<td>Decorative line</td>
+<td>Dividers, table rules and gentle panel boundaries</td>
+<td>Optional organizational rule</td>
+<td>A decorative line is not automatically strong enough to identify a control.</td>
+</tr>
+<tr>
+<td>Control boundary / focus</td>
+<td>Input outline and visible keyboard focus against the actual adjacent surface</td>
+<td>Interactive controls; presentation canvas content uses separate grouping decisions</td>
+<td>Do not make every decorative line dark just to repair input boundaries.</td>
+</tr>
+<tr>
+<td>Success / warning / danger / information</td>
+<td>Explicit state background, state ink, border and word/icon</td>
+<td>Only where those meanings exist in the material</td>
+<td>Simplex brand red is not an error state; Nocturne purple is not “negative data.”</td>
+</tr>
+</tbody>
+</table></div>
+<p>The candidate screen uses <strong>5:1 for normal UI text roles on their specified
+paper/panel/code surfaces</strong>, <strong>4.5:1 for text on a filled button</strong>, and <strong>3:1
+for the tested focus/control boundary</strong>. The 5:1 target is our modest reserve
+over the usual 4.5 normal-text screen; it is not a new WCAG rule or a guarantee
+under projection. Decorative rules and large heatmap cells have other jobs.
+The evidence table reports exactly which pairs were tested. Hover, disabled,
+selected, pressed and error states must be mapped and checked as complete
+components before production adoption; a base palette alone is not a complete
+interaction audit.</p>
+<p>For primary link/button hover, prefer another appropriate shade of the same
+family, or an underline/boundary change. The custom blog sources currently map
+primary hover to the secondary hue; changing a green primary action to rust
+on hover should become a conscious design choice, not a generic default.
+Do not make all secondary actions colorful. Preserve word/icon cues for states.</p>
+<h3 id="foundation-b-a-finite-typography-ladder-and-explicit-font-jobs">Foundation B: a finite typography ladder and explicit font jobs</h3>
+<p>Refactoring UI's hand-selected size scale on p. 105 supplies the vocabulary:
+<strong>12, 14, 16, 18, 20, 24, 30, 36, 48, 60, 72</strong>. Its spacing chapter, pp. 70–74,
+and type chapter, pp. 102–107, favor a constrained set of useful decisions over
+an arbitrary size for every selector. We freshly checked those passages and
+the scale illustrations for this addition. The following assignments are ours.</p>
+<p>For blogs, express these nominal CSS-pixel values in <code>rem</code> against a normal
+16px browser reference (18px = 1.125rem, 20px = 1.25rem), while honoring user text
+preferences. Set body size as a role; do not reset the root to 17px and then
+silently reinterpret the whole ladder. For the current 1280×720 slide canvas,
+these are design-coordinate pixels before the whole slide is scaled to fit.
+They are neither physical projector pixels nor point sizes. A responsive
+reading view of the slide deck needs the blog profile rather than tiny scaled
+presentation text. Avoid nested <code>em</code> font-size multiplication; relative units
+remain useful for line length and local optical details.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Blog/document profile</th>
+<th>Audience-slide profile</th>
+<th>Explicit exclusions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Small metadata</td>
+<td>14; 16 when important</td>
+<td>24 if the audience must read it</td>
+<td>12 reserved for exceptional nonessential UI badges; never article prose or required slide text.</td>
+</tr>
+<tr>
+<td>Navigation, controls, form labels</td>
+<td>16, normal/medium weight</td>
+<td>14–16 only in presenter/editor controls outside the audience canvas</td>
+<td>Don't project the reader's sidebar or shrink control labels to 10–12px to preserve a layout.</td>
+</tr>
+<tr>
+<td>Body and list text</td>
+<td>18 for sans families; 20 for serif prose</td>
+<td>30 regular; 36 for a short key statement</td>
+<td>No 16–20px audience paragraphs. Dense material must get a different layout, not automatic shrink-to-fit.</td>
+</tr>
+<tr>
+<td>Lead / standfirst</td>
+<td>20 or 24</td>
+<td>36</td>
+<td>It is a separate role, not a random local percentage.</td>
+</tr>
+<tr>
+<td>Minor heading</td>
+<td>20 or 24</td>
+<td>36</td>
+<td>Use weight/spacing as well as size; don't need an additional heading size for every component.</td>
+</tr>
+<tr>
+<td>Section heading</td>
+<td>30</td>
+<td>36 or 48 according to level</td>
+<td>Keep the same level consistent within the artifact.</td>
+</tr>
+<tr>
+<td>Page / slide title</td>
+<td>36; 48 for editorial display on wider screens</td>
+<td>48</td>
+<td>Long titles can wrap; do not automatically compress letter spacing until they fit.</td>
+</tr>
+<tr>
+<td>Cover / display</td>
+<td>48, occasionally 60 on a landing page</td>
+<td>60 or 72</td>
+<td>72 is not the default title of every slide or article.</td>
+</tr>
+<tr>
+<td>Code</td>
+<td>16; inline code aligned optically with surrounding text</td>
+<td>24 minimum trial, 30 preferred</td>
+<td>No inherited .78/.85rem code captions. Wrapping, excerpting or another view precedes shrinking.</td>
+</tr>
+<tr>
+<td>Table / figure labels</td>
+<td>16–18, depending on importance</td>
+<td>24–30 at the placed size</td>
+<td>A plot's internal 12pt setting says nothing about its final size after embedding.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Use line heights as a small independent set: <strong>1.1/1.2 for short display and
+headings, 1.35 for slides, 1.5 for UI/code, 1.6 for long prose</strong>. These are
+starting role assignments; check actual font metrics and avoid fixed-height
+containers that clip accents or descenders. Use regular 400 body text and a
+real available 600/700 for hierarchy. Folio's display face is 400 only; Lato's
+bundled emphasis is 700. Do not request an unavailable 600 and mistake synthetic
+weight for a carefully designed typographic step.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Theme</th>
+<th>Prose / explanatory text</th>
+<th>Headings and display</th>
+<th>UI, labels and code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Folio</td>
+<td>Source Serif 4, 20 blog / 30 slide</td>
+<td>Libre Caslon Display only at large title/display sizes; Source Serif 4 for section headings</td>
+<td>DM Sans UI/labels; IBM Plex Mono code. Sans slide-body alternate remains a Part 2 choice.</td>
+</tr>
+<tr>
+<td>Atelier</td>
+<td>DM Sans, 18 / 30</td>
+<td>DM Sans; use real 600 for smaller hierarchy and 400/600 for large titles</td>
+<td>Same sans UI; IBM Plex Mono code. Relax very tight tracking at small sizes.</td>
+</tr>
+<tr>
+<td>Nocturne</td>
+<td>Source Serif 4, 20 / 30</td>
+<td>Source Serif 4, with warm color reserved for selected emphasis</td>
+<td>DM Sans UI/labels; IBM Plex Mono code. Sans slide-body alternate remains open.</td>
+</tr>
+<tr>
+<td>Tufte</td>
+<td>ET Book, 20 / 30, existing serif fallback when unavailable</td>
+<td>ET Book regular for projected headings; italic sectional headings remain an optional reading characteristic</td>
+<td>Preserve restrained existing UI/mono fallbacks; do not claim DejaVu Serif in a plot is ET Book.</td>
+</tr>
+<tr>
+<td>Zephyr Reading</td>
+<td>Inter, 18 / 30</td>
+<td>Inter 600/700 where delivered</td>
+<td>Inter UI; IBM Plex Mono code.</td>
+</tr>
+<tr>
+<td>Simplex Reading</td>
+<td>Open Sans, 18 / 30</td>
+<td>Open Sans 600/700</td>
+<td>Open Sans UI; IBM Plex Mono code.</td>
+</tr>
+<tr>
+<td>Pulse Reading</td>
+<td>System sans, 18 / 30</td>
+<td>Same system family; deliberate hierarchy</td>
+<td>System UI; IBM Plex Mono code. Platform variation is explicit, not a font-loading failure.</td>
+</tr>
+<tr>
+<td>Litera Reading</td>
+<td>Georgia, 20 / 30</td>
+<td>System sans for section headings; serif prose remains distinctive</td>
+<td>System sans UI/labels; IBM Plex Mono code. Compare sans slide-body only in Part 2.</td>
+</tr>
+<tr>
+<td>Darkly Reading</td>
+<td>Lato, 18 / 30</td>
+<td>Lato 700 emphasis; 400 ordinary text</td>
+<td>Lato UI; IBM Plex Mono code.</td>
+</tr>
+</tbody>
+</table></div>
+<p>This replaces scattered size multipliers in our owned overrides. It does not
+replace every serif with sans, force all headings into the accent color, or
+make the original Bootswatch defaults conform to our scale.</p>
+<h3 id="foundation-c-spacing-measure-and-surface-treatment">Foundation C: spacing, measure and surface treatment</h3>
+<p>Use one <strong>spacing vocabulary</strong> with different role assignments:
+<strong>0, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128</strong>. This is the useful lower subset of
+the example on Refactoring UI p. 73, with zero added for deliberately unboxed
+content. Gaps get farther apart as they grow; do not generate every multiple
+of four. Border widths <strong>1 and 2</strong> and radii <strong>0, 2, 4, 8</strong> are separate scales,
+not violations of the spacing vocabulary. Larger sizing values such as 640
+belong to a container-width decision, not a 640px paragraph margin.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Layout job</th>
+<th>Blog/document mapping</th>
+<th>1280×720 presentation mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Page edge / safe area</td>
+<td>24 desktop gutter, 16 narrow screen; content centered within available width</td>
+<td>64 canvas inset; 48 may be tested as a deliberate compact profile, not an automatic fallback</td>
+</tr>
+<tr>
+<td>Related inline items</td>
+<td>8; 4 for tight icon/label relation</td>
+<td>12 or 16 for meaningful adjacent items</td>
+</tr>
+<tr>
+<td>Label → field / heading → its text</td>
+<td>8 for form labels; 12 or 16 after a heading</td>
+<td>16 within a group; 32 from main title to content</td>
+</tr>
+<tr>
+<td>Paragraph separation</td>
+<td>16, without also stacking an equal top margin</td>
+<td>24</td>
+</tr>
+<tr>
+<td>New subsection</td>
+<td>32 above a minor heading, 48 above a major section</td>
+<td>32 between blocks; 48 between genuinely separate groups</td>
+</tr>
+<tr>
+<td>Columns</td>
+<td>32 between related content columns; wider layout may use 48</td>
+<td>48 default; do not buy another column by shrinking body text</td>
+</tr>
+<tr>
+<td>Bounded panel / code padding</td>
+<td>24 panel; 16–24 code according to density</td>
+<td>32 panel; 24–32 code</td>
+</tr>
+<tr>
+<td>Unboxed text grouping</td>
+<td>0 inner padding; groups separated by 32/48</td>
+<td>0 inner padding; groups separated by 32/48, particularly Tufte</td>
+</tr>
+<tr>
+<td>Major opening / closing space</td>
+<td>64; 96 only for a deliberately spacious landing section</td>
+<td>64 or 96 for cover compositions; 128 only where content permits</td>
+</tr>
+</tbody>
+</table></div>
+<p>The grouping rule is more important than the particular number: <strong>space between
+groups exceeds space within a group</strong>. A 16px heading-to-text gap and 48px
+between sections explains hierarchy without another box. Do not apply padding
+and margins twice at nested container boundaries.</p>
+<p>For blog prose, start with the existing <strong>640px maximum</strong> and check actual line
+length, aiming around <strong>55–70 characters</strong>, within the book's 45–75 range
+(pp. 114–116). A 60–65ch constraint is a useful approximation, not a character
+counter; serif and sans metrics differ. Figures and tables may extend beyond
+the prose measure. Keep the wider article layout available for navigation and
+margin notes, but collapse those columns on narrow screens. Use the larger
+sans/serif body size to improve reading without automatically widening the text.</p>
+<p>For slides, use the content's geometry: two columns are appropriate only when
+the proposed sizes and gaps fit. Keep title, body and figures aligned to a few
+shared guides. A framed preview in the authoring application may help distinguish
+the slide from the surrounding window; the <strong>projected/exported canvas itself
+gets no permanent drop shadow or ornamental rounded frame</strong>.</p>
+<p>Default component shape is intentionally different by family: Folio radius 2,
+Atelier 0, Nocturne 4, Tufte 0, Zephyr Reading 8, Simplex Reading 2, Pulse Reading
+4, Litera Reading 2 and Darkly Reading 4. These are proposed choices from the
+radius vocabulary, not claims that every source currently has those values.
+Use <strong>no resting card shadow</strong> in these starting profiles. A blog menu or dialog
+may use one restrained elevation treatment to communicate overlap; an article
+paragraph is not a floating object. Tufte begins without card fill, border,
+radius or shadow; code and meaningful warnings can still have functional
+boundaries. Atelier retains square ruled organization rather than inheriting
+the rounded common slide shell.</p>
+<h3 id="the-swatches-and-ladders-to-use">The swatches and ladders to use</h3>
+<p>The following generated specimens make the proposal inspectable. Each family
+has neutral and accent shades, preserved anchors, and light/dark role choices.
+The numeric results distinguish a changed text role from a retained fill.
+The shared type and spacing boards show the vocabulary; the tables above
+specify which steps belong in which medium. This is an available vocabulary,
+not a mandate to use every step on every page.</p>
+<p>The numbered families run from pale 50 to dark 950, with the current light-mode
+hue anchor at 500. They are candidates for future component states, not a rule
+that every primary button must use 500 in both modes. For this first profile,
+use the explicit named anchors and tested role assignments shown on each board;
+leave the other shade steps unused until a component needs them. This preserves
+the designed dark-mode hues and paper temperature instead of replacing them
+with mechanically chosen numbers.</p>
+<p>These examples make the distinction between a role repair and a redesign
+concrete. The ratios here are against the panel; the full evidence also checks
+paper and code surfaces. A value just below our proposed 5:1 reserve is not
+automatically a failure of the usual 4.5:1 text screen.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Theme / mode</th>
+<th>Proposed role change</th>
+<th>Panel contrast, current → candidate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Folio light</td>
+<td>Supporting ink <code>#5f6b62</code> → <code>#5a655d</code>; main ink and paper retained</td>
+<td>4.61 → 5.03</td>
+</tr>
+<tr>
+<td>Atelier light</td>
+<td>Supporting ink <code>#526d70</code> → <code>#516b6e</code></td>
+<td>4.95 → 5.09</td>
+</tr>
+<tr>
+<td>Nocturne light</td>
+<td>Supporting ink <code>#626779</code> → <code>#5e6274</code></td>
+<td>4.66 → 5.01</td>
+</tr>
+<tr>
+<td>Tufte light</td>
+<td>Supporting ink <code>#6b6b69</code> → <code>#6a6a68</code>; this is only a small reserve adjustment</td>
+<td>4.998 → 5.07</td>
+</tr>
+<tr>
+<td>Zephyr Reading dark</td>
+<td>Accent text <code>#6782ec</code> → <code>#8595f0</code>; keep fill separate</td>
+<td>3.97 → 5.02</td>
+</tr>
+<tr>
+<td>Simplex Reading dark</td>
+<td>Accent text <code>#d16c62</code> → <code>#da8075</code>; keep fill separate</td>
+<td>4.13 → 5.01</td>
+</tr>
+<tr>
+<td>Pulse Reading dark</td>
+<td>Accent text <code>#9379bb</code> → <code>#a58fc6</code>; keep fill separate</td>
+<td>3.90 → 5.04</td>
+</tr>
+<tr>
+<td>Litera Reading dark</td>
+<td>Accent text <code>#6689bc</code> → <code>#819cc7</code>; keep fill separate</td>
+<td>3.93 → 5.03</td>
+</tr>
+<tr>
+<td>Darkly Reading dark</td>
+<td>Secondary text <code>#375a7f</code> → <code>#90a0b6</code>; <strong>retain <code>#375a7f</code> button fill with white ink</strong></td>
+<td>1.86 → 5.00</td>
+</tr>
+<tr>
+<td>Darkly Reading light</td>
+<td>Accent text <code>#556d87</code> → <code>#50667f</code></td>
+<td>4.52 → 5.00</td>
+</tr>
+</tbody>
+</table></div>
+<p>The four light-native Reading themes also get neutral secondary text rather
+than a duplicate brand accent. Their native link/button distinction remains.
+The generated table contains <strong>342 base role/surface checks across 18 modes</strong>;
+state ink/border pairs and Tufte's optional highlight fill/ink are checked
+separately. None of these candidate hex values has been applied to production.</p>
+<section id="foundation-specimens"><style>@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/dm-sans-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/dm-sans-500-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/dm-sans-600-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/dm-sans-700-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-500-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Libre Caslon Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/libre-caslon-display-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/source-serif-4-400-italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/source-serif-4-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/source-serif-4-600-normal.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/dm-sans-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/dm-sans-500-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/dm-sans-600-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/dm-sans-700-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-500-normal.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/dm-sans-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/dm-sans-500-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/dm-sans-600-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/dm-sans-700-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-500-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/source-serif-4-400-italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/source-serif-4-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/source-serif-4-600-normal.ttf) format('truetype');
+}
+
+/*!
+ * smalldocs-tufte: a Tufte CSS theme for smalldocs and Quarto. https://github.com/rahuldave/smalldocs-tufte
+ * The look follows Tufte CSS, Copyright (c) 2014 Dave Liepmann, MIT (https://github.com/edwardtufte/tufte-css).
+ * ET Book, Copyright (c) 2015 Dmitry Krasny, Bonnie Scranton, Edward Tufte, MIT (https://github.com/edwardtufte/et-book).
+ * This file is Bootstrap 5.3.8 (above) followed by the Tufte rules (below).
+ */
+@font-face { font-family: "et-book"; src: url(../../_extensions/htmpres/themes/fonts/et-book-roman-line-figures.woff) format("woff"); font-weight: normal; font-style: normal; font-display: swap; }
+@font-face { font-family: "et-book"; src: url(../../_extensions/htmpres/themes/fonts/et-book-display-italic-old-style-figures.woff) format("woff"); font-weight: normal; font-style: italic; font-display: swap; }
+@font-face { font-family: "et-book"; src: url(../../_extensions/htmpres/themes/fonts/et-book-bold-line-figures.woff) format("woff"); font-weight: bold; font-style: normal; font-display: swap; }
+@font-face { font-family: "et-book-roman-old-style"; src: url(../../_extensions/htmpres/themes/fonts/et-book-roman-old-style-figures.woff) format("woff"); font-weight: normal; font-style: normal; font-display: swap; }
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/inter-400-italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/inter-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/inter-600-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/inter-700-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-500-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/open-sans-400-italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/open-sans-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/open-sans-600-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/open-sans-700-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-500-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-500-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-500-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/lato-400-italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/lato-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/lato-700-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-400-normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../../_extensions/htmpres/themes/fonts/ibm-plex-mono-500-normal.ttf) format('truetype');
+}.fb{margin:24px 0;padding:24px;border:1px solid #88958d;overflow:hidden}.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:8px}.fc{font:12px/1.4 system-ui;overflow-wrap:anywhere;padding:6px}.fc i{display:block;height:36px;border:1px solid currentColor}.ft{font-synthesis:none;overflow-wrap:anywhere}.ft p{margin:12px 0}.fr{font:14px/1.6 system-ui;overflow-wrap:anywhere}.fs{display:flex;align-items:center;gap:16px;margin:8px 0}.fs i{height:16px;background:#365d50;flex:none}</style><h2>Candidate foundation specimens</h2><p>Research proposals; stock Bootswatch remains reference-only. General blog paired modes are proposals, not existing native Reading pairs. Numerical reserves do not guarantee physical projection performance.</p><p>CIELAB straight segments through white / original light anchor / black, sRGB channel clipping and 8-bit rounding. Not perceptually uniform or scientific colormaps. Repairs take first 0.001 Lab step toward best black/white endpoint meeting every intended surface. Original named anchors retained.</p><h3>Shared type ladder</h3><div class="ft">
+<p style="font-size:12px;line-height:1.2">12 · Reading ideas</p>
+<p style="font-size:14px;line-height:1.2">14 · Reading ideas</p>
+<p style="font-size:16px;line-height:1.2">16 · Reading ideas</p>
+<p style="font-size:18px;line-height:1.2">18 · Reading ideas</p>
+<p style="font-size:20px;line-height:1.2">20 · Reading ideas</p>
+<p style="font-size:24px;line-height:1.2">24 · Reading ideas</p>
+<p style="font-size:30px;line-height:1.2">30 · Reading ideas</p>
+<p style="font-size:36px;line-height:1.2">36 · Reading ideas</p>
+<p style="font-size:48px;line-height:1.2">48 · Reading ideas</p>
+<p style="font-size:60px;line-height:1.2">60 · Reading ideas</p>
+<p style="font-size:72px;line-height:1.2">72 · Reading ideas</p>
+</div><p>Reading: metadata 14; navigation/control 16; sans body 18, serif body 20; heading 24/30/36; Folio/Nocturne optional display 48. Slides: body 30, key text 36, heading 36, title 48, hero 60/72, caption/code 24 (code 30 preferred). Below 24 is outside audience canvas or presenter controls; 12 only nonessential editor detail. Refactoring UI type p105.</p><h3>Shared spacing ladder</h3>
+<div class="fs"><span>0px</span><i style="width:0px"></i></div>
+<div class="fs"><span>4px</span><i style="width:4px"></i></div>
+<div class="fs"><span>8px</span><i style="width:8px"></i></div>
+<div class="fs"><span>12px</span><i style="width:12px"></i></div>
+<div class="fs"><span>16px</span><i style="width:16px"></i></div>
+<div class="fs"><span>24px</span><i style="width:24px"></i></div>
+<div class="fs"><span>32px</span><i style="width:32px"></i></div>
+<div class="fs"><span>48px</span><i style="width:48px"></i></div>
+<div class="fs"><span>64px</span><i style="width:64px"></i></div>
+<div class="fs"><span>96px</span><i style="width:96px"></i></div>
+<div class="fs"><span>128px</span><i style="width:128px"></i></div>
+<p>Refactoring UI spacing p73 subset. Blog: paragraph gap 16; heading after 12/16 before 32/48; panel padding 24; section gap 48; outer gutter 24 desktop / 16 mobile. Slides: outer 64; columns 48; block gap 32; paragraph gap 24; title-content 32; panel padding 32; in-group 16. Tufte text groups unboxed without inner padding. Border 1/2 is separate. Radius vocabulary 0/2/4/8. No permanent slide/card shadow; only floating blog menus/editor preview UI.</p>
+<nav aria-label="Theme specimens"><a href="#foundation-folio">Folio</a> · <a href="#foundation-atelier">Atelier</a> · <a href="#foundation-nocturne">Nocturne</a> · <a href="#foundation-tufte">Tufte</a> · <a href="#foundation-zephyr-reading">Zephyr Reading</a> · <a href="#foundation-simplex-reading">Simplex Reading</a> · <a href="#foundation-pulse-reading">Pulse Reading</a> · <a href="#foundation-litera-reading">Litera Reading</a> · <a href="#foundation-darkly-reading">Darkly Reading</a></nav>
+<h3 id="foundation-folio">Folio · paired swatch board</h3>
+<article class="fb" style="background:#f8f4eb;color:#25372d;border-radius:2px"><h4>light · radius 2</h4><div class="fg">
+<div class="fc"><i style="background:#f8f4eb"></i>anchor-paper<br>#f8f4eb</div>
+<div class="fc"><i style="background:#25372d"></i>anchor-ink<br>#25372d</div>
+<div class="fc"><i style="background:#5f6b62"></i>anchor-muted<br>#5f6b62</div>
+<div class="fc"><i style="background:#efe9dc"></i>anchor-panel<br>#efe9dc</div>
+<div class="fc"><i style="background:#d4d6c7"></i>anchor-line<br>#d4d6c7</div>
+<div class="fc"><i style="background:#254f38"></i>anchor-accent<br>#254f38</div>
+<div class="fc"><i style="background:#9d442b"></i>anchor-secondary<br>#9d442b</div>
+<div class="fc"><i style="background:#eee9de"></i>anchor-code<br>#eee9de</div>
+<div class="fc"><i style="background:#e7e9e8"></i>neutral-50<br>#e7e9e8</div>
+<div class="fc"><i style="background:#cfd3d1"></i>neutral-100<br>#cfd3d1</div>
+<div class="fc"><i style="background:#a1a9a4"></i>neutral-200<br>#a1a9a4</div>
+<div class="fc"><i style="background:#75817a"></i>neutral-300<br>#75817a</div>
+<div class="fc"><i style="background:#4b5b52"></i>neutral-400<br>#4b5b52</div>
+<div class="fc"><i style="background:#25372d"></i>neutral-500<br>#25372d</div>
+<div class="fc"><i style="background:#1f2d25"></i>neutral-600<br>#1f2d25</div>
+<div class="fc"><i style="background:#19231e"></i>neutral-700<br>#19231e</div>
+<div class="fc"><i style="background:#141a16"></i>neutral-800<br>#141a16</div>
+<div class="fc"><i style="background:#0b100d"></i>neutral-900<br>#0b100d</div>
+<div class="fc"><i style="background:#060807"></i>neutral-950<br>#060807</div>
+<div class="fc"><i style="background:#e7ece9"></i>primary-50<br>#e7ece9</div>
+<div class="fc"><i style="background:#d0d9d4"></i>primary-100<br>#d0d9d4</div>
+<div class="fc"><i style="background:#a3b5aa"></i>primary-200<br>#a3b5aa</div>
+<div class="fc"><i style="background:#789282"></i>primary-300<br>#789282</div>
+<div class="fc"><i style="background:#4e705c"></i>primary-400<br>#4e705c</div>
+<div class="fc"><i style="background:#254f38"></i>primary-500<br>#254f38</div>
+<div class="fc"><i style="background:#20402e"></i>primary-600<br>#20402e</div>
+<div class="fc"><i style="background:#1a3124"></i>primary-700<br>#1a3124</div>
+<div class="fc"><i style="background:#15231a"></i>primary-800<br>#15231a</div>
+<div class="fc"><i style="background:#0d1510"></i>primary-900<br>#0d1510</div>
+<div class="fc"><i style="background:#070c09"></i>primary-950<br>#070c09</div>
+<div class="fc"><i style="background:#f8ebe8"></i>secondary-50<br>#f8ebe8</div>
+<div class="fc"><i style="background:#f0d8d1"></i>secondary-100<br>#f0d8d1</div>
+<div class="fc"><i style="background:#dfb2a4"></i>secondary-200<br>#dfb2a4</div>
+<div class="fc"><i style="background:#cb8d7a"></i>secondary-300<br>#cb8d7a</div>
+<div class="fc"><i style="background:#b56851"></i>secondary-400<br>#b56851</div>
+<div class="fc"><i style="background:#9d442b"></i>secondary-500<br>#9d442b</div>
+<div class="fc"><i style="background:#7c3824"></i>secondary-600<br>#7c3824</div>
+<div class="fc"><i style="background:#5d2b1d"></i>secondary-700<br>#5d2b1d</div>
+<div class="fc"><i style="background:#3f2016"></i>secondary-800<br>#3f2016</div>
+<div class="fc"><i style="background:#24140d"></i>secondary-900<br>#24140d</div>
+<div class="fc"><i style="background:#170c07"></i>secondary-950<br>#170c07</div>
+<div class="fc"><i style="background:#25372d"></i>candidate-ink<br>#25372d</div>
+<div class="fc"><i style="background:#5a655d"></i>candidate-muted<br>#5a655d</div>
+<div class="fc"><i style="background:#254f38"></i>candidate-accent-text<br>#254f38</div>
+<div class="fc"><i style="background:#9d442b"></i>candidate-secondary-text<br>#9d442b</div>
+<div class="fc"><i style="background:#254f38"></i>candidate-focus<br>#254f38</div>
+<div class="fc"><i style="background:#86877e"></i>candidate-control-boundary<br>#86877e</div>
+<div class="fc"><i style="background:#f8f4eb"></i>button-ink<br>#f8f4eb</div>
+</div><div class="ft">
+<p style="font-family:&quot;Source Serif 4&quot;, Georgia, serif;font-size:20px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:&quot;Source Serif 4&quot;,Georgia,serif;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:&quot;DM Sans&quot;,system-ui,sans-serif;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:&quot;Libre Caslon Display&quot;, Georgia, serif;font-size:48px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#efe9dc;padding:24px;font-family:&quot;Source Serif 4&quot;, Georgia, serif">
+      <p style="font-family:&quot;DM Sans&quot;,system-ui,sans-serif">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:&quot;Source Serif 4&quot;,Georgia,serif;font-size:30px;color:#25372d">A useful hierarchy</div>
+      <p style="font-size:20px;color:#25372d">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#5a655d;font-family:&quot;DM Sans&quot;,system-ui,sans-serif">Muted supporting text · metadata 14</p>
+      <p style="color:#254f38;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#9d442b">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:&quot;DM Sans&quot;,system-ui,sans-serif;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#254f38;color:#f8f4eb;border-radius:2px">Primary action</span>
+        <span style="color:#25372d">Secondary action</span>
+        <span style="padding:8px;border:2px solid #86877e;outline:2px solid #254f38;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #f8f4eb · ink → candidate-ink #25372d · muted → candidate-muted #5a655d · panel → anchor-panel #efe9dc · line → anchor-line #d4d6c7 · accent → anchor-accent #254f38 · secondary → anchor-secondary #9d442b · code → anchor-code #eee9de · accent-text → candidate-accent-text #254f38 · secondary-text → candidate-secondary-text #9d442b · focus → candidate-focus #254f38 · control-boundary → candidate-control-boundary #86877e · primary-fill → anchor-accent #254f38 · button-ink → button-ink #f8f4eb · secondary-action → candidate-ink #25372d</p><p class="fr">{&#x27;body&#x27;: &#x27;&quot;Source Serif 4&quot;, Georgia, serif&#x27;, &#x27;heading&#x27;: &#x27;&quot;Source Serif 4&quot;,Georgia,serif&#x27;, &#x27;ui&#x27;: &#x27;&quot;DM Sans&quot;,system-ui,sans-serif&#x27;, &#x27;display&#x27;: &#x27;&quot;Libre Caslon Display&quot;, Georgia, serif&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<article class="fb" style="background:#14271e;color:#eeeadd;border-radius:2px"><h4>dark · radius 2</h4><div class="fg">
+<div class="fc"><i style="background:#14271e"></i>anchor-paper<br>#14271e</div>
+<div class="fc"><i style="background:#eeeadd"></i>anchor-ink<br>#eeeadd</div>
+<div class="fc"><i style="background:#afbeb0"></i>anchor-muted<br>#afbeb0</div>
+<div class="fc"><i style="background:#1d3327"></i>anchor-panel<br>#1d3327</div>
+<div class="fc"><i style="background:#405548"></i>anchor-line<br>#405548</div>
+<div class="fc"><i style="background:#c3d5a4"></i>anchor-accent<br>#c3d5a4</div>
+<div class="fc"><i style="background:#e7ad80"></i>anchor-secondary<br>#e7ad80</div>
+<div class="fc"><i style="background:#1b3024"></i>anchor-code<br>#1b3024</div>
+<div class="fc"><i style="background:#e7e9e8"></i>neutral-50<br>#e7e9e8</div>
+<div class="fc"><i style="background:#cfd3d1"></i>neutral-100<br>#cfd3d1</div>
+<div class="fc"><i style="background:#a1a9a4"></i>neutral-200<br>#a1a9a4</div>
+<div class="fc"><i style="background:#75817a"></i>neutral-300<br>#75817a</div>
+<div class="fc"><i style="background:#4b5b52"></i>neutral-400<br>#4b5b52</div>
+<div class="fc"><i style="background:#25372d"></i>neutral-500<br>#25372d</div>
+<div class="fc"><i style="background:#1f2d25"></i>neutral-600<br>#1f2d25</div>
+<div class="fc"><i style="background:#19231e"></i>neutral-700<br>#19231e</div>
+<div class="fc"><i style="background:#141a16"></i>neutral-800<br>#141a16</div>
+<div class="fc"><i style="background:#0b100d"></i>neutral-900<br>#0b100d</div>
+<div class="fc"><i style="background:#060807"></i>neutral-950<br>#060807</div>
+<div class="fc"><i style="background:#e7ece9"></i>primary-50<br>#e7ece9</div>
+<div class="fc"><i style="background:#d0d9d4"></i>primary-100<br>#d0d9d4</div>
+<div class="fc"><i style="background:#a3b5aa"></i>primary-200<br>#a3b5aa</div>
+<div class="fc"><i style="background:#789282"></i>primary-300<br>#789282</div>
+<div class="fc"><i style="background:#4e705c"></i>primary-400<br>#4e705c</div>
+<div class="fc"><i style="background:#254f38"></i>primary-500<br>#254f38</div>
+<div class="fc"><i style="background:#20402e"></i>primary-600<br>#20402e</div>
+<div class="fc"><i style="background:#1a3124"></i>primary-700<br>#1a3124</div>
+<div class="fc"><i style="background:#15231a"></i>primary-800<br>#15231a</div>
+<div class="fc"><i style="background:#0d1510"></i>primary-900<br>#0d1510</div>
+<div class="fc"><i style="background:#070c09"></i>primary-950<br>#070c09</div>
+<div class="fc"><i style="background:#f8ebe8"></i>secondary-50<br>#f8ebe8</div>
+<div class="fc"><i style="background:#f0d8d1"></i>secondary-100<br>#f0d8d1</div>
+<div class="fc"><i style="background:#dfb2a4"></i>secondary-200<br>#dfb2a4</div>
+<div class="fc"><i style="background:#cb8d7a"></i>secondary-300<br>#cb8d7a</div>
+<div class="fc"><i style="background:#b56851"></i>secondary-400<br>#b56851</div>
+<div class="fc"><i style="background:#9d442b"></i>secondary-500<br>#9d442b</div>
+<div class="fc"><i style="background:#7c3824"></i>secondary-600<br>#7c3824</div>
+<div class="fc"><i style="background:#5d2b1d"></i>secondary-700<br>#5d2b1d</div>
+<div class="fc"><i style="background:#3f2016"></i>secondary-800<br>#3f2016</div>
+<div class="fc"><i style="background:#24140d"></i>secondary-900<br>#24140d</div>
+<div class="fc"><i style="background:#170c07"></i>secondary-950<br>#170c07</div>
+<div class="fc"><i style="background:#eeeadd"></i>candidate-ink<br>#eeeadd</div>
+<div class="fc"><i style="background:#afbeb0"></i>candidate-muted<br>#afbeb0</div>
+<div class="fc"><i style="background:#c3d5a4"></i>candidate-accent-text<br>#c3d5a4</div>
+<div class="fc"><i style="background:#e7ad80"></i>candidate-secondary-text<br>#e7ad80</div>
+<div class="fc"><i style="background:#c3d5a4"></i>candidate-focus<br>#c3d5a4</div>
+<div class="fc"><i style="background:#6a7b70"></i>candidate-control-boundary<br>#6a7b70</div>
+<div class="fc"><i style="background:#14271e"></i>button-ink<br>#14271e</div>
+</div><div class="ft">
+<p style="font-family:&quot;Source Serif 4&quot;, Georgia, serif;font-size:20px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:&quot;Source Serif 4&quot;,Georgia,serif;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:&quot;DM Sans&quot;,system-ui,sans-serif;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:&quot;Libre Caslon Display&quot;, Georgia, serif;font-size:48px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#1d3327;padding:24px;font-family:&quot;Source Serif 4&quot;, Georgia, serif">
+      <p style="font-family:&quot;DM Sans&quot;,system-ui,sans-serif">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:&quot;Source Serif 4&quot;,Georgia,serif;font-size:30px;color:#eeeadd">A useful hierarchy</div>
+      <p style="font-size:20px;color:#eeeadd">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#afbeb0;font-family:&quot;DM Sans&quot;,system-ui,sans-serif">Muted supporting text · metadata 14</p>
+      <p style="color:#c3d5a4;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#e7ad80">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:&quot;DM Sans&quot;,system-ui,sans-serif;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#c3d5a4;color:#14271e;border-radius:2px">Primary action</span>
+        <span style="color:#eeeadd">Secondary action</span>
+        <span style="padding:8px;border:2px solid #6a7b70;outline:2px solid #c3d5a4;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #14271e · ink → candidate-ink #eeeadd · muted → candidate-muted #afbeb0 · panel → anchor-panel #1d3327 · line → anchor-line #405548 · accent → anchor-accent #c3d5a4 · secondary → anchor-secondary #e7ad80 · code → anchor-code #1b3024 · accent-text → candidate-accent-text #c3d5a4 · secondary-text → candidate-secondary-text #e7ad80 · focus → candidate-focus #c3d5a4 · control-boundary → candidate-control-boundary #6a7b70 · primary-fill → anchor-accent #c3d5a4 · button-ink → button-ink #14271e · secondary-action → candidate-ink #eeeadd</p><p class="fr">{&#x27;body&#x27;: &#x27;&quot;Source Serif 4&quot;, Georgia, serif&#x27;, &#x27;heading&#x27;: &#x27;&quot;Source Serif 4&quot;,Georgia,serif&#x27;, &#x27;ui&#x27;: &#x27;&quot;DM Sans&quot;,system-ui,sans-serif&#x27;, &#x27;display&#x27;: &#x27;&quot;Libre Caslon Display&quot;, Georgia, serif&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<h3 id="foundation-atelier">Atelier · paired swatch board</h3>
+<article class="fb" style="background:#fbfcfa;color:#253e42;border-radius:0px"><h4>light · radius 0</h4><div class="fg">
+<div class="fc"><i style="background:#fbfcfa"></i>anchor-paper<br>#fbfcfa</div>
+<div class="fc"><i style="background:#253e42"></i>anchor-ink<br>#253e42</div>
+<div class="fc"><i style="background:#526d70"></i>anchor-muted<br>#526d70</div>
+<div class="fc"><i style="background:#eef3f1"></i>anchor-panel<br>#eef3f1</div>
+<div class="fc"><i style="background:#cddbd7"></i>anchor-line<br>#cddbd7</div>
+<div class="fc"><i style="background:#176a70"></i>anchor-accent<br>#176a70</div>
+<div class="fc"><i style="background:#9a493a"></i>anchor-secondary<br>#9a493a</div>
+<div class="fc"><i style="background:#edf2f0"></i>anchor-code<br>#edf2f0</div>
+<div class="fc"><i style="background:#e7eaea"></i>neutral-50<br>#e7eaea</div>
+<div class="fc"><i style="background:#d0d5d6"></i>neutral-100<br>#d0d5d6</div>
+<div class="fc"><i style="background:#a2acae"></i>neutral-200<br>#a2acae</div>
+<div class="fc"><i style="background:#768688"></i>neutral-300<br>#768688</div>
+<div class="fc"><i style="background:#4d6164"></i>neutral-400<br>#4d6164</div>
+<div class="fc"><i style="background:#253e42"></i>neutral-500<br>#253e42</div>
+<div class="fc"><i style="background:#1f3235"></i>neutral-600<br>#1f3235</div>
+<div class="fc"><i style="background:#1a2729"></i>neutral-700<br>#1a2729</div>
+<div class="fc"><i style="background:#141c1e"></i>neutral-800<br>#141c1e</div>
+<div class="fc"><i style="background:#0c1212"></i>neutral-900<br>#0c1212</div>
+<div class="fc"><i style="background:#060a0a"></i>neutral-950<br>#060a0a</div>
+<div class="fc"><i style="background:#e9eff0"></i>primary-50<br>#e9eff0</div>
+<div class="fc"><i style="background:#d2e0e1"></i>primary-100<br>#d2e0e1</div>
+<div class="fc"><i style="background:#a7c1c3"></i>primary-200<br>#a7c1c3</div>
+<div class="fc"><i style="background:#7ba3a7"></i>primary-300<br>#7ba3a7</div>
+<div class="fc"><i style="background:#4f868b"></i>primary-400<br>#4f868b</div>
+<div class="fc"><i style="background:#176a70"></i>primary-500<br>#176a70</div>
+<div class="fc"><i style="background:#195459"></i>primary-600<br>#195459</div>
+<div class="fc"><i style="background:#184043"></i>primary-700<br>#184043</div>
+<div class="fc"><i style="background:#152c2e"></i>primary-800<br>#152c2e</div>
+<div class="fc"><i style="background:#0f1a1a"></i>primary-900<br>#0f1a1a</div>
+<div class="fc"><i style="background:#081010"></i>primary-950<br>#081010</div>
+<div class="fc"><i style="background:#f7ece9"></i>secondary-50<br>#f7ece9</div>
+<div class="fc"><i style="background:#eed9d4"></i>secondary-100<br>#eed9d4</div>
+<div class="fc"><i style="background:#dcb4ab"></i>secondary-200<br>#dcb4ab</div>
+<div class="fc"><i style="background:#c79083"></i>secondary-300<br>#c79083</div>
+<div class="fc"><i style="background:#b26c5e"></i>secondary-400<br>#b26c5e</div>
+<div class="fc"><i style="background:#9a493a"></i>secondary-500<br>#9a493a</div>
+<div class="fc"><i style="background:#7a3b2f"></i>secondary-600<br>#7a3b2f</div>
+<div class="fc"><i style="background:#5b2e25"></i>secondary-700<br>#5b2e25</div>
+<div class="fc"><i style="background:#3e211b"></i>secondary-800<br>#3e211b</div>
+<div class="fc"><i style="background:#231511"></i>secondary-900<br>#231511</div>
+<div class="fc"><i style="background:#160c09"></i>secondary-950<br>#160c09</div>
+<div class="fc"><i style="background:#253e42"></i>candidate-ink<br>#253e42</div>
+<div class="fc"><i style="background:#516b6e"></i>candidate-muted<br>#516b6e</div>
+<div class="fc"><i style="background:#176a70"></i>candidate-accent-text<br>#176a70</div>
+<div class="fc"><i style="background:#9a493a"></i>candidate-secondary-text<br>#9a493a</div>
+<div class="fc"><i style="background:#176a70"></i>candidate-focus<br>#176a70</div>
+<div class="fc"><i style="background:#858d8b"></i>candidate-control-boundary<br>#858d8b</div>
+<div class="fc"><i style="background:#fbfcfa"></i>button-ink<br>#fbfcfa</div>
+</div><div class="ft">
+<p style="font-family:&quot;DM Sans&quot;, system-ui, sans-serif;font-size:18px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:&quot;DM Sans&quot;, system-ui, sans-serif;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:&quot;DM Sans&quot;,system-ui,sans-serif;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:&quot;DM Sans&quot;, system-ui, sans-serif;font-size:36px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#eef3f1;padding:24px;font-family:&quot;DM Sans&quot;, system-ui, sans-serif">
+      <p style="font-family:&quot;DM Sans&quot;,system-ui,sans-serif">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:&quot;DM Sans&quot;, system-ui, sans-serif;font-size:30px;color:#253e42">A useful hierarchy</div>
+      <p style="font-size:18px;color:#253e42">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#516b6e;font-family:&quot;DM Sans&quot;,system-ui,sans-serif">Muted supporting text · metadata 14</p>
+      <p style="color:#176a70;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#9a493a">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:&quot;DM Sans&quot;,system-ui,sans-serif;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#176a70;color:#fbfcfa;border-radius:0px">Primary action</span>
+        <span style="color:#253e42">Secondary action</span>
+        <span style="padding:8px;border:2px solid #858d8b;outline:2px solid #176a70;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #fbfcfa · ink → candidate-ink #253e42 · muted → candidate-muted #516b6e · panel → anchor-panel #eef3f1 · line → anchor-line #cddbd7 · accent → anchor-accent #176a70 · secondary → anchor-secondary #9a493a · code → anchor-code #edf2f0 · accent-text → candidate-accent-text #176a70 · secondary-text → candidate-secondary-text #9a493a · focus → candidate-focus #176a70 · control-boundary → candidate-control-boundary #858d8b · primary-fill → anchor-accent #176a70 · button-ink → button-ink #fbfcfa · secondary-action → candidate-ink #253e42</p><p class="fr">{&#x27;body&#x27;: &#x27;&quot;DM Sans&quot;, system-ui, sans-serif&#x27;, &#x27;heading&#x27;: &#x27;&quot;DM Sans&quot;, system-ui, sans-serif&#x27;, &#x27;ui&#x27;: &#x27;&quot;DM Sans&quot;,system-ui,sans-serif&#x27;, &#x27;display&#x27;: &#x27;&quot;DM Sans&quot;, system-ui, sans-serif&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<article class="fb" style="background:#152428;color:#e0eeeb;border-radius:0px"><h4>dark · radius 0</h4><div class="fg">
+<div class="fc"><i style="background:#152428"></i>anchor-paper<br>#152428</div>
+<div class="fc"><i style="background:#e0eeeb"></i>anchor-ink<br>#e0eeeb</div>
+<div class="fc"><i style="background:#a0b9b9"></i>anchor-muted<br>#a0b9b9</div>
+<div class="fc"><i style="background:#1b3034"></i>anchor-panel<br>#1b3034</div>
+<div class="fc"><i style="background:#365255"></i>anchor-line<br>#365255</div>
+<div class="fc"><i style="background:#84d0c6"></i>anchor-accent<br>#84d0c6</div>
+<div class="fc"><i style="background:#efb0a0"></i>anchor-secondary<br>#efb0a0</div>
+<div class="fc"><i style="background:#1b3034"></i>anchor-code<br>#1b3034</div>
+<div class="fc"><i style="background:#e7eaea"></i>neutral-50<br>#e7eaea</div>
+<div class="fc"><i style="background:#d0d5d6"></i>neutral-100<br>#d0d5d6</div>
+<div class="fc"><i style="background:#a2acae"></i>neutral-200<br>#a2acae</div>
+<div class="fc"><i style="background:#768688"></i>neutral-300<br>#768688</div>
+<div class="fc"><i style="background:#4d6164"></i>neutral-400<br>#4d6164</div>
+<div class="fc"><i style="background:#253e42"></i>neutral-500<br>#253e42</div>
+<div class="fc"><i style="background:#1f3235"></i>neutral-600<br>#1f3235</div>
+<div class="fc"><i style="background:#1a2729"></i>neutral-700<br>#1a2729</div>
+<div class="fc"><i style="background:#141c1e"></i>neutral-800<br>#141c1e</div>
+<div class="fc"><i style="background:#0c1212"></i>neutral-900<br>#0c1212</div>
+<div class="fc"><i style="background:#060a0a"></i>neutral-950<br>#060a0a</div>
+<div class="fc"><i style="background:#e9eff0"></i>primary-50<br>#e9eff0</div>
+<div class="fc"><i style="background:#d2e0e1"></i>primary-100<br>#d2e0e1</div>
+<div class="fc"><i style="background:#a7c1c3"></i>primary-200<br>#a7c1c3</div>
+<div class="fc"><i style="background:#7ba3a7"></i>primary-300<br>#7ba3a7</div>
+<div class="fc"><i style="background:#4f868b"></i>primary-400<br>#4f868b</div>
+<div class="fc"><i style="background:#176a70"></i>primary-500<br>#176a70</div>
+<div class="fc"><i style="background:#195459"></i>primary-600<br>#195459</div>
+<div class="fc"><i style="background:#184043"></i>primary-700<br>#184043</div>
+<div class="fc"><i style="background:#152c2e"></i>primary-800<br>#152c2e</div>
+<div class="fc"><i style="background:#0f1a1a"></i>primary-900<br>#0f1a1a</div>
+<div class="fc"><i style="background:#081010"></i>primary-950<br>#081010</div>
+<div class="fc"><i style="background:#f7ece9"></i>secondary-50<br>#f7ece9</div>
+<div class="fc"><i style="background:#eed9d4"></i>secondary-100<br>#eed9d4</div>
+<div class="fc"><i style="background:#dcb4ab"></i>secondary-200<br>#dcb4ab</div>
+<div class="fc"><i style="background:#c79083"></i>secondary-300<br>#c79083</div>
+<div class="fc"><i style="background:#b26c5e"></i>secondary-400<br>#b26c5e</div>
+<div class="fc"><i style="background:#9a493a"></i>secondary-500<br>#9a493a</div>
+<div class="fc"><i style="background:#7a3b2f"></i>secondary-600<br>#7a3b2f</div>
+<div class="fc"><i style="background:#5b2e25"></i>secondary-700<br>#5b2e25</div>
+<div class="fc"><i style="background:#3e211b"></i>secondary-800<br>#3e211b</div>
+<div class="fc"><i style="background:#231511"></i>secondary-900<br>#231511</div>
+<div class="fc"><i style="background:#160c09"></i>secondary-950<br>#160c09</div>
+<div class="fc"><i style="background:#e0eeeb"></i>candidate-ink<br>#e0eeeb</div>
+<div class="fc"><i style="background:#a0b9b9"></i>candidate-muted<br>#a0b9b9</div>
+<div class="fc"><i style="background:#84d0c6"></i>candidate-accent-text<br>#84d0c6</div>
+<div class="fc"><i style="background:#efb0a0"></i>candidate-secondary-text<br>#efb0a0</div>
+<div class="fc"><i style="background:#84d0c6"></i>candidate-focus<br>#84d0c6</div>
+<div class="fc"><i style="background:#64797b"></i>candidate-control-boundary<br>#64797b</div>
+<div class="fc"><i style="background:#152428"></i>button-ink<br>#152428</div>
+</div><div class="ft">
+<p style="font-family:&quot;DM Sans&quot;, system-ui, sans-serif;font-size:18px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:&quot;DM Sans&quot;, system-ui, sans-serif;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:&quot;DM Sans&quot;,system-ui,sans-serif;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:&quot;DM Sans&quot;, system-ui, sans-serif;font-size:36px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#1b3034;padding:24px;font-family:&quot;DM Sans&quot;, system-ui, sans-serif">
+      <p style="font-family:&quot;DM Sans&quot;,system-ui,sans-serif">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:&quot;DM Sans&quot;, system-ui, sans-serif;font-size:30px;color:#e0eeeb">A useful hierarchy</div>
+      <p style="font-size:18px;color:#e0eeeb">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#a0b9b9;font-family:&quot;DM Sans&quot;,system-ui,sans-serif">Muted supporting text · metadata 14</p>
+      <p style="color:#84d0c6;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#efb0a0">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:&quot;DM Sans&quot;,system-ui,sans-serif;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#84d0c6;color:#152428;border-radius:0px">Primary action</span>
+        <span style="color:#e0eeeb">Secondary action</span>
+        <span style="padding:8px;border:2px solid #64797b;outline:2px solid #84d0c6;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #152428 · ink → candidate-ink #e0eeeb · muted → candidate-muted #a0b9b9 · panel → anchor-panel #1b3034 · line → anchor-line #365255 · accent → anchor-accent #84d0c6 · secondary → anchor-secondary #efb0a0 · code → anchor-code #1b3034 · accent-text → candidate-accent-text #84d0c6 · secondary-text → candidate-secondary-text #efb0a0 · focus → candidate-focus #84d0c6 · control-boundary → candidate-control-boundary #64797b · primary-fill → anchor-accent #84d0c6 · button-ink → button-ink #152428 · secondary-action → candidate-ink #e0eeeb</p><p class="fr">{&#x27;body&#x27;: &#x27;&quot;DM Sans&quot;, system-ui, sans-serif&#x27;, &#x27;heading&#x27;: &#x27;&quot;DM Sans&quot;, system-ui, sans-serif&#x27;, &#x27;ui&#x27;: &#x27;&quot;DM Sans&quot;,system-ui,sans-serif&#x27;, &#x27;display&#x27;: &#x27;&quot;DM Sans&quot;, system-ui, sans-serif&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<h3 id="foundation-nocturne">Nocturne · paired swatch board</h3>
+<article class="fb" style="background:#f4f3f6;color:#292d43;border-radius:4px"><h4>light · radius 4</h4><div class="fg">
+<div class="fc"><i style="background:#f4f3f6"></i>anchor-paper<br>#f4f3f6</div>
+<div class="fc"><i style="background:#292d43"></i>anchor-ink<br>#292d43</div>
+<div class="fc"><i style="background:#626779"></i>anchor-muted<br>#626779</div>
+<div class="fc"><i style="background:#eae9ef"></i>anchor-panel<br>#eae9ef</div>
+<div class="fc"><i style="background:#d0cddc"></i>anchor-line<br>#d0cddc</div>
+<div class="fc"><i style="background:#71502f"></i>anchor-accent<br>#71502f</div>
+<div class="fc"><i style="background:#624e85"></i>anchor-secondary<br>#624e85</div>
+<div class="fc"><i style="background:#eae9ef"></i>anchor-code<br>#eae9ef</div>
+<div class="fc"><i style="background:#e7e8ea"></i>neutral-50<br>#e7e8ea</div>
+<div class="fc"><i style="background:#d0d1d6"></i>neutral-100<br>#d0d1d6</div>
+<div class="fc"><i style="background:#a3a4af"></i>neutral-200<br>#a3a4af</div>
+<div class="fc"><i style="background:#787a89"></i>neutral-300<br>#787a89</div>
+<div class="fc"><i style="background:#4f5265"></i>neutral-400<br>#4f5265</div>
+<div class="fc"><i style="background:#292d43"></i>neutral-500<br>#292d43</div>
+<div class="fc"><i style="background:#222536"></i>neutral-600<br>#222536</div>
+<div class="fc"><i style="background:#1c1e2a"></i>neutral-700<br>#1c1e2a</div>
+<div class="fc"><i style="background:#15161e"></i>neutral-800<br>#15161e</div>
+<div class="fc"><i style="background:#0d0d13"></i>neutral-900<br>#0d0d13</div>
+<div class="fc"><i style="background:#06070a"></i>neutral-950<br>#06070a</div>
+<div class="fc"><i style="background:#f1ece8"></i>primary-50<br>#f1ece8</div>
+<div class="fc"><i style="background:#e3d9d2"></i>primary-100<br>#e3d9d2</div>
+<div class="fc"><i style="background:#c7b5a6"></i>primary-200<br>#c7b5a6</div>
+<div class="fc"><i style="background:#aa927c"></i>primary-300<br>#aa927c</div>
+<div class="fc"><i style="background:#8e7054"></i>primary-400<br>#8e7054</div>
+<div class="fc"><i style="background:#71502f"></i>primary-500<br>#71502f</div>
+<div class="fc"><i style="background:#5a4027"></i>primary-600<br>#5a4027</div>
+<div class="fc"><i style="background:#44311f"></i>primary-700<br>#44311f</div>
+<div class="fc"><i style="background:#2f2317"></i>primary-800<br>#2f2317</div>
+<div class="fc"><i style="background:#1c150e"></i>primary-900<br>#1c150e</div>
+<div class="fc"><i style="background:#110c07"></i>primary-950<br>#110c07</div>
+<div class="fc"><i style="background:#efecf2"></i>secondary-50<br>#efecf2</div>
+<div class="fc"><i style="background:#ded9e6"></i>secondary-100<br>#ded9e6</div>
+<div class="fc"><i style="background:#bfb4cd"></i>secondary-200<br>#bfb4cd</div>
+<div class="fc"><i style="background:#9f91b5"></i>secondary-300<br>#9f91b5</div>
+<div class="fc"><i style="background:#806f9d"></i>secondary-400<br>#806f9d</div>
+<div class="fc"><i style="background:#624e85"></i>secondary-500<br>#624e85</div>
+<div class="fc"><i style="background:#4e3f69"></i>secondary-600<br>#4e3f69</div>
+<div class="fc"><i style="background:#3c304e"></i>secondary-700<br>#3c304e</div>
+<div class="fc"><i style="background:#2a2235"></i>secondary-800<br>#2a2235</div>
+<div class="fc"><i style="background:#19151e"></i>secondary-900<br>#19151e</div>
+<div class="fc"><i style="background:#0f0c12"></i>secondary-950<br>#0f0c12</div>
+<div class="fc"><i style="background:#292d43"></i>candidate-ink<br>#292d43</div>
+<div class="fc"><i style="background:#5e6274"></i>candidate-muted<br>#5e6274</div>
+<div class="fc"><i style="background:#71502f"></i>candidate-accent-text<br>#71502f</div>
+<div class="fc"><i style="background:#624e85"></i>candidate-secondary-text<br>#624e85</div>
+<div class="fc"><i style="background:#71502f"></i>candidate-focus<br>#71502f</div>
+<div class="fc"><i style="background:#87858f"></i>candidate-control-boundary<br>#87858f</div>
+<div class="fc"><i style="background:#f4f3f6"></i>button-ink<br>#f4f3f6</div>
+</div><div class="ft">
+<p style="font-family:&quot;Source Serif 4&quot;, Georgia, serif;font-size:20px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:&quot;Source Serif 4&quot;, Georgia, serif;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:&quot;DM Sans&quot;,system-ui,sans-serif;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:&quot;Source Serif 4&quot;, Georgia, serif;font-size:48px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#eae9ef;padding:24px;font-family:&quot;Source Serif 4&quot;, Georgia, serif">
+      <p style="font-family:&quot;DM Sans&quot;,system-ui,sans-serif">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:&quot;Source Serif 4&quot;, Georgia, serif;font-size:30px;color:#292d43">A useful hierarchy</div>
+      <p style="font-size:20px;color:#292d43">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#5e6274;font-family:&quot;DM Sans&quot;,system-ui,sans-serif">Muted supporting text · metadata 14</p>
+      <p style="color:#71502f;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#624e85">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:&quot;DM Sans&quot;,system-ui,sans-serif;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#71502f;color:#f4f3f6;border-radius:4px">Primary action</span>
+        <span style="color:#292d43">Secondary action</span>
+        <span style="padding:8px;border:2px solid #87858f;outline:2px solid #71502f;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #f4f3f6 · ink → candidate-ink #292d43 · muted → candidate-muted #5e6274 · panel → anchor-panel #eae9ef · line → anchor-line #d0cddc · accent → anchor-accent #71502f · secondary → anchor-secondary #624e85 · code → anchor-code #eae9ef · accent-text → candidate-accent-text #71502f · secondary-text → candidate-secondary-text #624e85 · focus → candidate-focus #71502f · control-boundary → candidate-control-boundary #87858f · primary-fill → anchor-accent #71502f · button-ink → button-ink #f4f3f6 · secondary-action → candidate-ink #292d43</p><p class="fr">{&#x27;body&#x27;: &#x27;&quot;Source Serif 4&quot;, Georgia, serif&#x27;, &#x27;heading&#x27;: &#x27;&quot;Source Serif 4&quot;, Georgia, serif&#x27;, &#x27;ui&#x27;: &#x27;&quot;DM Sans&quot;,system-ui,sans-serif&#x27;, &#x27;display&#x27;: &#x27;&quot;Source Serif 4&quot;, Georgia, serif&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<article class="fb" style="background:#1c2030;color:#ede8de;border-radius:4px"><h4>dark · radius 4</h4><div class="fg">
+<div class="fc"><i style="background:#1c2030"></i>anchor-paper<br>#1c2030</div>
+<div class="fc"><i style="background:#ede8de"></i>anchor-ink<br>#ede8de</div>
+<div class="fc"><i style="background:#b5b6c3"></i>anchor-muted<br>#b5b6c3</div>
+<div class="fc"><i style="background:#242a3c"></i>anchor-panel<br>#242a3c</div>
+<div class="fc"><i style="background:#42485d"></i>anchor-line<br>#42485d</div>
+<div class="fc"><i style="background:#e2bd82"></i>anchor-accent<br>#e2bd82</div>
+<div class="fc"><i style="background:#c6b4e1"></i>anchor-secondary<br>#c6b4e1</div>
+<div class="fc"><i style="background:#252b3e"></i>anchor-code<br>#252b3e</div>
+<div class="fc"><i style="background:#e7e8ea"></i>neutral-50<br>#e7e8ea</div>
+<div class="fc"><i style="background:#d0d1d6"></i>neutral-100<br>#d0d1d6</div>
+<div class="fc"><i style="background:#a3a4af"></i>neutral-200<br>#a3a4af</div>
+<div class="fc"><i style="background:#787a89"></i>neutral-300<br>#787a89</div>
+<div class="fc"><i style="background:#4f5265"></i>neutral-400<br>#4f5265</div>
+<div class="fc"><i style="background:#292d43"></i>neutral-500<br>#292d43</div>
+<div class="fc"><i style="background:#222536"></i>neutral-600<br>#222536</div>
+<div class="fc"><i style="background:#1c1e2a"></i>neutral-700<br>#1c1e2a</div>
+<div class="fc"><i style="background:#15161e"></i>neutral-800<br>#15161e</div>
+<div class="fc"><i style="background:#0d0d13"></i>neutral-900<br>#0d0d13</div>
+<div class="fc"><i style="background:#06070a"></i>neutral-950<br>#06070a</div>
+<div class="fc"><i style="background:#f1ece8"></i>primary-50<br>#f1ece8</div>
+<div class="fc"><i style="background:#e3d9d2"></i>primary-100<br>#e3d9d2</div>
+<div class="fc"><i style="background:#c7b5a6"></i>primary-200<br>#c7b5a6</div>
+<div class="fc"><i style="background:#aa927c"></i>primary-300<br>#aa927c</div>
+<div class="fc"><i style="background:#8e7054"></i>primary-400<br>#8e7054</div>
+<div class="fc"><i style="background:#71502f"></i>primary-500<br>#71502f</div>
+<div class="fc"><i style="background:#5a4027"></i>primary-600<br>#5a4027</div>
+<div class="fc"><i style="background:#44311f"></i>primary-700<br>#44311f</div>
+<div class="fc"><i style="background:#2f2317"></i>primary-800<br>#2f2317</div>
+<div class="fc"><i style="background:#1c150e"></i>primary-900<br>#1c150e</div>
+<div class="fc"><i style="background:#110c07"></i>primary-950<br>#110c07</div>
+<div class="fc"><i style="background:#efecf2"></i>secondary-50<br>#efecf2</div>
+<div class="fc"><i style="background:#ded9e6"></i>secondary-100<br>#ded9e6</div>
+<div class="fc"><i style="background:#bfb4cd"></i>secondary-200<br>#bfb4cd</div>
+<div class="fc"><i style="background:#9f91b5"></i>secondary-300<br>#9f91b5</div>
+<div class="fc"><i style="background:#806f9d"></i>secondary-400<br>#806f9d</div>
+<div class="fc"><i style="background:#624e85"></i>secondary-500<br>#624e85</div>
+<div class="fc"><i style="background:#4e3f69"></i>secondary-600<br>#4e3f69</div>
+<div class="fc"><i style="background:#3c304e"></i>secondary-700<br>#3c304e</div>
+<div class="fc"><i style="background:#2a2235"></i>secondary-800<br>#2a2235</div>
+<div class="fc"><i style="background:#19151e"></i>secondary-900<br>#19151e</div>
+<div class="fc"><i style="background:#0f0c12"></i>secondary-950<br>#0f0c12</div>
+<div class="fc"><i style="background:#ede8de"></i>candidate-ink<br>#ede8de</div>
+<div class="fc"><i style="background:#b5b6c3"></i>candidate-muted<br>#b5b6c3</div>
+<div class="fc"><i style="background:#e2bd82"></i>candidate-accent-text<br>#e2bd82</div>
+<div class="fc"><i style="background:#c6b4e1"></i>candidate-secondary-text<br>#c6b4e1</div>
+<div class="fc"><i style="background:#e2bd82"></i>candidate-focus<br>#e2bd82</div>
+<div class="fc"><i style="background:#707484"></i>candidate-control-boundary<br>#707484</div>
+<div class="fc"><i style="background:#1c2030"></i>button-ink<br>#1c2030</div>
+</div><div class="ft">
+<p style="font-family:&quot;Source Serif 4&quot;, Georgia, serif;font-size:20px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:&quot;Source Serif 4&quot;, Georgia, serif;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:&quot;DM Sans&quot;,system-ui,sans-serif;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:&quot;Source Serif 4&quot;, Georgia, serif;font-size:48px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#242a3c;padding:24px;font-family:&quot;Source Serif 4&quot;, Georgia, serif">
+      <p style="font-family:&quot;DM Sans&quot;,system-ui,sans-serif">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:&quot;Source Serif 4&quot;, Georgia, serif;font-size:30px;color:#ede8de">A useful hierarchy</div>
+      <p style="font-size:20px;color:#ede8de">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#b5b6c3;font-family:&quot;DM Sans&quot;,system-ui,sans-serif">Muted supporting text · metadata 14</p>
+      <p style="color:#e2bd82;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#c6b4e1">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:&quot;DM Sans&quot;,system-ui,sans-serif;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#e2bd82;color:#1c2030;border-radius:4px">Primary action</span>
+        <span style="color:#ede8de">Secondary action</span>
+        <span style="padding:8px;border:2px solid #707484;outline:2px solid #e2bd82;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #1c2030 · ink → candidate-ink #ede8de · muted → candidate-muted #b5b6c3 · panel → anchor-panel #242a3c · line → anchor-line #42485d · accent → anchor-accent #e2bd82 · secondary → anchor-secondary #c6b4e1 · code → anchor-code #252b3e · accent-text → candidate-accent-text #e2bd82 · secondary-text → candidate-secondary-text #c6b4e1 · focus → candidate-focus #e2bd82 · control-boundary → candidate-control-boundary #707484 · primary-fill → anchor-accent #e2bd82 · button-ink → button-ink #1c2030 · secondary-action → candidate-ink #ede8de</p><p class="fr">{&#x27;body&#x27;: &#x27;&quot;Source Serif 4&quot;, Georgia, serif&#x27;, &#x27;heading&#x27;: &#x27;&quot;Source Serif 4&quot;, Georgia, serif&#x27;, &#x27;ui&#x27;: &#x27;&quot;DM Sans&quot;,system-ui,sans-serif&#x27;, &#x27;display&#x27;: &#x27;&quot;Source Serif 4&quot;, Georgia, serif&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<h3 id="foundation-tufte">Tufte · paired swatch board</h3>
+<article class="fb" style="background:#fffff8;color:#111111;border-radius:0px"><h4>light · radius 0</h4><div class="fg">
+<div class="fc"><i style="background:#fffff8"></i>anchor-paper<br>#fffff8</div>
+<div class="fc"><i style="background:#111111"></i>anchor-ink<br>#111111</div>
+<div class="fc"><i style="background:#f8f8ee"></i>anchor-panel<br>#f8f8ee</div>
+<div class="fc"><i style="background:#d6d6cc"></i>anchor-line<br>#d6d6cc</div>
+<div class="fc"><i style="background:#6b6b69"></i>anchor-muted<br>#6b6b69</div>
+<div class="fc"><i style="background:#111111"></i>anchor-accent<br>#111111</div>
+<div class="fc"><i style="background:#6c757d"></i>anchor-secondary<br>#6c757d</div>
+<div class="fc"><i style="background:#f8f8ee"></i>anchor-code<br>#f8f8ee</div>
+<div class="fc"><i style="background:#e4e4e4"></i>neutral-50<br>#e4e4e4</div>
+<div class="fc"><i style="background:#c9c9c9"></i>neutral-100<br>#c9c9c9</div>
+<div class="fc"><i style="background:#969696"></i>neutral-200<br>#969696</div>
+<div class="fc"><i style="background:#666666"></i>neutral-300<br>#666666</div>
+<div class="fc"><i style="background:#393939"></i>neutral-400<br>#393939</div>
+<div class="fc"><i style="background:#111111"></i>neutral-500<br>#111111</div>
+<div class="fc"><i style="background:#0e0e0e"></i>neutral-600<br>#0e0e0e</div>
+<div class="fc"><i style="background:#0b0b0b"></i>neutral-700<br>#0b0b0b</div>
+<div class="fc"><i style="background:#070707"></i>neutral-800<br>#070707</div>
+<div class="fc"><i style="background:#040404"></i>neutral-900<br>#040404</div>
+<div class="fc"><i style="background:#020202"></i>neutral-950<br>#020202</div>
+<div class="fc"><i style="background:#e4e4e4"></i>primary-50<br>#e4e4e4</div>
+<div class="fc"><i style="background:#c9c9c9"></i>primary-100<br>#c9c9c9</div>
+<div class="fc"><i style="background:#969696"></i>primary-200<br>#969696</div>
+<div class="fc"><i style="background:#666666"></i>primary-300<br>#666666</div>
+<div class="fc"><i style="background:#393939"></i>primary-400<br>#393939</div>
+<div class="fc"><i style="background:#111111"></i>primary-500<br>#111111</div>
+<div class="fc"><i style="background:#0e0e0e"></i>primary-600<br>#0e0e0e</div>
+<div class="fc"><i style="background:#0b0b0b"></i>primary-700<br>#0b0b0b</div>
+<div class="fc"><i style="background:#070707"></i>primary-800<br>#070707</div>
+<div class="fc"><i style="background:#040404"></i>primary-900<br>#040404</div>
+<div class="fc"><i style="background:#020202"></i>primary-950<br>#020202</div>
+<div class="fc"><i style="background:#111111"></i>candidate-ink<br>#111111</div>
+<div class="fc"><i style="background:#6a6a68"></i>candidate-muted<br>#6a6a68</div>
+<div class="fc"><i style="background:#111111"></i>candidate-accent-text<br>#111111</div>
+<div class="fc"><i style="background:#6a6a68"></i>candidate-secondary-text<br>#6a6a68</div>
+<div class="fc"><i style="background:#111111"></i>candidate-focus<br>#111111</div>
+<div class="fc"><i style="background:#90908a"></i>candidate-control-boundary<br>#90908a</div>
+<div class="fc"><i style="background:#fffff8"></i>button-ink<br>#fffff8</div>
+<div class="fc"><i style="background:#dceaf4"></i>optional-highlight-fill<br>#dceaf4</div>
+<div class="fc"><i style="background:#111111"></i>optional-highlight-ink<br>#111111</div>
+</div><div class="ft">
+<p style="font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif;font-size:20px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif;font-size:36px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:transparent;padding:0px;font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif">
+      <p style="font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif;font-size:30px;color:#111111">A useful hierarchy</div>
+      <p style="font-size:20px;color:#111111">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#6a6a68;font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif">Muted supporting text · metadata 14</p>
+      <p style="color:#111111;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#6a6a68">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#111111;color:#fffff8;border-radius:0px">Primary action</span>
+        <span style="color:#111111">Secondary action</span>
+        <span style="padding:8px;border:2px solid #90908a;outline:2px solid #111111;outline-offset:4px">Control boundary + focus</span>
+      </div><p style="background:#dceaf4;color:#111111">Optional blue highlight fill with its intended ink</p></div><p class="fr">paper → anchor-paper #fffff8 · ink → candidate-ink #111111 · panel → anchor-panel #f8f8ee · line → anchor-line #d6d6cc · muted → candidate-muted #6a6a68 · accent → anchor-accent #111111 · secondary → anchor-secondary #6c757d · code → anchor-code #f8f8ee · accent-text → candidate-accent-text #111111 · secondary-text → candidate-secondary-text #6a6a68 · focus → candidate-focus #111111 · control-boundary → candidate-control-boundary #90908a · primary-fill → anchor-accent #111111 · button-ink → button-ink #fffff8 · secondary-action → candidate-ink #111111 · optional-highlight-fill → optional-highlight-fill #dceaf4 · optional-highlight-ink → optional-highlight-ink #111111</p><p class="fr">{&#x27;body&#x27;: &#x27;et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif&#x27;, &#x27;heading&#x27;: &#x27;et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif&#x27;, &#x27;ui&#x27;: &#x27;et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif&#x27;, &#x27;display&#x27;: &#x27;et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif&#x27;, &#x27;code&#x27;: &#x27;Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace&#x27;}</p></article>
+<article class="fb" style="background:#151515;color:#dddddd;border-radius:0px"><h4>dark · radius 0</h4><div class="fg">
+<div class="fc"><i style="background:#151515"></i>anchor-paper<br>#151515</div>
+<div class="fc"><i style="background:#dddddd"></i>anchor-ink<br>#dddddd</div>
+<div class="fc"><i style="background:#1d1d1c"></i>anchor-panel<br>#1d1d1c</div>
+<div class="fc"><i style="background:#3a3a37"></i>anchor-line<br>#3a3a37</div>
+<div class="fc"><i style="background:#919191"></i>anchor-muted<br>#919191</div>
+<div class="fc"><i style="background:#dddddd"></i>anchor-accent<br>#dddddd</div>
+<div class="fc"><i style="background:#7b838a"></i>anchor-secondary<br>#7b838a</div>
+<div class="fc"><i style="background:#1d1d1c"></i>anchor-code<br>#1d1d1c</div>
+<div class="fc"><i style="background:#e4e4e4"></i>neutral-50<br>#e4e4e4</div>
+<div class="fc"><i style="background:#c9c9c9"></i>neutral-100<br>#c9c9c9</div>
+<div class="fc"><i style="background:#969696"></i>neutral-200<br>#969696</div>
+<div class="fc"><i style="background:#666666"></i>neutral-300<br>#666666</div>
+<div class="fc"><i style="background:#393939"></i>neutral-400<br>#393939</div>
+<div class="fc"><i style="background:#111111"></i>neutral-500<br>#111111</div>
+<div class="fc"><i style="background:#0e0e0e"></i>neutral-600<br>#0e0e0e</div>
+<div class="fc"><i style="background:#0b0b0b"></i>neutral-700<br>#0b0b0b</div>
+<div class="fc"><i style="background:#070707"></i>neutral-800<br>#070707</div>
+<div class="fc"><i style="background:#040404"></i>neutral-900<br>#040404</div>
+<div class="fc"><i style="background:#020202"></i>neutral-950<br>#020202</div>
+<div class="fc"><i style="background:#e4e4e4"></i>primary-50<br>#e4e4e4</div>
+<div class="fc"><i style="background:#c9c9c9"></i>primary-100<br>#c9c9c9</div>
+<div class="fc"><i style="background:#969696"></i>primary-200<br>#969696</div>
+<div class="fc"><i style="background:#666666"></i>primary-300<br>#666666</div>
+<div class="fc"><i style="background:#393939"></i>primary-400<br>#393939</div>
+<div class="fc"><i style="background:#111111"></i>primary-500<br>#111111</div>
+<div class="fc"><i style="background:#0e0e0e"></i>primary-600<br>#0e0e0e</div>
+<div class="fc"><i style="background:#0b0b0b"></i>primary-700<br>#0b0b0b</div>
+<div class="fc"><i style="background:#070707"></i>primary-800<br>#070707</div>
+<div class="fc"><i style="background:#040404"></i>primary-900<br>#040404</div>
+<div class="fc"><i style="background:#020202"></i>primary-950<br>#020202</div>
+<div class="fc"><i style="background:#dddddd"></i>candidate-ink<br>#dddddd</div>
+<div class="fc"><i style="background:#919191"></i>candidate-muted<br>#919191</div>
+<div class="fc"><i style="background:#dddddd"></i>candidate-accent-text<br>#dddddd</div>
+<div class="fc"><i style="background:#919191"></i>candidate-secondary-text<br>#919191</div>
+<div class="fc"><i style="background:#dddddd"></i>candidate-focus<br>#dddddd</div>
+<div class="fc"><i style="background:#686865"></i>candidate-control-boundary<br>#686865</div>
+<div class="fc"><i style="background:#151515"></i>button-ink<br>#151515</div>
+<div class="fc"><i style="background:#233b4b"></i>optional-highlight-fill<br>#233b4b</div>
+<div class="fc"><i style="background:#dddddd"></i>optional-highlight-ink<br>#dddddd</div>
+</div><div class="ft">
+<p style="font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif;font-size:20px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif;font-size:36px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:transparent;padding:0px;font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif">
+      <p style="font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif;font-size:30px;color:#dddddd">A useful hierarchy</div>
+      <p style="font-size:20px;color:#dddddd">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#919191;font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif">Muted supporting text · metadata 14</p>
+      <p style="color:#dddddd;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#919191">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#dddddd;color:#151515;border-radius:0px">Primary action</span>
+        <span style="color:#dddddd">Secondary action</span>
+        <span style="padding:8px;border:2px solid #686865;outline:2px solid #dddddd;outline-offset:4px">Control boundary + focus</span>
+      </div><p style="background:#233b4b;color:#dddddd">Optional blue highlight fill with its intended ink</p></div><p class="fr">paper → anchor-paper #151515 · ink → candidate-ink #dddddd · panel → anchor-panel #1d1d1c · line → anchor-line #3a3a37 · muted → candidate-muted #919191 · accent → anchor-accent #dddddd · secondary → anchor-secondary #7b838a · code → anchor-code #1d1d1c · accent-text → candidate-accent-text #dddddd · secondary-text → candidate-secondary-text #919191 · focus → candidate-focus #dddddd · control-boundary → candidate-control-boundary #686865 · primary-fill → anchor-accent #dddddd · button-ink → button-ink #151515 · secondary-action → candidate-ink #dddddd · optional-highlight-fill → optional-highlight-fill #233b4b · optional-highlight-ink → optional-highlight-ink #dddddd</p><p class="fr">{&#x27;body&#x27;: &#x27;et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif&#x27;, &#x27;heading&#x27;: &#x27;et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif&#x27;, &#x27;ui&#x27;: &#x27;et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif&#x27;, &#x27;display&#x27;: &#x27;et-book, Palatino, &quot;Palatino Linotype&quot;, &quot;Palatino LT STD&quot;, &quot;Book Antiqua&quot;, Georgia, serif&#x27;, &#x27;code&#x27;: &#x27;Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace&#x27;}</p></article>
+<h3 id="foundation-zephyr-reading">Zephyr Reading · paired swatch board</h3>
+<article class="fb" style="background:#ffffff;color:#495057;border-radius:8px"><h4>light · radius 8</h4><div class="fg">
+<div class="fc"><i style="background:#ffffff"></i>anchor-paper<br>#ffffff</div>
+<div class="fc"><i style="background:#495057"></i>anchor-ink<br>#495057</div>
+<div class="fc"><i style="background:#5c6375"></i>anchor-muted<br>#5c6375</div>
+<div class="fc"><i style="background:#f4f6fb"></i>anchor-panel<br>#f4f6fb</div>
+<div class="fc"><i style="background:#c2c9d8"></i>anchor-line<br>#c2c9d8</div>
+<div class="fc"><i style="background:#3459e6"></i>anchor-accent<br>#3459e6</div>
+<div class="fc"><i style="background:#3459e6"></i>anchor-secondary<br>#3459e6</div>
+<div class="fc"><i style="background:#f4f6fb"></i>anchor-code<br>#f4f6fb</div>
+<div class="fc"><i style="background:#ebeced"></i>neutral-50<br>#ebeced</div>
+<div class="fc"><i style="background:#d8d9db"></i>neutral-100<br>#d8d9db</div>
+<div class="fc"><i style="background:#b2b5b8"></i>neutral-200<br>#b2b5b8</div>
+<div class="fc"><i style="background:#8d9296"></i>neutral-300<br>#8d9296</div>
+<div class="fc"><i style="background:#6a7076"></i>neutral-400<br>#6a7076</div>
+<div class="fc"><i style="background:#495057"></i>neutral-500<br>#495057</div>
+<div class="fc"><i style="background:#3b4046"></i>neutral-600<br>#3b4046</div>
+<div class="fc"><i style="background:#2d3135"></i>neutral-700<br>#2d3135</div>
+<div class="fc"><i style="background:#202325"></i>neutral-800<br>#202325</div>
+<div class="fc"><i style="background:#141516"></i>neutral-900<br>#141516</div>
+<div class="fc"><i style="background:#0b0c0d"></i>neutral-950<br>#0b0c0d</div>
+<div class="fc"><i style="background:#efedfd"></i>primary-50<br>#efedfd</div>
+<div class="fc"><i style="background:#dfdbfb"></i>primary-100<br>#dfdbfb</div>
+<div class="fc"><i style="background:#beb9f7"></i>primary-200<br>#beb9f7</div>
+<div class="fc"><i style="background:#9a97f2"></i>primary-300<br>#9a97f2</div>
+<div class="fc"><i style="background:#7177ec"></i>primary-400<br>#7177ec</div>
+<div class="fc"><i style="background:#3459e6"></i>primary-500<br>#3459e6</div>
+<div class="fc"><i style="background:#3147b3"></i>primary-600<br>#3147b3</div>
+<div class="fc"><i style="background:#2b3683"></i>primary-700<br>#2b3683</div>
+<div class="fc"><i style="background:#222656"></i>primary-800<br>#222656</div>
+<div class="fc"><i style="background:#17172d"></i>primary-900<br>#17172d</div>
+<div class="fc"><i style="background:#100d1a"></i>primary-950<br>#100d1a</div>
+<div class="fc"><i style="background:#495057"></i>candidate-ink<br>#495057</div>
+<div class="fc"><i style="background:#5c6375"></i>candidate-muted<br>#5c6375</div>
+<div class="fc"><i style="background:#3459e6"></i>candidate-accent-text<br>#3459e6</div>
+<div class="fc"><i style="background:#5c6375"></i>candidate-secondary-text<br>#5c6375</div>
+<div class="fc"><i style="background:#3459e6"></i>candidate-focus<br>#3459e6</div>
+<div class="fc"><i style="background:#8a8f99"></i>candidate-control-boundary<br>#8a8f99</div>
+<div class="fc"><i style="background:#ffffff"></i>button-ink<br>#ffffff</div>
+</div><div class="ft">
+<p style="font-family:&quot;Inter&quot;, system-ui, sans-serif;font-size:18px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:&quot;Inter&quot;, system-ui, sans-serif;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:&quot;Inter&quot;, system-ui, sans-serif;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:&quot;Inter&quot;, system-ui, sans-serif;font-size:36px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#f4f6fb;padding:24px;font-family:&quot;Inter&quot;, system-ui, sans-serif">
+      <p style="font-family:&quot;Inter&quot;, system-ui, sans-serif">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:&quot;Inter&quot;, system-ui, sans-serif;font-size:30px;color:#495057">A useful hierarchy</div>
+      <p style="font-size:18px;color:#495057">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#5c6375;font-family:&quot;Inter&quot;, system-ui, sans-serif">Muted supporting text · metadata 14</p>
+      <p style="color:#3459e6;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#5c6375">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:&quot;Inter&quot;, system-ui, sans-serif;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#3459e6;color:#ffffff;border-radius:8px">Primary action</span>
+        <span style="color:#495057">Secondary action</span>
+        <span style="padding:8px;border:2px solid #8a8f99;outline:2px solid #3459e6;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #ffffff · ink → candidate-ink #495057 · muted → candidate-muted #5c6375 · panel → anchor-panel #f4f6fb · line → anchor-line #c2c9d8 · accent → anchor-accent #3459e6 · secondary → anchor-secondary #3459e6 · code → anchor-code #f4f6fb · accent-text → candidate-accent-text #3459e6 · secondary-text → candidate-secondary-text #5c6375 · focus → candidate-focus #3459e6 · control-boundary → candidate-control-boundary #8a8f99 · primary-fill → anchor-accent #3459e6 · button-ink → button-ink #ffffff · secondary-action → candidate-ink #495057</p><p class="fr">{&#x27;body&#x27;: &#x27;&quot;Inter&quot;, system-ui, sans-serif&#x27;, &#x27;heading&#x27;: &#x27;&quot;Inter&quot;, system-ui, sans-serif&#x27;, &#x27;ui&#x27;: &#x27;&quot;Inter&quot;, system-ui, sans-serif&#x27;, &#x27;display&#x27;: &#x27;&quot;Inter&quot;, system-ui, sans-serif&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<article class="fb" style="background:#182032;color:#e8edf2;border-radius:8px"><h4>dark · radius 8</h4><div class="fg">
+<div class="fc"><i style="background:#182032"></i>anchor-paper<br>#182032</div>
+<div class="fc"><i style="background:#e8edf2"></i>anchor-ink<br>#e8edf2</div>
+<div class="fc"><i style="background:#bec4cc"></i>anchor-muted<br>#bec4cc</div>
+<div class="fc"><i style="background:#242c3e"></i>anchor-panel<br>#242c3e</div>
+<div class="fc"><i style="background:#4e5564"></i>anchor-line<br>#4e5564</div>
+<div class="fc"><i style="background:#6782ec"></i>anchor-accent<br>#6782ec</div>
+<div class="fc"><i style="background:#6782ec"></i>anchor-secondary<br>#6782ec</div>
+<div class="fc"><i style="background:#242c3e"></i>anchor-code<br>#242c3e</div>
+<div class="fc"><i style="background:#ebeced"></i>neutral-50<br>#ebeced</div>
+<div class="fc"><i style="background:#d8d9db"></i>neutral-100<br>#d8d9db</div>
+<div class="fc"><i style="background:#b2b5b8"></i>neutral-200<br>#b2b5b8</div>
+<div class="fc"><i style="background:#8d9296"></i>neutral-300<br>#8d9296</div>
+<div class="fc"><i style="background:#6a7076"></i>neutral-400<br>#6a7076</div>
+<div class="fc"><i style="background:#495057"></i>neutral-500<br>#495057</div>
+<div class="fc"><i style="background:#3b4046"></i>neutral-600<br>#3b4046</div>
+<div class="fc"><i style="background:#2d3135"></i>neutral-700<br>#2d3135</div>
+<div class="fc"><i style="background:#202325"></i>neutral-800<br>#202325</div>
+<div class="fc"><i style="background:#141516"></i>neutral-900<br>#141516</div>
+<div class="fc"><i style="background:#0b0c0d"></i>neutral-950<br>#0b0c0d</div>
+<div class="fc"><i style="background:#efedfd"></i>primary-50<br>#efedfd</div>
+<div class="fc"><i style="background:#dfdbfb"></i>primary-100<br>#dfdbfb</div>
+<div class="fc"><i style="background:#beb9f7"></i>primary-200<br>#beb9f7</div>
+<div class="fc"><i style="background:#9a97f2"></i>primary-300<br>#9a97f2</div>
+<div class="fc"><i style="background:#7177ec"></i>primary-400<br>#7177ec</div>
+<div class="fc"><i style="background:#3459e6"></i>primary-500<br>#3459e6</div>
+<div class="fc"><i style="background:#3147b3"></i>primary-600<br>#3147b3</div>
+<div class="fc"><i style="background:#2b3683"></i>primary-700<br>#2b3683</div>
+<div class="fc"><i style="background:#222656"></i>primary-800<br>#222656</div>
+<div class="fc"><i style="background:#17172d"></i>primary-900<br>#17172d</div>
+<div class="fc"><i style="background:#100d1a"></i>primary-950<br>#100d1a</div>
+<div class="fc"><i style="background:#e8edf2"></i>candidate-ink<br>#e8edf2</div>
+<div class="fc"><i style="background:#bec4cc"></i>candidate-muted<br>#bec4cc</div>
+<div class="fc"><i style="background:#8595f0"></i>candidate-accent-text<br>#8595f0</div>
+<div class="fc"><i style="background:#bec4cc"></i>candidate-secondary-text<br>#bec4cc</div>
+<div class="fc"><i style="background:#6782ec"></i>candidate-focus<br>#6782ec</div>
+<div class="fc"><i style="background:#6f7581"></i>candidate-control-boundary<br>#6f7581</div>
+<div class="fc"><i style="background:#182032"></i>button-ink<br>#182032</div>
+</div><div class="ft">
+<p style="font-family:&quot;Inter&quot;, system-ui, sans-serif;font-size:18px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:&quot;Inter&quot;, system-ui, sans-serif;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:&quot;Inter&quot;, system-ui, sans-serif;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:&quot;Inter&quot;, system-ui, sans-serif;font-size:36px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#242c3e;padding:24px;font-family:&quot;Inter&quot;, system-ui, sans-serif">
+      <p style="font-family:&quot;Inter&quot;, system-ui, sans-serif">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:&quot;Inter&quot;, system-ui, sans-serif;font-size:30px;color:#e8edf2">A useful hierarchy</div>
+      <p style="font-size:18px;color:#e8edf2">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#bec4cc;font-family:&quot;Inter&quot;, system-ui, sans-serif">Muted supporting text · metadata 14</p>
+      <p style="color:#8595f0;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#bec4cc">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:&quot;Inter&quot;, system-ui, sans-serif;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#6782ec;color:#182032;border-radius:8px">Primary action</span>
+        <span style="color:#e8edf2">Secondary action</span>
+        <span style="padding:8px;border:2px solid #6f7581;outline:2px solid #6782ec;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #182032 · ink → candidate-ink #e8edf2 · muted → candidate-muted #bec4cc · panel → anchor-panel #242c3e · line → anchor-line #4e5564 · accent → anchor-accent #6782ec · secondary → anchor-secondary #6782ec · code → anchor-code #242c3e · accent-text → candidate-accent-text #8595f0 · secondary-text → candidate-secondary-text #bec4cc · focus → candidate-focus #6782ec · control-boundary → candidate-control-boundary #6f7581 · primary-fill → anchor-accent #6782ec · button-ink → button-ink #182032 · secondary-action → candidate-ink #e8edf2</p><p class="fr">{&#x27;body&#x27;: &#x27;&quot;Inter&quot;, system-ui, sans-serif&#x27;, &#x27;heading&#x27;: &#x27;&quot;Inter&quot;, system-ui, sans-serif&#x27;, &#x27;ui&#x27;: &#x27;&quot;Inter&quot;, system-ui, sans-serif&#x27;, &#x27;display&#x27;: &#x27;&quot;Inter&quot;, system-ui, sans-serif&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<h3 id="foundation-simplex-reading">Simplex Reading · paired swatch board</h3>
+<article class="fb" style="background:#fcfcfc;color:#212529;border-radius:2px"><h4>light · radius 2</h4><div class="fg">
+<div class="fc"><i style="background:#fcfcfc"></i>anchor-paper<br>#fcfcfc</div>
+<div class="fc"><i style="background:#212529"></i>anchor-ink<br>#212529</div>
+<div class="fc"><i style="background:#5f625d"></i>anchor-muted<br>#5f625d</div>
+<div class="fc"><i style="background:#f4f3f0"></i>anchor-panel<br>#f4f3f0</div>
+<div class="fc"><i style="background:#c8c8c2"></i>anchor-line<br>#c8c8c2</div>
+<div class="fc"><i style="background:#b81d0e"></i>anchor-accent<br>#b81d0e</div>
+<div class="fc"><i style="background:#b81d0e"></i>anchor-secondary<br>#b81d0e</div>
+<div class="fc"><i style="background:#f4f3f0"></i>anchor-code<br>#f4f3f0</div>
+<div class="fc"><i style="background:#e6e6e7"></i>neutral-50<br>#e6e6e7</div>
+<div class="fc"><i style="background:#cdced0"></i>neutral-100<br>#cdced0</div>
+<div class="fc"><i style="background:#9ea0a2"></i>neutral-200<br>#9ea0a2</div>
+<div class="fc"><i style="background:#717477"></i>neutral-300<br>#717477</div>
+<div class="fc"><i style="background:#474b4e"></i>neutral-400<br>#474b4e</div>
+<div class="fc"><i style="background:#212529"></i>neutral-500<br>#212529</div>
+<div class="fc"><i style="background:#1c1f22"></i>neutral-600<br>#1c1f22</div>
+<div class="fc"><i style="background:#17191b"></i>neutral-700<br>#17191b</div>
+<div class="fc"><i style="background:#111315"></i>neutral-800<br>#111315</div>
+<div class="fc"><i style="background:#090b0c"></i>neutral-900<br>#090b0c</div>
+<div class="fc"><i style="background:#050506"></i>neutral-950<br>#050506</div>
+<div class="fc"><i style="background:#fdeae5"></i>primary-50<br>#fdeae5</div>
+<div class="fc"><i style="background:#fad4cb"></i>primary-100<br>#fad4cb</div>
+<div class="fc"><i style="background:#f0aa99"></i>primary-200<br>#f0aa99</div>
+<div class="fc"><i style="background:#e18069"></i>primary-300<br>#e18069</div>
+<div class="fc"><i style="background:#cf553c"></i>primary-400<br>#cf553c</div>
+<div class="fc"><i style="background:#b81d0e"></i>primary-500<br>#b81d0e</div>
+<div class="fc"><i style="background:#911e0f"></i>primary-600<br>#911e0f</div>
+<div class="fc"><i style="background:#6d1b0e"></i>primary-700<br>#6d1b0e</div>
+<div class="fc"><i style="background:#4a170b"></i>primary-800<br>#4a170b</div>
+<div class="fc"><i style="background:#291106"></i>primary-900<br>#291106</div>
+<div class="fc"><i style="background:#1b0903"></i>primary-950<br>#1b0903</div>
+<div class="fc"><i style="background:#212529"></i>candidate-ink<br>#212529</div>
+<div class="fc"><i style="background:#5f625d"></i>candidate-muted<br>#5f625d</div>
+<div class="fc"><i style="background:#b81d0e"></i>candidate-accent-text<br>#b81d0e</div>
+<div class="fc"><i style="background:#5f625d"></i>candidate-secondary-text<br>#5f625d</div>
+<div class="fc"><i style="background:#b81d0e"></i>candidate-focus<br>#b81d0e</div>
+<div class="fc"><i style="background:#8d8d89"></i>candidate-control-boundary<br>#8d8d89</div>
+<div class="fc"><i style="background:#ffffff"></i>button-ink<br>#ffffff</div>
+</div><div class="ft">
+<p style="font-family:&quot;Open Sans&quot;, system-ui, sans-serif;font-size:18px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:&quot;Open Sans&quot;, system-ui, sans-serif;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:&quot;Open Sans&quot;, system-ui, sans-serif;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:&quot;Open Sans&quot;, system-ui, sans-serif;font-size:36px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#f4f3f0;padding:24px;font-family:&quot;Open Sans&quot;, system-ui, sans-serif">
+      <p style="font-family:&quot;Open Sans&quot;, system-ui, sans-serif">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:&quot;Open Sans&quot;, system-ui, sans-serif;font-size:30px;color:#212529">A useful hierarchy</div>
+      <p style="font-size:18px;color:#212529">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#5f625d;font-family:&quot;Open Sans&quot;, system-ui, sans-serif">Muted supporting text · metadata 14</p>
+      <p style="color:#b81d0e;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#5f625d">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:&quot;Open Sans&quot;, system-ui, sans-serif;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#b81d0e;color:#ffffff;border-radius:2px">Primary action</span>
+        <span style="color:#212529">Secondary action</span>
+        <span style="padding:8px;border:2px solid #8d8d89;outline:2px solid #b81d0e;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #fcfcfc · ink → candidate-ink #212529 · muted → candidate-muted #5f625d · panel → anchor-panel #f4f3f0 · line → anchor-line #c8c8c2 · accent → anchor-accent #b81d0e · secondary → anchor-secondary #b81d0e · code → anchor-code #f4f3f0 · accent-text → candidate-accent-text #b81d0e · secondary-text → candidate-secondary-text #5f625d · focus → candidate-focus #b81d0e · control-boundary → candidate-control-boundary #8d8d89 · primary-fill → anchor-accent #b81d0e · button-ink → button-ink #ffffff · secondary-action → candidate-ink #212529</p><p class="fr">{&#x27;body&#x27;: &#x27;&quot;Open Sans&quot;, system-ui, sans-serif&#x27;, &#x27;heading&#x27;: &#x27;&quot;Open Sans&quot;, system-ui, sans-serif&#x27;, &#x27;ui&#x27;: &#x27;&quot;Open Sans&quot;, system-ui, sans-serif&#x27;, &#x27;display&#x27;: &#x27;&quot;Open Sans&quot;, system-ui, sans-serif&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<article class="fb" style="background:#231b20;color:#e8edf2;border-radius:2px"><h4>dark · radius 2</h4><div class="fg">
+<div class="fc"><i style="background:#231b20"></i>anchor-paper<br>#231b20</div>
+<div class="fc"><i style="background:#e8edf2"></i>anchor-ink<br>#e8edf2</div>
+<div class="fc"><i style="background:#c1c3c8"></i>anchor-muted<br>#c1c3c8</div>
+<div class="fc"><i style="background:#2f282d"></i>anchor-panel<br>#2f282d</div>
+<div class="fc"><i style="background:#565257"></i>anchor-line<br>#565257</div>
+<div class="fc"><i style="background:#d16c62"></i>anchor-accent<br>#d16c62</div>
+<div class="fc"><i style="background:#d16c62"></i>anchor-secondary<br>#d16c62</div>
+<div class="fc"><i style="background:#2f282d"></i>anchor-code<br>#2f282d</div>
+<div class="fc"><i style="background:#e6e6e7"></i>neutral-50<br>#e6e6e7</div>
+<div class="fc"><i style="background:#cdced0"></i>neutral-100<br>#cdced0</div>
+<div class="fc"><i style="background:#9ea0a2"></i>neutral-200<br>#9ea0a2</div>
+<div class="fc"><i style="background:#717477"></i>neutral-300<br>#717477</div>
+<div class="fc"><i style="background:#474b4e"></i>neutral-400<br>#474b4e</div>
+<div class="fc"><i style="background:#212529"></i>neutral-500<br>#212529</div>
+<div class="fc"><i style="background:#1c1f22"></i>neutral-600<br>#1c1f22</div>
+<div class="fc"><i style="background:#17191b"></i>neutral-700<br>#17191b</div>
+<div class="fc"><i style="background:#111315"></i>neutral-800<br>#111315</div>
+<div class="fc"><i style="background:#090b0c"></i>neutral-900<br>#090b0c</div>
+<div class="fc"><i style="background:#050506"></i>neutral-950<br>#050506</div>
+<div class="fc"><i style="background:#fdeae5"></i>primary-50<br>#fdeae5</div>
+<div class="fc"><i style="background:#fad4cb"></i>primary-100<br>#fad4cb</div>
+<div class="fc"><i style="background:#f0aa99"></i>primary-200<br>#f0aa99</div>
+<div class="fc"><i style="background:#e18069"></i>primary-300<br>#e18069</div>
+<div class="fc"><i style="background:#cf553c"></i>primary-400<br>#cf553c</div>
+<div class="fc"><i style="background:#b81d0e"></i>primary-500<br>#b81d0e</div>
+<div class="fc"><i style="background:#911e0f"></i>primary-600<br>#911e0f</div>
+<div class="fc"><i style="background:#6d1b0e"></i>primary-700<br>#6d1b0e</div>
+<div class="fc"><i style="background:#4a170b"></i>primary-800<br>#4a170b</div>
+<div class="fc"><i style="background:#291106"></i>primary-900<br>#291106</div>
+<div class="fc"><i style="background:#1b0903"></i>primary-950<br>#1b0903</div>
+<div class="fc"><i style="background:#e8edf2"></i>candidate-ink<br>#e8edf2</div>
+<div class="fc"><i style="background:#c1c3c8"></i>candidate-muted<br>#c1c3c8</div>
+<div class="fc"><i style="background:#da8075"></i>candidate-accent-text<br>#da8075</div>
+<div class="fc"><i style="background:#c1c3c8"></i>candidate-secondary-text<br>#c1c3c8</div>
+<div class="fc"><i style="background:#d16c62"></i>candidate-focus<br>#d16c62</div>
+<div class="fc"><i style="background:#757276"></i>candidate-control-boundary<br>#757276</div>
+<div class="fc"><i style="background:#231b20"></i>button-ink<br>#231b20</div>
+</div><div class="ft">
+<p style="font-family:&quot;Open Sans&quot;, system-ui, sans-serif;font-size:18px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:&quot;Open Sans&quot;, system-ui, sans-serif;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:&quot;Open Sans&quot;, system-ui, sans-serif;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:&quot;Open Sans&quot;, system-ui, sans-serif;font-size:36px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#2f282d;padding:24px;font-family:&quot;Open Sans&quot;, system-ui, sans-serif">
+      <p style="font-family:&quot;Open Sans&quot;, system-ui, sans-serif">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:&quot;Open Sans&quot;, system-ui, sans-serif;font-size:30px;color:#e8edf2">A useful hierarchy</div>
+      <p style="font-size:18px;color:#e8edf2">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#c1c3c8;font-family:&quot;Open Sans&quot;, system-ui, sans-serif">Muted supporting text · metadata 14</p>
+      <p style="color:#da8075;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#c1c3c8">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:&quot;Open Sans&quot;, system-ui, sans-serif;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#d16c62;color:#231b20;border-radius:2px">Primary action</span>
+        <span style="color:#e8edf2">Secondary action</span>
+        <span style="padding:8px;border:2px solid #757276;outline:2px solid #d16c62;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #231b20 · ink → candidate-ink #e8edf2 · muted → candidate-muted #c1c3c8 · panel → anchor-panel #2f282d · line → anchor-line #565257 · accent → anchor-accent #d16c62 · secondary → anchor-secondary #d16c62 · code → anchor-code #2f282d · accent-text → candidate-accent-text #da8075 · secondary-text → candidate-secondary-text #c1c3c8 · focus → candidate-focus #d16c62 · control-boundary → candidate-control-boundary #757276 · primary-fill → anchor-accent #d16c62 · button-ink → button-ink #231b20 · secondary-action → candidate-ink #e8edf2</p><p class="fr">{&#x27;body&#x27;: &#x27;&quot;Open Sans&quot;, system-ui, sans-serif&#x27;, &#x27;heading&#x27;: &#x27;&quot;Open Sans&quot;, system-ui, sans-serif&#x27;, &#x27;ui&#x27;: &#x27;&quot;Open Sans&quot;, system-ui, sans-serif&#x27;, &#x27;display&#x27;: &#x27;&quot;Open Sans&quot;, system-ui, sans-serif&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<h3 id="foundation-pulse-reading">Pulse Reading · paired swatch board</h3>
+<article class="fb" style="background:#ffffff;color:#444444;border-radius:4px"><h4>light · radius 4</h4><div class="fg">
+<div class="fc"><i style="background:#ffffff"></i>anchor-paper<br>#ffffff</div>
+<div class="fc"><i style="background:#444444"></i>anchor-ink<br>#444444</div>
+<div class="fc"><i style="background:#62586c"></i>anchor-muted<br>#62586c</div>
+<div class="fc"><i style="background:#f5f0fa"></i>anchor-panel<br>#f5f0fa</div>
+<div class="fc"><i style="background:#c9c2d1"></i>anchor-line<br>#c9c2d1</div>
+<div class="fc"><i style="background:#593196"></i>anchor-accent<br>#593196</div>
+<div class="fc"><i style="background:#593196"></i>anchor-secondary<br>#593196</div>
+<div class="fc"><i style="background:#f5f0fa"></i>anchor-code<br>#f5f0fa</div>
+<div class="fc"><i style="background:#ebebeb"></i>neutral-50<br>#ebebeb</div>
+<div class="fc"><i style="background:#d6d6d6"></i>neutral-100<br>#d6d6d6</div>
+<div class="fc"><i style="background:#afafaf"></i>neutral-200<br>#afafaf</div>
+<div class="fc"><i style="background:#8a8a8a"></i>neutral-300<br>#8a8a8a</div>
+<div class="fc"><i style="background:#666666"></i>neutral-400<br>#666666</div>
+<div class="fc"><i style="background:#444444"></i>neutral-500<br>#444444</div>
+<div class="fc"><i style="background:#373737"></i>neutral-600<br>#373737</div>
+<div class="fc"><i style="background:#2b2b2b"></i>neutral-700<br>#2b2b2b</div>
+<div class="fc"><i style="background:#1f1f1f"></i>neutral-800<br>#1f1f1f</div>
+<div class="fc"><i style="background:#131313"></i>neutral-900<br>#131313</div>
+<div class="fc"><i style="background:#0b0b0b"></i>neutral-950<br>#0b0b0b</div>
+<div class="fc"><i style="background:#efe9f5"></i>primary-50<br>#efe9f5</div>
+<div class="fc"><i style="background:#dfd3ea"></i>primary-100<br>#dfd3ea</div>
+<div class="fc"><i style="background:#bea9d5"></i>primary-200<br>#bea9d5</div>
+<div class="fc"><i style="background:#9d80c0"></i>primary-300<br>#9d80c0</div>
+<div class="fc"><i style="background:#7c58ab"></i>primary-400<br>#7c58ab</div>
+<div class="fc"><i style="background:#593196"></i>primary-500<br>#593196</div>
+<div class="fc"><i style="background:#482976"></i>primary-600<br>#482976</div>
+<div class="fc"><i style="background:#382158"></i>primary-700<br>#382158</div>
+<div class="fc"><i style="background:#28193b"></i>primary-800<br>#28193b</div>
+<div class="fc"><i style="background:#181021"></i>primary-900<br>#181021</div>
+<div class="fc"><i style="background:#0f0914"></i>primary-950<br>#0f0914</div>
+<div class="fc"><i style="background:#444444"></i>candidate-ink<br>#444444</div>
+<div class="fc"><i style="background:#62586c"></i>candidate-muted<br>#62586c</div>
+<div class="fc"><i style="background:#593196"></i>candidate-accent-text<br>#593196</div>
+<div class="fc"><i style="background:#62586c"></i>candidate-secondary-text<br>#62586c</div>
+<div class="fc"><i style="background:#593196"></i>candidate-focus<br>#593196</div>
+<div class="fc"><i style="background:#8f8a95"></i>candidate-control-boundary<br>#8f8a95</div>
+<div class="fc"><i style="background:#ffffff"></i>button-ink<br>#ffffff</div>
+</div><div class="ft">
+<p style="font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:18px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:36px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#f5f0fa;padding:24px;font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;">
+      <p style="font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:30px;color:#444444">A useful hierarchy</div>
+      <p style="font-size:18px;color:#444444">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#62586c;font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;">Muted supporting text · metadata 14</p>
+      <p style="color:#593196;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#62586c">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#593196;color:#ffffff;border-radius:4px">Primary action</span>
+        <span style="color:#444444">Secondary action</span>
+        <span style="padding:8px;border:2px solid #8f8a95;outline:2px solid #593196;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #ffffff · ink → candidate-ink #444444 · muted → candidate-muted #62586c · panel → anchor-panel #f5f0fa · line → anchor-line #c9c2d1 · accent → anchor-accent #593196 · secondary → anchor-secondary #593196 · code → anchor-code #f5f0fa · accent-text → candidate-accent-text #593196 · secondary-text → candidate-secondary-text #62586c · focus → candidate-focus #593196 · control-boundary → candidate-control-boundary #8f8a95 · primary-fill → anchor-accent #593196 · button-ink → button-ink #ffffff · secondary-action → candidate-ink #444444</p><p class="fr">{&#x27;body&#x27;: &#x27;system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;&#x27;, &#x27;heading&#x27;: &#x27;system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;&#x27;, &#x27;ui&#x27;: &#x27;system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;&#x27;, &#x27;display&#x27;: &#x27;system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<article class="fb" style="background:#1b1d2b;color:#e8edf2;border-radius:4px"><h4>dark · radius 4</h4><div class="fg">
+<div class="fc"><i style="background:#1b1d2b"></i>anchor-paper<br>#1b1d2b</div>
+<div class="fc"><i style="background:#e8edf2"></i>anchor-ink<br>#e8edf2</div>
+<div class="fc"><i style="background:#bfc3ca"></i>anchor-muted<br>#bfc3ca</div>
+<div class="fc"><i style="background:#272937"></i>anchor-panel<br>#272937</div>
+<div class="fc"><i style="background:#50535f"></i>anchor-line<br>#50535f</div>
+<div class="fc"><i style="background:#9379bb"></i>anchor-accent<br>#9379bb</div>
+<div class="fc"><i style="background:#9379bb"></i>anchor-secondary<br>#9379bb</div>
+<div class="fc"><i style="background:#272937"></i>anchor-code<br>#272937</div>
+<div class="fc"><i style="background:#ebebeb"></i>neutral-50<br>#ebebeb</div>
+<div class="fc"><i style="background:#d6d6d6"></i>neutral-100<br>#d6d6d6</div>
+<div class="fc"><i style="background:#afafaf"></i>neutral-200<br>#afafaf</div>
+<div class="fc"><i style="background:#8a8a8a"></i>neutral-300<br>#8a8a8a</div>
+<div class="fc"><i style="background:#666666"></i>neutral-400<br>#666666</div>
+<div class="fc"><i style="background:#444444"></i>neutral-500<br>#444444</div>
+<div class="fc"><i style="background:#373737"></i>neutral-600<br>#373737</div>
+<div class="fc"><i style="background:#2b2b2b"></i>neutral-700<br>#2b2b2b</div>
+<div class="fc"><i style="background:#1f1f1f"></i>neutral-800<br>#1f1f1f</div>
+<div class="fc"><i style="background:#131313"></i>neutral-900<br>#131313</div>
+<div class="fc"><i style="background:#0b0b0b"></i>neutral-950<br>#0b0b0b</div>
+<div class="fc"><i style="background:#efe9f5"></i>primary-50<br>#efe9f5</div>
+<div class="fc"><i style="background:#dfd3ea"></i>primary-100<br>#dfd3ea</div>
+<div class="fc"><i style="background:#bea9d5"></i>primary-200<br>#bea9d5</div>
+<div class="fc"><i style="background:#9d80c0"></i>primary-300<br>#9d80c0</div>
+<div class="fc"><i style="background:#7c58ab"></i>primary-400<br>#7c58ab</div>
+<div class="fc"><i style="background:#593196"></i>primary-500<br>#593196</div>
+<div class="fc"><i style="background:#482976"></i>primary-600<br>#482976</div>
+<div class="fc"><i style="background:#382158"></i>primary-700<br>#382158</div>
+<div class="fc"><i style="background:#28193b"></i>primary-800<br>#28193b</div>
+<div class="fc"><i style="background:#181021"></i>primary-900<br>#181021</div>
+<div class="fc"><i style="background:#0f0914"></i>primary-950<br>#0f0914</div>
+<div class="fc"><i style="background:#e8edf2"></i>candidate-ink<br>#e8edf2</div>
+<div class="fc"><i style="background:#bfc3ca"></i>candidate-muted<br>#bfc3ca</div>
+<div class="fc"><i style="background:#a58fc6"></i>candidate-accent-text<br>#a58fc6</div>
+<div class="fc"><i style="background:#bfc3ca"></i>candidate-secondary-text<br>#bfc3ca</div>
+<div class="fc"><i style="background:#9379bb"></i>candidate-focus<br>#9379bb</div>
+<div class="fc"><i style="background:#70727c"></i>candidate-control-boundary<br>#70727c</div>
+<div class="fc"><i style="background:#1b1d2b"></i>button-ink<br>#1b1d2b</div>
+</div><div class="ft">
+<p style="font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:18px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:36px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#272937;padding:24px;font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;">
+      <p style="font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:30px;color:#e8edf2">A useful hierarchy</div>
+      <p style="font-size:18px;color:#e8edf2">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#bfc3ca;font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;">Muted supporting text · metadata 14</p>
+      <p style="color:#a58fc6;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#bfc3ca">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#9379bb;color:#1b1d2b;border-radius:4px">Primary action</span>
+        <span style="color:#e8edf2">Secondary action</span>
+        <span style="padding:8px;border:2px solid #70727c;outline:2px solid #9379bb;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #1b1d2b · ink → candidate-ink #e8edf2 · muted → candidate-muted #bfc3ca · panel → anchor-panel #272937 · line → anchor-line #50535f · accent → anchor-accent #9379bb · secondary → anchor-secondary #9379bb · code → anchor-code #272937 · accent-text → candidate-accent-text #a58fc6 · secondary-text → candidate-secondary-text #bfc3ca · focus → candidate-focus #9379bb · control-boundary → candidate-control-boundary #70727c · primary-fill → anchor-accent #9379bb · button-ink → button-ink #1b1d2b · secondary-action → candidate-ink #e8edf2</p><p class="fr">{&#x27;body&#x27;: &#x27;system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;&#x27;, &#x27;heading&#x27;: &#x27;system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;&#x27;, &#x27;ui&#x27;: &#x27;system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;&#x27;, &#x27;display&#x27;: &#x27;system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Noto Sans&quot;,&quot;Liberation Sans&quot;,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<h3 id="foundation-litera-reading">Litera Reading · paired swatch board</h3>
+<article class="fb" style="background:#ffffff;color:#343a40;border-radius:2px"><h4>light · radius 2</h4><div class="fg">
+<div class="fc"><i style="background:#ffffff"></i>anchor-paper<br>#ffffff</div>
+<div class="fc"><i style="background:#343a40"></i>anchor-ink<br>#343a40</div>
+<div class="fc"><i style="background:#5b616a"></i>anchor-muted<br>#5b616a</div>
+<div class="fc"><i style="background:#f4f5f7"></i>anchor-panel<br>#f4f5f7</div>
+<div class="fc"><i style="background:#c3c8d0"></i>anchor-line<br>#c3c8d0</div>
+<div class="fc"><i style="background:#2557a0"></i>anchor-accent<br>#2557a0</div>
+<div class="fc"><i style="background:#2557a0"></i>anchor-secondary<br>#2557a0</div>
+<div class="fc"><i style="background:#f4f5f7"></i>anchor-code<br>#f4f5f7</div>
+<div class="fc"><i style="background:#e9e9ea"></i>neutral-50<br>#e9e9ea</div>
+<div class="fc"><i style="background:#d3d4d5"></i>neutral-100<br>#d3d4d5</div>
+<div class="fc"><i style="background:#a8aaad"></i>neutral-200<br>#a8aaad</div>
+<div class="fc"><i style="background:#7f8387"></i>neutral-300<br>#7f8387</div>
+<div class="fc"><i style="background:#585d62"></i>neutral-400<br>#585d62</div>
+<div class="fc"><i style="background:#343a40"></i>neutral-500<br>#343a40</div>
+<div class="fc"><i style="background:#2b2f34"></i>neutral-600<br>#2b2f34</div>
+<div class="fc"><i style="background:#222528"></i>neutral-700<br>#222528</div>
+<div class="fc"><i style="background:#191b1d"></i>neutral-800<br>#191b1d</div>
+<div class="fc"><i style="background:#0f1112"></i>neutral-900<br>#0f1112</div>
+<div class="fc"><i style="background:#08090a"></i>neutral-950<br>#08090a</div>
+<div class="fc"><i style="background:#ebedf5"></i>primary-50<br>#ebedf5</div>
+<div class="fc"><i style="background:#d7dbec"></i>primary-100<br>#d7dbec</div>
+<div class="fc"><i style="background:#afb8d9"></i>primary-200<br>#afb8d9</div>
+<div class="fc"><i style="background:#8696c6"></i>primary-300<br>#8696c6</div>
+<div class="fc"><i style="background:#5c75b3"></i>primary-400<br>#5c75b3</div>
+<div class="fc"><i style="background:#2557a0"></i>primary-500<br>#2557a0</div>
+<div class="fc"><i style="background:#23467e"></i>primary-600<br>#23467e</div>
+<div class="fc"><i style="background:#20355d"></i>primary-700<br>#20355d</div>
+<div class="fc"><i style="background:#1a253f"></i>primary-800<br>#1a253f</div>
+<div class="fc"><i style="background:#121622"></i>primary-900<br>#121622</div>
+<div class="fc"><i style="background:#0b0d15"></i>primary-950<br>#0b0d15</div>
+<div class="fc"><i style="background:#343a40"></i>candidate-ink<br>#343a40</div>
+<div class="fc"><i style="background:#5b616a"></i>candidate-muted<br>#5b616a</div>
+<div class="fc"><i style="background:#2557a0"></i>candidate-accent-text<br>#2557a0</div>
+<div class="fc"><i style="background:#5b616a"></i>candidate-secondary-text<br>#5b616a</div>
+<div class="fc"><i style="background:#2557a0"></i>candidate-focus<br>#2557a0</div>
+<div class="fc"><i style="background:#8b8e94"></i>candidate-control-boundary<br>#8b8e94</div>
+<div class="fc"><i style="background:#ffffff"></i>button-ink<br>#ffffff</div>
+</div><div class="ft">
+<p style="font-family:Georgia, &quot;Times New Roman&quot;, serif;font-size:20px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:36px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#f4f5f7;padding:24px;font-family:Georgia, &quot;Times New Roman&quot;, serif">
+      <p style="font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:30px;color:#343a40">A useful hierarchy</div>
+      <p style="font-size:20px;color:#343a40">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#5b616a;font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;">Muted supporting text · metadata 14</p>
+      <p style="color:#2557a0;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#5b616a">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#2557a0;color:#ffffff;border-radius:2px">Primary action</span>
+        <span style="color:#343a40">Secondary action</span>
+        <span style="padding:8px;border:2px solid #8b8e94;outline:2px solid #2557a0;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #ffffff · ink → candidate-ink #343a40 · muted → candidate-muted #5b616a · panel → anchor-panel #f4f5f7 · line → anchor-line #c3c8d0 · accent → anchor-accent #2557a0 · secondary → anchor-secondary #2557a0 · code → anchor-code #f4f5f7 · accent-text → candidate-accent-text #2557a0 · secondary-text → candidate-secondary-text #5b616a · focus → candidate-focus #2557a0 · control-boundary → candidate-control-boundary #8b8e94 · primary-fill → anchor-accent #2557a0 · button-ink → button-ink #ffffff · secondary-action → candidate-ink #343a40</p><p class="fr">{&#x27;body&#x27;: &#x27;Georgia, &quot;Times New Roman&quot;, serif&#x27;, &#x27;heading&#x27;: &#x27;-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;&#x27;, &#x27;ui&#x27;: &#x27;-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;&#x27;, &#x27;display&#x27;: &#x27;-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<article class="fb" style="background:#17202c;color:#e8edf2;border-radius:2px"><h4>dark · radius 2</h4><div class="fg">
+<div class="fc"><i style="background:#17202c"></i>anchor-paper<br>#17202c</div>
+<div class="fc"><i style="background:#e8edf2"></i>anchor-ink<br>#e8edf2</div>
+<div class="fc"><i style="background:#bec4ca"></i>anchor-muted<br>#bec4ca</div>
+<div class="fc"><i style="background:#242c38"></i>anchor-panel<br>#242c38</div>
+<div class="fc"><i style="background:#4d555f"></i>anchor-line<br>#4d555f</div>
+<div class="fc"><i style="background:#6689bc"></i>anchor-accent<br>#6689bc</div>
+<div class="fc"><i style="background:#6689bc"></i>anchor-secondary<br>#6689bc</div>
+<div class="fc"><i style="background:#242c38"></i>anchor-code<br>#242c38</div>
+<div class="fc"><i style="background:#e9e9ea"></i>neutral-50<br>#e9e9ea</div>
+<div class="fc"><i style="background:#d3d4d5"></i>neutral-100<br>#d3d4d5</div>
+<div class="fc"><i style="background:#a8aaad"></i>neutral-200<br>#a8aaad</div>
+<div class="fc"><i style="background:#7f8387"></i>neutral-300<br>#7f8387</div>
+<div class="fc"><i style="background:#585d62"></i>neutral-400<br>#585d62</div>
+<div class="fc"><i style="background:#343a40"></i>neutral-500<br>#343a40</div>
+<div class="fc"><i style="background:#2b2f34"></i>neutral-600<br>#2b2f34</div>
+<div class="fc"><i style="background:#222528"></i>neutral-700<br>#222528</div>
+<div class="fc"><i style="background:#191b1d"></i>neutral-800<br>#191b1d</div>
+<div class="fc"><i style="background:#0f1112"></i>neutral-900<br>#0f1112</div>
+<div class="fc"><i style="background:#08090a"></i>neutral-950<br>#08090a</div>
+<div class="fc"><i style="background:#ebedf5"></i>primary-50<br>#ebedf5</div>
+<div class="fc"><i style="background:#d7dbec"></i>primary-100<br>#d7dbec</div>
+<div class="fc"><i style="background:#afb8d9"></i>primary-200<br>#afb8d9</div>
+<div class="fc"><i style="background:#8696c6"></i>primary-300<br>#8696c6</div>
+<div class="fc"><i style="background:#5c75b3"></i>primary-400<br>#5c75b3</div>
+<div class="fc"><i style="background:#2557a0"></i>primary-500<br>#2557a0</div>
+<div class="fc"><i style="background:#23467e"></i>primary-600<br>#23467e</div>
+<div class="fc"><i style="background:#20355d"></i>primary-700<br>#20355d</div>
+<div class="fc"><i style="background:#1a253f"></i>primary-800<br>#1a253f</div>
+<div class="fc"><i style="background:#121622"></i>primary-900<br>#121622</div>
+<div class="fc"><i style="background:#0b0d15"></i>primary-950<br>#0b0d15</div>
+<div class="fc"><i style="background:#e8edf2"></i>candidate-ink<br>#e8edf2</div>
+<div class="fc"><i style="background:#bec4ca"></i>candidate-muted<br>#bec4ca</div>
+<div class="fc"><i style="background:#819cc7"></i>candidate-accent-text<br>#819cc7</div>
+<div class="fc"><i style="background:#bec4ca"></i>candidate-secondary-text<br>#bec4ca</div>
+<div class="fc"><i style="background:#6689bc"></i>candidate-focus<br>#6689bc</div>
+<div class="fc"><i style="background:#6e757d"></i>candidate-control-boundary<br>#6e757d</div>
+<div class="fc"><i style="background:#17202c"></i>button-ink<br>#17202c</div>
+</div><div class="ft">
+<p style="font-family:Georgia, &quot;Times New Roman&quot;, serif;font-size:20px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:36px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#242c38;padding:24px;font-family:Georgia, &quot;Times New Roman&quot;, serif">
+      <p style="font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:30px;color:#e8edf2">A useful hierarchy</div>
+      <p style="font-size:20px;color:#e8edf2">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#bec4ca;font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;">Muted supporting text · metadata 14</p>
+      <p style="color:#819cc7;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#bec4ca">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#6689bc;color:#17202c;border-radius:2px">Primary action</span>
+        <span style="color:#e8edf2">Secondary action</span>
+        <span style="padding:8px;border:2px solid #6e757d;outline:2px solid #6689bc;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #17202c · ink → candidate-ink #e8edf2 · muted → candidate-muted #bec4ca · panel → anchor-panel #242c38 · line → anchor-line #4d555f · accent → anchor-accent #6689bc · secondary → anchor-secondary #6689bc · code → anchor-code #242c38 · accent-text → candidate-accent-text #819cc7 · secondary-text → candidate-secondary-text #bec4ca · focus → candidate-focus #6689bc · control-boundary → candidate-control-boundary #6e757d · primary-fill → anchor-accent #6689bc · button-ink → button-ink #17202c · secondary-action → candidate-ink #e8edf2</p><p class="fr">{&#x27;body&#x27;: &#x27;Georgia, &quot;Times New Roman&quot;, serif&#x27;, &#x27;heading&#x27;: &#x27;-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;&#x27;, &#x27;ui&#x27;: &#x27;-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;&#x27;, &#x27;display&#x27;: &#x27;-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<h3 id="foundation-darkly-reading">Darkly Reading · paired swatch board</h3>
+<article class="fb" style="background:#f7f9fc;color:#212529;border-radius:4px"><h4>light · radius 4</h4><div class="fg">
+<div class="fc"><i style="background:#f7f9fc"></i>anchor-paper<br>#f7f9fc</div>
+<div class="fc"><i style="background:#212529"></i>anchor-ink<br>#212529</div>
+<div class="fc"><i style="background:#4c4f53"></i>anchor-muted<br>#4c4f53</div>
+<div class="fc"><i style="background:#eaecef"></i>anchor-panel<br>#eaecef</div>
+<div class="fc"><i style="background:#bfc2c5"></i>anchor-line<br>#bfc2c5</div>
+<div class="fc"><i style="background:#556d87"></i>anchor-accent<br>#556d87</div>
+<div class="fc"><i style="background:#375a7f"></i>anchor-secondary<br>#375a7f</div>
+<div class="fc"><i style="background:#eaecef"></i>anchor-code<br>#eaecef</div>
+<div class="fc"><i style="background:#e6e6e7"></i>neutral-50<br>#e6e6e7</div>
+<div class="fc"><i style="background:#cdced0"></i>neutral-100<br>#cdced0</div>
+<div class="fc"><i style="background:#9ea0a2"></i>neutral-200<br>#9ea0a2</div>
+<div class="fc"><i style="background:#717477"></i>neutral-300<br>#717477</div>
+<div class="fc"><i style="background:#474b4e"></i>neutral-400<br>#474b4e</div>
+<div class="fc"><i style="background:#212529"></i>neutral-500<br>#212529</div>
+<div class="fc"><i style="background:#1c1f22"></i>neutral-600<br>#1c1f22</div>
+<div class="fc"><i style="background:#17191b"></i>neutral-700<br>#17191b</div>
+<div class="fc"><i style="background:#111315"></i>neutral-800<br>#111315</div>
+<div class="fc"><i style="background:#090b0c"></i>neutral-900<br>#090b0c</div>
+<div class="fc"><i style="background:#050506"></i>neutral-950<br>#050506</div>
+<div class="fc"><i style="background:#edeff2"></i>primary-50<br>#edeff2</div>
+<div class="fc"><i style="background:#dce0e6"></i>primary-100<br>#dce0e6</div>
+<div class="fc"><i style="background:#b9c2ce"></i>primary-200<br>#b9c2ce</div>
+<div class="fc"><i style="background:#97a5b5"></i>primary-300<br>#97a5b5</div>
+<div class="fc"><i style="background:#76889e"></i>primary-400<br>#76889e</div>
+<div class="fc"><i style="background:#556d87"></i>primary-500<br>#556d87</div>
+<div class="fc"><i style="background:#44576b"></i>primary-600<br>#44576b</div>
+<div class="fc"><i style="background:#35414f"></i>primary-700<br>#35414f</div>
+<div class="fc"><i style="background:#252d36"></i>primary-800<br>#252d36</div>
+<div class="fc"><i style="background:#171a1e"></i>primary-900<br>#171a1e</div>
+<div class="fc"><i style="background:#0e1012"></i>primary-950<br>#0e1012</div>
+<div class="fc"><i style="background:#212529"></i>candidate-ink<br>#212529</div>
+<div class="fc"><i style="background:#4c4f53"></i>candidate-muted<br>#4c4f53</div>
+<div class="fc"><i style="background:#50667f"></i>candidate-accent-text<br>#50667f</div>
+<div class="fc"><i style="background:#375a7f"></i>candidate-secondary-text<br>#375a7f</div>
+<div class="fc"><i style="background:#556d87"></i>candidate-focus<br>#556d87</div>
+<div class="fc"><i style="background:#86888a"></i>candidate-control-boundary<br>#86888a</div>
+<div class="fc"><i style="background:#f7f9fc"></i>button-ink<br>#f7f9fc</div>
+</div><div class="ft">
+<p style="font-family:&quot;Lato&quot;, system-ui, sans-serif;font-size:18px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:&quot;Lato&quot;, system-ui, sans-serif;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:&quot;Lato&quot;, system-ui, sans-serif;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:&quot;Lato&quot;, system-ui, sans-serif;font-size:36px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#eaecef;padding:24px;font-family:&quot;Lato&quot;, system-ui, sans-serif">
+      <p style="font-family:&quot;Lato&quot;, system-ui, sans-serif">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:&quot;Lato&quot;, system-ui, sans-serif;font-size:30px;color:#212529">A useful hierarchy</div>
+      <p style="font-size:18px;color:#212529">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#4c4f53;font-family:&quot;Lato&quot;, system-ui, sans-serif">Muted supporting text · metadata 14</p>
+      <p style="color:#50667f;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#375a7f">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:&quot;Lato&quot;, system-ui, sans-serif;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#556d87;color:#f7f9fc;border-radius:4px">Primary action</span>
+        <span style="color:#212529">Secondary action</span>
+        <span style="padding:8px;border:2px solid #86888a;outline:2px solid #556d87;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #f7f9fc · ink → candidate-ink #212529 · muted → candidate-muted #4c4f53 · panel → anchor-panel #eaecef · line → anchor-line #bfc2c5 · accent → anchor-accent #556d87 · secondary → anchor-secondary #375a7f · code → anchor-code #eaecef · accent-text → candidate-accent-text #50667f · secondary-text → candidate-secondary-text #375a7f · focus → candidate-focus #556d87 · control-boundary → candidate-control-boundary #86888a · primary-fill → anchor-accent #556d87 · button-ink → button-ink #f7f9fc · secondary-action → candidate-ink #212529</p><p class="fr">{&#x27;body&#x27;: &#x27;&quot;Lato&quot;, system-ui, sans-serif&#x27;, &#x27;heading&#x27;: &#x27;&quot;Lato&quot;, system-ui, sans-serif&#x27;, &#x27;ui&#x27;: &#x27;&quot;Lato&quot;, system-ui, sans-serif&#x27;, &#x27;display&#x27;: &#x27;&quot;Lato&quot;, system-ui, sans-serif&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<article class="fb" style="background:#222222;color:#eeeeee;border-radius:4px"><h4>dark · radius 4</h4><div class="fg">
+<div class="fc"><i style="background:#222222"></i>anchor-paper<br>#222222</div>
+<div class="fc"><i style="background:#eeeeee"></i>anchor-ink<br>#eeeeee</div>
+<div class="fc"><i style="background:#bdc4cb"></i>anchor-muted<br>#bdc4cb</div>
+<div class="fc"><i style="background:#2b3035"></i>anchor-panel<br>#2b3035</div>
+<div class="fc"><i style="background:#53606c"></i>anchor-line<br>#53606c</div>
+<div class="fc"><i style="background:#8db9e8"></i>anchor-accent<br>#8db9e8</div>
+<div class="fc"><i style="background:#375a7f"></i>anchor-secondary<br>#375a7f</div>
+<div class="fc"><i style="background:#2b3035"></i>anchor-code<br>#2b3035</div>
+<div class="fc"><i style="background:#e6e6e7"></i>neutral-50<br>#e6e6e7</div>
+<div class="fc"><i style="background:#cdced0"></i>neutral-100<br>#cdced0</div>
+<div class="fc"><i style="background:#9ea0a2"></i>neutral-200<br>#9ea0a2</div>
+<div class="fc"><i style="background:#717477"></i>neutral-300<br>#717477</div>
+<div class="fc"><i style="background:#474b4e"></i>neutral-400<br>#474b4e</div>
+<div class="fc"><i style="background:#212529"></i>neutral-500<br>#212529</div>
+<div class="fc"><i style="background:#1c1f22"></i>neutral-600<br>#1c1f22</div>
+<div class="fc"><i style="background:#17191b"></i>neutral-700<br>#17191b</div>
+<div class="fc"><i style="background:#111315"></i>neutral-800<br>#111315</div>
+<div class="fc"><i style="background:#090b0c"></i>neutral-900<br>#090b0c</div>
+<div class="fc"><i style="background:#050506"></i>neutral-950<br>#050506</div>
+<div class="fc"><i style="background:#edeff2"></i>primary-50<br>#edeff2</div>
+<div class="fc"><i style="background:#dce0e6"></i>primary-100<br>#dce0e6</div>
+<div class="fc"><i style="background:#b9c2ce"></i>primary-200<br>#b9c2ce</div>
+<div class="fc"><i style="background:#97a5b5"></i>primary-300<br>#97a5b5</div>
+<div class="fc"><i style="background:#76889e"></i>primary-400<br>#76889e</div>
+<div class="fc"><i style="background:#556d87"></i>primary-500<br>#556d87</div>
+<div class="fc"><i style="background:#44576b"></i>primary-600<br>#44576b</div>
+<div class="fc"><i style="background:#35414f"></i>primary-700<br>#35414f</div>
+<div class="fc"><i style="background:#252d36"></i>primary-800<br>#252d36</div>
+<div class="fc"><i style="background:#171a1e"></i>primary-900<br>#171a1e</div>
+<div class="fc"><i style="background:#0e1012"></i>primary-950<br>#0e1012</div>
+<div class="fc"><i style="background:#eeeeee"></i>candidate-ink<br>#eeeeee</div>
+<div class="fc"><i style="background:#bdc4cb"></i>candidate-muted<br>#bdc4cb</div>
+<div class="fc"><i style="background:#8db9e8"></i>candidate-accent-text<br>#8db9e8</div>
+<div class="fc"><i style="background:#90a0b6"></i>candidate-secondary-text<br>#90a0b6</div>
+<div class="fc"><i style="background:#8db9e8"></i>candidate-focus<br>#8db9e8</div>
+<div class="fc"><i style="background:#6e7984"></i>candidate-control-boundary<br>#6e7984</div>
+<div class="fc"><i style="background:#ffffff"></i>button-ink<br>#ffffff</div>
+</div><div class="ft">
+<p style="font-family:&quot;Lato&quot;, system-ui, sans-serif;font-size:18px;font-weight:400">A considered reading rhythm.</p>
+<p style="font-family:&quot;Lato&quot;, system-ui, sans-serif;font-size:30px;font-weight:400">A clear section heading</p>
+<p style="font-family:&quot;Lato&quot;, system-ui, sans-serif;font-size:16px;font-weight:400">Navigation · Secondary action</p>
+<p style="font-family:&quot;Lato&quot;, system-ui, sans-serif;font-size:36px;font-weight:400">Ideas worth reading</p>
+<p style="font-family:&quot;IBM Plex Mono&quot;, ui-monospace, monospace;font-size:24px;font-weight:400">const rhythm = 24;</p>
+</div><div class="fr" style="margin-top:24px;background:#2b3035;padding:24px;font-family:&quot;Lato&quot;, system-ui, sans-serif">
+      <p style="font-family:&quot;Lato&quot;, system-ui, sans-serif">Static visual examples — these are not interactive controls.</p>
+      <div style="font-family:&quot;Lato&quot;, system-ui, sans-serif;font-size:30px;color:#eeeeee">A useful hierarchy</div>
+      <p style="font-size:18px;color:#eeeeee">Primary body text gives the idea room to breathe.</p>
+      <p style="color:#bdc4cb;font-family:&quot;Lato&quot;, system-ui, sans-serif">Muted supporting text · metadata 14</p>
+      <p style="color:#8db9e8;text-decoration:underline;text-underline-offset:3px">Primary link ink</p>
+      <p style="color:#90a0b6">Secondary supporting text</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-family:&quot;Lato&quot;, system-ui, sans-serif;font-size:16px">
+        <span style="display:inline-block;padding:8px 16px;background:#375a7f;color:#ffffff;border-radius:4px">Primary action</span>
+        <span style="color:#eeeeee">Secondary action</span>
+        <span style="padding:8px;border:2px solid #6e7984;outline:2px solid #8db9e8;outline-offset:4px">Control boundary + focus</span>
+      </div></div><p class="fr">paper → anchor-paper #222222 · ink → candidate-ink #eeeeee · muted → candidate-muted #bdc4cb · panel → anchor-panel #2b3035 · line → anchor-line #53606c · accent → anchor-accent #8db9e8 · secondary → anchor-secondary #375a7f · code → anchor-code #2b3035 · accent-text → candidate-accent-text #8db9e8 · secondary-text → candidate-secondary-text #90a0b6 · focus → candidate-focus #8db9e8 · control-boundary → candidate-control-boundary #6e7984 · primary-fill → anchor-secondary #375a7f · button-ink → button-ink #ffffff · secondary-action → candidate-ink #eeeeee</p><p class="fr">{&#x27;body&#x27;: &#x27;&quot;Lato&quot;, system-ui, sans-serif&#x27;, &#x27;heading&#x27;: &#x27;&quot;Lato&quot;, system-ui, sans-serif&#x27;, &#x27;ui&#x27;: &#x27;&quot;Lato&quot;, system-ui, sans-serif&#x27;, &#x27;display&#x27;: &#x27;&quot;Lato&quot;, system-ui, sans-serif&#x27;, &#x27;code&#x27;: &#x27;&quot;IBM Plex Mono&quot;, ui-monospace, monospace&#x27;}</p></article>
+<p>Regular bundled faces shown; system/Georgia/Consolas depend on local availability. Folio Caslon only large display; Source Serif 4 section headings and DM Sans UI. Tufte keeps achromatic link ink; optional blue is a highlight fill paired with explicit ink. Secondary action is neutral. Brand fills retained independently from repaired text. Darkly dark button retains #375a7f with separate light link ink. Hover/stateful interaction mappings remain unadopted; primary hover should stay within primary family.</p><h3>Shared state family</h3><p>Pair color with icons and words: ✓ Success, ! Warning, × Error, i Information, especially red-brand Simplex. UI states are not data series. Success, warning and danger anchors come from Reading sources; information is a new candidate. Boundaries are strengthened independently.</p><div class="fg">
+<div class="fc" style="background:#e6f1e8;color:#204b32;border:2px solid #73907c">light ✓ Success<br>bg #e6f1e8<br>ink #204b32<br>border #73907c<br>ink 8.57:1<br>border 3.01:1</div>
+<div class="fc" style="background:#fbf1dc;color:#604414;border:2px solid #a0895a">light ! Warning<br>bg #fbf1dc<br>ink #604414<br>border #a0895a<br>ink 8.02:1<br>border 3.01:1</div>
+<div class="fc" style="background:#f9e9e5;color:#803c32;border:2px solid #a97e74">light × Error<br>bg #f9e9e5<br>ink #803c32<br>border #a97e74<br>ink 6.83:1<br>border 3.01:1</div>
+<div class="fc" style="background:#e7eff8;color:#245c86;border:2px solid #708ca5">light i Information<br>bg #e7eff8<br>ink #245c86<br>border #708ca5<br>ink 6.14:1<br>border 3.02:1</div>
+<div class="fc" style="background:#153b31;color:#b8e6d3;border:2px solid #5e8678">dark ✓ Success<br>bg #153b31<br>ink #b8e6d3<br>border #5e8678<br>ink 8.99:1<br>border 3.03:1</div>
+<div class="fc" style="background:#3d3017;color:#f3d798;border:2px solid #aa8648">dark ! Warning<br>bg #3d3017<br>ink #f3d798<br>border #aa8648<br>ink 9.17:1<br>border 3.80:1</div>
+<div class="fc" style="background:#3d2424;color:#f1beb7;border:2px solid #a67570">dark × Error<br>bg #3d2424<br>ink #f1beb7<br>border #a67570<br>ink 8.66:1<br>border 3.66:1</div>
+<div class="fc" style="background:#1d3043;color:#b9d9f3;border:2px solid #7399b9">dark i Information<br>bg #1d3043<br>ink #b9d9f3<br>border #7399b9<br>ink 9.18:1<br>border 4.49:1</div>
+</div><p><a href="results/foundations.json">Exact candidates</a> · <a href="results/foundations-contrasts.csv">Before/after paired role checks</a></p></section>
+
+<h3 id="concrete-changes-by-theme-at-both-levels">Concrete changes by theme, at both levels</h3>
+<p>The common changes above apply to all nine. The table below specifies the
+additional work that gives each one its individuality. “General” means our
+blog/document extension and its SmallDocs/Quarto outputs. “Presentation” means
+our htmpres adaptation. None of this requests edits to upstream Bootswatch.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Theme</th>
+<th>Keep / strengthen in the general theme</th>
+<th>Change in presentations</th>
+<th>Guardrail / reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Folio</strong></td>
+<td>Keep warm paper, green/sage primary family, rust secondary and serif prose. Establish the 20px prose / 16px UI minimum roles; stop using tiny metadata and display serif for every heading. Use fine rules and radius 2, with no resting shadow. Strengthen secondary ink only where the new role screen requires it; keep paper anchors.</td>
+<td>Remove the common slide shadow and reduce filled-card repetition. Use 30px Source Serif body, 48px large title, 36px section heading, 64px outer margin. Keep Libre Caslon for large cover/title use only; diagrams and dense labels use DM Sans.</td>
+<td>Green and rust should have distinct jobs. Do not automatically change primary green interactions to rust on hover. Decide the serif/sans projection alternate in Part 2.</td>
+</tr>
+<tr>
+<td><strong>Atelier</strong></td>
+<td>Preserve the square studio grammar already present in its source: ruled groups, square code blocks and callouts. Keep DM Sans and teal with optional terracotta emphasis. Replace scattered small sizes and excessive negative tracking with the role ladder. Primary prose uses ink, not secondary ink.</td>
+<td>Replace generic rounded cards with square panels only where they help, otherwise open columns. Use 30/36/48 text hierarchy, 32px internal panel padding and 48px column gaps. Keep labels aligned and quiet.</td>
+<td>Atelier's fit with the existing shell is not proof it is the best design. Its own source is squarer than that shell; preserve that distinction.</td>
+</tr>
+<tr>
+<td><strong>Nocturne</strong></td>
+<td>Keep the ink-blue/pearl surfaces, Source Serif prose and brass/brown primary with purple secondary. Give DM Sans clear UI/metadata jobs. Use body ink for most headings; retain a short brass rule or selected emphasis instead of making every large heading brass. Radius 4; quiet code panels.</td>
+<td>Keep the dark identity without forcing dark mode for every room. Remove ornamental frame/shadow, enlarge serif text, make brass scarce, and avoid adding a purple filled card merely because a secondary color exists.</td>
+<td>Standard data-map highlights may compete with brass. Part 2 decides the emphasis budget and serif projection profile; Part 3 decides chart semantics.</td>
+</tr>
+<tr>
+<td><strong>Tufte</strong></td>
+<td>Keep cream/neutral paper and ET Book. Give paragraphs, quotes and sidenotes hierarchy through measure, type and space. Use borderless text groups and booklike table rules. Preserve ordinary link ink with an underline; optional color emphasis is a separate role. Improve marginal small-text roles where measured.</td>
+<td><strong>Mute the cardiness:</strong> card-like text groups become transparent, borderless, shadowless, square and internally unpadded; retain 32/48px group separation. Use regular large projected headings instead of making every small heading italic. Convert margin notes to an explicit side column or notes view when appropriate.</td>
+<td>“Minimal” does not mean faint. Code blocks, focus indicators and warnings still need usable boundaries. Optional blue emphasis must not turn all links or charts into a new blue brand.</td>
+</tr>
+<tr>
+<td><strong>Zephyr Reading</strong></td>
+<td>Keep Inter and blue, native light paper/panel colors and existing separate link/button fields. Standardize 18px prose, 16px UI and 14px supporting metadata; use radius 8 for actual controls/cards, not every section. Publish dark mode as a deliberately designed companion if adopted.</td>
+<td>Repair the current dark text-accent role on paper/panel/code while retaining a distinct fill. Use 30px Inter body and selected 600/700 hierarchy. Keep only useful panels; don't repeat blue fills around ordinary paragraphs.</td>
+<td>The dark repair belongs first to the htmpres-derived companion. A new blog dark variant must be explicitly authored and checked; it is not an upstream Zephyr update.</td>
+</tr>
+<tr>
+<td><strong>Simplex Reading</strong></td>
+<td>Keep Open Sans, warm neutrals and economical red emphasis. Retain the source's link/button/on-button separation and explicit danger-state vocabulary. Use radius 2 and quiet ruled grouping. Publish coherent native/light and optional designed dark role mappings.</td>
+<td>Repair dark accent text independently of its red fill. Use 30px regular sans body, clear 36/48 hierarchy and mostly neutral panels. Prefer weight or a rule before adding more red.</td>
+<td>A red primary button is not a danger action. Error states need a word/icon and their own fill/ink pair; red is not automatically the negative arm of a chart.</td>
+</tr>
+<tr>
+<td><strong>Pulse Reading</strong></td>
+<td>Keep purple and the system-sans identity; document platform font variation. Standardize the type scale and radius 4; pale lavender is a supporting surface, not the default background of every paragraph. Keep secondary actions neutral.</td>
+<td>Repair the dark purple text role that currently passes paper narrowly and fails panel. Preserve larger type, open groups and a clear single emphasis.</td>
+<td>Do not invent a second decorative hue just because legacy aliases imply five colors. A purple UI ladder is not automatically an ordered scientific map.</td>
+</tr>
+<tr>
+<td><strong>Litera Reading</strong></td>
+<td>Keep Georgia prose and sans headings/UI as an intentional division. Use 20px article prose, 16px UI/labels and measured 14px metadata. Radius 2 and fine rules support the editorial character. Let figures extend beyond a constrained prose measure.</td>
+<td>Repair dark accent text. Use 30px serif body with sans 36/48 headings and 24–30px figure labels; test the alternate sans-body projection profile later.</td>
+<td>Do not flatten the useful serif/sans division by making every element inherit one generic family. Avoid retaining small document captions in slides.</td>
+</tr>
+<tr>
+<td><strong>Darkly Reading</strong></td>
+<td>Keep charcoal, Lato and the existing <strong>pale-blue link / dark-blue button / white button text</strong> distinction. The native source already does this correctly. Use 18px prose, 16px UI, actual bundled 700 for emphasis and radius 4. Treat the light companion as a separate designed adaptation.</td>
+<td>Stop treating the imported dark-blue button fill as a readable secondary text/line accent. Preserve it as fill when its on-fill ink is valid; use the tested secondary text role for labels. Match 30/36/48 hierarchy and quiet panels.</td>
+<td>Brightening the original button just to fix a slide text alias would damage the correct source distinction. Repair the mapping, then validate each intended surface.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="what-gets-implemented-where-after-we-choose">What gets implemented where, after we choose</h3>
+<p>Create a single reviewed foundation record per owned family containing its
+swatches, semantic light/dark mappings, font roles, type/space selections,
+shape and elevation policy. <strong>Keep one meaning; emit medium-specific mappings.</strong>
+Do not maintain unrelated hand-tuned hex values in three renderers.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Owned surface</th>
+<th>Proposed implementation responsibility</th>
+<th>What is outside this change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Elegant custom theme source</td>
+<td>Update the relevant <code>src/theme.json</code>, shared role rules and per-theme <code>design.css</code>; preserve declared font assets</td>
+<td>No direct edits to generated distributions as the source of truth.</td>
+</tr>
+<tr>
+<td>Owned Reading overrides</td>
+<td>Extend existing <code>link/button/on-button/state</code> roles and replace scattered size/space values in <code>reading.css</code>; add a designed companion mode only deliberately</td>
+<td>No edits to the original Bootswatch CSS or its upstream repository.</td>
+</tr>
+<tr>
+<td>SmallDocs and Quarto outputs</td>
+<td>Generate both from the owned source; map body, nav, TOC, links, forms, buttons, alerts, tables, captions and code to the same roles; verify both computed outputs</td>
+<td>No assumption that identical variable names guarantee identical renderer output.</td>
+</tr>
+<tr>
+<td>htmpres catalog/import adapter</td>
+<td>Preserve role distinctions during import; add reading/presentation profiles and family-specific shape/grouping rules</td>
+<td>No global restyling of all stock themes as collateral damage; scope overrides to the nine families.</td>
+</tr>
+<tr>
+<td>Our Tufte adaptation</td>
+<td>Put the unboxed grouping and optional highlight policy in our theme override layer; document source ownership when integrating with the blog package</td>
+<td>No need to change upstream Tufte or pretend its general source lives in an Elegant custom-theme folder that does not exist.</td>
+</tr>
+<tr>
+<td>Matplotlib / Seaborn, Part 3</td>
+<td>Map figure surface, primary/secondary text, font roles and placed-size targets to the chosen family/profile</td>
+<td>UI swatch ladders do not become automatic category cycles, ordered maps or stateful chart meanings.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Before adoption, render the same representative article, listing, code block,
+form/button states, table, callout and figure in SmallDocs and Quarto, both
+modes and a narrow viewport. In htmpres, render title/prose, two-column,
+code/table and figure slides at actual audience size and exercise the mode
+control. Compare effective font size and actual loaded family, every intended
+text/surface pair, focus and interaction states, overflow and grouping. The
+prototype swatches pass the documented color screen; this entire cross-renderer
+component audit and a real room check are still required for production.</p>
+<p><strong>The next joint decision is Part 2:</strong> retain these shared foundations, then
+choose among the explicitly marked projection tradeoffs. Parts 2 and 3 can
+refine the medium-specific mappings without silently changing our nine families'
+core identities. No production theme is changed by this specification.</p><footer>Decision draft · 9 November 2026 · <a href="01-design-language.md">Markdown source</a> · Synthetic data; production themes unchanged.</footer></main></body></html>

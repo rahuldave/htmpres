@@ -1,9 +1,9 @@
-/** Run via CUA against http://127.0.0.1:8773 after the research specimens target.
+/** Run via CUA against http://127.0.0.1:8774/research/theme-audit after the research specimens target and `just serve` (repository-root server).
  * Import this file in cua_repl, then call checkThemeAuditBrowser(tab).
  * DOM evaluations are read-only; navigation and button clicks use CUA controls.
  * Contact-page screenshots remain a separate visual inspection, not asserted here.
  */
-export async function checkThemeAuditBrowser(tab, base = 'http://127.0.0.1:8773') {
+export async function checkThemeAuditBrowser(tab, base = 'http://127.0.0.1:8774/research/theme-audit') {
   const passed = [];
   const assert = (value, message) => { if (!value) throw new Error(message); };
   for (const report of ['01-design-language', '02-presentation-color', '03-scientific-palettes']) {
@@ -11,7 +11,7 @@ export async function checkThemeAuditBrowser(tab, base = 'http://127.0.0.1:8773'
     await tab.getAXState({ emit: false });
     const state = await tab.playwright.evaluate(() => ({
       title: document.querySelector('h1')?.textContent,
-      nav: document.querySelectorAll('nav a').length,
+      nav: document.querySelectorAll('header nav a').length,
       images: [...document.images].map(image => ({ loaded: image.complete && image.naturalWidth > 0, alt: image.alt })),
       overflow: document.documentElement.scrollWidth > innerWidth,
       count: document.querySelectorAll('table').length,

@@ -66,6 +66,8 @@ def main() -> None:
         converter = markdown.Markdown(extensions=["tables", "fenced_code", "toc"],
                                       extension_configs={"toc": {"toc_depth": "2-3"}})
         body = converter.convert(source)
+        if slug == "01-design-language":
+            body = body.replace("<!-- FOUNDATION_SPECIMENS -->", (HERE / "results/foundations-specimens.html").read_text())
         body = re.sub(r'href="(0[123]-[^"#]+)\.md([#"][^"]*)', r'href="\1.html\2', body)
         body = body.replace("<table>", '<div class="table-wrap"><table>').replace("</table>", "</table></div>")
         nav = "".join(f'<a href="{s}.html"' + (' aria-current="page"' if s == slug else '') + f'>{label}</a>' for s, label in zip(REPORTS, LABELS))

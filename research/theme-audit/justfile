@@ -13,16 +13,20 @@ measure: sync
 experiments: sync
     uv run --frozen python experiments.py
 
-reports: sync
+reports: foundations
     uv run --frozen python build_reports.py
 
 test: sync
     uv run --frozen python -m pytest -q
 
-check: measure experiments reports test
+foundations: sync
+    uv run --frozen python foundations.py
+
+check: measure experiments foundations reports test
 
 specimens: sync
     uv run --frozen python build_specimens.py
 
 serve: reports
-    uv run --frozen python -m http.server 8773 --bind 127.0.0.1
+    @echo "Font specimens require repository-root serving: http://127.0.0.1:8774/research/theme-audit/01-design-language.html"
+    uv run --frozen python -m http.server 8774 --bind 127.0.0.1 --directory ../..

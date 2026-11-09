@@ -22,8 +22,10 @@
   "refactoring_ui_original": {
     "name": "wathan-schoger-refactoring-ui.pdf",
     "sha256": "a2369aac3d8aed4b53363d1cdda599a6dd3a5e62bd5a78310610029d832ec051",
-    "printed_pages_checked": "20\u201322, 36\u201344, 66\u201368, 142\u2013160, 162\u2013168",
+    "printed_pages_checked": "20\u201322, 36\u201344, 66\u201374, 76\u201381, 96\u201399, 102\u2013107, 114\u2013116, 142\u2013160, 162\u2013168",
     "printed_pages_visually_checked": [
+      73,
+      105,
       147,
       154,
       164

@@ -28,11 +28,12 @@ purpose-specific `.credit` and `.source`; there is no generic small-text mark
 or numbered author class. See [importance](semantic-authoring.md#importance)
 for Schwabish's relevant pages and text-fit limits.
 
-**Browser test:** the statement's measured size/weight dominates body copy,
-the untitled single block centers, and fitted text stays within the body.
-Checked in light/dark modes across 35 paired themes, three legacy seeds and
-read-only snapshots of all nine pending foundations (91 mode cases total).
-Foundation adoption itself remains a separate workstream.
+**Browser test:** detailed Nocturne light/dark checks measure statement
+size/weight and confirm that a long statement actually shrinks to fit. Catalog
+checks cover short-statement centering/containment and importance hierarchy
+across 35 paired themes, three legacy seeds and read-only snapshots of all nine
+pending foundations (91 mode cases total). Foundation adoption itself remains
+a separate workstream.
 
 ### Picture credit and quotation source
 
@@ -66,11 +67,12 @@ line. `.key` works inside the quotation:
 > [Original example copy for this demonstration.]{.source}
 ```
 
-**Browser test:** credit links survive relocation; multiple credits stack,
-body and section label clear the lane, and the opaque theme backing remains
-readable over the image. Checked all 91 catalog cases and a 520px viewport in
-audience/presenter views, both modes. Quote emphasis and smaller source text
-were checked in the same catalog. Theme contrast tests cover all 70 paired
+**Browser test:** detailed Nocturne checks cover multiple stacked credits,
+body/section-label/footer clearance and opaque backing. Unit tests confirm
+that credit links survive relocation. All 91 catalog cases check credit
+containment, body clearance, backing contrast and quote/source hierarchy;
+a 520px viewport also checks credit geometry in audience/presenter views,
+both modes. Theme contrast tests cover all 70 paired
 modes; small attribution targets 4.8:1 and never falls below 4.5:1 in the stock
 catalog. See [credits](semantic-authoring.md#picture-credits) and
 [quotations](semantic-authoring.md#quotations-and-their-source) for Schwabish

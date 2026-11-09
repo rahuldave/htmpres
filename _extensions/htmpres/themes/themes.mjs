@@ -1,3 +1,4 @@
+import { attributionTokens } from "./attribution.mjs";
 /** Shared, dependency-free theme adapter for the Deno and Node renderers. */
 export const legacyThemes = ["sage", "mono-grid", "blank"];
 
@@ -49,9 +50,10 @@ function tokens(entry, mode) {
     [0.9, 400, p.muted],
     [1, 400, p.ink],
     [1.12, 700, p.ink],
-    [1.3, 800, p.ink],
+    [3, 800, p.ink],
   ];
   const values = {
+    ...attributionTokens(p),
     "bg": p.panel, "paper": p.paper, "surface": p.panel,
     "ink": p.ink, "muted": p.muted, "line": p.line,
     "teal": p.accent, "amber": p.secondary, "rose": p.secondary,

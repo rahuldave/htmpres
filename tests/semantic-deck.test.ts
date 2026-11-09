@@ -19,7 +19,7 @@ for (const view of ["index", "presenter"]) {
   assert(html.includes('href="#slide-1-fn1"') && html.includes('href="#slide-2-fn1"'), `${view}: independent footnotes`);
   assert(html.includes('src="assets/htmpres-math/katex.min.js"') && html.includes('href="assets/htmpres-math/katex.min.css"'), `${view}: local math bundle`);
   assert(!/<(?:script|link)\b[^>]*(?:src|href)="https?:\/\//i.test(html), `${view}: no network scripts/styles`);
-  assert(html.includes(".slide.htmpres-text-fit-active :is(div, section, aside, blockquote):is(.key, .aside)"), `${view}: semantic CSS loaded after shell`);
+  assert(html.includes(".slide.htmpres-text-fit-active :is(div, section, aside, blockquote):is(.key, .aside, .statement)"), `${view}: semantic CSS loaded after shell`);
   if (view === "index") assert(!html.includes('id="deckNotes"') && !html.includes("This note has a separate"), "Audience notes isolated");
   else assert(html.includes("notes-1-fn1") && html.includes("notes-2-fn1"), "Presenter note references have independent namespaces");
 }

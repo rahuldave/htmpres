@@ -4,6 +4,133 @@ Verified on 2026-11-06. This is the exact authoring contract for the downstream
 presentation skill. The plan stays in `plan.md`; the hand-editable deck can be
 named `slides.qmd`. htmpres does not read the planning worksheet.
 
+## Current additions for look-talks (2026-11-09)
+
+The following contracts are implemented in
+[`b8fee29`](https://github.com/rahuldave/htmpres/commit/b8fee29).
+They extend the original report below.
+
+### Dominant statements and level 0
+
+Use `.statement` on a span or fenced block for importance level 4:
+
+```markdown
+## {#main-claim .autoscale data-title="The main claim"}
+
+::: {.statement}
+Structure makes the argument memorable.
+:::
+```
+
+`[The main claim.]{.statement}` works within ordinary slide copy too. `.key`
+remains level 3, body is 2 and `.aside` is 1. Level 0 is available through
+purpose-specific `.credit` and `.source`; there is no generic small-text mark
+or numbered author class. See [importance](semantic-authoring.md#importance)
+for Schwabish's relevant pages and text-fit limits.
+
+**Browser test:** detailed Nocturne light/dark checks measure statement
+size/weight and confirm that a long statement actually shrinks to fit. Catalog
+checks cover short-statement centering/containment and importance hierarchy
+across 35 paired themes, three legacy seeds and read-only snapshots of all nine
+pending foundations (91 mode cases total). Foundation adoption itself remains
+a separate workstream.
+
+### Picture credit and quotation source
+
+Use a native `.credit` span or block; the renderer collects it into the
+reserved lower-right picture-credit lane. Keep long records in the appendix:
+
+```markdown
+## A picture {#picture}
+
+::: {.ds-full .ds-media .ds-fill .ds-no-pad}
+![A source document branches into two views.](assets/two-views.svg)
+:::
+
+[Image: htmpres project, [source record](#image-source).]{.credit}
+
+## Image source {#image-source data-kind="appendix"}
+
+Project diagram supplied with this example.
+
+[Back to the picture](#picture).
+```
+
+Use ordinary Markdown blockquotes, the slide class `.quote` and a `.source`
+line. `.key` works inside the quotation:
+
+```markdown
+## One idea {.quote #quotation}
+
+> An effective slide gives the audience [one idea to remember.]{.key}
+>
+> [Original example copy for this demonstration.]{.source}
+```
+
+**Browser test:** detailed Nocturne checks cover multiple stacked credits,
+body/section-label/footer clearance and opaque backing. Unit tests confirm
+that credit links survive relocation. All 91 catalog cases check credit
+containment, body clearance, backing contrast and quote/source hierarchy;
+a 520px viewport also checks credit geometry in audience/presenter views,
+both modes. Theme contrast tests cover all 70 paired
+modes; small attribution targets 4.8:1 and never falls below 4.5:1 in the stock
+catalog. See [credits](semantic-authoring.md#picture-credits) and
+[quotations](semantic-authoring.md#quotations-and-their-source) for Schwabish
+page references and the contrast policy.
+
+### Audience counter setting
+
+Put `deck.counter` in initial deck front matter:
+
+```markdown
+---
+pagetitle: A spoken talk
+deck:
+  theme: nocturne
+  counter: presenter
+---
+
+## The result
+
+[The intervention helped.]{.key}
+```
+
+`presenter` hides the audience footer counter and retains the presenter
+counter. `false` hides both; omitted or `true` shows both. Invalid values
+produce a machine-readable `deck-counter` lint error. Both verifiers reject
+stale policy/visibility output.
+
+**Browser test:** audience and presenter visibility, main-deck end count,
+appendix count and return link in light/dark modes. Unit and actual render
+tests exercise every policy through Deno and Node. The
+[complete hook deck](_generated/source/authoring-hooks.qmd.txt) produces
+[audience](_generated/authoring-hooks/index.html) and
+[presenter](_generated/authoring-hooks/presenter.html) examples.
+
+### Matching colors begin with the first reveal
+
+Existing `data-step-summary="match"` syntax now colors each named source part
+and explanation when that explanation first appears. Colors accumulate;
+future explanations stay hidden. The extra final advance clears teaching
+highlights/dimming to show every pair together. Back and restart restore the
+appropriate reveal/color state. No additional opt-in attribute is required.
+See the complete [code and equation examples](example.qmd?slide=6) and
+[exact mapping/override syntax](semantic-authoring.md#finish-with-matched-colors).
+
+**Browser test:** every code/equation teaching frame, source/explanation color
+equality, hidden future text, final overview, backward navigation and reset in
+audience/presenter views, light and dark. The interactive Markdown page's
+keyboard controls, view/mode changes and appendix navigation were also tested.
+
+**Verification:** `just check`, `just compat-check`, final 70 Node tests,
+`just semantic-test`, `just docs-check` (164 HTML pages), actual Deno/Node hook
+HTML parity, and packaged-skill validation/lint/scratch installation passed.
+The downstream look-talks/nossaifd-talks repositories were not edited. No
+Deckset shorthand, generic size utilities, foundation schema redesign or
+credits/conclusion templates were added.
+
+## Original semantic implementation
+
 The semantic implementation was merged in
 [`b374e3c`](https://github.com/rahuldave/htmpres/commit/b374e3cdaab0115fe9ccd8559b0a132888862f4f)
 ([PR #11](https://github.com/rahuldave/htmpres/pull/11)). The original feature
@@ -55,7 +182,8 @@ The estimate is less certain for smaller groups.
 All 35 paired themes map these roles in both modes, and the three legacy seeds
 have defaults. The theme token scale has levels 0–4, each with
 `--htmpres-importance-N-scale`, `-weight` and `-ink`. Normal text is level 2;
-`.aside` uses 1 and `.key` uses 3. Levels 0 and 4 are reserved token hooks;
+`.aside` uses 1 and `.key` uses 3. The current additions above expose level 4
+through `.statement` and level 0 through attribution marks;
 there are no numbered author classes or new visual utility language. Theme
 authors may change tokens in CSS without changing slide source. Role sizing
 also works inside fitted cards and callouts.
@@ -364,5 +492,5 @@ The downstream nossaifd-talks skill was not edited: this report is its input.
 No Deckset `[.column]` / `^` translation was added. No new visual utility
 language or design system was introduced. Importance has default theme tokens;
 content uses semantic classes and attributes. Browser auto-refresh and the
-main-tour correction are follow-up work beyond the semantic merge; their
-checkpoint is linked in the PR/handoff accompanying this report.
+main-tour correction were delivered after the original semantic merge; their
+current behavior is described above and in the authoring guide.

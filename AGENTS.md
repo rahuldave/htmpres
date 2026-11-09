@@ -197,6 +197,7 @@ prefer the Just targets below.
 just tutorial
 just semantic
 just semantic-test
+just authoring-hooks
 just lint slides.qmd
 just example
 just theme-gallery
@@ -220,6 +221,9 @@ npm run render -- decks/tutorial/index.qmd
 npm run verify
 ```
 
+The statement/credit/quote/counter demo is `decks/authoring-hooks/index.qmd`;
+`just authoring-hooks` renders it. Its rerunnable CUA checks are
+`integration_tests/talk-hooks-browser.mjs`.
 The semantic demo source is `decks/semantic/index.qmd`. `just semantic-test`
 checks semantic importance across every paired theme and the rendered demo's
 source/IDs/math assets. `just lint <path> [more paths]` emits versioned JSON

@@ -4,7 +4,7 @@ import path from "node:path";
 
 import { extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, splitFrontMatter as splitSourceFrontMatter } from "../_extensions/htmpres/lib/source.mjs";
 
-import { unnamespacedPandocIds } from "../_extensions/htmpres/lib/render.mjs";
+import { counterPolicyFailures, unnamespacedPandocIds } from "../_extensions/htmpres/lib/render.mjs";
 
 const root = process.cwd();
 const sourceRoot = path.join(root, "source_presentations");
@@ -205,6 +205,7 @@ function verifyQmdVerbatimBlocks(deck, qmd, file) {
 function verifyGeneratedHtml(deck, qmd, html, file, mode) {
   const expected = extractExpectedPreBlocks(qmd);
   const actual = extractHtmlPreBlocks(html);
+  for (const message of counterPolicyFailures(qmd, html, mode)) fail(deck, file, message);
   const meta = parseSimpleYaml(splitFrontMatter(qmd).yaml);
 
   if (actual.length !== expected.length) {

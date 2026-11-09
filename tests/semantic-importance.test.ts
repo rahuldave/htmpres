@@ -21,7 +21,9 @@ const css = read("_extensions/htmpres/runtime/htmpres-semantic.css");
 assert(css === read("decks/scripts/htmpres-semantic.css"), "Packaged and local semantic styles agree");
 assert(css.includes(".key") && css.includes(".aside"), "Both semantic roles are supported");
 assert(css.includes("--htmpres-importance-3-scale") && css.includes("--htmpres-importance-1-scale"), "Roles use the shared importance scale");
-assert(css.includes(".slide.htmpres-text-fit-active :is(div, section, aside, blockquote):is(.key, .aside)"), "Fitted importance blocks outrank existing card/callout/lead size rules (browser regression)");
+assert(css.includes(".slide.htmpres-text-fit-active :is(div, section, aside, blockquote):is(.key, .aside, .statement)"), "Fitted importance blocks outrank existing card/callout/lead size rules (browser regression)");
 assert(!/#[0-9a-f]{3,8}\b|\brgba?\(/i.test(css), "Role CSS delegates palette values to themes");
 for (let level = 0; level < 5; level++) assert(css.includes(`--htmpres-importance-${level}-ink`), `Legacy/default fallback for level ${level}`);
 console.log("Semantic importance tests passed: spans/blocks share five token levels across 35 themes × two modes and legacy defaults.");
+
+await import('./talk-hooks.test.ts');

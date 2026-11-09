@@ -1,0 +1,51 @@
+# Research-only pipeline. Dependencies execute in the written order.
+# https://just.systems/man/en/dependencies.html
+
+default:
+    @just --list
+
+sync:
+    uv sync --frozen
+
+measure: sync
+    uv run --frozen python measure.py
+
+experiments: sync
+    uv run --frozen python experiments.py
+
+reports: sync
+    uv run --frozen python build_reports.py
+
+test: sync
+    uv run --frozen python -m pytest -q
+
+foundations: sync
+    uv run --frozen python foundations.py
+
+# Current verification never invokes historical generators.
+check: reports test
+
+current: sync
+    uv run --frozen python current_experiments.py
+    uv run --frozen python build_current_placements.py
+    uv run --frozen python current_treatment.py
+    uv run --frozen python build_current_report.py
+    uv run --frozen python build_reports.py
+    uv run --frozen python finalize_current_evidence.py
+
+# Explicit opt-in; these commands regenerate historical baseline outputs.
+historical-reproduce: measure experiments foundations contract
+
+
+specimens: sync
+    uv run --frozen python build_specimens.py
+
+serve: reports
+    @echo "Font specimens require repository-root serving: http://127.0.0.1:8774/research/theme-audit/01-design-language.html"
+    uv run --frozen python -m http.server 8774 --bind 127.0.0.1 --directory ../..
+
+contract: foundations
+    uv run --frozen python build_contract.py
+
+contract-test: contract
+    uv run --frozen python -m pytest tests/test_contract.py -q

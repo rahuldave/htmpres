@@ -1,0 +1,797 @@
+{
+  "schemaVersion": 1,
+  "run": "foundations-2026-11-09",
+  "encoding": {
+    "qualitative": {
+      "default": "colorblind-subset-3",
+      "extended": "colorblind-subset-5",
+      "alternatives": [],
+      "assignment": "Caller supplies stable ordered category IDs; preserve across mode and figures; use direct labels/markers/dashes",
+      "eight_color_policy": "Comparison only; no universal eight-color recommendation",
+      "variants": {
+        "colorblind-subset-3": {
+          "status": "recommended",
+          "max_categories": 3,
+          "stable_slots": [
+            "A",
+            "B",
+            "C"
+          ],
+          "markers": [
+            "o",
+            "s",
+            "^"
+          ],
+          "dashes": [
+            "solid",
+            "dashed",
+            "dotted"
+          ]
+        },
+        "colorblind-subset-5": {
+          "status": "explicit-conditional",
+          "max_categories": 5,
+          "stable_slots": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "markers": [
+            "o",
+            "s",
+            "^",
+            "D",
+            "v"
+          ],
+          "dashes": [
+            "solid",
+            "dashed",
+            "dotted",
+            "dashdot",
+            [
+              5,
+              1,
+              1,
+              1
+            ]
+          ],
+          "limitations": "Worst simulated CAM02 separation is lower than3-category option; small count does not certify identification. Required ink under-stroke/edged markers and direct labels apply; review density and occlusion."
+        }
+      },
+      "bare_cycle_supported": false,
+      "max_categories": 3,
+      "status": "supported-with-required-ink-understroke",
+      "stable_slots": [
+        "A",
+        "B",
+        "C"
+      ],
+      "required_treatment": {
+        "foreground_css_px": 2.5,
+        "understroke_css_px": 5.5,
+        "understroke_role": "ink",
+        "marker_css_px": 7,
+        "marker_edge_css_px": 1.5,
+        "marker_edge_role": "ink",
+        "markers": [
+          "o",
+          "s",
+          "^"
+        ],
+        "dashes": [
+          "solid",
+          "dashed",
+          "dotted"
+        ],
+        "labels": "Explicit category ID at endpoint; no overlapping legend"
+      },
+      "diagnostic_only": [
+        "okabe-ito-subset-3",
+        "okabe-ito-subset-5",
+        "Dark2-visibility-3"
+      ]
+    },
+    "sequential": {
+      "default": "cividis",
+      "alternatives": [
+        "viridis",
+        "mako",
+        "rocket"
+      ],
+      "normalization": "Explicit vmin/vmax; no automatic mode reversal"
+    },
+    "diverging": {
+      "default": "BrBG",
+      "alternatives": [
+        "RdBu",
+        "coolwarm"
+      ],
+      "normalization": "Explicit vmin, meaningful center, vmax; disclose asymmetric limits",
+      "missing": "Opaque contextual neutral fill plus cross/hatch; not the center color"
+    },
+    "special_values": {
+      "bad": {
+        "fill_role": "muted",
+        "ink_role": "background",
+        "hatch": "x"
+      },
+      "under": "endpoint",
+      "over": "endpoint",
+      "clip": true
+    }
+  },
+  "typography": {
+    "mapping": "Ticks/category labels/legends: UI16 reading, label24 presentation. Plot headings:30 reading/36 presentation. Metadata:14 reading/24 presentation. Body annotations30 only deliberately; deck/display48 is not a plot default.",
+    "equation": "placed_css_px = points * placed_width_px / (72 * figure_width_inches)",
+    "figure_width_inches": 8,
+    "placed_width_px": {
+      "reading": 640,
+      "presentation": 1152
+    },
+    "profiles": {
+      "reading": {
+        "label": 16,
+        "heading": 30,
+        "metadata": 14,
+        "body_annotation": 18
+      },
+      "presentation": {
+        "label": 24,
+        "heading": 36,
+        "metadata": 24,
+        "body_annotation": 30
+      }
+    }
+  },
+  "themes": {
+    "folio": {
+      "decision": "Use fixed category colors only with required theme-ink under-stroke and edged markers; bare thin strokes unsupported. Labels/dashes supplement, never restore vanished strokes.",
+      "voice": "Warm paper/green furniture, sans chart UI; rust is an explicit alternative focus.",
+      "qualitative": "colorblind-subset-3",
+      "extended_qualitative": "colorblind-subset-5",
+      "sequential": "cividis",
+      "diverging": "BrBG",
+      "category_min_contrast": 1.34958534,
+      "category_worst_distance": 29.63897407,
+      "category_mark_risk": true,
+      "optional_ramps": [
+        "folio-light-optional-ramp",
+        "folio-dark-optional-ramp"
+      ],
+      "optional_ramp_policy": "Research alternatives, never automatic UI-ladder defaults",
+      "modes": {
+        "light": {
+          "paper": {
+            "ink": "#25372d",
+            "muted": "#5a655d",
+            "accent-text": "#254f38",
+            "secondary-text": "#9d442b",
+            "control-boundary": "#86877e",
+            "background": "#f8f4eb"
+          },
+          "panel": {
+            "ink": "#25372d",
+            "muted": "#5a655d",
+            "accent-text": "#254f38",
+            "secondary-text": "#9d442b",
+            "control-boundary": "#86877e",
+            "background": "#efe9dc"
+          }
+        },
+        "dark": {
+          "paper": {
+            "ink": "#eeeadd",
+            "muted": "#afbeb0",
+            "accent-text": "#c3d5a4",
+            "secondary-text": "#e7ad80",
+            "control-boundary": "#6a7b70",
+            "background": "#14271e"
+          },
+          "panel": {
+            "ink": "#eeeadd",
+            "muted": "#afbeb0",
+            "accent-text": "#c3d5a4",
+            "secondary-text": "#e7ad80",
+            "control-boundary": "#6a7b70",
+            "background": "#1d3327"
+          }
+        }
+      },
+      "typography_profiles": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 20
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "required_ink_edge_min_contrast": 10.152107611231193
+    },
+    "atelier": {
+      "decision": "Use fixed category colors only with required theme-ink under-stroke and edged markers; bare thin strokes unsupported. Labels/dashes supplement, never restore vanished strokes.",
+      "voice": "Square teal furniture; keep scientific encodings independent of teal.",
+      "qualitative": "colorblind-subset-3",
+      "extended_qualitative": "colorblind-subset-5",
+      "sequential": "cividis",
+      "diverging": "BrBG",
+      "category_min_contrast": 1.44410958,
+      "category_worst_distance": 29.63897407,
+      "category_mark_risk": true,
+      "optional_ramps": [
+        "atelier-light-optional-ramp",
+        "atelier-dark-optional-ramp"
+      ],
+      "optional_ramp_policy": "Research alternatives, never automatic UI-ladder defaults",
+      "modes": {
+        "light": {
+          "paper": {
+            "ink": "#253e42",
+            "muted": "#516b6e",
+            "accent-text": "#176a70",
+            "secondary-text": "#9a493a",
+            "control-boundary": "#858d8b",
+            "background": "#fbfcfa"
+          },
+          "panel": {
+            "ink": "#253e42",
+            "muted": "#516b6e",
+            "accent-text": "#176a70",
+            "secondary-text": "#9a493a",
+            "control-boundary": "#858d8b",
+            "background": "#eef3f1"
+          }
+        },
+        "dark": {
+          "paper": {
+            "ink": "#e0eeeb",
+            "muted": "#a0b9b9",
+            "accent-text": "#84d0c6",
+            "secondary-text": "#efb0a0",
+            "control-boundary": "#64797b",
+            "background": "#152428"
+          },
+          "panel": {
+            "ink": "#e0eeeb",
+            "muted": "#a0b9b9",
+            "accent-text": "#84d0c6",
+            "secondary-text": "#efb0a0",
+            "control-boundary": "#64797b",
+            "background": "#1b3034"
+          }
+        }
+      },
+      "typography_profiles": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 18
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "required_ink_edge_min_contrast": 9.847313500500743
+    },
+    "nocturne": {
+      "decision": "Use fixed category colors only with required theme-ink under-stroke and edged markers; bare thin strokes unsupported. Labels/dashes supplement, never restore vanished strokes.",
+      "voice": "Ink-blue/pearl furniture, scarce brass focus and sans chart UI.",
+      "qualitative": "colorblind-subset-3",
+      "extended_qualitative": "colorblind-subset-5",
+      "sequential": "cividis",
+      "diverging": "BrBG",
+      "category_min_contrast": 1.3448902,
+      "category_worst_distance": 29.63897407,
+      "category_mark_risk": true,
+      "optional_ramps": [
+        "nocturne-light-optional-ramp",
+        "nocturne-dark-optional-ramp"
+      ],
+      "optional_ramp_policy": "Research alternatives, never automatic UI-ladder defaults",
+      "modes": {
+        "light": {
+          "paper": {
+            "ink": "#292d43",
+            "muted": "#5e6274",
+            "accent-text": "#71502f",
+            "secondary-text": "#624e85",
+            "control-boundary": "#87858f",
+            "background": "#f4f3f6"
+          },
+          "panel": {
+            "ink": "#292d43",
+            "muted": "#5e6274",
+            "accent-text": "#71502f",
+            "secondary-text": "#624e85",
+            "control-boundary": "#87858f",
+            "background": "#eae9ef"
+          }
+        },
+        "dark": {
+          "paper": {
+            "ink": "#ede8de",
+            "muted": "#b5b6c3",
+            "accent-text": "#e2bd82",
+            "secondary-text": "#c6b4e1",
+            "control-boundary": "#707484",
+            "background": "#1c2030"
+          },
+          "panel": {
+            "ink": "#ede8de",
+            "muted": "#b5b6c3",
+            "accent-text": "#e2bd82",
+            "secondary-text": "#c6b4e1",
+            "control-boundary": "#707484",
+            "background": "#242a3c"
+          }
+        }
+      },
+      "typography_profiles": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 20
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "required_ink_edge_min_contrast": 11.040717870508187
+    },
+    "tufte": {
+      "decision": "Use fixed category colors only with required theme-ink under-stroke and edged markers; bare thin strokes unsupported. Labels/dashes supplement, never restore vanished strokes.",
+      "voice": "Neutral unboxed furniture and real ETBembo UI; optional blue focus is explicit.",
+      "qualitative": "colorblind-subset-3",
+      "extended_qualitative": "colorblind-subset-5",
+      "sequential": "cividis",
+      "diverging": "BrBG",
+      "category_min_contrast": 1.52167205,
+      "category_worst_distance": 29.63897407,
+      "category_mark_risk": true,
+      "optional_ramps": [
+        "tufte-light-optional-ramp",
+        "tufte-dark-optional-ramp"
+      ],
+      "optional_ramp_policy": "Research alternatives, never automatic UI-ladder defaults",
+      "modes": {
+        "light": {
+          "paper": {
+            "ink": "#111111",
+            "muted": "#6a6a68",
+            "accent-text": "#111111",
+            "secondary-text": "#6a6a68",
+            "control-boundary": "#90908a",
+            "background": "#fffff8"
+          },
+          "panel": {
+            "ink": "#111111",
+            "muted": "#6a6a68",
+            "accent-text": "#111111",
+            "secondary-text": "#6a6a68",
+            "control-boundary": "#90908a",
+            "background": "#f8f8ee"
+          }
+        },
+        "dark": {
+          "paper": {
+            "ink": "#dddddd",
+            "muted": "#919191",
+            "accent-text": "#dddddd",
+            "secondary-text": "#919191",
+            "control-boundary": "#686865",
+            "background": "#151515"
+          },
+          "panel": {
+            "ink": "#dddddd",
+            "muted": "#919191",
+            "accent-text": "#dddddd",
+            "secondary-text": "#919191",
+            "control-boundary": "#686865",
+            "background": "#1d1d1c"
+          }
+        }
+      },
+      "typography_profiles": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 20
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "required_ink_edge_min_contrast": 12.418722498844991
+    },
+    "zephyr-reading": {
+      "decision": "Use fixed category colors only with required theme-ink under-stroke and edged markers; bare thin strokes unsupported. Labels/dashes supplement, never restore vanished strokes.",
+      "voice": "Inter UI; dark accent text is distinct from button fill.",
+      "qualitative": "colorblind-subset-3",
+      "extended_qualitative": "colorblind-subset-5",
+      "sequential": "cividis",
+      "diverging": "BrBG",
+      "category_min_contrast": 1.4988232,
+      "category_worst_distance": 29.63897407,
+      "category_mark_risk": true,
+      "optional_ramps": [
+        "zephyr-reading-light-optional-ramp",
+        "zephyr-reading-dark-optional-ramp"
+      ],
+      "optional_ramp_policy": "Research alternatives, never automatic UI-ladder defaults",
+      "modes": {
+        "light": {
+          "paper": {
+            "ink": "#495057",
+            "muted": "#5c6375",
+            "accent-text": "#3459e6",
+            "secondary-text": "#5c6375",
+            "control-boundary": "#8a8f99",
+            "background": "#ffffff"
+          },
+          "panel": {
+            "ink": "#495057",
+            "muted": "#5c6375",
+            "accent-text": "#3459e6",
+            "secondary-text": "#5c6375",
+            "control-boundary": "#8a8f99",
+            "background": "#f4f6fb"
+          }
+        },
+        "dark": {
+          "paper": {
+            "ink": "#e8edf2",
+            "muted": "#bec4cc",
+            "accent-text": "#8595f0",
+            "secondary-text": "#bec4cc",
+            "control-boundary": "#6f7581",
+            "background": "#182032"
+          },
+          "panel": {
+            "ink": "#e8edf2",
+            "muted": "#bec4cc",
+            "accent-text": "#8595f0",
+            "secondary-text": "#bec4cc",
+            "control-boundary": "#6f7581",
+            "background": "#242c3e"
+          }
+        }
+      },
+      "typography_profiles": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 18
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "required_ink_edge_min_contrast": 7.4799240155092015
+    },
+    "simplex-reading": {
+      "decision": "Use fixed category colors only with required theme-ink under-stroke and edged markers; bare thin strokes unsupported. Labels/dashes supplement, never restore vanished strokes.",
+      "voice": "Open Sans UI; brand red never automatically means negative data.",
+      "qualitative": "colorblind-subset-3",
+      "extended_qualitative": "colorblind-subset-5",
+      "sequential": "cividis",
+      "diverging": "BrBG",
+      "category_min_contrast": 1.46471994,
+      "category_worst_distance": 29.63897407,
+      "category_mark_risk": true,
+      "optional_ramps": [
+        "simplex-reading-light-optional-ramp",
+        "simplex-reading-dark-optional-ramp"
+      ],
+      "optional_ramp_policy": "Research alternatives, never automatic UI-ladder defaults",
+      "modes": {
+        "light": {
+          "paper": {
+            "ink": "#212529",
+            "muted": "#5f625d",
+            "accent-text": "#b81d0e",
+            "secondary-text": "#5f625d",
+            "control-boundary": "#8d8d89",
+            "background": "#fcfcfc"
+          },
+          "panel": {
+            "ink": "#212529",
+            "muted": "#5f625d",
+            "accent-text": "#b81d0e",
+            "secondary-text": "#5f625d",
+            "control-boundary": "#8d8d89",
+            "background": "#f4f3f0"
+          }
+        },
+        "dark": {
+          "paper": {
+            "ink": "#e8edf2",
+            "muted": "#c1c3c8",
+            "accent-text": "#da8075",
+            "secondary-text": "#c1c3c8",
+            "control-boundary": "#757276",
+            "background": "#231b20"
+          },
+          "panel": {
+            "ink": "#e8edf2",
+            "muted": "#c1c3c8",
+            "accent-text": "#da8075",
+            "secondary-text": "#c1c3c8",
+            "control-boundary": "#757276",
+            "background": "#2f282d"
+          }
+        }
+      },
+      "typography_profiles": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 18
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "required_ink_edge_min_contrast": 12.08293634962657
+    },
+    "pulse-reading": {
+      "decision": "Use fixed category colors only with required theme-ink under-stroke and edged markers; bare thin strokes unsupported. Labels/dashes supplement, never restore vanished strokes.",
+      "voice": "Purple focus; disclosed portable DejaVu Sans for platform UI.",
+      "qualitative": "colorblind-subset-3",
+      "extended_qualitative": "colorblind-subset-5",
+      "sequential": "cividis",
+      "diverging": "BrBG",
+      "category_min_contrast": 1.44990271,
+      "category_worst_distance": 29.63897407,
+      "category_mark_risk": true,
+      "optional_ramps": [
+        "pulse-reading-light-optional-ramp",
+        "pulse-reading-dark-optional-ramp"
+      ],
+      "optional_ramp_policy": "Research alternatives, never automatic UI-ladder defaults",
+      "modes": {
+        "light": {
+          "paper": {
+            "ink": "#444444",
+            "muted": "#62586c",
+            "accent-text": "#593196",
+            "secondary-text": "#62586c",
+            "control-boundary": "#8f8a95",
+            "background": "#ffffff"
+          },
+          "panel": {
+            "ink": "#444444",
+            "muted": "#62586c",
+            "accent-text": "#593196",
+            "secondary-text": "#62586c",
+            "control-boundary": "#8f8a95",
+            "background": "#f5f0fa"
+          }
+        },
+        "dark": {
+          "paper": {
+            "ink": "#e8edf2",
+            "muted": "#bfc3ca",
+            "accent-text": "#a58fc6",
+            "secondary-text": "#bfc3ca",
+            "control-boundary": "#70727c",
+            "background": "#1b1d2b"
+          },
+          "panel": {
+            "ink": "#e8edf2",
+            "muted": "#bfc3ca",
+            "accent-text": "#a58fc6",
+            "secondary-text": "#bfc3ca",
+            "control-boundary": "#70727c",
+            "background": "#272937"
+          }
+        }
+      },
+      "typography_profiles": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 18
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "required_ink_edge_min_contrast": 8.6718162846677
+    },
+    "litera-reading": {
+      "decision": "Use fixed category colors only with required theme-ink under-stroke and edged markers; bare thin strokes unsupported. Labels/dashes supplement, never restore vanished strokes.",
+      "voice": "Serif document prose remains distinct from portable sans chart UI.",
+      "qualitative": "colorblind-subset-3",
+      "extended_qualitative": "colorblind-subset-5",
+      "sequential": "cividis",
+      "diverging": "BrBG",
+      "category_min_contrast": 1.48711114,
+      "category_worst_distance": 29.63897407,
+      "category_mark_risk": true,
+      "optional_ramps": [
+        "litera-reading-light-optional-ramp",
+        "litera-reading-dark-optional-ramp"
+      ],
+      "optional_ramp_policy": "Research alternatives, never automatic UI-ladder defaults",
+      "modes": {
+        "light": {
+          "paper": {
+            "ink": "#343a40",
+            "muted": "#5b616a",
+            "accent-text": "#2557a0",
+            "secondary-text": "#5b616a",
+            "control-boundary": "#8b8e94",
+            "background": "#ffffff"
+          },
+          "panel": {
+            "ink": "#343a40",
+            "muted": "#5b616a",
+            "accent-text": "#2557a0",
+            "secondary-text": "#5b616a",
+            "control-boundary": "#8b8e94",
+            "background": "#f4f5f7"
+          }
+        },
+        "dark": {
+          "paper": {
+            "ink": "#e8edf2",
+            "muted": "#bec4ca",
+            "accent-text": "#819cc7",
+            "secondary-text": "#bec4ca",
+            "control-boundary": "#6e757d",
+            "background": "#17202c"
+          },
+          "panel": {
+            "ink": "#e8edf2",
+            "muted": "#bec4ca",
+            "accent-text": "#819cc7",
+            "secondary-text": "#bec4ca",
+            "control-boundary": "#6e757d",
+            "background": "#242c38"
+          }
+        }
+      },
+      "typography_profiles": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 20
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "required_ink_edge_min_contrast": 10.439831170050828
+    },
+    "darkly-reading": {
+      "decision": "Use fixed category colors only with required theme-ink under-stroke and edged markers; bare thin strokes unsupported. Labels/dashes supplement, never restore vanished strokes.",
+      "voice": "Lato UI; pale-blue focus rather than dark-blue button fill for thin marks.",
+      "qualitative": "colorblind-subset-3",
+      "extended_qualitative": "colorblind-subset-5",
+      "sequential": "cividis",
+      "diverging": "BrBG",
+      "category_min_contrast": 1.36959664,
+      "category_worst_distance": 29.63897407,
+      "category_mark_risk": true,
+      "optional_ramps": [
+        "darkly-reading-light-optional-ramp",
+        "darkly-reading-dark-optional-ramp"
+      ],
+      "optional_ramp_policy": "Research alternatives, never automatic UI-ladder defaults",
+      "modes": {
+        "light": {
+          "paper": {
+            "ink": "#212529",
+            "muted": "#4c4f53",
+            "accent-text": "#50667f",
+            "secondary-text": "#375a7f",
+            "control-boundary": "#86888a",
+            "background": "#f7f9fc"
+          },
+          "panel": {
+            "ink": "#212529",
+            "muted": "#4c4f53",
+            "accent-text": "#50667f",
+            "secondary-text": "#375a7f",
+            "control-boundary": "#86888a",
+            "background": "#eaecef"
+          }
+        },
+        "dark": {
+          "paper": {
+            "ink": "#eeeeee",
+            "muted": "#bdc4cb",
+            "accent-text": "#8db9e8",
+            "secondary-text": "#90a0b6",
+            "control-boundary": "#6e7984",
+            "background": "#222222"
+          },
+          "panel": {
+            "ink": "#eeeeee",
+            "muted": "#bdc4cb",
+            "accent-text": "#8db9e8",
+            "secondary-text": "#90a0b6",
+            "control-boundary": "#6e7984",
+            "background": "#2b3035"
+          }
+        }
+      },
+      "typography_profiles": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 18
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "required_ink_edge_min_contrast": 11.374093847830414
+    }
+  },
+  "palette_definitions": "results/palette-samples.json",
+  "font_resolution": "results/font-resolution.json",
+  "sources": "inputs/provenance.json",
+  "limitations": [
+    "3:1 is a thin-mark engineering risk screen, not a universal perception threshold",
+    "CAM02-UCS distances and CVs are comparative model evidence",
+    "CVD severity100/clipping does not certify universal access",
+    "Linear-light white veil is illustrative; no physical projector/print trial"
+  ],
+  "lut": {
+    "color_space": "gamma-encoded sRGB float0..1",
+    "positions": "uniform0..1",
+    "interpretation": "ListedColormap; no automatic reversal",
+    "diverging": "257 samples: componentwise linear interpolation of source256 in encoded sRGB, shared exact middle sample",
+    "approved_ids": [
+      "cividis",
+      "viridis",
+      "mako",
+      "rocket",
+      "BrBG",
+      "RdBu",
+      "coolwarm",
+      "colorblind-subset-3",
+      "colorblind-subset-5"
+    ]
+  }
+}

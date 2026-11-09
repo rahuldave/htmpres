@@ -167,6 +167,8 @@ $$
 
 `|` separates snapshots; commas combine term classes. Only referenced named
 terms dim. Use matching text fragment indices 1, 3, 7 to explain each snapshot.
+Stepped display math is twice the surrounding fitted body size by default;
+themes can set `--htmpres-equation-scale`. Do not add font sizes to QMD.
 Gaps consume no extra keypresses. Mapped lanes start inactive and hold their
 latest snapshot. Earlier ordinary text stays visible without dimming. Each
 mapping must have one decimal, positive safe integer per snapshot, strictly

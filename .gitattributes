@@ -1,0 +1,5 @@
+# Preserve Matplotlib's generated path serialization and the verbatim font notice.
+# This exemption applies only to trailing spaces in this frozen scientific run.
+research/theme-audit/runs/foundations-2026-11-09/figures/*.svg whitespace=-blank-at-eol
+research/theme-audit/runs/foundations-2026-11-09/placements/*.svg whitespace=-blank-at-eol
+research/theme-audit/runs/foundations-2026-11-09/fonts/DejaVu-LICENSE whitespace=-blank-at-eol

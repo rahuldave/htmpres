@@ -58,10 +58,18 @@
 .slide.active:has(> .statement:only-child) {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  /* Oversized fit-scroll statements keep a reachable scroll origin. */
+  justify-content: safe center;
   text-align: center;
 }
 /* Auto margins center spare copy and collapse to zero when it must scroll. */
 .slide > .statement:only-child { margin: auto 0; }
+
+/* A stepped equation is focal content; authored math rules can still override it. */
+:where(.slide .equation-steps .math.display) {
+  font-size: calc(1em * var(--htmpres-equation-scale, 2));
+}
 
 /* Purpose-specific level 0 labels; no generic tiny-text author class. */
 :is(.slide, .presenter-note-body) :is(.credit, .source) {
@@ -83,6 +91,8 @@
   bottom: calc(var(--htmpres-credit-inset, 24px) + var(--htmpres-credit-height, 0px) + 12px);
 }
 .slide > .slide-credits {
+  font-size: calc(var(--htmpres-body-size, 1rem) * var(--htmpres-importance-0-scale) * var(--htmpres-text-fit-scale, 1));
+  line-height: var(--htmpres-attribution-leading, 1.4);
   position: absolute;
   right: var(--htmpres-credit-inset, 24px);
   bottom: var(--htmpres-credit-inset, 24px);
@@ -95,13 +105,13 @@
 }
 .slide .slide-credits .credit {
   display: block;
-  font-size: calc(var(--htmpres-body-size, 1rem) * var(--htmpres-importance-0-scale));
+  font-size: calc(var(--htmpres-body-size, 1rem) * var(--htmpres-importance-0-scale) * var(--htmpres-text-fit-scale, 1));
   margin: 0;
   padding: var(--htmpres-credit-padding, .35em .6em);
   background: var(--htmpres-credit-bg, var(--paper));
   color: var(--htmpres-credit-ink, var(--ink));
 }
-.slide .slide-credits > p { margin: 0; }
+.slide .slide-credits > p { margin: 0; font-size: inherit; line-height: inherit; }
 .slide .slide-credits .credit :last-child { margin-bottom: 0; }
 .slide .slide-credits .credit a { color: inherit; text-decoration: underline; }
 

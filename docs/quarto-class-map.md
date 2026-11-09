@@ -450,6 +450,8 @@ For equations, wrap classed math in
 `::: {.equation-steps data-equation-steps="term-a|term-b|term-a,term-b" data-step-indices="1|3|7"}`.
 Use `\htmlClass{term-a}{x}` and `\htmlClass{term-b}{y}` in the equation.
 Only referenced named terms dim; unrelated operators keep their appearance.
+Stepped display math defaults to twice the fitted body size; theme CSS can
+set `--htmpres-equation-scale`. Inline math and notes retain their normal size.
 Mappings require one decimal positive safe integer per snapshot, strictly
 increasing within a block. Invalid mappings warn and fall back to source order.
 

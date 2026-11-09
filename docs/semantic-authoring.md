@@ -192,6 +192,12 @@ visual equation. Only KaTeX's `\htmlClass` extension is trusted; URL, inline
 style and HTML-ID extensions are disabled. Use descriptive class names, not
 colors, and define any custom term styling in the theme.
 
+Display math inside `.equation-steps` is focal content: its default size is
+twice the surrounding fitted body text. Themes can set the unitless CSS
+variable `--htmpres-equation-scale` to change that ratio. No size attribute is
+needed in QMD. Ordinary inline math and presenter-note math keep their normal
+text sizing; authored math CSS can still override the default.
+
 ## 3. Shared text, code and equation steps
 
 `data-fragment-index` is a shared frame number. Map code snapshots to those

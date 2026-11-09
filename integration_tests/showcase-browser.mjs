@@ -1,11 +1,12 @@
 /** Run in cua_repl: await checkShowcaseBrowser(tab) on a gallery full view.
  * UI actions use CUA; evaluation only observes DOM and computed styles.
  */
+import { chooseDeckSlide } from './deck-browser.mjs';
 export async function checkShowcaseBrowser(tab) {
   const passed = [];
   const assert = (value, message) => { if (!value) throw new Error(message); };
   const observe = () => tab.getAXState({ emit: false });
-  const choose = async name => { await tab.playwright.getByRole('button', { name, exact: true }).click(); await observe(); };
+  const choose = name => chooseDeckSlide(tab,name);
   const next = async () => { await tab.playwright.locator('#nextBtn').click(); await observe(); };
   const state = () => tab.playwright.evaluate(() => {
     const slide = document.querySelector('.slide.active');

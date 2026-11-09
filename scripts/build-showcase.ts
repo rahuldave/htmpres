@@ -56,7 +56,7 @@ write("source/authoring-hooks.qmd.txt", read("decks/authoring-hooks/index.qmd"))
 write("source/semantic.qmd.txt", read("decks/semantic/index.qmd"));
 // Vendor site fonts from the same licensed bundle; do not depend on a sibling checkout.
 for (const asset of catalog.themes.nocturne.assets) {
-  if (asset.startsWith("fonts/")) copy(new URL(`_extensions/htmpres/themes/${asset}`, root), new URL(`docs/_extensions/nocturne/${asset}`, root));
+  if (asset.startsWith("fonts/") || asset.startsWith("licenses/")) copy(new URL(`_extensions/htmpres/themes/${asset}`, root), new URL(`docs/_extensions/nocturne/${asset}`, root));
 }
 const titles = slideTitles(read("decks/example/index.qmd"), canonical.audience);
 write("manifest.json", JSON.stringify({ version: 1, themes, slides: titles, slideSources: slideSources(read("decks/example/index.qmd")) }, null, 2) + "\n");

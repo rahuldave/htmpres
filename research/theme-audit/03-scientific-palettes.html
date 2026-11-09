@@ -1,0 +1,269 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Scientific palettes after the owned foundations</title><style>
+:root{color-scheme:light;--ink:#233b38;--paper:#faf8f2;--accent:#246665}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.65 system-ui,sans-serif}
+a{color:var(--accent);text-underline-offset:3px}header{padding:22px max(5vw,20px);background:#e9efea;border-bottom:1px solid #cbd8d1}
+nav{display:flex;flex-wrap:wrap;gap:12px 28px;max-width:1180px;margin:auto}nav a[aria-current]{font-weight:750}
+main{max-width:1180px;padding:42px 28px 80px;margin:auto}h1{font:650 clamp(30px,4vw,46px)/1.16 Georgia,serif;max-width:1000px;letter-spacing:-.025em}
+h2{font:650 29px/1.25 Georgia,serif;margin:64px 0 20px;padding-top:18px;border-top:1px solid #cbd8d1}h3{font-size:23px;margin-top:40px}
+p,ul,ol{max-width:83ch}li{margin:8px 0}strong{font-weight:700}img{display:block;max-width:100%;height:auto;margin:25px 0;border:1px solid #d4ddd7;border-radius:5px}
+.table-wrap{overflow:auto;margin:26px 0;border:1px solid #ccd7d0;border-radius:5px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.5;min-width:650px}th,td{text-align:left;vertical-align:top;padding:13px 15px;border-bottom:1px solid #dce3dd}th{background:#e6ede7;font-weight:750}tr:nth-child(even){background:#f0f3ee}tr:last-child td{border-bottom:0}
+pre{overflow:auto;background:#e9eeea;padding:22px;border-radius:6px;line-height:1.5;font-size:14px}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code{background:#e9eeea;padding:2px 4px;border-radius:3px}
+details{background:#eef2ec;padding:14px 22px;border:1px solid #d4ddd4;border-radius:5px;margin:30px 0}summary{cursor:pointer;font-weight:700}.toc ul{list-style:none;padding-left:18px;font-size:15px}.toc>ul{padding:0}footer{border-top:1px solid #ccd7d0;margin-top:60px;padding-top:20px;font-size:14px}
+@media(max-width:680px){main{padding:25px 18px}body{font-size:16px}h2{font-size:25px}nav{gap:8px 16px}table{font-size:13px}}
+@media print{header,details{display:none}body{background:white;font-size:10pt}main{padding:0}h2{break-after:avoid}img{break-inside:avoid}table{font-size:8pt;min-width:0}.table-wrap{overflow:visible}a{color:inherit}}
+</style></head><body><header><nav aria-label="Three dependent reviews"><a href="01-design-language.html">1 · Design language</a><a href="02-presentation-color.html">2 · Presentation color</a><a href="03-scientific-palettes.html" aria-current="page">3 · Scientific palettes</a></nav></header><main><h1 id="scientific-palettes-after-the-owned-foundations">Scientific palettes after the owned foundations</h1>
+<p>This is the current decision study for all nine revised themes, pinned to verified slide commit <code>04cef45c3374a018d3b32b9c53a2e4e43e7c88ec</code>. The recommendation is <strong>shared scientific encodings with theme-specific furniture</strong>, with a required rendering treatment for categorical lines. No theme UI ladder becomes an automatic data map. The <a href="historical/03-scientific-palettes-pre-foundations.html">original Doc3</a>, its conclusions and <a href="historical/baseline-hashes.json">baseline hashes</a> remain historical evidence; their measurements are not the current results.</p>
+<p>The <a href="runs/foundations-2026-11-09/decision-registry.json">decision registry</a> is the package handoff. Its recommended supported defaults are the fixed <code>colorblind-subset-3</code> assignment with ink under-strokes/edged markers, <code>cividis</code> for magnitude, and <code>BrBG</code> for signed deviation. Named alternatives are explicit choices, never mode-dependent automatic reversals. Diagnostic pools remain available for research comparisons and are excluded from the recommended public-map whitelist.</p>
+<details><summary>In this review</summary><div class="toc">
+<ul>
+<li><a href="#source-freeze-and-scope">Source freeze and scope</a></li>
+<li><a href="#a-usable-categorical-recommendation">A usable categorical recommendation</a></li>
+<li><a href="#explicit-decisions-for-all-nine">Explicit decisions for all nine</a></li>
+<li><a href="#sequential-maps-and-diverging-normalization">Sequential maps and diverging normalization</a></li>
+<li><a href="#alpha-veiling-and-simulations">Alpha, veiling and simulations</a></li>
+<li><a href="#typography-real-placement-and-exports">Typography, real placement and exports</a></li>
+<li><a href="#reproduce-without-overwriting-history">Reproduce without overwriting history</a></li>
+<li><a href="#evidence-and-remaining-decisions">Evidence and remaining decisions</a></li>
+</ul>
+</div>
+</details><h2 id="source-freeze-and-scope">Source freeze and scope</h2>
+<p>The <a href="runs/foundations-2026-11-09/inputs/provenance.json">provenance ledger</a> pins the nine upstream merged revisions, exact published manifests, actual slide adapter/profile source, font/license bytes, and a separately attributed research lock. Capture reads validated committed assets, excludes untracked files and symlink targets, and fails for dirty tracked inputs before writing. Current numerical reruns read only the copied inputs; they need no sibling checkouts or network. The <a href="runs/foundations-2026-11-09/evidence-manifest.json">final evidence manifest</a> binds all generators, derived artifacts and this Markdown/HTML report without a self-hash cycle. The <a href="runs/foundations-2026-11-09/manifest.json">run manifest</a> binds seed, backend/dependency versions, generator hashes and inputs. Font files and sample order are part of the result, not ambient host state.</p>
+<p>The matrix contains nine themes × two modes × two surfaces × two profiles. There are 32,256 category-condition rows, 3,024 map/background rows, and 72 PNG/SVG/PDF diagnostic specimens. Color-only reading/presentation rows repeat the same measurements for deployment lookup; <strong>they are not independent perceptual validations</strong>. Real profile differences occur in font, type size, geometry and placement. Synthetic data and fixed geometry isolate comparisons; no reader study, projector or print trial was performed.</p>
+<p>The refreshed UI-role checks keep ordinary text separate from marks: minimum primary/code ink contrast is 7.562; muted is 5.007; accent text is 5.001. These opaque role checks are not data-map tests or a repeat of the prior browser/control gate.</p>
+<h2 id="a-usable-categorical-recommendation">A usable categorical recommendation</h2>
+<p>Category IDs A/B/C keep these exact colors in every theme/mode: <code>#0173b2</code>, <code>#d55e00</code>, <code>#fbafe4</code>. The subset is selected once from the fixed Seaborn colorblind pool by finite maximin CAM02-UCS distance over normal plus three severity 100 simulations, with a documented deterministic tie break. Its palette order and slot assignment are frozen in <a href="runs/foundations-2026-11-09/results/palette-samples.json">palette-samples.json</a>. Passing a different data order must not change a category's slot; duplicates and requests beyond capacity are rejected. The default domain has capacity three. The named five-category extension is explicit and conditional: its worst simulated separation is lower, so it carries five stable shapes/dashes/direct IDs and the same required ink treatment, with density/occlusion review. Eight-color pools remain diagnostic. <a href="runs/foundations-2026-11-09/placements/folio-light-presentation-five.png">Five-category light</a> and <a href="runs/foundations-2026-11-09/placements/folio-dark-presentation-five.png">dark</a> specimens show that bounded extension; they are not a universal legibility certification.</p>
+<p>A bare thin-line cycle is <strong>unsupported</strong>: some colors nearly coincide with a background. Max-distance selection alone selected black for Okabe–Ito and visibly lost it on dark Folio. The bounded visibility alternative uses Dark2 indices 1/3/6. Its normal-vision worst surface contrast is 3.106, but its worst simulated separation is smaller. The <a href="runs/foundations-2026-11-09/results/category-pool-visibility.csv">per-color screen</a> shows that no individual color in the three bounded pools clears the chosen opaque 3:1 screen over every simulated model/surface, so we do not pretend a new subset resolves all constraints.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>palette</th>
+<th>worst_contrast</th>
+<th>worst_distance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dark2-visibility-3</td>
+<td>2.321</td>
+<td>2.186</td>
+</tr>
+<tr>
+<td>colorblind-subset-3</td>
+<td>1.345</td>
+<td>29.639</td>
+</tr>
+<tr>
+<td>okabe-ito-subset-3</td>
+<td>1.150</td>
+<td>52.456</td>
+</tr>
+</tbody>
+</table></div>
+<p>These are model comparisons, not universal perceptual cutoffs. The engineering 3:1 mark screen is a warning signal, separate from text/control requirements and separate from CAM02 separation. The supported treatment is a <strong>2.5px color trace over a 5.5px theme-primary-ink under-stroke</strong>, plus 7px markers with 1.5px ink edges, stable dashes/shapes and direct endpoint IDs. It preserves a visible trace skeleton when the color core is weak; labels/dashes alone cannot restore a vanished stroke. It does not guarantee hue identification for all observers or resolve occlusion at intersections. The package must apply the treatment operationally rather than expose a misleading bare default cycle.</p>
+<p>The <a href="runs/foundations-2026-11-09/results/understroke-pixels.json">actual-scale Agg pixel evidence</a> examines uniform core, uniform ink edge, antialiased edge and crossing regions separately. Antialiased pixels can approach the background; their ranges are observations, not an edge-wide 3:1 guarantee. At crossings the later trace occludes the earlier one. See <a href="runs/foundations-2026-11-09/figures/understroke-pixels-light.png">light</a> and <a href="runs/foundations-2026-11-09/figures/understroke-pixels-dark.png">dark</a>. Filled marks need ink edges too; dense overlap remains a task-specific design decision.</p>
+<p><img alt="Fixed categorical subsets under the four vision models" src="runs/foundations-2026-11-09/figures/category-comparisons.png" /></p>
+<p><em>Diagnostic subsets and simulations. These swatches do not establish stroke visibility; the untreated maximin palettes remain comparisons.</em></p>
+<h2 id="explicit-decisions-for-all-nine">Explicit decisions for all nine</h2>
+<p>All nine use the same named categorical treatment, cividis magnitude and BrBG deviation defaults. Furniture and concrete chart UI faces differ. The categorical column is the worst opaque color-core contrast across both surfaces/modes and all four vision models; the ink-edge column is the corresponding required ink's worst contrast. This does not conflate a strong edge with a strong color core.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Theme</th>
+<th>Concrete chart UI</th>
+<th>Core minimum</th>
+<th>Ink-edge minimum</th>
+<th>Theme decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>folio</td>
+<td>DM Sans</td>
+<td>1.35</td>
+<td>10.15</td>
+<td>Warm paper/green furniture, sans chart UI; rust is an explicit alternative focus.</td>
+</tr>
+<tr>
+<td>atelier</td>
+<td>DM Sans</td>
+<td>1.44</td>
+<td>9.85</td>
+<td>Square teal furniture; keep scientific encodings independent of teal.</td>
+</tr>
+<tr>
+<td>nocturne</td>
+<td>DM Sans</td>
+<td>1.34</td>
+<td>11.04</td>
+<td>Ink-blue/pearl furniture, scarce brass focus and sans chart UI.</td>
+</tr>
+<tr>
+<td>tufte</td>
+<td>ETBembo</td>
+<td>1.52</td>
+<td>12.42</td>
+<td>Neutral unboxed furniture and real ETBembo UI; optional blue focus is explicit.</td>
+</tr>
+<tr>
+<td>zephyr-reading</td>
+<td>Inter</td>
+<td>1.50</td>
+<td>7.48</td>
+<td>Inter UI; dark accent text is distinct from button fill.</td>
+</tr>
+<tr>
+<td>simplex-reading</td>
+<td>Open Sans</td>
+<td>1.46</td>
+<td>12.08</td>
+<td>Open Sans UI; brand red never automatically means negative data.</td>
+</tr>
+<tr>
+<td>pulse-reading</td>
+<td>DejaVu Sans</td>
+<td>1.45</td>
+<td>8.67</td>
+<td>Purple focus; disclosed portable DejaVu Sans for platform UI.</td>
+</tr>
+<tr>
+<td>litera-reading</td>
+<td>DejaVu Sans</td>
+<td>1.49</td>
+<td>10.44</td>
+<td>Serif document prose remains distinct from portable sans chart UI.</td>
+</tr>
+<tr>
+<td>darkly-reading</td>
+<td>Lato</td>
+<td>1.37</td>
+<td>11.37</td>
+<td>Lato UI; pale-blue focus rather than dark-blue button fill for thin marks.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Pulse and Litera deliberately use a disclosed portable DejaVu Sans chart UI rather than claim a particular host platform/Georgia face. Tufte uses converted ET Book with internal family ETBembo 400/700. The <a href="runs/foundations-2026-11-09/results/font-resolution.json">font resolution</a> records requested/resolved faces, weights, file hashes and notices; <a href="runs/foundations-2026-11-09/results/font-conversions.json">conversion provenance</a> records WOFF source hashes and fontTools settings. Fallbacks come from exact locked Matplotlib package files, never host font lookup. Numeric ticks use ASCII minus because ETBembo lacks U+2212; actual displayed glyph coverage is checked. ETBook's nonessential <code>webf</code> table is ignored by PDF subsetting; outline/name/weight conversion is recorded.</p>
+<h2 id="sequential-maps-and-diverging-normalization">Sequential maps and diverging normalization</h2>
+<p><code>cividis</code> is the common sequential default because its worst simulated adjacent-step CV is 0.183 versus 0.453 for viridis, with lower maximum clipping (0.242 versus 0.469). Both remain monotonic in every tested model. Viridis is more uniform in normal vision (CV 0.012 versus 0.055), so cividis is a deliberate simulation-robustness tradeoff rather than a universal winner; <code>viridis</code> is a useful alternative, with <code>mako</code>/<code>rocket</code> named choices. ColorBrewer Blues/Greens/Purples/YlOrBr/Greys test familiar ordered ramps. Optional theme accent ramps are measured alternatives, not UI-derived defaults. Use an explicit vmin/vmax and preserve orientation across modes. Continuous cell interiors need not all contrast 3:1 with the surrounding panel; boundary/context decisions remain separate from the ordered data encoding. Background contrast and clipping are recorded for every theme/surface/model in <a href="runs/foundations-2026-11-09/results/map-backgrounds.csv">map-backgrounds.csv</a>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>map</th>
+<th>arm</th>
+<th>L_span</th>
+<th>reversals</th>
+<th>L_linear_rmse</th>
+<th>step_cv</th>
+<th>flat_steps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cividis</td>
+<td>whole</td>
+<td>77.304</td>
+<td>0</td>
+<td>0.460</td>
+<td>0.055</td>
+<td>0</td>
+</tr>
+<tr>
+<td>viridis</td>
+<td>whole</td>
+<td>75.947</td>
+<td>0</td>
+<td>0.433</td>
+<td>0.012</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Blues</td>
+<td>whole</td>
+<td>77.495</td>
+<td>0</td>
+<td>2.744</td>
+<td>0.243</td>
+<td>0</td>
+</tr>
+<tr>
+<td>BrBG</td>
+<td>left</td>
+<td>72.726</td>
+<td>0</td>
+<td>3.390</td>
+<td>0.217</td>
+<td>0</td>
+</tr>
+<tr>
+<td>BrBG</td>
+<td>right</td>
+<td>74.684</td>
+<td>0</td>
+<td>2.998</td>
+<td>0.200</td>
+<td>0</td>
+</tr>
+<tr>
+<td>RdBu</td>
+<td>left</td>
+<td>77.109</td>
+<td>0</td>
+<td>2.265</td>
+<td>0.191</td>
+<td>0</td>
+</tr>
+<tr>
+<td>RdBu</td>
+<td>right</td>
+<td>77.001</td>
+<td>0</td>
+<td>2.779</td>
+<td>0.243</td>
+<td>0</td>
+</tr>
+<tr>
+<td>jet</td>
+<td>whole</td>
+<td>82.977</td>
+<td>108</td>
+<td>24.121</td>
+<td>0.429</td>
+<td>2</td>
+</tr>
+<tr>
+<td>turbo</td>
+<td>whole</td>
+<td>78.911</td>
+<td>129</td>
+<td>21.696</td>
+<td>0.359</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div>
+<p>L* span/reversals/linear-fit RMSE and CAM02 adjacent-step CV answer different questions. Monotonic lightness does not prove uniformity; a low CV does not prove every task easier. Jet/rainbow/turbo controls expose strong reversals and step variation and are not approved sequential defaults. The <a href="runs/foundations-2026-11-09/figures/map-diagnostics.png">diagnostic plot</a> and <a href="runs/foundations-2026-11-09/results/map-metrics.csv">full map metrics</a> include all simulations and optional ramps.</p>
+<p><code>BrBG</code> is the common signed default with <code>RdBu</code>/<code>coolwarm</code> named alternatives. BrBG limits worst simulated arm-span imbalance to 4.34 L* versus 8.43 for RdBu and 13.38 for coolwarm, while retaining monotonic arms in all models. RdBu has better normal-vision span balance and lower worst step CV, but reaches higher simulated clipping; coolwarm has smaller normal L* spans and one simulated arm reversal. BrBG's worst step CV is higher than RdBu's, so this is a balanced-arm/range choice, not perceptual dominance. Both arms are tested including the same exact center. To avoid a 256-entry lookup duplicating the right endpoint at 129 samples, the actual rendered/frozen LUT is 257 entries: componentwise encoded-sRGB interpolation from the pinned source 256, with shared index 128. This is an explicit derived map definition, not a claim to unmodified ColorBrewer samples. Metrics use those exact two 129-entry arms. Arm span and CV are reported separately; center neutrality and arm balance do not follow from monotonicity alone.</p>
+<p>Use <code>TwoSlopeNorm(vmin=..., vcenter=..., vmax=...)</code> with all limits explicit. It maps the center to 0.5; asymmetric limits do <strong>not</strong> make equal signed magnitudes equally distant. <a href="runs/foundations-2026-11-09/results/normalization-examples.csv">Normalization examples</a> include (-1, 0, 1) and (-2, 0, 1); tests verify endpoints, exact center and invalid ordering. Missing values use opaque muted furniture plus a contrasting cross/hatch, never the diverging center color. Under/over values use explicit endpoint clipping; package-facing special-value policy is machine-readable.</p>
+<p><img alt="Sequential map lightness and adjacent-step diagnostics" src="runs/foundations-2026-11-09/figures/map-diagnostics.png" /></p>
+<p><em>Normal-vision diagnostic curves compare lightness ordering and step variation; simulated results are retained in the tables.</em></p>
+<h2 id="alpha-veiling-and-simulations">Alpha, veiling and simulations</h2>
+<p>The ordinary Matplotlib Agg source-over operation is modeled in <strong>gamma-encoded sRGB</strong>, not linear light. All 27 mark/background/alpha pixel comparisons agree within 0.003922 per channel (allowed 2/255); the <a href="runs/foundations-2026-11-09/results/agg-alpha-validation.json">validation table</a> also shows why the linear-light alternative is different. Alpha 0/1, transfer-function round trips and the two midpoint predictions are direct invariants. Pixel interiors and antialiased edges are separate evidence.</p>
+<p>For every category condition, composite first; then apply the named illustrative white veil in linear light; then simulate the final marks <strong>and actual background</strong> with the same Machado type/severity 100; then clip and record fractions. Recompute both surface contrast and category distance after this pipeline. Both encoded and linear-light alpha are compared at 0.7/0.4; veil strengths 0.1/0.2 and one combined alpha 0.4/veil 0.2 case are explicit, not projector calibration. Clipping/model extremes limit interpretation. There is no universal color-vision accessibility certification here. <a href="runs/foundations-2026-11-09/results/category-metrics.csv">Category metrics</a> retain all conditions and surfaces.</p>
+<h2 id="typography-real-placement-and-exports">Typography, real placement and exports</h2>
+<p>Chart labels/ticks/legends map to reading UI 16px and presentation label 24px. Plot headings use 30/36px; metadata 14/24px. Deliberate body annotations use the specific foundation body role: 20px for the serif reading profiles, 18px for the other reading profiles, and 30px for presentation. Per-theme numeric mappings are in the registry. Deck/display 48px is not the plot-title default. Real regular and heading faces are used; furniture stays independent from data encoding.</p>
+<p>The calculation is <code>effective CSS px = points × measured placed width / (72 × figure width inches)</code>. An 8-inch plot at 1152px therefore needs 12pt text to yield 24px; shrinking it reduces the effective size. The <a href="runs/foundations-2026-11-09/gallery.html">72 diagnostic sheets</a> are 640px reading or 1152px presentation, with every actual Text face/size checked and opaque PNG/SVG/PDF exports. Their presentation contact sheets are 1152×806px and <strong>do not fit a slide</strong>; they are diagnostic comparisons only.</p>
+<p>The <a href="runs/foundations-2026-11-09/placements/reading.html">reading acceptance page</a> places the wide plot at 640px. The <a href="runs/foundations-2026-11-09/placements/slide-light/index.html">actual light slide</a> and <a href="runs/foundations-2026-11-09/placements/slide-dark/index.html">dark slide</a> were rendered with the verified pinned htmpres checkout from saved QMD. The purpose-sized plot is 1152×489.6px, fitting the 1152×592 content region of a native 1280×720 slide. Images are responsive inside smaller slide shells: 24px is claimed only when measured plot width is 1152px; at smaller widths the effective size is 24×actual_width/1152. Sidebar/browser chrome can reduce the slide, so viewport dimensions alone do not prove native placement. <a href="runs/foundations-2026-11-09/placements/geometry.json">Geometry and regeneration command</a> preserve that distinction. The browser review measured a native 1280×720 slide and 1152×489.59 plot at 1680×1000 viewport, preserving 24px labels and 64px side insets. At the reduced 1280×720 browser viewport, the actual slide was 1008×567 and plot 880×374, giving 18.333px effective labels without clipping. Reading images loaded at 640×272, preserving 16px labels. The <a href="runs/foundations-2026-11-09/placements/browser-evidence.json">durable browser evidence</a> includes relative-path screenshots and measurements. Reduced viewports scale the image and type together. Each saved slide has a static mode-matched bitmap; the UI mode toggle does not recolor embedded pixels.</p>
+<p><img alt="Folio light chart with required under-strokes and edged markers" src="runs/foundations-2026-11-09/placements/folio-light-presentation.png" /></p>
+<p><img alt="Folio dark chart with the same category assignments and required treatment" src="runs/foundations-2026-11-09/placements/folio-dark-presentation.png" /></p>
+<p><em>Matching light/dark examples. Inline previews may scale; intended 24px labels are verified only by the separate measured placement evidence.</em></p>
+<h2 id="reproduce-without-overwriting-history">Reproduce without overwriting history</h2>
+<p>From this research directory:</p>
+<pre><code class="language-sh">just current
+uv run --frozen python current_treatment.py
+uv run --frozen python build_current_report.py
+just check
+</code></pre>
+<p><code>current</code> regenerates only the versioned run and standalone placements from copied inputs. <code>check</code> builds reports and runs tests; it never invokes historical measurement/foundation generators. <code>just historical-reproduce</code> is the explicit opt-in baseline regeneration path and uses frozen historical inputs. The archived original source files and lock remain in historical/inputs; ordinary current verification cannot overwrite baseline results/styles/figures. Tests bind their saved hashes.</p>
+<p>To regenerate actual slide HTML only, use <code>uv run --frozen python build_current_placements.py --renderer PINNED_CHECKOUT</code> at the exact verified revision. This optional integration step requires that checkout; the numeric/figure run does not. HTML and required runtime assets are saved beside the specimens. PNG/SVG/PDF backgrounds, source hashes, sample order, fixed seed, fonts, licenses and placed-text records are inspectable artifacts. Numerical/sample/font results are reproducible; PDF/SVG container metadata and identifiers may differ across reruns, and the final evidence manifest binds the actual generated bytes.</p>
+<h2 id="evidence-and-remaining-decisions">Evidence and remaining decisions</h2>
+<p>The numerical results support a common named map policy and theme-specific furniture for all nine. Required categorical under-strokes are a concrete rendering obligation, not a footnote. Human discrimination, dense overlaps, responsive size changes, projection and print remain use-context evaluations. The next plotting package should consume the registry and enforce explicit normalization/category domains/treatment, while preserving the diagnostic controls for research only.</p>
+<p>Primary method references: <a href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">Matplotlib colormap guidance</a>, <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.TwoSlopeNorm.html">TwoSlopeNorm</a>, <a href="https://seaborn.pydata.org/tutorial/color_palettes.html">Seaborn palette guidance</a>, <a href="https://colorspacious.readthedocs.io/en/latest/tutorial.html#simulating-colorblindness">Colorspacious CVD simulation</a>, and the <a href="https://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html">Machado model</a>. Source-book references and the original interpretive claims remain in the linked historical Doc3; this current study does not replace those sources with model scores.</p><footer>Decision draft · 9 November 2026 · <a href="03-scientific-palettes.md">Markdown source</a> · Current frozen foundations study; synthetic data and explicit placement geometry.</footer></main></body></html>

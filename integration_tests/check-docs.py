@@ -109,6 +109,9 @@ def crawl(site):
         assert '<blockquote>' in text and 'class="source"' in text
     assert not any((site / name).exists() for name in ('showcase-spec.html', 'semantic-authoring-spec.html', 'theme-catalog-spec.html', 'tag_dependency_workflow.html', 'authoring-cli-spec.html'))
     assert (site / 'site_libs/themes/nocturne/nocturne.css').exists(), 'Nocturne site CSS missing'
+    notices = list((generated / 'assets/htmpres-themes/licenses').glob('nocturne-*OFL.txt'))
+    assert notices, 'Nocturne font OFL notices missing from the clean site'
+    assert all('SIL OPEN FONT LICENSE' in file.read_text().upper() for file in notices), 'Font notices truncated'
     if errors:
         raise SystemExit('\n'.join(errors))
     print(f'Docs crawl passed: {len(pages)} HTML pages, {count} theme views, notes isolation, source parity, local links, fonts and assets.')

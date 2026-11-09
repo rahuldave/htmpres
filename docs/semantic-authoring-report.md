@@ -160,6 +160,25 @@ Markdown page and exact displayed denominator mapping also pass.
 `just check`, 35 focused runtime/navigation/hook tests and skill validation/lint
 passed; independent review found no remaining issues.
 
+The nine foundations subsequently shipped on main. Integration checks against
+those actual shipped themes pass in all 18 light/dark cases for statement
+hierarchy, picture credits and quotation sources. Code/equation matching and
+statement reachability also pass in audience/presenter views and both modes.
+The combined Pages build, 164-page crawl and 47 focused foundation/runtime/
+navigation/hook tests pass. Browser flows use the visible presenter list or
+audience overview and measure centering within the theme's content area,
+respecting space reserved for controls.
+
+Stepped display math also has a semantic size default: twice the surrounding
+fitted body text, controlled by theme CSS `--htmpres-equation-scale`.
+The QMD syntax stays unchanged. A browser regression reproduced a 15 px
+equation in the compact presenter pane; the corrected default renders it at
+about 31 px in that same pane. Light/dark checks confirm the enlarged equation
+fits its column while inline math remains at normal text size. The main
+example inherits this default instead of carrying a separate math-size rule.
+These integration corrections are tracked in
+[PR #19](https://github.com/rahuldave/htmpres/pull/19).
+
 **Original hook release verification (`b8fee29`):** `just check`, `just compat-check`, final 70 Node tests,
 `just semantic-test`, `just docs-check` (164 HTML pages), actual Deno/Node hook
 HTML parity, and packaged-skill validation/lint/scratch installation passed.

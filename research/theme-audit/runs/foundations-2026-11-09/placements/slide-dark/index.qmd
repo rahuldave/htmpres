@@ -1,0 +1,12 @@
+---
+title: Scientific placement acceptance
+deck:
+  theme: folio
+  color-mode: dark
+---
+
+## Stable category identities
+
+```{=html}
+<img id="scientific-placement" src="plot.png" alt="Three stable category traces with ink under-strokes and edged markers" style="display:block;width:1152px;height:auto;max-width:100%;margin:0">
+```

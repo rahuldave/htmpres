@@ -2,6 +2,7 @@
  * const { checkSlideBoundaries } = await import('/absolute/path/integration_tests/slide-boundaries-browser.mjs');
  * await checkSlideBoundaries(tab); // audience or presenter tab
  */
+import { chooseDeckSlide } from './deck-browser.mjs';
 export async function checkSlideBoundaries(tab, presenter = false) {
   const assert = (value, message) => { if (!value) throw new Error(message); };
   const observe = () => tab.getAXState({ emit: false });
@@ -18,7 +19,7 @@ export async function checkSlideBoundaries(tab, presenter = false) {
     };
   });
   await observe();
-  await tab.playwright.getByRole('button', { name: '1. Slide 1', exact: true }).click(); await observe();
+  await chooseDeckSlide(tab,'1. Slide 1');
   let current = await state();
   assert(current.count === 3 && current.id === 'slide-1' && !current.heading, 'Three slides and an untitled first slide');
   assert(current.counter === '1 / 2' && current.overview[0] === 'Slide 1', 'Untitled fallback label and main counter');

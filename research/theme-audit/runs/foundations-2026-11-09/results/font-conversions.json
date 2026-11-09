@@ -1,0 +1,26 @@
+[
+  {
+    "source": "inputs/fonts/et-book-roman-line-figures.woff",
+    "source_sha256": "be0f2c061cd8c57b38b5edd8c03dac72ca7d87fb5c3f7f5c32ed72dede39a601",
+    "family": "ETBembo",
+    "weight": 400,
+    "embedding_flags": 4,
+    "tool": "fontTools 4.68.0",
+    "operation": "Decode WOFF to sfnt; retain outlines/names/flags/timestamps",
+    "license": "inputs/licenses/tufte-LICENSE",
+    "output": "fonts/et-book-roman-line-figures.ttf",
+    "output_sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500"
+  },
+  {
+    "source": "inputs/fonts/et-book-bold-line-figures.woff",
+    "source_sha256": "ea6efd96090dc2d0be0a826d1f2b79b07ca9af21f6483f2f96694b761d669ddc",
+    "family": "ETBembo",
+    "weight": 700,
+    "embedding_flags": 4,
+    "tool": "fontTools 4.68.0",
+    "operation": "Decode WOFF to sfnt; retain outlines/names/flags/timestamps",
+    "license": "inputs/licenses/tufte-LICENSE",
+    "output": "fonts/et-book-bold-line-figures.ttf",
+    "output_sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb"
+  }
+]

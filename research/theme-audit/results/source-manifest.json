@@ -1,0 +1,49 @@
+{
+  "catalog": {
+    "name": "catalog.json",
+    "sha256": "2fc3471248fc08b548c7faa5069211cc38b2ce4d299417e47861edcd3862eb85"
+  },
+  "adapter": {
+    "name": "themes.mjs",
+    "sha256": "7a18efa45d6ceeeda05e92f6ae9fdc5c015254adf838a660190940318de87e16"
+  },
+  "ui_guide": {
+    "name": "ui-design-guide.html",
+    "sha256": "edc5428f251f39e717fde259431229a26253a648e5d263b83e0efd5663d0afd7"
+  },
+  "design_report": {
+    "name": "visual-design-report.html",
+    "sha256": "f0af0cd83041cbe277765af854570ce536edea91da7b2633983902197c37d3dc"
+  },
+  "schwabish_summary": {
+    "name": "schwabish-summary.md",
+    "sha256": "107af872668cf4dfb2f8c49713b76b4b002d24a33cf44bc259c4a09010c0dbc1"
+  },
+  "refactoring_ui_original": {
+    "name": "wathan-schoger-refactoring-ui.pdf",
+    "sha256": "a2369aac3d8aed4b53363d1cdda599a6dd3a5e62bd5a78310610029d832ec051",
+    "printed_pages_checked": "20\u201322, 36\u201344, 66\u201374, 76\u201381, 96\u201399, 102\u2013107, 114\u2013116, 142\u2013160, 162\u2013168",
+    "printed_pages_visually_checked": [
+      73,
+      105,
+      147,
+      154,
+      164
+    ],
+    "pdf_page_offset": 0,
+    "distribution": "Private source; not included in this repository"
+  },
+  "schwabish_original": {
+    "name": "schwabish-2017-better-presentations.pdf",
+    "sha256": "53e22124a9171b3830030c4aaba4027de7febf3980f8ff8e5d3caf41a28fbfa4",
+    "printed_pages_checked": "29\u201331, 35, 39\u201348, 51, 53\u201356, 85\u201387",
+    "printed_pages_visually_checked": [
+      41,
+      45,
+      46,
+      47
+    ],
+    "pdf_page_offset": 15,
+    "distribution": "Private source; not included in this repository"
+  }
+}

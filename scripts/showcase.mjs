@@ -1,3 +1,4 @@
+import { upgradeOwnedCss } from "../_extensions/htmpres/themes/foundations.mjs";
 import { slideSegments } from "../_extensions/htmpres/lib/source.mjs";
 import { htmlToPlainText } from "../_extensions/htmpres/lib/render.mjs";
 import { maximumMatchGroups } from "../_extensions/htmpres/lib/render.mjs";
@@ -103,8 +104,8 @@ export function themeVariant(html, { name, mode, catalog, templateCss, localCss,
   let head = html.slice(0, headEnd);
   let body = html.slice(headEnd);
   const matchCount = maximumMatchGroups(body);
-  const oldCss = `${templateCss}\n${themeStyles(base, catalog)}${matchThemeStyles(base, catalog, matchCount, "nocturne")}\n${localCss}`;
-  let newCss = `${templateCss}\n${themeStyles(plan, catalog)}${matchThemeStyles(plan, catalog, matchCount, name)}\n${name === "blank" ? blankCss : ""}\n${localCss}`;
+  const oldCss = `${upgradeOwnedCss(templateCss, base, catalog)}\n${themeStyles(base, catalog)}${matchThemeStyles(base, catalog, matchCount, "nocturne")}\n${upgradeOwnedCss(localCss, base, catalog)}`;
+  let newCss = `${upgradeOwnedCss(templateCss, plan, catalog)}\n${themeStyles(plan, catalog)}${matchThemeStyles(plan, catalog, matchCount, name)}\n${name === "blank" ? blankCss : ""}\n${upgradeOwnedCss(localCss, plan, catalog)}`;
   // All variants share the font bundle; slide media remains deck-local.
   newCss = newCss.replaceAll("assets/htmpres-themes/", "../../../assets/htmpres-themes/");
   head = replaceOnce(head, oldCss, newCss, "canonical CSS");

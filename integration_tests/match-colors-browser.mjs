@@ -1,8 +1,9 @@
 /** CUA browser checks against the generated semantic audience or presenter deck. */
+import { chooseDeckSlide } from './deck-browser.mjs';
 export async function checkMatchColorsBrowser(tab) {
   const assert = (value, message) => { if (!value) throw new Error(message); };
   const observe = () => tab.getAXState({ emit: false });
-  const choose = async name => { await tab.playwright.getByRole('button', {name, exact:true}).click(); await observe(); };
+  const choose = name => chooseDeckSlide(tab,name);
   const next = async () => { await tab.playwright.locator('#nextBtn').click(); await observe(); };
   const snapshot = () => tab.playwright.evaluate(() => {
     const slide = document.querySelector('.slide.active');

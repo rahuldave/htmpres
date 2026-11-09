@@ -1,3 +1,4 @@
+import { scanSource } from "../_extensions/htmpres/lib/source.mjs";
 import { htmlToPlainText } from "../_extensions/htmpres/lib/render.mjs";
 
 /** Theme variants of one canonical render; no Markdown or note re-parsing. */
@@ -25,6 +26,13 @@ export function slideTitles(source, renderedHtml) {
   return titles;
 }
 
+/** Preserve the authored bytes, including heading attributes, notes and CRLF. */
+export function slideSources(source) {
+  const headings = scanSource(source).lines.filter(line => line.kind === "body" && /^##\s+/.test(line.text));
+  return headings.map((line, index) => ({ line: line.number,
+    markdown: source.slice(line.start, headings[index + 1]?.start ?? source.length) }));
+}
+
 export function themeChoices(catalog) {
   return [
     ...Object.entries(catalog.themes).map(([name, entry]) => ({ name, title: entry.title, family: entry.family,
@@ -49,13 +57,47 @@ function replaceOnce(source, before, after, label) {
 
 /** Register before the deck's preference listener; full views keep normal behavior. */
 function isolateComparison() {
-  if (!new URLSearchParams(location.search).has("compare-slide")) return;
+  const query = new URLSearchParams(location.search);
+  const example = query.has("example-slide");
+  if (!query.has("compare-slide") && !example) return;
   window.addEventListener("storage", event => event.stopImmediatePropagation(), true);
   document.addEventListener("DOMContentLoaded", () => {
     const button = document.getElementById("colorModeBtn");
     if (button) button.style.display = "none";
     const footer = document.querySelector(".footer-controls");
     if (footer) footer.style.gridTemplateColumns = "minmax(0, 1fr) repeat(4, auto)";
+    if (!example) return;
+    document.getElementById("slideFit")?.classList.add("no-tap-nav");
+    // This bridge belongs to the website's example, not the exported deck UI.
+    const style = document.createElement("style");
+    style.textContent = `
+      body .deck-shell { grid-template-columns: minmax(0, 1fr) !important; grid-template-rows: minmax(0, 1fr) !important; }
+      body .toc, body .footer-controls { display: none !important; }
+      body .stage-wrap { grid-column: 1 !important; grid-row: 1 !important; }
+      body.presenter-mode .deck-shell { grid-template-columns: minmax(0, 1fr) !important; grid-template-rows: minmax(0, 1fr) 210px !important; }
+      body.presenter-mode .stage-wrap { grid-column: 1 !important; grid-row: 1 !important; }
+      body.presenter-mode .presenter-notes { grid-column: 1 !important; grid-row: 2 !important; border-left: 0; border-top: 1px solid var(--line); }
+    `;
+    document.head.append(style);
+    window.htmpresExample = {
+      getState() {
+        const slide = slides[current];
+        const state = slideStepStates.get(slide);
+        return { slide: current + 1, cursor: state?.cursor || 0, total: state?.frames.length || 0,
+          frame: Number(slide.dataset.activeFrame) };
+      },
+      setState(number, cursor) {
+        goTo(number - 1);
+        const slide = slides[current];
+        const state = slideStepStates.get(slide);
+        if (state) state.cursor = Math.max(0, Math.min(state.frames.length, cursor));
+        applySlideStep(slide);
+        updateNavigationButtons();
+        scheduleTextFit();
+        return this.getState();
+      },
+    };
+    scheduleViewportLayout();
   });
 }
 

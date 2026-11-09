@@ -26,3 +26,26 @@ body:has(#theme-comparison) #quarto-content { grid-template-columns:[body] minma
 body:has(#theme-comparison) .quarto-btn-toggle { display:none; }
 
 .feature-jumps { display:flex; flex-wrap:wrap; align-items:baseline; gap:.6rem 1rem; margin:1rem 0; }
+
+.example-toolbar, .example-step-controls, .example-source-heading { display:flex; flex-wrap:wrap; align-items:center; gap:.65rem 1rem; }
+.example-toolbar { margin:1.5rem 0 1rem; }
+#deck-example label { display:grid; gap:.3rem; font-weight:600; }
+#deck-example select { max-width:100%; min-height:2.6rem; padding:.35rem .6rem; border:1px solid var(--bs-border-color); border-radius:.3rem; background:var(--bs-body-bg); color:var(--bs-body-color); }
+#example-slide { min-width:min(30rem, 80vw); }
+.example-key-hint, #example-source-location, #example-step-status { font-size:.85rem; color:var(--bs-secondary-color); }
+.example-key-hint { margin:.75rem 0; }
+.example-preview { width:100%; aspect-ratio:1100/780; position:relative; overflow:hidden; border:1px solid var(--bs-border-color); border-radius:.5rem; background:var(--bs-tertiary-bg); }
+.example-preview iframe { position:absolute; top:0; left:0; width:1100px; height:780px; border:0; transform-origin:top left; }
+.example-source h2 { border:0; margin:0; font-size:1.25rem; }
+.example-source pre { max-height:42rem; overflow:auto; padding:1.2rem; border:1px solid var(--bs-border-color); background:var(--bs-tertiary-bg); color:var(--bs-body-color); font-size:.85rem; white-space:pre-wrap; overflow-wrap:anywhere; }
+.example-source { margin:1.5rem 0; }
+#deck-example :focus-visible { outline:3px solid var(--bs-primary); outline-offset:3px; }
+body:has(#deck-example) #quarto-sidebar { display:none; }
+body:has(#deck-example) #quarto-content { grid-template-columns:[body] minmax(0,1fr); --sd-left:0px; }
+body:has(#deck-example) .quarto-btn-toggle { display:none; }
+
+.example-workspace { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:1.4rem; align-items:start; }
+.example-output, .example-source { min-width:0; }
+.example-workspace .example-source { margin:0; }
+.example-step-controls { position:sticky; top:4rem; z-index:5; padding:.6rem 0; background:var(--bs-body-bg); }
+@media(max-width:1000px) { .example-workspace { grid-template-columns:1fr; } }

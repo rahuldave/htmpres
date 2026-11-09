@@ -15,6 +15,7 @@ project:
     - quarto-extension.md
     - packaging.md
     - deckset-feature-status.md
+    - contributing.md
   resources:
     - _generated/**
     - assets/**
@@ -47,12 +48,13 @@ website:
       - section: Author
         contents:
           - authoring-cli.md
-          - build-a-deck-from-markdown.md
           - themes.md
           - quarto-class-map.md
           - semantic-authoring.md
       - section: Understand & extend
         contents:
+          - build-a-deck-from-markdown.md
+          - contributing.md
           - quarto-extension.md
           - packaging.md
           - deckset-feature-status.md

@@ -55,6 +55,13 @@ def crawl(site):
     generated = site / '_generated'
     manifest = json.loads((generated / 'manifest.json').read_text())
     assert len(manifest['themes']) == 38 and len(manifest['slides']) == 12
+    assert len(manifest['slideSources']) == len(manifest['slides']), 'Each slide needs its authored source'
+    source = (generated / 'source/index.qmd.txt').read_bytes()
+    chunks = ''.join(item['markdown'] for item in manifest['slideSources']).encode()
+    assert chunks == source[source.index(b'## '):], 'Displayed Markdown must match authored bytes'
+    example = (site / 'example.html').read_text()
+    for token in ('id="deck-example"', 'id="example-markdown"', 'data-step-action="next"', 'assets/deck-example.mjs'):
+        assert token in example, f'Interactive example missing {token}'
     audience_reference = None
     note_reference = None
     count = 0

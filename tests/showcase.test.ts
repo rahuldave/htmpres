@@ -67,3 +67,5 @@ for (const embedded of [false, true]) {
   assert(root.dataset.colorMode === (embedded ? "light" : "dark"), "Only full views follow external palette preferences");
 }
 console.log("Showcase tests passed: 38 themes, 146 body-preserving variants, selection validation and reload semantics.");
+
+await import("./example-page.test.ts");

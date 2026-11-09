@@ -1,7 +1,7 @@
 default:
   @just --list
 
-# Render the tutorial deck, the public repo's primary runnable example.
+# Render the advanced customization reference deck (legacy target name).
 tutorial:
   quarto run scripts/htmpres.ts render decks/tutorial/index.qmd
 

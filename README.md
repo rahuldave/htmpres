@@ -2,7 +2,7 @@
 
 `htmpres` is a small Quarto/Pandoc-based toolkit for writing Markdown decks
 that render to a custom HTML presentation shell. The published repo includes
-public tutorial and example decks, reusable renderer code, and a SmallDocs site.
+public example and customization reference decks, reusable renderer code, and a SmallDocs site.
 
 Read the [documentation](https://rahuldave.com/htmpres/) and
 [compare presentation themes](https://rahuldave.com/htmpres/compare.html).
@@ -10,7 +10,7 @@ Read the [documentation](https://rahuldave.com/htmpres/) and
 Included:
 
 - `_extensions/htmpres/`: installable Quarto utility extension and runtime.
-- `decks/tutorial/`: hand-authored tutorial deck and tutorial assets.
+- `decks/tutorial/`: advanced customization reference deck (legacy folder name).
 - `decks/example/`: twelve-slide Nocturne feature tour with inline speaker notes.
 - `decks/semantic/`: semantic importance, offline math, mixed steps and appendix links.
 - `decks/scripts/`: project-local runtime copies used by this workspace.
@@ -26,7 +26,6 @@ Not included:
 Primary commands:
 
 ```sh
-just tutorial
 just example
 just semantic
 just semantic-test
@@ -58,7 +57,7 @@ Pages must be configured with GitHub Actions as its source.
 
 `just check` uses Quarto/Deno and Python without Node; `just compat-check` also
 exercises the optional Node fallback when Node is available. `just publish`
-prepares the temporary private Sites preview app with both tutorial themes; the
+prepares the temporary private Sites preview app with both legacy reference themes; the
 final save/deploy step still runs through the Sites connector.
 
 The local `scripts/htmpres.ts` file used by the Just targets is a shim to the
@@ -88,7 +87,7 @@ appendix navigation, title emphasis, footnotes and machine-readable slide-break
 lint, see [Semantic slides](docs/semantic-authoring.md). Keep generated
 `assets/htmpres-math/` and theme assets with the HTML when sharing it offline.
 
-The tutorial demonstrates:
+The advanced customization reference demonstrates:
 
 - Level-2 headings as slides.
 - Fenced divs for layout.
@@ -99,7 +98,7 @@ The tutorial demonstrates:
   transitions.
 - Deckset-inspired full, left, right, split, fit, fill, filter, and media
   patterns using Quarto containers and media attributes.
-- Theme selection through `deck.theme`, with tutorial examples for `sage` and
+- Theme selection through `deck.theme`, with customization examples for `sage` and
   `mono-grid` color, typography, code-token, and media-filter tokens.
 - Declarative Bootstrap, all 25 local Bootswatch, Elegant, Reading, and Tufte
   themes with light/dark/system modes; see [presentation themes](docs/themes.md).
@@ -116,9 +115,11 @@ The tutorial demonstrates:
 
 Useful docs:
 
-- `docs/quickstart.qmd` and `docs/example.qmd` for the runnable example and site build.
+- [Start a deck](docs/quickstart.qmd) for a beginner authoring tutorial with bundled themes.
+- [Learn from the Markdown](docs/example.qmd) for interactive slides paired with exact source.
+- [Website maintenance](docs/contributing.md) for the documentation build and deployment.
 - `docs/compare.qmd` for side-by-side theme and mode selection in both HTML views.
-- `docs/build-a-deck-from-markdown.md`
+- [Customization reference](docs/build-a-deck-from-markdown.md) for optional theme/layout overrides.
 - `docs/authoring-cli.md`
 - `docs/quarto-class-map.md` for renderer, starter CSS, and deck-local class vocabulary.
 - `docs/themes.md` for the complete theme catalog, color modes, and local overrides.

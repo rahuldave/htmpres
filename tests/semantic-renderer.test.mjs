@@ -1,3 +1,5 @@
+import "./talk-hooks.test.mjs";
+import "./counter-policy.test.mjs";
 // The serve/watch preview is part of the renderer CLI contract.
 import "./preview.test.mjs";
 import "./slide-boundaries.test.mjs";
@@ -526,4 +528,54 @@ test("inserting before an implicit opening slide keeps the original body on its 
   assert.equal(report.slideCount, 3);
   assert.deepEqual(report.slides.map(s => s.title), ["Inserted", "", "Second"]);
   assert.match(JSON.parse(runDeno(["slide", "show", file, "2", "--json"])).slide.source, /^---\n+Original opening/);
+});
+
+test('counter policy is identical in both engines and verification rejects stale visibility', () => {
+  const base = value => `---\npagetitle: Counter policy\n${value===undefined?'':`deck:\n  counter: ${value}\n`}---\n## One\nMain.\n## Two\nMain.\n## Data {data-kind="appendix"}\nBackup.\n## Detail\nMore.\n`;
+  for(const value of [undefined,'true','false','presenter']) {
+    const dir=path.join(scratch,`counter-${value}`);mkdirSync(dir);
+    const file=path.join(dir,'slides.qmd');writeFileSync(file,base(value));
+    const check=()=>{
+      for(const [view,mode] of [['index','audience'],['presenter','presenter']]) {
+        const html=readFileSync(path.join(dir,`${view}.html`),'utf8');
+        assert.match(html,new RegExp(`data-counter="${value||'true'}"`));
+        const tag=html.match(/<div class="counter" id="counter"[^>]*>/)[0];
+        assert.equal(tag.includes(' hidden'),value==='false'||(value==='presenter'&&mode==='audience'));
+      }
+    };
+    runDeno(['render',file]);check();runDeno(['verify',file]);
+    execFileSync('node',[nodeRenderer,file],{cwd:root});check();
+    execFileSync('node',[path.join(root,'scripts/verify-roundtrip.mjs'),file],{cwd:root});
+    if(value==='true') {
+      writeFileSync(file,base('presenter'));
+      for(const [cmd,args] of [['quarto',['run',cli,'verify',file]],['node',[path.join(root,'scripts/verify-roundtrip.mjs'),file]]]) {
+        const result=spawnSync(cmd,args,{cwd:root,encoding:'utf8'});assert.notEqual(result.status,0);assert.match(result.stdout+result.stderr,/Counter (policy|visibility)/);
+      }
+    }
+    if(value==='presenter') {
+      const installed=path.join(dir,'installed');runDeno(['workspace','init',installed]);writeFileSync(path.join(installed,'slides.qmd'),base(value));
+      execFileSync('quarto',['run',path.join(installed,'_extensions/htmpres/htmpres.ts'),'render',path.join(installed,'slides.qmd')],{cwd:installed});
+      assert.match(readFileSync(path.join(installed,'index.html'),'utf8'),/id="counter" hidden/);
+      assert.doesNotMatch(readFileSync(path.join(installed,'presenter.html'),'utf8'),/id="counter" hidden/);
+    }
+  }
+  const file=path.join(scratch,'invalid-counter.qmd');writeFileSync(file,base('audience'));
+  for(const [cmd,args] of [['quarto',['run',cli,'lint',file,'--json']],['node',[nodeRenderer,'lint',file,'--json']]]) {
+    const result=spawnSync(cmd,args,{cwd:root,encoding:'utf8'});assert.equal(result.status,1);const report=JSON.parse(result.stdout);assert.equal(report.diagnostics[0].code,'deck-counter');assert.equal(report.diagnostics[0].line,4);
+  }
+});
+
+test('statement, credit lane and quote source agree in actual Deno and Node output', () => {
+  const dir=path.join(scratch,'talk-hooks');mkdirSync(dir);
+  const file=path.join(dir,'slides.qmd');writeFileSync(file,readFileSync(path.join(root,'decks/authoring-hooks/index.qmd'),'utf8'));
+  const sections=html=>html.match(/<section\b[^>]*class="[^"]*\bslide\b[^>]*>[\s\S]*?<\/section>/g);
+  runDeno(['render',file]);const deno=readFileSync(path.join(dir,'index.html'),'utf8');
+  execFileSync('node',[nodeRenderer,file],{cwd:root});const node=readFileSync(path.join(dir,'index.html'),'utf8');
+  assert.deepEqual(sections(node),sections(deno));
+  for(const html of [node,deno]) {
+    assert.match(html,/class="slide-credits" aria-label="Picture credits"/);
+    assert.match(html,/<div class="statement">/);
+    assert.match(html,/<blockquote>[\s\S]*class="source"/);
+    assert.match(html,/id="counter" hidden/);
+  }
 });

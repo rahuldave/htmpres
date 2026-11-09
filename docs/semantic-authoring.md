@@ -19,8 +19,8 @@ quarto run _extensions/htmpres/htmpres.ts verify slides.qmd
 
 ## 1. Importance
 
-Use `.key` for the point of a slide and `.aside` for a minor qualification.
-Both work on native spans and fenced blocks:
+Use `.statement` for the dominant claim, `.key` for a key point and `.aside` for a minor qualification.
+These roles work on native spans and fenced blocks:
 
 ```markdown
 ## The result
@@ -35,10 +35,138 @@ The estimate is less certain for smaller groups.
 All 35 paired themes map these roles in both modes, and the three legacy seeds
 have defaults. The theme token scale has levels 0–4, each with
 `--htmpres-importance-N-scale`, `-weight` and `-ink`. Normal text is level 2;
-`.aside` uses 1 and `.key` uses 3. Levels 0 and 4 are reserved token hooks;
-there are no numbered author classes or new visual utility language. Theme
+`.aside` uses 1, `.key` uses 3 and `.statement` uses 4. Purpose-specific
+`.credit` and `.source` labels use level 0. There are no numbered author classes.
+There is no generic level-0 mark: that size is for attribution, not another
+way to shrink the argument. Theme
 authors may change tokens in CSS without changing slide source. Role sizing
 also works inside fitted cards and callouts.
+
+### A statement slide
+
+Jonathan Schwabish, *Better Presentations* (2017), pp. 70–72, recommends making
+the most important point dominant; pp. 139–140 show spare section/header slides.
+Use a statement block on an untitled slide for that purpose:
+
+```markdown
+## {#main-claim .autoscale data-title="The main claim"}
+
+::: {.statement}
+Structure makes the argument memorable.
+:::
+```
+
+The solo block is centered. Both `[The claim.]{.statement}` and fenced statement
+blocks also work within a normal slide. Themes supply level-4 size, emphasis weight and ink; text fitting scales the block and its
+paragraphs together. Prefer one short claim. Long copy may still need splitting
+when it reaches the theme's minimum fit size.
+
+## Picture credits
+
+Following Jonathan Schwabish, *Better Presentations* (2017), pp. 128–129, put a
+short picture credit at the lower right and move lengthy source records to an
+endnote/appendix slide. A native span or fenced `.credit` block is sufficient:
+
+```markdown
+## A picture {#picture}
+
+::: {.ds-full .ds-media .ds-fill .ds-no-pad}
+![A description of the picture](assets/photo.jpg)
+:::
+
+[Photo: Creator, [source record](#image-source).]{.credit}
+
+## Image source {#image-source data-kind="appendix"}
+
+Creator, work title, date, original URL and applicable license.
+
+[Back to the picture](#picture).
+```
+
+A block alternative is `::: {.credit}` followed by the credit text and a closing
+`:::`. All picture credits on the slide are collected in source order into one
+lower-right lane, including credits authored inside a media block. The theme's
+opaque paper/ink backing keeps them readable over bright or dark images.
+Attribution ink targets 4.8:1 contrast against that paper. If a stock palette's
+normal or muted ink is too faint, the theme adapter shifts that ink toward black
+or white; already-readable ink keeps its semantic token alias. On a mid-tone
+paper where even black or white cannot reach 4.8:1, it uses the strongest
+neutral endpoint, still above the 4.5:1 normal-text minimum. The
+layout reserves space for the lane and puts the section label above it;
+credits do not shrink with body text fitting. Keep the short credit concise;
+long source records belong in the linked appendix. Credits are attribution,
+not a general caption/overlay layout tool.
+
+## Quotations and their source
+
+Jonathan Schwabish, *Better Presentations* (2017), pp. 72–73, illustrates a
+quotation with its important passage emphasized and its source attached. Use
+ordinary Markdown quotation syntax, the slide class `.quote`, and `.source`:
+
+```markdown
+## One idea {.quote #quotation}
+
+> An effective slide gives the audience [one idea to remember.]{.key}
+>
+> [Example quotation written for this demonstration.]{.source}
+```
+
+This is original example copy, not a quotation from Schwabish. `.key` keeps its
+usual emphasis inside the quotation. A fenced `.source` block also works; it
+uses the same attribution role. The theme sets quotation spacing/size and the
+smaller source line. Source text stays with the quote; only `.credit` is moved
+to the picture-credit lane.
+
+## Audience counter
+
+Jonathan Schwabish, *Better Presentations* (2017), pp. 69–70, recommends omitting
+slide numbers from a spoken talk. Put this setting in the **initial deck front
+matter** to retain the counter for the speaker:
+
+```markdown
+---
+pagetitle: A spoken talk
+deck:
+  theme: nocturne
+  counter: presenter
+---
+
+## The result {#result}
+
+[The argument leads here.]{.key}
+
+[Supporting data](#backup).
+
+## Supporting data {#backup data-kind="appendix"}
+
+The detailed evidence.
+
+[Back to the result](#result).
+```
+
+| `deck.counter` | Audience `index.html` | `presenter.html` |
+|---|---|---|
+| omitted or `true` | Shown | Shown |
+| `false` | Hidden | Hidden |
+| `presenter` | Hidden | Shown |
+
+The setting applies throughout the main talk and appendix. Hidden counters
+continue tracking navigation, but take no layout space and are absent from the
+accessibility tree. Main/appendix numbering and End still use their existing
+boundaries. Unknown or empty values produce a `deck-counter` source error in
+`lint --json`; render and verify reject it. After changing the policy, rerender
+both outputs; verify detects stale policy or visibility.
+
+Run `just authoring-hooks` for a complete local example. Inspect the
+[audience deck](_generated/authoring-hooks/index.html),
+[presenter deck](_generated/authoring-hooks/presenter.html) and
+[editable source](_generated/source/authoring-hooks.qmd.txt).
+
+The nine-foundation slide adoption must retain these same hooks. They consume
+shared importance levels, body size, paper/ink and available font weights;
+foundation adopters should run the authoring-hook fixture and browser checks
+alongside their audience-scale QA. No second author syntax or foundation schema
+field is required.
 
 ## 2. Math and named terms
 
@@ -133,11 +261,16 @@ two columns should advance together.
 
 ## Finish with matched colors
 
-Opt in on a slide with `data-step-summary="match"`. After the last teaching
-step, **one more advance** shows a color-matched overview. Code line numbers
-or equation terms share the color of their explanation. The last highlight
-and dimming clear; all revealed explanations remain readable. Previous
-returns to the last teaching step. Restart restores the initial slide.
+Opt in on a slide with `data-step-summary="match"`. Each named group gains its
+color as its explanation is revealed, starting with the first teaching step.
+Code line numbers or equation terms share the explanation's color. Earlier
+revealed groups retain their colors; future explanations stay hidden.
+Teaching highlights/dimming continue to identify the current source part.
+After the last teaching step, **one more advance** shows the complete overview:
+the highlight and dimming clear, and all revealed explanations remain readable.
+Previous restores the last teaching frame and its colors; further backward
+steps remove colors from groups no longer revealed. Restart restores the initial
+slide.
 
 You choose this behavior in the QMD before rendering. Without the attribute,
 the slide keeps its existing final highlight. The extra step is calculated
@@ -180,7 +313,7 @@ with `|`; use `2-4:total` for a range or `1,3:observations` for separate lines.
 Selections must be positive, in bounds and non-overlapping. Every mapped name
 needs a `data-match` explanation. These mappings are independent of
 `data-steps`: repeated or cumulative highlights do not change a group's color.
-In the summary, every line number is visible, including for code without
+Matched slides display line numbers throughout teaching and the summary, including code without
 `.numberLines`; only mapped numbers receive a matching color. Code syntax
 colors remain intact.
 
@@ -208,7 +341,8 @@ $$
 ::::
 ```
 
-On the fourth advance, `mean` and `total` each get their own color. Their
+`mean` gets its color on the first reveal and `total` on the second;
+both keep their colors through the third reveal and fourth-advance overview. Their
 individual explanations share it; the combined explanation stays ordinary
 text. Different groups must not overlap on the same source term or code line.
 The theme supplies colors unless you override them below. Try both complete
@@ -233,7 +367,13 @@ For an individual inline math term, Pandoc's bracket-and-brace syntax works:
 [The mean of the observations.]{data-match="mean"}
 ```
 
-Those colors appear only in the final summary. For a term **inside** a larger
+Those colors apply from the named group's reveal through the final summary.
+An enclosing fragment controls a nested matched span's onset. A repeated name
+keeps one color, but later occurrences stay hidden until their own reveal.
+Static labels with teaching frames join the first frame; a slide without
+teaching reveals waits for its single summary advance. Explicit index-0
+fragments are visible and colored at the baseline. Back/Restart restores these
+visibility and color states. For a term **inside** a larger
 display equation, keep `\htmlClass{mean}{...}` and set the shared color on its
 explanation or slide palette.
 Pandoc `{...}` attributes do not go inside TeX. Do not add KaTeX HTML styles.

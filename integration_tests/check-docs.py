@@ -100,6 +100,13 @@ def crawl(site):
         notes = re.search(r'<script id="deckNotes" type="application/json">(.*?)</script>', text, re.S)
         if view == 'index': assert notes is None, 'Semantic demo audience note leak'
         else: assert notes and len(json.loads(notes[1])) == 8, 'Semantic presenter notes'
+    assert (generated / 'source/authoring-hooks.qmd.txt').read_bytes() == (repo / 'decks/authoring-hooks/index.qmd').read_bytes()
+    for view in ('index', 'presenter'):
+        text = (generated / 'authoring-hooks' / f'{view}.html').read_text()
+        assert 'data-counter="presenter"' in text
+        assert ('id="counter" hidden' in text) == (view == 'index')
+        assert 'class="slide-credits"' in text and 'class="statement"' in text
+        assert '<blockquote>' in text and 'class="source"' in text
     assert not any((site / name).exists() for name in ('showcase-spec.html', 'semantic-authoring-spec.html', 'theme-catalog-spec.html', 'tag_dependency_workflow.html', 'authoring-cli-spec.html'))
     assert (site / 'site_libs/themes/nocturne/nocturne.css').exists(), 'Nocturne site CSS missing'
     if errors:

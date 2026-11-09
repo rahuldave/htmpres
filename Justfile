@@ -13,12 +13,16 @@ example:
 semantic:
   quarto run scripts/htmpres.ts render decks/semantic/index.qmd
 
+# Render statement, attribution and presenter-only counter examples.
+authoring-hooks:
+  quarto run scripts/htmpres.ts render decks/authoring-hooks/index.qmd
+
 # Render the three-slide mixed-boundary authoring example.
 slide-breaks:
   quarto run scripts/htmpres.ts render decks/slide-breaks/index.qmd
 
 # Check shared semantic contracts without requiring Node.
-semantic-test: semantic
+semantic-test: semantic authoring-hooks
   quarto run tests/semantic-importance.test.ts
   quarto run tests/semantic-deck.test.ts
 
@@ -27,7 +31,7 @@ lint *decks:
   quarto run scripts/htmpres.ts lint {{decks}} --json
 
 # Generate every catalog palette from the canonical example render.
-theme-gallery: example semantic
+theme-gallery: example semantic authoring-hooks
   quarto run scripts/build-showcase.ts
 
 # Build the SmallDocs site (requires uv; SmallDocs is pinned by the wrapper).
@@ -89,7 +93,7 @@ diff-check:
 
 # Run the normal local verification path for renderer/tutorial changes.
 # This path uses Quarto's bundled Deno runtime and does not require Node.
-check: tutorial example semantic slide-breaks verify semantic-test authoring-smoke docs-check diff-check
+check: tutorial example semantic authoring-hooks slide-breaks verify semantic-test authoring-smoke docs-check diff-check
 
 # Prepare the private Sites preview app with both tutorial themes.
 # Saving and deploying still happens through the Sites connector.
@@ -100,5 +104,5 @@ publish theme_dir="/private/tmp/htmpres-theme-preview" site_dir="/private/tmp/ht
 node-check: node-render node-verify
 
 # Run the core Deno checks plus optional Node fallback parity checks.
-compat-check: tutorial example semantic slide-breaks verify node-render node-verify diff-check
+compat-check: tutorial example semantic authoring-hooks slide-breaks verify node-render node-verify diff-check
   node --test tests/semantic-renderer.test.mjs tests/runtime-steps.test.mjs tests/runtime-navigation.test.mjs

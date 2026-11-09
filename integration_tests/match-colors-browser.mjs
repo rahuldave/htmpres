@@ -24,7 +24,15 @@ export async function checkMatchColorsBrowser(tab) {
     for (const [name, type] of [['3. Code and explanation share one clock','code'],['4. Equations use the same clock','equation']]) {
       await choose('1. A semantic story'); await choose(name);
       assert(!(await snapshot()).summary, 'Summary is opt-in final state, not baseline');
-      for (let i=0;i<3;i++) await next();
+      for (let i=0;i<3;i++) {
+        await next();
+        const teaching = await snapshot();
+        const colored = teaching.text.filter(text => text.slot);
+        assert(colored.length === Math.min(i+1, teaching.text.length), `${mode}/${type}: colors begin on the first reveal and accumulate`);
+        const parts = type === 'code' ? teaching.code.filter(part => part.slot) : teaching.terms;
+        assert(parts.length === colored.length && parts.every(part => colored.some(text => text.slot === part.slot && text.color === part.color)), `${mode}/${type}: teaching source and explanation colors agree`);
+        assert(teaching.fragments.slice(i+1).every(fragment => !fragment.visible), 'Future explaining text stays hidden');
+      }
       const teaching = await snapshot(); assert(teaching.frame === '7' && !teaching.summary, 'Last teaching highlight remains available');
       await next();
       const summary = await snapshot();
@@ -36,6 +44,12 @@ export async function checkMatchColorsBrowser(tab) {
       if(type === 'code') assert(source.every(part=>part.number === `"${part.line}"` && part.backing !== 'rgba(0, 0, 0, 0)'), 'Summary has real visible line numbers on opaque backing');
       await tab.playwright.locator('#prevBtn').click(); await observe();
       const previous = await snapshot(); assert(previous.frame === '7' && !previous.summary && previous.highlights, 'Previous restores the final teaching frame');
+      await next();
+      await tab.playwright.locator('#prevBtn').click(); await observe();
+      // Return from summary, then retreat to the first reveal.
+      await tab.playwright.locator('#prevBtn').click(); await observe();
+      await tab.playwright.locator('#prevBtn').click(); await observe();
+      assert((await snapshot()).text.filter(text=>text.slot).length===1, 'Retreat removes colors for unrevealed groups');
       await choose('1. A semantic story'); await choose(name);
       assert((await snapshot()).text.every(t=>!t.slot) && (await snapshot()).fragments.every(f=>!f.visible), 'Navigation reset clears matching and hides future text');
       passed.push(`${mode} ${type}: final pairs, previous and reset`);

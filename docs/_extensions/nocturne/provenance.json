@@ -1,9 +1,18 @@
 {
   "source": "https://github.com/rahuldave/smalldocs-nocturne",
-  "source_commit": "e9def52c79cb84ec55736a97a4b8cd32cfd12f69",
+  "source_commit": "061dce7006116f5e86e666baa3f40b6e70029303",
   "files": {
-    "nocturne.css": "3b9e625d0706d1863502c0b3ebfffc0e1c4c3a574b27f1da0837c5f9a81a1489",
-    "nocturne-dark.css": "8299682573f7817e9bcd5e4bab04a9e8eb31cbd0e910eeca9ffd748cf9516c1b"
+    "nocturne.css": "8ce1dd99dae5560d2e75f5c13c1deff73e42e44c1ae45ccfe0b071a0e07be25b",
+    "nocturne-dark.css": "9bb4d0a7ca7ae8174d7a6108438ec926de13e6190aae9f22e65c8a7ea1e12323",
+    "foundations.json": "02381470c683f1002f88f0ef82b07543d3b168bb8dff5f3d7e7557f39cffb5b2",
+    "smalldocs.yml": "e6d18d41c299814efb7cbfe3b5002ed22e7a54ddf085149247054dfca62a887b",
+    "BOOTSTRAP-LICENSE": "4620c84ad5ce8602ff65640ed6b7c8b78ebb9e036584f0ebc1ccc88206a4bb51",
+    "logo.svg": "205ab195785a81823b0c44dd20b66adc9da7697ed76090a0065d0d5ddb95a0b9",
+    "licenses/nocturne-BOOTSTRAP-LICENSE": "4620c84ad5ce8602ff65640ed6b7c8b78ebb9e036584f0ebc1ccc88206a4bb51",
+    "licenses/nocturne-LICENSE": "2f32e9058e5d102b484b05a8fefa046b61602aa7c6bf549846a495bf794ea0a7",
+    "licenses/nocturne-dmsans-OFL.txt": "7ec15e79c59bc14b86436a17e5eb7926b46cbcaeb08e1a7e6c110b415e6eb2a2",
+    "licenses/nocturne-ibmplexmono-OFL.txt": "d741e57d5f865e294df801f96b7b5161a88b211df65887e4358d271c9fc5fb4f",
+    "licenses/nocturne-sourceserif4-OFL.txt": "0fd8b796c1c6220a559a5682cfd00d1c8488b428369f7cb70deb671888cef85f"
   },
   "fonts": "Staged from _extensions/htmpres/themes/fonts by just theme-gallery; OFL notices preserved."
 }

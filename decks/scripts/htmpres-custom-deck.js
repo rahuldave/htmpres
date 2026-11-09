@@ -127,14 +127,15 @@ function fitSlideText(slide) {
     updateScrollCue();
     return;
   }
-  updateCreditLayout(slide);
   slide.classList.remove("htmpres-text-fit-overflow");
   if (!slideTextFitEnabled(slide)) {
     resetTextFit(slide);
+    updateCreditLayout(slide);
     updateScrollCue();
     return;
   }
   if (!slide.classList.contains("active")) {
+    updateCreditLayout(slide);
     updateScrollCue();
     return;
   }
@@ -143,6 +144,7 @@ function fitSlideText(slide) {
   let scale = 1;
   slide.classList.add("htmpres-text-fit-active");
   slide.style.setProperty("--htmpres-text-fit-scale", "1");
+  updateCreditLayout(slide);
 
   let overflow = slideOverflowRatio(slide);
   for (let attempt = 0; attempt < 8 && overflow > 1.01 && scale > minScale; attempt += 1) {
@@ -150,6 +152,7 @@ function fitSlideText(slide) {
     if (Math.abs(nextScale - scale) < 0.002) break;
     scale = nextScale;
     slide.style.setProperty("--htmpres-text-fit-scale", scale.toFixed(4));
+    updateCreditLayout(slide);
     overflow = slideOverflowRatio(slide);
   }
 

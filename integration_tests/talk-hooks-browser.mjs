@@ -1,5 +1,5 @@
 /** Run using CUA against decks/authoring-hooks/index.html or presenter.html. */
-export async function checkTalkHooksBrowser(tab) {
+export async function checkTalkHooksBrowser(tab, { expectShrink = false } = {}) {
   const assert=(value,message)=>{if(!value) throw new Error(message);};
   const observe=()=>tab.getAXState({emit:false});
   const choose=async name=>{await tab.playwright.getByRole('button',{name,exact:true}).click();await observe();};
@@ -29,8 +29,9 @@ export async function checkTalkHooksBrowser(tab) {
     state=await tab.playwright.evaluate(()=>{const q=document.querySelector('.slide.active blockquote'),style=e=>getComputedStyle(e);return {quote:Number.parseFloat(style(q).fontSize),key:Number.parseFloat(style(q.querySelector('.key')).fontSize),source:Number.parseFloat(style(q.querySelector('.source')).fontSize),sourceAlign:style(q.querySelector('.source').parentElement).textAlign};});
     assert(state.key>state.quote && state.source<state.quote && state.sourceAlign==='right',`${mode}: quote emphasizes key and separates source`);
     await choose('5. A fitted statement');
-    state=await tab.playwright.evaluate(()=>{const s=document.querySelector('.slide.active');return {scale:Number(s.dataset.textFitScale),overflow:s.scrollHeight-s.clientHeight};});
-    assert(state.scale<1 && state.overflow<=4,`${mode}: long statement actually shrinks and fits`);
+    state=await tab.playwright.evaluate(()=>{const s=document.querySelector('.slide.active'),css=getComputedStyle(s),content=s.querySelector('.statement');return {scale:Number(s.dataset.textFitScale),minimum:Number.parseFloat(s.dataset.textFitMin||document.documentElement.dataset.textFitMin||css.getPropertyValue('--htmpres-text-fit-min'))||.62,overflow:s.scrollHeight-s.clientHeight,scrollable:['auto','scroll'].includes(css.overflowY),topReachable:content.getBoundingClientRect().top>=s.getBoundingClientRect().top-2};});
+    assert(state.overflow<=4 || (state.scale<=state.minimum+.002 && state.scrollable && state.topReachable),`${mode}: statement fits or preserves reachable scrolling at its protected floor`);
+    assert(!expectShrink || state.scale<1,`${mode}: constrained fixture actually shrinks`);
     passed.push(`${mode}: statement/span/block/fit, full-picture credits, quote/key/source`);
   }
   return passed;

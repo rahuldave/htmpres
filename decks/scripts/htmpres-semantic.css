@@ -59,6 +59,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* Oversized fit-scroll statements keep a reachable scroll origin. */
+  justify-content: safe center;
   text-align: center;
 }
 .slide > .statement:only-child { margin: 0; }
@@ -83,6 +85,8 @@
   bottom: calc(var(--htmpres-credit-inset, 24px) + var(--htmpres-credit-height, 0px) + 12px);
 }
 .slide > .slide-credits {
+  font-size: calc(var(--htmpres-body-size, 1rem) * var(--htmpres-importance-0-scale) * var(--htmpres-text-fit-scale, 1));
+  line-height: var(--htmpres-attribution-leading, 1.4);
   position: absolute;
   right: var(--htmpres-credit-inset, 24px);
   bottom: var(--htmpres-credit-inset, 24px);
@@ -95,13 +99,13 @@
 }
 .slide .slide-credits .credit {
   display: block;
-  font-size: calc(var(--htmpres-body-size, 1rem) * var(--htmpres-importance-0-scale));
+  font-size: calc(var(--htmpres-body-size, 1rem) * var(--htmpres-importance-0-scale) * var(--htmpres-text-fit-scale, 1));
   margin: 0;
   padding: var(--htmpres-credit-padding, .35em .6em);
   background: var(--htmpres-credit-bg, var(--paper));
   color: var(--htmpres-credit-ink, var(--ink));
 }
-.slide .slide-credits > p { margin: 0; }
+.slide .slide-credits > p { margin: 0; font-size: inherit; line-height: inherit; }
 .slide .slide-credits .credit :last-child { margin-bottom: 0; }
 .slide .slide-credits .credit a { color: inherit; text-decoration: underline; }
 

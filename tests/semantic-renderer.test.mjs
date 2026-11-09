@@ -577,5 +577,7 @@ test('statement, credit lane and quote source agree in actual Deno and Node outp
     assert.match(html,/<div class="statement">/);
     assert.match(html,/<blockquote>[\s\S]*class="source"/);
     assert.match(html,/id="counter" hidden/);
+    assert.match(html, /@media \(min-width: 981px\) \{\s*body\.presenter-mode \.slides \{\s*width: 1280px;\s*height: 720px;\s*max-height: none;\s*transform: scale\(var\(--deck-scale, 1\)\);\s*transform-origin: top left;/);
+    assert.match(html, /justify-content: safe center;/);
   }
 });

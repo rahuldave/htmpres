@@ -33,6 +33,13 @@ test('statement, quote attribution and picture attribution consume semantic them
   assert.doesNotMatch(css, /#[0-9a-f]{3,8}\b|rgba?\(/i);
 });
 
+test('credit paragraphs inherit fitted label typography instead of foundation prose sizes', () => {
+  const css = readFileSync(new URL('../_extensions/htmpres/runtime/htmpres-semantic.css', import.meta.url), 'utf8');
+  assert.match(css, /\.slide > \.slide-credits \{\s*font-size: calc\([^;]+--htmpres-text-fit-scale/);
+  assert.match(css, /\.slide \.slide-credits > p \{[^}]*font-size: inherit; line-height: inherit;/);
+  assert.match(css, /justify-content: safe center;/, 'Oversized statements start at the scrollable top');
+});
+
 test('credit relocation retains a surrounding Markdown link or emphasis', () => {
   for(const wrapper of ['a href="https://example.test/source"','em','strong']) {
     const name=wrapper.split(' ')[0];

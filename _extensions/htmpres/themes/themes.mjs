@@ -1,3 +1,4 @@
+import { foundationTokens, foundationStyles } from "./foundations.mjs";
 import { attributionTokens } from "./attribution.mjs";
 /** Shared, dependency-free theme adapter for the Deno and Node renderers. */
 export const legacyThemes = ["sage", "mono-grid", "blank"];
@@ -99,6 +100,7 @@ function tokens(entry, mode) {
     "bs-link-color": p.accent, "bs-border-color": p.line,
     "bs-font-sans-serif": entry.heading, "bs-font-monospace": entry.mono,
   };
+  Object.assign(values, foundationTokens(entry, mode));
   return Object.entries(values).map(([key, value]) => `  --${key}: ${value};`).join("\n");
 }
 
@@ -115,7 +117,8 @@ export function themeStyles(plan, catalog, alias = "") {
     if (entry.fontCss) fontRules.add(entry.fontCss);
     rules.push(`${selector} {\n  color-scheme: ${mode};\n${tokens(entry, mode)}\n}`);
     rules.push(`${selector} :is(h2, h3) { font-weight: var(--htmpres-heading-weight); }`);
-    if (entry.family === "tufte") rules.push(`${selector} :is(h2, h3) { font-style: italic; }`);
+    if (entry.family === "tufte" && !entry.foundation) rules.push(`${selector} :is(h2, h3) { font-style: italic; }`);
+    if (entry.foundation) rules.push(foundationStyles(selector, entry));
   }
   rules.push(`:where(html[data-color-mode]) a { color: var(--teal); }
 html[data-color-mode] .footer-controls { grid-template-columns: minmax(0, 1fr) repeat(5, auto); }
@@ -123,6 +126,7 @@ html[data-color-mode] .footer-controls { grid-template-columns: minmax(0, 1fr) r
   html[data-color-mode] .footer-controls { grid-template-columns: minmax(0, 1fr) repeat(4, auto); gap: 6px; }
   html[data-color-mode] .footer-controls .progress { display: none; }
 }`);
+  if (alias && [plan.light,plan.dark].some(name => catalog.themes[name]?.foundation)) rules.unshift(`/* htmpres-foundation-seed: ${alias} <- ${plan.light} */`);
   return [...fontRules, ...rules].join("\n\n") + "\n";
 }
 

@@ -2,6 +2,25 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { runtimeHarness } from './runtime-harness.mjs';
 
+test('credit reserve is remeasured at the fitted scale and after disabling fit', () => {
+  const { run } = runtimeHarness();
+  run(`
+    const creditSlide = fakeElement({ textFit: 'true', textFitMin: '.5' });
+    creditSlide.classList.add('active');
+    creditSlide.style.setProperty('--htmpres-text-fit-scale', '.64');
+    const creditScales = [];
+    updateCreditLayout = slide => creditScales.push(Number(slide.properties.get('--htmpres-text-fit-scale') || 1));
+    slideOverflowRatio = slide => Number(slide.properties.get('--htmpres-text-fit-scale')) > .8 ? 1.4 : 1;
+    updateScrollCue = () => {};
+    fitSlideText(creditSlide);
+  `);
+  const scales = [...run('creditScales')];
+  assert.equal(scales[0], 1, 'Measure after resetting the previous fitted size');
+  assert.ok(scales.at(-1) < 1, 'Reserve must reflect the newly fitted credit height');
+  run("creditSlide.dataset.textFit = 'false'; fitSlideText(creditSlide)");
+  assert.equal(run('creditScales.at(-1)'), 1, 'Restored type size needs a restored reserve');
+});
+
 test('main counter excludes trailing appendix and Next stops before it', () => {
   const { run } = runtimeHarness(['', '', 'appendix', '']);
   assert.equal(run('mainSlideCount'), 2);

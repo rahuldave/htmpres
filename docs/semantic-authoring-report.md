@@ -160,7 +160,7 @@ Markdown page and exact displayed denominator mapping also pass.
 `just check`, 35 focused runtime/navigation/hook tests and skill validation/lint
 passed; independent review found no remaining issues.
 
-**Verification:** `just check`, `just compat-check`, final 70 Node tests,
+**Original hook release verification (`b8fee29`):** `just check`, `just compat-check`, final 70 Node tests,
 `just semantic-test`, `just docs-check` (164 HTML pages), actual Deno/Node hook
 HTML parity, and packaged-skill validation/lint/scratch installation passed.
 The downstream look-talks/nossaifd-talks repositories were not edited. No

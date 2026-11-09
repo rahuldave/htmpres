@@ -2,16 +2,18 @@
 
 Approved 9 November 2026, after joint review of Doc 1 (design language) and Doc 2 (presentation color). Stock Bootswatch is reference-only. Parent task `yoowwpyv`; iteration `xurklyyy`. Upstream theme PR creation and merging are authorized after parent review and passing checks. All real-repository Git decisions remain parent-owned. htmpres PR merging still requires separate authorization.
 
-| Phase | Task | Gate |
-| --- | --- | --- |
-| 1: freeze small shared contract and nine independent seeds | `ptoxmryr` | Contract/schema, reference coverage, exact approved candidates and contrast checks |
-| 2: adopt in independent custom, Reading and Tufte repositories | `uykmynuu`, `utxuylpm`, `osmysomq` | Reproducible source builds, paired modes and scoped Quarto overlays |
-| 3: upstream verification | `rroytwov` | Numerical, asset/font, build and browser checks before slide imports |
-| 4: slide consumer adoption | `pvttvwwo` | Import authoritative manifests from merged upstream revisions; audience-scale and browser QA |
-| 5: rerun scientific experiments | `xrtvkvpx` | Reading/presentation comparisons and role separation |
-| 6: plotting API/package | `vxltssko` | Verified upstream and slide contracts plus experiment evidence |
+| Phase | Task | Status | Gate |
+| --- | --- | --- | --- |
+| 1: freeze small shared contract and nine independent seeds | `ptoxmryr` | Complete | Contract/schema, reference coverage, exact approved candidates and contrast checks |
+| 2: adopt in independent custom, Reading and Tufte repositories | `uykmynuu`, `utxuylpm`, `osmysomq` | Complete | Reproducible source builds, paired modes and scoped Quarto overlays |
+| 3: upstream verification | `rroytwov` | Passed | Numerical, asset/font, build and browser checks before slide imports |
+| 4: slide consumer adoption | `pvttvwwo` | Active | Import authoritative manifests from merged upstream revisions; audience-scale and browser QA |
+| 5: rerun scientific experiments | `xrtvkvpx` | Pending | Reading/presentation comparisons and role separation |
+| 6: plotting API/package | `vxltssko` | Pending | Verified upstream and slide contracts plus experiment evidence |
 
-Execution uses nine independent physical worktrees managed by three owners/workstreams: custom three, Reading five, and Tufte. Shared build patterns do not create a central runtime dependency. Later phases wait for preceding gates.
+Upstream adoption used nine independent physical worktrees managed by three owners/workstreams: custom three, Reading five, and Tufte. Shared build patterns do not create a central runtime dependency. Later phases wait for preceding gates.
+
+The [upstream verification record](upstream-verification.md) pins all nine merged source revisions, published manifest hashes and rerunnable browser helpers. The upstream gate passed; slide consumer adoption is active.
 
 ## Frozen v1 source and publication contract
 

@@ -2,6 +2,8 @@
 
 **Decision draft · 9 November 2026 · depends on [Part 1](01-design-language.md) and [Part 2](02-presentation-color.md)**
 
+**Pre-implementation baseline — rerun pending the slide gate.** The measurements and conclusions below describe the theme revisions used in the original experiment, before the approved foundation repairs. All nine upstream themes have since passed the [implementation verification gate](upstream-verification.md). These historical numbers do not describe their current UI roles; phase 5 will rerun the experiments after slide consumer adoption.
+
 The nine priority themes should have matching Matplotlib/Seaborn treatments,
 but a treatment must distinguish **plot furniture, emphasis, categories,
 ordered magnitude and signed divergence**. One branded color cycle cannot do

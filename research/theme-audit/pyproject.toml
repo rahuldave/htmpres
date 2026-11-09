@@ -3,7 +3,15 @@ name = "htmpres-theme-audit"
 version = "0.1.0"
 requires-python = ">=3.12,<3.13"
 dependencies = [
-  "numpy", "pandas", "matplotlib", "seaborn", "colorspacious", "pillow", "markdown", "pytest",
+  "numpy",
+  "pandas",
+  "matplotlib",
+  "seaborn",
+  "colorspacious",
+  "pillow",
+  "markdown",
+  "pytest",
+  "jsonschema==4.26.0",
 ]
 
 [tool.uv]

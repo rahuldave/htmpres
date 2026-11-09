@@ -2,6 +2,11 @@
 
 **Decision draft · 9 November 2026 · no production theme changes**
 
+**Rollout approved:** the nine-theme foundation recommendations below are now
+accepted for implementation. Follow the [phased implementation plan](implementation-plan.md)
+for upstream SmallDocs/Quarto work, then htmpres, then revised plotting experiments.
+The measurements in this report remain the pre-implementation baseline.
+
 Folio, Atelier and Nocturne have coherent light/dark identities in the current
 htmpres adapter. Atelier fits its shared presentation shell particularly well;
 Folio and Nocturne offer distinct editorial voices. Tufte is a valuable restrained

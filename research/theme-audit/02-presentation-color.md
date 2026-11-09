@@ -2,6 +2,12 @@
 
 **Decision draft · 9 November 2026 · depends on [Part 1](01-design-language.md)**
 
+**Rollout approved:** all nine owned themes will proceed using the combined
+Part 1/Part 2 recommendations in the [implementation plan](implementation-plan.md).
+Preserve serif identities by default, use spacing-first grouping, and keep
+colored emphasis selective. The shortlist language and measurements below
+record the original review; they do not exclude any of the nine from implementation.
+
 The most dependable starting palettes remain Atelier, Folio and Nocturne, but
 their visual presentation needs differ. Atelier is the best general technical
 candidate; Folio's warm editorial character needs a projection typography pass;

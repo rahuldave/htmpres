@@ -49,3 +49,5 @@
 .example-step-copy { padding: 12px 20px; }
 .example-step-copy p { margin-bottom: 32px; }
 .example-equation { display: flex; align-items: center; justify-content: center; min-height: 260px; font-size: 1.45em; }
+
+.example-equation .math { font-size: 2em; }

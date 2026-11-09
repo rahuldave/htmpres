@@ -1,56 +1,76 @@
 ---
-title: One source. Two views.
+title: Learn from the Markdown
+toc: false
+sidebar: false
+page-layout: full
 ---
 
-A twelve-slide feature tour has ten talk slides and two appendix slides. It
-shows semantic importance, synchronized code and text, classed equations,
-hide-then-dim layering, appendix navigation, footnotes, title emphasis, a
-zoomable SVG and inline presenter notes.
-**Nocturne** is its declared theme, with automatic light/dark selection in the
-source. The links here open fixed light and dark examples.
+Choose a slide, try its steps, and read the **exact Markdown alongside the preview**.
+Switch to **Presenter with notes** to see what the speaker receives from that
+same source. This page teaches authoring; [Compare themes](compare.qmd) shows
+how the same content looks in different themes.
 
 ```{=html}
-<div class="home-grid example-links">
-<article><span class="eyebrow">Audience</span><h2>Share the slides</h2><p>Outline, navigation and presentation interactions. Actual speaking cues are removed from this file.</p><p><a href="_generated/decks/nocturne/light/index.html" target="_blank" rel="noopener">Open light slides ↗</a> · <a href="_generated/decks/nocturne/dark/index.html" target="_blank" rel="noopener">Dark slides ↗</a></p></article>
-<article><span class="eyebrow">Presenter</span><h2>Keep the cues close</h2><p>The same slides, with a notes panel for each slide. Audience and presenter windows navigate independently.</p><p><a href="_generated/decks/nocturne/light/presenter.html" target="_blank" rel="noopener">Open light presenter ↗</a> · <a href="_generated/decks/nocturne/dark/presenter.html" target="_blank" rel="noopener">Dark presenter ↗</a></p></article>
-</div>
+<section id="deck-example" aria-label="Interactive Markdown example">
+  <div class="example-toolbar">
+    <label>Example slide <select id="example-slide"></select></label>
+    <label>View <select id="example-view"><option value="audience">Audience slides</option><option value="presenter">Presenter with notes</option></select></label>
+    <label>Nocturne mode <select id="example-mode"><option value="light">Light</option><option value="dark">Dark</option></select></label>
+  </div>
+  <div class="example-step-controls" aria-label="Example steps">
+    <button type="button" class="btn btn-outline-primary" data-step-action="previous" disabled>Previous step</button>
+    <button type="button" class="btn btn-primary" data-step-action="next" disabled>Next step</button>
+    <button type="button" class="btn btn-outline-primary" data-step-action="restart" disabled>Restart steps</button>
+    <span id="example-step-status" role="status" aria-live="polite">Loading example…</span>
+  </div>
+  <p class="example-key-hint">Use <kbd>→</kbd> or <kbd>Space</kbd> to advance, <kbd>←</kbd> to go back, and <kbd>Home</kbd> to restart. The controls stay on the selected slide. Choose another slide from the menu.</p>
+  <div class="example-workspace">
+  <div class="example-output">
+  <div class="example-preview"><iframe title="Interactive slide example" loading="eager"></iframe></div>
+  <p><a id="example-open" target="_blank" rel="noopener">Open full deck ↗</a></p>
+  </div>
+  <section class="example-source" aria-labelledby="example-source-title">
+    <div class="example-source-heading">
+      <h2 id="example-source-title">Markdown for this slide</h2>
+      <span id="example-source-location"></span>
+      <button type="button" class="btn btn-outline-primary" id="example-copy">Copy slide Markdown</button>
+      <span id="example-copy-status" role="status"></span>
+    </div>
+    <pre tabindex="0"><code id="example-markdown" class="language-markdown">Loading Markdown…</code></pre>
+  </section>
+  </div>
+  <details><summary>Theme declaration used by this preview</summary><pre id="example-theme"></pre><p>Choose a bundled theme by name in your deck's front matter. You can use it without editing CSS.</p></details>
+</section>
+<noscript><p>Enable JavaScript for the interactive example, or <a href="_generated/source/index.qmd.txt">read the complete Markdown source</a> and <a href="_generated/decks/nocturne/light/index.html">open the audience deck</a>.</p></noscript>
+<script type="module" src="assets/deck-example.mjs"></script>
 ```
 
-## Try the interactions
+## What to try
 
-| Feature | Try it | What to do |
-|---|---|---|
-| Inline title emphasis | [Slide 1](compare.qmd?slide=1) | The word “source” is emphasized; navigation uses plain text. |
-| Importance and footnotes | [Slide 3](compare.qmd?slide=3) | Compare key/aside spans and blocks. Follow the footnote and return arrow. |
-| Dim layering | [Slide 4](compare.qmd?slide=4) | Advance four times. Future spans and list items stay hidden; past points dim. |
-| Code + changing text | [Slide 5](compare.qmd?slide=5) | Advance three times. The highlighted line and matching explanation change together. |
-| Equation + changing text | [Slide 6](compare.qmd?slide=6) | Advance three times. Classed math terms and explanations share the same frames. |
-| Media | [Slide 7](compare.qmd?slide=7) | Click the diagram to zoom, then press Escape. |
-| Speaker notes | [Slide 8](compare.qmd?slide=8) | Choose Presenter with notes to see the actual cue beside the source example. |
-| Appendix | [Slide 10](compare.qmd?slide=10) | End/Next stop at 10 / 10. Follow “The supporting data,” visit both appendix slides, and return. |
+| Choose this slide | Try this |
+|---|---|
+| [Importance and footnotes](example.qmd?slide=3) | Compare `.key` and `.aside` roles and follow the footnote's return arrow. |
+| [Dim layering](example.qmd?slide=4) | Advance four times. Future spans and list items stay hidden; earlier points dim. |
+| [Code with an explanation](example.qmd?slide=5) | Advance three times. Each line highlight appears with its explaining text. Earlier explanations stay readable. |
+| [A stepped equation](example.qmd?slide=6) | Advance three times. Named math terms and their explanations share the same steps. |
+| [Speaker notes](example.qmd?slide=8) | Switch between Audience and Presenter to see how one source produces two views. |
+| [The appendix](example.qmd?slide=10) | Follow “The supporting data,” visit the detail slide, then return. The Markdown follows your navigation. |
 
-The appendix reuses the footnote label from slide 3 with independent IDs. Its
-second slide inherits appendix status. Press **O** for the overview or use the
-outline to jump. Read the [exact semantic syntax](semantic-authoring.md),
-including the machine-readable slide-break check.
+## Use it in your own talk {#edit-the-source}
 
-## Edit the source
+Follow [Start a deck](quickstart.qmd) to create your own file using a bundled
+theme. Copy a slide above when you need its pattern, then replace its content.
+See [Semantic slides](semantic-authoring.md) for the exact syntax rules.
+
+The complete editable example includes twelve slides and their speaker cues.
+Save the Markdown as `index.qmd`, its stylesheet as `source.css`, and the SVG
+as `assets/two-views.svg`:
 
 ```{=html}
-<p class="download-links"><a href="_generated/source/index.qmd.txt" download="index.qmd">Download Markdown</a> · <a href="_generated/source/source.css.txt" download="source.css">Download CSS</a> · <a href="_generated/source/two-views.svg" download="two-views.svg">Download SVG</a></p>
+<p class="download-links"><a href="_generated/source/index.qmd.txt" download="index.qmd">Download complete Markdown</a> · <a href="_generated/source/source.css.txt" download="source.css">Download example stylesheet</a> · <a href="_generated/source/two-views.svg" download="two-views.svg">Download SVG</a></p>
 ```
 
-Save the Markdown as `index.qmd`, the CSS beside it as `source.css`, and the SVG
-as `assets/two-views.svg`. The complete editable example is also committed under
-`decks/example/` in the repository. Render it with:
-
-```sh
-quarto run scripts/htmpres.ts serve decks/example/index.qmd --watch
-```
-
-The viewer rebuilds and reloads automatically after saves, keeping the current
-slide and audience/presenter view.
-
-The Markdown download includes the public example's speaking cues. See
-[the authoring guide](build-a-deck-from-markdown.md) for your own decks, or
-[compare this deck across themes](compare.qmd).
+The stylesheet supplies this example's spacing; your first deck can use the
+bundled theme directly. The source and presenter output include speaking cues;
+share the audience output when those cues should stay private. Audience and
+presenter windows navigate independently.

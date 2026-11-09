@@ -10,7 +10,7 @@ Edit one readable file; render two useful views.
 ```{=html}
 <div class="home-actions">
   <a class="btn btn-primary" href="quickstart.html">Start a deck</a>
-  <a class="btn btn-outline-primary" href="example.html">Explore the example</a>
+  <a class="btn btn-outline-primary" href="example.html">Learn from the Markdown</a>
   <a class="btn btn-outline-primary" href="compare.html">Compare all 38 themes</a>
 </div>
 <div class="home-grid">
@@ -30,10 +30,12 @@ Bootstrap, Bootswatch, Elegant, Reading, Tufte and the original htmpres seeds.
 
 ## Find your next step
 
-- [Quick start](quickstart.qmd): prerequisites, the example and your first deck.
-- [Authoring guide](build-a-deck-from-markdown.md): layouts, code, images and notes.
+- [Start a deck](quickstart.qmd): make a first talk with a bundled theme, live preview and speaker cues.
+- [Learn from the Markdown](example.qmd): step through examples and copy their actual source.
+- [Semantic authoring](semantic-authoring.md): importance, reveals, code, equations and appendix links.
 - [Authoring CLI](authoring-cli.md): create, inspect, edit and preview decks.
 - [Class reference](quarto-class-map.md): the supported layout and interaction vocabulary.
+- [Customization reference](build-a-deck-from-markdown.md): optional theme, layout and runtime overrides.
 - [Extension internals](quarto-extension.md): how the custom renderer works.
 
 This documentation site is built with **SmallDocs and Nocturne**. The slide decks

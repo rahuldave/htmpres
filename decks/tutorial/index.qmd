@@ -1,5 +1,5 @@
 ---
-pagetitle: "Build A Custom htmpres Deck From Markdown"
+pagetitle: "htmpres Customization Reference"
 execute:
   enabled: false
 resources:
@@ -16,15 +16,15 @@ deck:
   text-fit: true
   text-fit-min: 0.64
   overflow: fit-scroll
-deck-note: "Hand-authored tutorial deck for the custom htmpres renderer."
+deck-note: "Advanced layout and theme customization reference."
 ---
 
-## Build A Deck From Markdown {.hero-title data-section="Tutorial" data-title="Build From Markdown"}
+## Customize Layouts And Themes {.hero-title data-section="Customization reference" data-title="Customization Reference"}
 
-[htmpres tutorial]{.eyebrow}
+[Advanced reference]{.eyebrow}
 
 ::: hero-subtitle
-Write slides as QMD, style them with `source.css`, and render audience and presenter HTML through the custom no-reveal shell.
+Explore optional theme tokens, layout overrides, backgrounds and runtime settings. Start a first talk with the beginner tutorial in docs/quickstart.qmd.
 :::
 
 ::: callout

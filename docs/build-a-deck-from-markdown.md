@@ -1,9 +1,12 @@
-# Build A Deck From Markdown
+# Customize layouts and themes
 
-This tutorial shows how to write a new deck directly in QMD and render it with
-the custom `htmpres` slide shell.
+This is a customization reference for authors who want to change theme tokens,
+backgrounds, typography, layout behavior or renderer settings. For a guided
+first talk using the supplied themes, follow [Start a deck](quickstart.qmd).
+For working patterns with their source, use [Learn from the Markdown](example.qmd).
 
-The companion deck lives at `decks/tutorial/index.qmd`.
+The companion reference deck remains at `decks/tutorial/index.qmd`; the legacy
+folder and `just tutorial` command are retained for compatibility.
 
 For semantic importance, offline math, shared text/code/equation steps and
 appendix links, see [Semantic slides](semantic-authoring.md) and its complete
@@ -434,7 +437,7 @@ Any button style can use the same data attributes:
 
 ## 13. Render
 
-Render the tutorial deck:
+Render the customization reference deck:
 
 ```sh
 just tutorial

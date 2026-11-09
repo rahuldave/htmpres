@@ -1,6 +1,6 @@
 // Run after `just example`. Owns only docs/_generated and generated site fonts.
 import { themeAssets } from "../_extensions/htmpres/themes/themes.mjs";
-import { slideTitles, themeChoices, themeVariant, variantPath } from "./showcase.mjs";
+import { slideSources, slideTitles, themeChoices, themeVariant, variantPath } from "./showcase.mjs";
 
 const root = new URL("../", import.meta.url);
 const read = (path: string) => Deno.readTextFileSync(new URL(path, root));
@@ -51,7 +51,7 @@ for (const asset of catalog.themes.nocturne.assets) {
   if (asset.startsWith("fonts/")) copy(new URL(`_extensions/htmpres/themes/${asset}`, root), new URL(`docs/_extensions/nocturne/${asset}`, root));
 }
 const titles = slideTitles(read("decks/example/index.qmd"), canonical.audience);
-write("manifest.json", JSON.stringify({ version: 1, themes, slides: titles }, null, 2) + "\n");
+write("manifest.json", JSON.stringify({ version: 1, themes, slides: titles, slideSources: slideSources(read("decks/example/index.qmd")) }, null, 2) + "\n");
 write("source/index.qmd.txt", read("decks/example/index.qmd"));
 write("source/source.css.txt", read("decks/example/source.css"));
 copy(new URL("decks/example/assets/two-views.svg", root), new URL("source/two-views.svg", output));

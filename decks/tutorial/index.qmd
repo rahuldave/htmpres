@@ -191,9 +191,9 @@ Long paragraphs, cards, and lists can scale through theme tokens.
 
 :::: two-col
 ::: card
-**A slide starts with `##`**
+**Start with `##` or `---`**
 
-The heading becomes the slide title. Heading attributes become section classes and data attributes.
+A heading supplies the title and slide attributes. A separator followed by a heading makes one slide. Use `## {#backup}` for untitled-slide settings.
 :::
 
 ::: card

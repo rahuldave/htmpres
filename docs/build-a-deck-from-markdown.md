@@ -10,8 +10,10 @@ folder and `just tutorial` command are retained for compatibility.
 
 For semantic importance, offline math, shared text/code/equation steps and
 appendix links, see [Semantic slides](semantic-authoring.md) and its complete
-audience/presenter example. New slides start with `##`; standalone body `---`
-outside code is an error. Check with `htmpres.ts lint slides.qmd --json`.
+audience/presenter example. New slides start with top-level `---` or `##`; a separator immediately before
+a heading (allowing blank lines) makes one slide. Use an empty heading such as
+`## {#backup data-kind="appendix"}` for untitled-slide settings. See
+[slide boundaries](semantic-authoring.md#slide-boundaries-and-lint). Check with `htmpres.ts lint slides.qmd --json`.
 
 This workspace uses the local shim `scripts/htmpres.ts`. In a separate project
 where the extension has been installed with `quarto add`, use
@@ -143,9 +145,12 @@ Supported overflow modes are:
   active slide still overflows. A small bottom cue appears while more content is
   below the visible slide area.
 
-## 6. Write Slides With Level-2 Headings
+## 6. Start Slides With Headings Or Separators
 
-Every slide starts with `##`.
+Start a slide with `## Title` or top-level `---`. A separator followed by a
+heading, with only blank lines between, makes one slide. Use `## {#backup}`
+for an untitled slide that needs settings. A separator-only slide needs no
+heading; navigation uses `Slide N`.
 
 ```markdown
 ## Platform Story {.hero-title data-section="Opening" data-title="Platform Story"}

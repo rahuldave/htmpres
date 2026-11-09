@@ -223,7 +223,9 @@ npm run verify
 The semantic demo source is `decks/semantic/index.qmd`. `just semantic-test`
 checks semantic importance across every paired theme and the rendered demo's
 source/IDs/math assets. `just lint <path> [more paths]` emits versioned JSON
-for forbidden standalone body `---` rules; initial YAML and code are exempt.
+for empty slides. Top-level `---` and `##` start slides; a separator before a
+heading coalesces. Initial YAML, code, comments and fenced divs are exempt.
+`just slide-breaks` renders the three-slide boundary example.
 Both `just verify <path> [more paths]` and `just node-verify <path> [more paths]`
 check explicit QMD names such as `slides.qmd`; without paths they discover
 `decks/**/index.qmd`. `just compat-check` also runs focused renderer, step and

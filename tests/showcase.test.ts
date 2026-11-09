@@ -69,3 +69,5 @@ for (const embedded of [false, true]) {
 console.log("Showcase tests passed: 38 themes, 146 body-preserving variants, selection validation and reload semantics.");
 
 await import("./example-page.test.ts");
+
+assert(JSON.stringify(slideTitles('---\npagetitle: Mixed\n---\n\n---\nOpening.\n## Two\nBody.\n---\n## {data-title="Backup data"}\nData.')) === JSON.stringify(['Slide 1', 'Two', 'Backup data']), 'Showcase labels share mixed boundaries and untitled fallback');

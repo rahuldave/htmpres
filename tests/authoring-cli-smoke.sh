@@ -54,7 +54,7 @@ if quarto run _extensions/htmpres/htmpres.ts slide replace demo/index.qmd 2 --fr
   echo "multi-slide replacement was accepted" >&2
   exit 1
 fi
-grep -q 'exactly one level-2 slide heading' multi-replace.txt
+grep -q 'exactly one slide' multi-replace.txt
 
 quarto run _extensions/htmpres/htmpres.ts slide replace demo/index.qmd 2 --from replacement.qmd
 quarto run _extensions/htmpres/htmpres.ts slide show demo/index.qmd 2 > replaced.qmd 2>&1

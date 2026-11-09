@@ -44,7 +44,7 @@ Quarto containers are more general.
 
 Importance (`.key` / `.aside`), local classed KaTeX math, title emphasis,
 unique footnote anchors, live named slide links and appendix boundaries are
-implemented. Standalone body `---` rules are errors; `lint ... --json` supplies
+implemented. Top-level `---` and `##` start slides; `lint ... --json` supplies
 machine-readable diagnostics. Credits/conclusion templates and Deckset
 shorthand are deliberately deferred; the former was information only in this
 workstream. See [Semantic slides](semantic-authoring.md) for exact syntax.

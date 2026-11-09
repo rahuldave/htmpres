@@ -175,7 +175,8 @@ If we want `quarto render deck.qmd --to htmpres-html`, the likely path is:
 
 1. Create a Quarto custom HTML format.
 2. Move the shell into a Pandoc/Quarto HTML template.
-3. Add a Lua filter that converts level-2 headings into our slide sections and
+3. Add a Lua filter that converts level-2 headings and horizontal slide breaks
+   into our slide sections and
    extracts `.notes` into presenter-only metadata.
 4. Bundle runtime CSS/JS as format resources.
 5. Keep the current Quarto-run renderer as the compatibility harness until

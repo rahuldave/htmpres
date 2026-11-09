@@ -1,4 +1,4 @@
-import { scanSource } from "../_extensions/htmpres/lib/source.mjs";
+import { slideSegments } from "../_extensions/htmpres/lib/source.mjs";
 import { htmlToPlainText } from "../_extensions/htmpres/lib/render.mjs";
 import { maximumMatchGroups } from "../_extensions/htmpres/lib/render.mjs";
 import { matchThemeStyles } from "../_extensions/htmpres/themes/matches.mjs";
@@ -7,18 +7,10 @@ import { matchThemeStyles } from "../_extensions/htmpres/themes/matches.mjs";
 import { colorModeControl, colorModeScript, legacyThemes, resolveTheme, themeAttributes, themeStyles } from "../_extensions/htmpres/themes/themes.mjs";
 
 export function slideTitles(source, renderedHtml) {
-  let fence = null;
-  const titles = [];
-  for (const line of source.split(/\r?\n/)) {
-    const marker = /^\s*(`{3,}|~{3,})(.*)$/.exec(line);
-    if (marker) {
-      if (!fence) fence = marker[1];
-      else if (marker[1][0] === fence[0] && marker[1].length >= fence.length && !marker[2].trim()) fence = null;
-      continue;
-    }
-    const heading = /^## (.+?)(?:\s+\{.*\})?$/.exec(line);
-    if (!fence && heading) titles.push(heading[1]);
-  }
+  const titles = slideSegments(source).map((slide, index) => {
+    const label = /(?:^|[\s{])data-title=(?:"([^"]*)"|'([^']*)'|([^\s}]+))/.exec(slide.attrText);
+    return label?.[1] || label?.[2] || label?.[3] || slide.title || `Slide ${index + 1}`;
+  });
   if (renderedHtml !== undefined) {
     const labels = [...renderedHtml.matchAll(/<section\b[^>]*class="[^"]*\bslide\b[^"]*"[^>]*>/g)]
       .map(([tag]) => htmlToPlainText(/\sdata-title="([^"]*)"/.exec(tag)?.[1] || ""));
@@ -30,9 +22,8 @@ export function slideTitles(source, renderedHtml) {
 
 /** Preserve the authored bytes, including heading attributes, notes and CRLF. */
 export function slideSources(source) {
-  const headings = scanSource(source).lines.filter(line => line.kind === "body" && /^##\s+/.test(line.text));
-  return headings.map((line, index) => ({ line: line.number,
-    markdown: source.slice(line.start, headings[index + 1]?.start ?? source.length) }));
+  return slideSegments(source).map(slide => ({ line: slide.startLine,
+    markdown: source.slice(slide.start, slide.end) }));
 }
 
 export function themeChoices(catalog) {

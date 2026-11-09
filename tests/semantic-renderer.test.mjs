@@ -1,5 +1,6 @@
 // The serve/watch preview is part of the renderer CLI contract.
 import "./preview.test.mjs";
+import "./slide-boundaries.test.mjs";
 import assert from "node:assert/strict";
 import { execFileSync, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -61,6 +62,19 @@ $$\\htmlClass{mean}{x} = \\htmlClass{total}{y}/3$$
     assert.doesNotMatch(html, /--htmpres-match-3:/);
     assert.match(html, /html\[data-color-mode="dark"\] \.slide\[id="compute"\]/);
   }
+  // Integration with horizontal-rule boundaries: settings on an empty heading
+  // retain matching behavior without inventing a visible slide title.
+  writeFileSync(file, source.replace('## Compute {', '---\n## {'));
+  runDeno(['render', file]);
+  const untitledDeno = readFileSync(path.join(dir, 'index.html'), 'utf8');
+  execFileSync('node', [nodeRenderer, file], { cwd: root });
+  const untitledNode = readFileSync(path.join(dir, 'index.html'), 'utf8');
+  for (const html of [untitledDeno, untitledNode]) {
+    const body = /<section class="slide[\s\S]*?<\/section>/.exec(html)[0];
+    assert.match(body, /data-title="Slide 1"/);
+    assert.match(body, /data-match-groups="total\|mean"/);
+    assert.doesNotMatch(body, /<h2/);
+  }
   for (const invalid of ['data-line-matches="1:unknown|2:mean"', 'data-line-matches="1:total|3:mean"']) {
     writeFileSync(file, source.replace('data-line-matches="1:total|2:mean"', invalid));
     const result = spawnSync('quarto', ['run', cli, 'render', file], { cwd: root, encoding: 'utf8' });
@@ -82,10 +96,10 @@ function snapshot(dir, prefix = "") {
 
 test("the shared source scanner exempts initial CRLF YAML, real fences and indented code, retaining diagnostic positions", () => {
   const text = ["---", "title: Example", "---", "", "## One", "", "````markdown", "---", "```", "---", "`````", "", "  ~~~text", "---", "  ~~~", "", "    ---", "<pre>", "---", "</pre>", "", "---", "## Two", "  ---"].join("\r\n");
-  assert.deepEqual(lintSource(text, "deck.qmd").map(d => [d.line, d.column, d.code]), [[22, 1, "slide-break"], [24, 3, "slide-break"]]);
+  assert.deepEqual(lintSource(text, "deck.qmd").map(d => [d.line, d.column, d.code]), [[24, 3, "empty-slide"]]);
   const { yaml, body } = splitFrontMatter(text);
   assert.equal(yaml.trim(), "title: Example");
-  assert.equal(parseSlides(body).length, 2);
+  assert.equal(parseSlides(body).length, 3);
   assert.equal(maskCodeAndMetadata(text).split("\n").length, 24);
 });
 
@@ -270,12 +284,12 @@ test("Deno, Node and packaged extension preserve semantic rendering, offline mat
   assert.equal(slides(packed), slides(deno));
   assert.deepEqual(snapshot(path.join(path.dirname(packedSource), "assets/htmpres-math")), denoMath);
   // Both verifier entry points share the rule, even when the deck HTML was
-  // already generated before a manual source edit introduced a forbidden rule.
+  // already generated before a manual source edit introduced an empty trailing slide.
   writeFileSync(packedSource, specimen + "\n---\n");
   for (const [command, args] of [["quarto", ["run", packedCli, "verify"]], [process.execPath, [path.join(root, "scripts/verify-roundtrip.mjs")]]]) {
     const result = spawnSync(command, args, { cwd: workspace, encoding: "utf8" });
     assert.equal(result.status, 1);
-    assert.match(result.stderr, /slide-break/);
+    assert.match(result.stderr, /empty-slide/);
   }
 });
 
@@ -351,10 +365,10 @@ test("title footnotes stay outside headings and have unique references across ti
   }
 });
 
-test("both renderer entry points reject duplicate slide IDs and forbidden breaks before writing output", () => {
+test("both renderer entry points reject duplicate slide IDs and empty slides before writing output", () => {
   for (const [label, source, pattern] of [
     ["duplicate", "## A {#same}\n\n## B {#same}\n", /Duplicate slide id/],
-    ["break", "## A\n\n---\n\n## B\n", /slide-break/],
+    ["break", "## A\n\n---\n\n---\n## B\n", /empty-slide/],
   ]) {
     for (const [engine, command, args] of [["deno", "quarto", ["run", cli, "render"]], ["node", process.execPath, [nodeRenderer]]]) {
       const dir = path.join(scratch, `${label}-${engine}`);
@@ -393,7 +407,7 @@ test("explicit verify checks slides.qmd outside default discovery, including mul
     writeFileSync(files[0], source + "\n---\n");
     result = verify();
     assert.equal(result.status, 1);
-    assert.match(result.stderr, /slide-break/);
+    assert.match(result.stderr, /empty-slide/);
     writeFileSync(files[0], source);
     const presenterFile = path.join(first, "presenter.html");
     const presenter = readFileSync(presenterFile, "utf8");
@@ -421,7 +435,7 @@ test("lint CLI reports stable JSON and failure status in both entry points", () 
   const valid = path.join(scratch, "valid.qmd");
   const invalid = path.join(scratch, "invalid.qmd");
   writeFileSync(valid, "---\r\npagetitle: Example\r\n---\r\n## A\r\n~~~md\r\n---\r\n~~~\r\n");
-  writeFileSync(invalid, "## A\r\n\r\n---\r\n## B\r\n");
+  writeFileSync(invalid, "## A\r\n\r\n---\r\n---\r\n## B\r\n");
   const reports = [];
   for (const [command, args] of [["quarto", ["run", cli]], [process.execPath, [nodeRenderer]]]) {
     let result = spawnSync(command, [...args, "lint", valid, "--json"], { cwd: root, encoding: "utf8" });
@@ -436,4 +450,80 @@ test("lint CLI reports stable JSON and failure status in both entry points", () 
     assert.equal(reports.at(-1).diagnostics[0].severity, "error");
   }
   assert.deepEqual(reports[0], reports[1]);
+});
+
+
+test("mixed boundaries preserve three slides, untitled labels, notes and appendix settings in all engines", () => {
+  const specimen = readFileSync(path.join(root, "decks/slide-breaks/index.qmd"), "utf8").replace(/\n/g, "\r\n");
+  const workspace = path.join(scratch, "mixed-workspace");
+  runDeno(["workspace", "init", workspace]);
+  const packedCli = path.join(workspace, "_extensions/htmpres/htmpres.ts");
+  const file = path.join(workspace, "slides.qmd");
+  writeFileSync(file, specimen);
+  let baseline;
+  for (const [command, args, verify] of [
+    ["quarto", ["run", cli, "render"], ["run", cli, "verify"]],
+    [process.execPath, [nodeRenderer], [path.join(root, "scripts/verify-roundtrip.mjs")]],
+    ["quarto", ["run", packedCli, "render"], ["run", packedCli, "verify"]],
+  ]) {
+    execFileSync(command, [...args, file], { cwd: workspace });
+    execFileSync(command, [...verify, file], { cwd: workspace });
+    const audience = readFileSync(path.join(workspace, "index.html"), "utf8");
+    const presenter = readFileSync(path.join(workspace, "presenter.html"), "utf8");
+    const sections = (audience.match(/<section class="slide[\s\S]*?<\/section>/g) || []).join("\n");
+    assert.ok(sections);
+    assert.equal((sections.match(/<section class="slide/g) || []).length, 3);
+    assert.equal((sections.match(/<h2/g) || []).length, 1, "untitled slides have no rendered heading");
+    assert.match(sections, /data-title="Slide 1"/);
+    assert.match(sections, /data-title="Backup data"/);
+    assert.match(sections, /id="appendix-data"/);
+    assert.match(sections, /data-kind="appendix"/);
+    assert.doesNotMatch(audience, /First cue|Second slide cue|Third slide cue/);
+    const notes = JSON.parse(/<script[^>]*id="deckNotes"[^>]*>([\s\S]*?)<\/script>/.exec(presenter)[1]);
+    assert.equal(notes.length, 3);
+    assert.match(notes[0], /First cue[\s\S]*<hr \/>[\s\S]*Still the first/);
+    assert.match(notes[1], /Second slide cue/);
+    assert.match(notes[2], /Third slide cue/);
+    if (baseline) assert.equal(sections, baseline); else baseline = sections;
+  }
+});
+
+test("slide list/show/insert/replace share mixed boundaries and preserve source slices", () => {
+  const dir = path.join(scratch, "mixed-edit");
+  mkdirSync(dir);
+  const file = path.join(dir, "slides.qmd");
+  const source = readFileSync(path.join(root, "decks/slide-breaks/index.qmd"), "utf8").replace(/\n/g, "\r\n");
+  writeFileSync(file, source);
+  const list = () => JSON.parse(runDeno(["slide", "list", file, "--json"]));
+  let report = list();
+  assert.equal(report.slideCount, 3);
+  assert.deepEqual(report.slides.map(s => [s.title, s.dataTitle]), [["", "Slide 1"], ["A heading starts slide two", "A heading starts slide two"], ["", "Backup data"]]);
+  const third = JSON.parse(runDeno(["slide", "show", file, "3", "--json"])).slide;
+  assert.match(third.source, /^---\r\n\r\n## \{#appendix-data/);
+  const replacement = path.join(dir, "replacement.qmd");
+  writeFileSync(replacement, "Replacement without heading.\n");
+  runDeno(["slide", "replace", file, "2", "--from", replacement]);
+  assert.equal(list().slideCount, 3);
+  const lastAfterReplace = JSON.parse(runDeno(["slide", "show", file, "3", "--json"])).slide.source;
+  assert.equal(lastAfterReplace, third.source);
+  runDeno(["slide", "insert", file, "--before", "3", "--kind", "text", "--title", "Inserted"]);
+  report = list();
+  assert.equal(report.slideCount, 4);
+  assert.equal(report.slides[2].title, "Inserted");
+  assert.equal(report.slides[3].attrs.id, "appendix-data");
+  runDeno(["render", file]);
+  runDeno(["verify", file]);
+});
+
+
+test("inserting before an implicit opening slide keeps the original body on its own slide", () => {
+  const dir = path.join(scratch, "implicit-edit");
+  mkdirSync(dir);
+  const file = path.join(dir, "slides.qmd");
+  writeFileSync(file, "---\npagetitle: Test\n---\n\nOriginal opening.\n\n## Second\nSecond body.");
+  runDeno(["slide", "insert", file, "--before", "1", "--kind", "text", "--title", "Inserted"]);
+  const report = JSON.parse(runDeno(["slide", "list", file, "--json"]));
+  assert.equal(report.slideCount, 3);
+  assert.deepEqual(report.slides.map(s => s.title), ["Inserted", "", "Second"]);
+  assert.match(JSON.parse(runDeno(["slide", "show", file, "2", "--json"])).slide.source, /^---\n+Original opening/);
 });

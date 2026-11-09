@@ -68,11 +68,31 @@ half-media layouts, and `two-card` or `three-card` for comparison slides.
 
 Write structure, importance and reveal order in QMD. Do not put `style=`, CSS
 color values, color names or font choices in ordinary authored slides. Select a theme
-in front matter; put custom appearance in the theme stylesheet. A slide starts
-at `##`; standalone body `---` outside code is an error, including before `##`.
-The initial YAML delimiters are exempt. `lint <path> [more paths] --json`
-returns `{version:1,ok,diagnostics:[{file,line,column,code,severity,message}]}`
-with exit 0 for success and 1 for diagnostics (`code: "slide-break"`).
+in front matter; put custom appearance in the theme stylesheet.
+
+Slides start at top-level `---` (exactly three hyphens) or `## Title`. A
+separator followed by a heading, with only blank lines between, makes one
+slide. Untitled slides have no visible heading; navigation uses `Slide N` or
+`data-title`. Put settings on an empty heading:
+`## {#appendix-data data-kind="appendix" data-title="Backup data"}`.
+It can stand alone or follow `---`. Initial body content also forms an untitled
+slide. The main/appendix counters and notes work for either boundary form.
+
+Initial YAML delimiters are metadata, not slides. Put the first separator after
+YAML; without YAML, begin with a blank line before an opening separator.
+Code fences, indented/raw code, HTML comments and fenced `:::` divs protect
+both separators and headings. `---` inside `::: notes` stays in that slide's
+notes as a Markdown rule (leave blank lines around it). Balance nested divs.
+Leading comments do not create a slide. Do not split slides using `---` inside
+a div, or assume all Pandoc horizontal-rule variants are slide boundaries.
+
+`lint <path> [more paths] --json` returns
+`{version:1,ok,diagnostics:[{file,line,column,code,severity,message}]}` with exit
+0 for success and 1 for errors. `empty-slide` flags an empty slide created by
+consecutive/trailing separators or an empty heading with no body. The old
+`slide-break` prohibition is retired. Rendering, verification and slide editing
+commands use the same boundaries. See `docs/semantic-authoring.md` section 9
+and `decks/slide-breaks/index.qmd` for the three-slide mixed-boundary example.
 
 Importance works on spans and blocks:
 

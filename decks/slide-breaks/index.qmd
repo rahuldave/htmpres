@@ -1,0 +1,40 @@
+---
+pagetitle: Three ways to start a slide
+deck:
+  theme: nocturne
+---
+
+---
+
+This first slide has no title. Its navigation label is **Slide 1**.
+
+::: notes
+First cue, before a rule.
+
+---
+
+Still the first slide's notes.
+:::
+
+## A heading starts slide two {#second}
+
+This slide uses only a level-two heading.
+
+[Open the appendix](#appendix-data).
+
+::: notes
+Second slide cue.
+:::
+
+---
+
+## {#appendix-data data-kind="appendix" data-title="Backup data"}
+
+The separator and empty heading make **one** untitled appendix slide.
+The heading carries its ID, kind, and navigation label.
+
+[Back to slide two](#second).
+
+::: notes
+Third slide cue.
+:::

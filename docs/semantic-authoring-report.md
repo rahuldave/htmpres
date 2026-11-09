@@ -302,44 +302,21 @@ Titles accept inline Markdown; navigation uses their plain text:
 [Story before styling.]{.key}
 ```
 
-## 9. Slide-break lint
+## 9. Slide boundaries (updated after PR #11)
 
-**Test:** this is an authoring-time CLI check, so no browser gesture tests it.
-Both renderer entry points were tested for JSON, exit status, CRLF line/column
-positions, YAML exemptions, fenced/indented examples, and rejection before
-output writes. Valid example decks render and open in the browser. The strict
-rule also rejects a standalone `---` immediately before `##`.
-**Commit:** [`357f56a`](https://github.com/rahuldave/htmpres/commit/357f56a),
-included in `b374e3c`.
+The original PR #11 blanket rejection of body `---` has been superseded.
+Standalone top-level `---` and `##` both start slides; a separator followed by
+an empty or titled heading (with only blank lines between) makes one slide.
+Untitled slides use `Slide N` or `data-title` in navigation and omit the heading.
+Rules inside code, comments and fenced divs—including notes—do not split slides.
+The lint JSON schema stays at version 1; `empty-slide` replaces the former
+`slide-break` prohibition. Both renderers, both verifiers and slide editing
+commands share this contract.
 
-A new slide starts with `##`. A standalone body `---` outside code is an
-**error**, including immediately before a heading. Initial YAML front-matter
-delimiters are exempt, as are code examples in backtick/tilde fences or
-indented code. Use `##` for a slide and remove the stray rule:
-
-```markdown
-## First slide
-
-The opening.
-
-## Second slide
-
-The next point.
-```
-
-The linter accepts multiple paths, returns exit status 0 on success and 1 on
-diagnostics. Rendering and `verify` enforce the same rule. Machine output is:
-
-```json
-{"version":1,"ok":false,"diagnostics":[{"file":"slides.qmd","line":12,"column":1,"code":"slide-break","severity":"error","message":"..."}]}
-```
-
-Pass the source path to `verify slides.qmd` as shown above. Without paths,
-`verify` discovers only `decks/**/index.qmd`; explicit paths also support the
-hand-edited `slides.qmd` name and fail if rendered HTML is missing.
-
-The checker in another repository can call the CLI directly; no Node runtime
-is required. In this repository, `just lint slides.qmd` runs that JSON check.
+See [the current authoring contract](semantic-authoring.md#slide-boundaries-and-lint)
+for exact syntax, empty-slide diagnostics and the three-slide example. The
+implementation report for PR #11 above remains a historical record of its
+other semantic features.
 
 ## Deliberately deferred
 

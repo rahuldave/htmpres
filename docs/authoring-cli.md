@@ -34,10 +34,12 @@ Invoke `htmpres-authoring` when the project already contains
 quarto run _extensions/htmpres/htmpres.ts lint slides.qmd other.qmd --json
 ```
 
-Standalone body `---` outside code is an error; start a new slide with `##`.
-Initial YAML delimiters are exempt. Output is
+Top-level `---` and `##` start slides; a separator before a heading (with only
+blank lines between) makes one slide. Code, comments, initial YAML and fenced
+divs protect boundaries. Empty headings carry settings on untitled slides. Output is
 `{version:1,ok,diagnostics:[{file,line,column,code,severity,message}]}`; exit 0
-means valid, exit 1 means diagnostics. The diagnostic code is `slide-break`.
+means valid, exit 1 means diagnostics. The `empty-slide` diagnostic flags empty slides, including consecutive or
+trailing separators. The old `slide-break` prohibition is retired.
 Rendering and `verify slides.qmd` enforce the same rule. Pass explicit
 source paths to verify filenames such as `slides.qmd`; no-argument verification
 discovers only `decks/**/index.qmd`. For exact importance, math,

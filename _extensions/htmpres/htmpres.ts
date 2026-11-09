@@ -3,7 +3,7 @@ import { colorModeControl, colorModeScript, legacyThemes, resolveTheme, themeAss
 import { matchThemeStyles } from "./themes/matches.mjs";
 
 import { assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds, unnamespacedPandocIds } from "./lib/render.mjs";
-import { extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, scanSource, splitFrontMatter as splitSourceFrontMatter } from "./lib/source.mjs";
+import { extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, slideSegments, splitFrontMatter as splitSourceFrontMatter } from "./lib/source.mjs";
 
 type DeckSource = {
   source: string;
@@ -270,7 +270,7 @@ Commands:
   convert   Convert HTML decks in source_presentations/ to decks/*/index.qmd.
   render    Render QMD decks to index.html and presenter.html.
   serve     Render and serve one deck folder; --watch rebuilds and reloads the browser.
-  lint      Reject standalone body --- rules; use ## to start each slide.
+  lint      Check slide boundaries (--- or ##) and report empty slides.
   verify    Compare copied source decks, QMD, and rendered HTML outputs.
   all       Run convert, render, and verify.
 
@@ -496,7 +496,7 @@ function slideListCommand(args: string[]) {
     return;
   }
   for (const slide of slides) {
-    console.log(`${slide.index}\t${slide.kind}\t${slide.section || "-"}\t${slide.title}`);
+    console.log(`${slide.index}\t${slide.kind}\t${slide.section || "-"}\t${slide.dataTitle}`);
   }
 }
 
@@ -537,7 +537,11 @@ function slideInsertCommand(args: string[]) {
     : target.index < doc.slides.length
     ? doc.slides[target.index].start
     : doc.text.length;
-  const nextText = insertSourceAt(doc.text, insertAt, template);
+  // An implicit opening slide needs an explicit boundary when another slide
+  // is inserted before it; otherwise its body would join the inserted slide.
+  const following = doc.slides.find(slide => slide.start === insertAt);
+  const needsBoundary = following && slideSegments(following.raw, { frontMatter: false })[0]?.boundary === "implicit";
+  const nextText = insertSourceAt(doc.text, insertAt, template + (needsBoundary ? "\n---\n" : ""));
   Deno.writeTextFileSync(deckPath, nextText);
   console.log(`Inserted ${kind} slide ${before != null ? "before" : "after"} ${targetIndex} in ${relativePath(root, deckPath)}`);
 }
@@ -550,10 +554,13 @@ async function slideReplaceCommand(args: string[]) {
   const doc = readSourceDeck(deckPath);
   const slide = requireSlide(doc, Number(indexArg));
   const source = from === "-" ? await readStdinText() : Deno.readTextFileSync(resolvePath(root, from));
-  const replacement = normalizeSlideSource(source);
+  let replacement = normalizeSlideSource(source);
   const replacementDoc = parseSourceDeck(replacement);
   if (replacementDoc.slides.length !== 1) {
-    throw new Error(`Replacement source must contain exactly one level-2 slide heading; found ${replacementDoc.slides.length}.`);
+    throw new Error(`Replacement source must contain exactly one slide (--- or ##); found ${replacementDoc.slides.length}.`);
+  }
+  if (slideSegments(replacement, { frontMatter: false })[0]?.boundary === "implicit") {
+    replacement = normalizeSlideSource(`---\n${source.trim()}`);
   }
   const nextText = doc.text.slice(0, slide.start) + replacement + doc.text.slice(slide.end);
   Deno.writeTextFileSync(deckPath, nextText);
@@ -759,31 +766,22 @@ function readSourceDeck(deckPath: string): SourceDeckDocument {
 function parseSourceDeck(text: string): SourceDeckDocument {
   const frontMatter = frontMatterBounds(text);
   const lines = sourceLines(text);
-  const slides: Omit<SourceSlideSlice, "end" | "endLine" | "raw" | "body" | "section" | "dataTitle" | "kind" | "features" | "preview">[] = [];
-  const contentOffsets = new Set(scanSource(text).lines.filter((line) => line.kind === "body").map((line) => line.start));
-
-  for (const line of lines) {
-    if (line.start < frontMatter.bodyStart || !contentOffsets.has(line.start)) continue;
-    const heading = /^##\s+(.+?)(?:\s+(\{.*\}))?\s*$/.exec(line.text);
-    if (!heading) continue;
-    const attrText = heading[2] || "";
-    slides.push({
-      index: slides.length + 1,
-      title: unescapeHeading(heading[1].trim()),
-      attrText,
-      attrs: parsePandocAttrs(attrText),
-      start: line.start,
-      startLine: line.number,
-      headingLine: line.text,
-    });
-  }
-
-  const fullSlides = slides.map((slide, offset): SourceSlideSlice => {
-    const end = slides[offset + 1]?.start ?? text.length;
+  const slides = slideSegments(text);
+  const fullSlides = slides.map((segment, offset): SourceSlideSlice => {
+    const slide = {
+      index: offset + 1,
+      title: segment.title,
+      attrText: segment.attrText,
+      attrs: parsePandocAttrs(segment.attrText),
+      start: segment.start,
+      startLine: segment.startLine,
+      headingLine: segment.headingLine,
+    };
+    const end = segment.end;
     const raw = text.slice(slide.start, end);
-    const body = raw.slice(raw.indexOf("\n") + 1).trim();
+    const body = segment.body;
     const section = slide.attrs.keyValues["data-section"] || "";
-    const dataTitle = slide.attrs.keyValues["data-title"] || slide.title;
+    const dataTitle = slide.attrs.keyValues["data-title"] || slide.title || `Slide ${slide.index}`;
     const classification = classifySlideKind(slide, raw, body);
     return {
       ...slide,
@@ -1652,7 +1650,7 @@ async function renderDeck(file: string) {
   if (diagnostics.length) throw new Error(diagnostics.map(formatDiagnostic).join("\n"));
   const slides = assignSlideIds(parseSlides(body), parsePandocAttrs);
   if (!slides.length) {
-    throw new Error(`No level-2 slides found in ${file}`);
+    throw new Error(`No slides found (use --- or ##) in ${file}`);
   }
 
   const title = meta.pagetitle || meta.title || humanTitle(basename(deckDir));
@@ -1721,8 +1719,8 @@ async function renderSlide(slide: QmdSlide, index: number, globalBackground: Dec
   const attrs = parsePandocAttrs(slide.attrText);
   const classes = ["slide", ...attrs.classes];
   if (index === 0) classes.push("active");
-  const title = slide.title || attrs.keyValues["data-title"] || `Slide ${index + 1}`;
-  const renderedTitle = renderTitle(await markdownToHtml(`# ${title}`), `slide-${index + 1}`);
+  const title = slide.title;
+  const renderedTitle = title ? renderTitle(await markdownToHtml(`# ${title}`), `slide-${index + 1}`) : { inlineHtml: "", plainText: "", footnotesHtml: "" };
   let bodyHtml = namespacePandocIds((await markdownToHtml(slide.body)).trim(), `slide-${index + 1}`);
   let matches;
   try {
@@ -1732,7 +1730,7 @@ async function renderSlide(slide: QmdSlide, index: number, globalBackground: Dec
   const backgroundHtml = renderBackgroundLayer(attrs, globalBackground);
   const dataAttrs = { ...attrs.keyValues, id: slide.id || attrs.keyValues.id || `slide-${index + 1}` };
   if (matches.groups.length) dataAttrs["data-match-groups"] = matches.groups.join("|");
-  if (!dataAttrs["data-title"]) dataAttrs["data-title"] = renderedTitle.plainText;
+  if (!dataAttrs["data-title"]) dataAttrs["data-title"] = renderedTitle.plainText || `Slide ${index + 1}`;
   const attrText = formatHtmlAttrs({
     class: unique(classes).join(" "),
     ...dataAttrs,
@@ -1740,7 +1738,7 @@ async function renderSlide(slide: QmdSlide, index: number, globalBackground: Dec
   const headingClass = attrs.classes.includes("title-hidden") ? ' class="visually-hidden"' : "";
   return `${matches.css ? `<style>${matches.css}</style>\n` : ""}<section${attrText}>
 ${backgroundHtml ? indentHtml(backgroundHtml, "  ") + "\n" : ""}
-  <h2${headingClass}>${renderedTitle.inlineHtml}</h2>
+${title ? `  <h2${headingClass}>${renderedTitle.inlineHtml}</h2>\n` : ""}
 ${indentHtml(bodyHtml, "  ")}
 ${renderedTitle.footnotesHtml ? indentHtml(renderedTitle.footnotesHtml, "  ") + "\n" : ""}</section>`;
 }
@@ -3488,11 +3486,11 @@ function countAttr(html: string, attr: string) {
 }
 
 function countQmdSlides(qmd: string) {
-  return (stripCodeFences(qmd).match(/^##\s+/gm) || []).length;
+  return parseSlides(splitFrontMatter(qmd).body).length;
 }
 
 function countQmdNotes(qmd: string) {
-  return (stripCodeFences(qmd).match(/^:{3,}\s+(?:notes|\{\s*\.notes\s*\})\s*$/gm) || []).length;
+  return parseSlides(splitFrontMatter(qmd).body).filter(slide => extractNotes(slide.body).notes).length;
 }
 
 function countQmdZoomable(qmd: string) {

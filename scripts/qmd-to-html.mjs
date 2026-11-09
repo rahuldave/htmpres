@@ -34,7 +34,7 @@ function renderDeck(file) {
   if (diagnostics.length) throw new Error(diagnostics.map(formatDiagnostic).join("\n"));
   const slides = assignSlideIds(parseSlides(body), parsePandocAttrs);
   if (!slides.length) {
-    throw new Error(`No level-2 slides found in ${file}`);
+    throw new Error(`No slides found (use --- or ##) in ${file}`);
   }
 
   const title = meta.pagetitle || meta.title || humanTitle(path.basename(deckDir));
@@ -104,8 +104,8 @@ function renderSlide(slide, index, globalBackground) {
   const attrs = parsePandocAttrs(slide.attrText);
   const classes = ["slide", ...attrs.classes];
   if (index === 0) classes.push("active");
-  const title = slide.title || attrs.keyValues["data-title"] || `Slide ${index + 1}`;
-  const renderedTitle = renderTitle(markdownToHtml(`# ${title}`), `slide-${index + 1}`);
+  const title = slide.title;
+  const renderedTitle = title ? renderTitle(markdownToHtml(`# ${title}`), `slide-${index + 1}`) : { inlineHtml: "", plainText: "", footnotesHtml: "" };
   let bodyHtml = namespacePandocIds(markdownToHtml(slide.body).trim(), `slide-${index + 1}`);
   let matches;
   try {
@@ -115,7 +115,7 @@ function renderSlide(slide, index, globalBackground) {
   const backgroundHtml = renderBackgroundLayer(attrs, globalBackground);
   const dataAttrs = { ...attrs.keyValues, id: slide.id || attrs.keyValues.id || `slide-${index + 1}` };
   if (matches.groups.length) dataAttrs["data-match-groups"] = matches.groups.join("|");
-  if (!dataAttrs["data-title"]) dataAttrs["data-title"] = renderedTitle.plainText;
+  if (!dataAttrs["data-title"]) dataAttrs["data-title"] = renderedTitle.plainText || `Slide ${index + 1}`;
   const attrText = formatHtmlAttrs({
     class: unique(classes).join(" "),
     ...dataAttrs,
@@ -123,7 +123,7 @@ function renderSlide(slide, index, globalBackground) {
   const headingClass = attrs.classes.includes("title-hidden") ? " class=\"visually-hidden\"" : "";
   return `${matches.css ? `<style>${matches.css}</style>\n` : ""}<section${attrText}>
 ${backgroundHtml ? indentHtml(backgroundHtml, "  ") + "\n" : ""}
-  <h2${headingClass}>${renderedTitle.inlineHtml}</h2>
+${title ? `  <h2${headingClass}>${renderedTitle.inlineHtml}</h2>\n` : ""}
 ${indentHtml(bodyHtml, "  ")}
 ${renderedTitle.footnotesHtml ? indentHtml(renderedTitle.footnotesHtml, "  ") + "\n" : ""}</section>`;
 }

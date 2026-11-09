@@ -47,3 +47,8 @@ for (const query of ['', '?compare-slide=1', '?example-slide=1']) {
   }
 }
 console.log('Example-only bridge passed: shared runtime state, boundaries and full/comparison isolation.');
+
+
+const mixedBoundaries = '---\npagetitle: Mixed\n---\n\n---\nOpening.\n## Two\nBody.\n---\n## {#third}\nEnd.';
+const mixedSources = slideSources(mixedBoundaries);
+assert(mixedSources.length === 3 && mixedSources[0].line === 5 && mixedSources[2].markdown.startsWith('---\n## {#third}'), 'Source picker preserves mixed boundaries as one slice per slide');

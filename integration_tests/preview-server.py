@@ -85,7 +85,7 @@ def check():
                     previous = revision()
                     valid = (deck / 'slides.qmd').read_text()
                     (deck / 'slides.qmd').write_text(valid + '\n---\n')
-                    until(lambda: 'slide-break' in (deck / 'server.log').read_text(), 'invalid source was not checked')
+                    until(lambda: 'empty-slide' in (deck / 'server.log').read_text(), 'invalid source was not checked')
                     assert revision() == previous and 'Preview updated.' in get()[0], 'invalid source replaced last good view'
                     (deck / 'slides.qmd').write_text(valid.replace('Preview updated.', 'Preview recovered.'))
                     until(lambda: revision() != previous and 'Preview recovered.' in get()[0], 'valid save did not recover')

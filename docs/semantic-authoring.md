@@ -256,7 +256,7 @@ Then use `data-match="mean"` / `data-match="total"` and the code or equation
 mappings above. Separate `name=color` entries with `|`. Omitted names use the
 theme palette. Inline color attributes override the slide palette for that
 name. In htmpres the heading's `{...}` is the place for per-slide metadata;
-do not add another YAML block or `---` slide separator.
+do not add another YAML block. A top-level `---` can separate slides, but put these settings on a heading (including an empty `## {...}` heading for an untitled slide).
 
 ### Set semantic colors in the deck stylesheet
 
@@ -393,36 +393,118 @@ Titles accept inline Markdown; navigation uses their plain text:
 [Story before styling.]{.key}
 ```
 
-## 9. Slide-break lint
+## 9. Slide boundaries and lint
 
-A new slide starts with `##`. A standalone body `---` outside code is an
-**error**, including immediately before a heading. Initial YAML front-matter
-delimiters are exempt, as are code examples in backtick/tilde fences or
-indented code. Use `##` for a slide and remove the stray rule:
+Start a slide with a standalone `---` or a level-two heading (`## Title`).
+Both are accepted at the top level, with zero to three leading spaces and
+optional trailing spaces or tabs. Four-space/tab-indented code is exempt.
+Only exactly three hyphens count: `----`, `***`, and `___` are not slide
+boundaries. A `---` followed by `##` with only blank lines between makes
+**one slide**. Content before the first boundary forms an untitled opening slide;
+leading HTML comments do not create slides. Heading-only decks keep working.
+
+An untitled slide has no displayed heading. Navigation, overview, and presenter
+navigation use `Slide N`, where N is its one-based position in the whole file.
+Use `data-title="Backup data"` to choose a navigation label without adding a
+visible title. The CLI's JSON slide list keeps `title: ""` and exposes the
+fallback or override in `dataTitle`; its text list shows that label. Counters
+work as usual: main slides show `1 / N`, while a trailing appendix has its own
+`Appendix 1 / N` counter.
+
+Use an **empty heading** for settings on an untitled slide:
 
 ```markdown
-## First slide
+---
 
-The opening.
+## {#appendix-data data-kind="appendix" data-title="Backup data"}
+
+The data, without a displayed title.
+```
+
+That is one slide. The empty heading can also start it without a preceding
+`---`. IDs, classes and other slide attributes use the same heading syntax as
+titled slides; do not put attributes on the separator itself.
+
+The initial YAML front matter is unchanged: its opening `---` and closing
+`---` (or `...`) are metadata delimiters. Put an opening slide separator **after**
+the front matter. Without front matter, leave an initial blank line before an
+opening separator so a later `---` cannot be mistaken for the YAML closer.
+Backtick/tilde fences, indented code, raw code blocks, HTML comments, and fenced
+`:::` divs protect their contents from slide splitting. Both `---` and `##`
+inside a div stay on the current slide. Balance nested divs before the next
+slide boundary.
+
+Speaker notes (`::: notes` or `::: {.notes}`) belong to their current slide.
+A `---` inside notes or another fenced div is a normal Markdown rule, not a
+slide boundary or a lint error. Leave blank lines around an intended rule to
+avoid Markdown's Setext-heading interpretation. Nested divs inside notes stay
+with those notes. Quarto 1.8.26's Reveal output was checked for rule containment
+and empty attributed headings. htmpres intentionally keeps `##` inside a div
+local too, avoiding Quarto's nested slide sections inside notes/divs.
+
+This complete file makes **three slides**: the first from `---` alone, the
+second from `##` alone, and the third from `---` plus `##` together:
+
+```markdown
+---
+pagetitle: Three slides
+deck:
+  theme: nocturne
+---
+
+---
+
+Opening without a title.
+
+::: notes
+First slide cue.
+:::
 
 ## Second slide
 
-The next point.
+Second slide body.
+
+---
+
+## Third slide
+
+Third slide body.
 ```
 
-The linter accepts multiple paths, returns exit status 0 on success and 1 on
-diagnostics. Rendering and `verify` enforce the same rule. Machine output is:
+A runnable variation at `decks/slide-breaks/index.qmd` uses an empty attributed
+heading for the third slide, demonstrating appendix settings and notes on all
+three slides. Run `just slide-breaks` and open its `index.html` or
+`presenter.html`.
+
+The linter rejects **empty slides**: two consecutive separators, a trailing
+separator, or an empty heading with no body. A heading with a title and no body
+is a valid title-only slide. A leading separator adds no preceding empty slide.
+An error points to the boundary that started the empty slide. Rendering and
+`verify` use the same rule and fail on those diagnostics.
+
+The CLI still accepts multiple paths and returns versioned JSON, exit 0 on
+success, or exit 1 on errors:
 
 ```json
-{"version":1,"ok":false,"diagnostics":[{"file":"slides.qmd","line":12,"column":1,"code":"slide-break","severity":"error","message":"..."}]}
+{"version":1,"ok":false,"diagnostics":[{"file":"slides.qmd","line":12,"column":1,"code":"empty-slide","severity":"error","message":"..."}]}
 ```
 
-Pass the source path to `verify slides.qmd` as shown above. Without paths,
-`verify` discovers only `decks/**/index.qmd`; explicit paths also support the
-hand-edited `slides.qmd` name and fail if rendered HTML is missing.
+`slide-break` (the former blanket prohibition) is retired. Successful output is
+`{"version":1,"ok":true,"diagnostics":[]}`. `source-read` and `usage` errors
+retain their meanings. The checker in another repository can call
+`quarto run _extensions/htmpres/htmpres.ts lint slides.qmd --json`; no Node
+runtime is required. In this repository use `just lint slides.qmd`.
 
-The checker in another repository can call the CLI directly; no Node runtime
-is required. In this repository, `just lint slides.qmd` runs that JSON check.
+Pass source paths to `verify slides.qmd`; without paths, `verify` discovers
+`decks/**/index.qmd`. Explicit paths support arbitrary names and fail if rendered
+HTML is missing. `slide list/show/insert/replace`, both rendering engines,
+verification and showcase labels all share the same slide boundaries.
+
+The boundary convention follows [Quarto presentations](https://quarto.org/docs/presentations/index.html).
+Quarto also recommends [empty headings for slide attributes](https://github.com/orgs/quarto-dev/discussions/603).
+This is compatibility for the requested `---`/`##` subset, not a full Pandoc or
+Deckset importer (for example, level-one section slides and Setext slide
+headings are not implemented).
 
 ## Deliberately deferred
 

@@ -79,8 +79,11 @@ main point; `.aside` marks supporting context. The incremental list hides
 future points and dims earlier ones. The theme decides how these roles look.
 
 A `::: notes` block belongs to the preceding slide. It appears only in the
-presenter output. Use `##` for the next slide; a standalone `---` in the body
-is an error. The two `---` lines around the initial metadata are valid.
+presenter output. Use top-level `---` or `##` for the next slide. A separator
+followed by a heading, with only blank lines between, makes one slide. For
+untitled-slide settings use `## {#backup data-kind="appendix"}`. The initial
+YAML delimiters and rules inside code, comments or fenced divs do not split
+slides. See [the full boundary contract](semantic-authoring.md#slide-boundaries-and-lint).
 
 ## 3. Preview while you write
 

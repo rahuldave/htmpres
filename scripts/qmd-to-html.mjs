@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { upgradeOwnedCss } from "../_extensions/htmpres/themes/foundations.mjs";
 import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -44,7 +45,7 @@ function renderDeck(file) {
   const cssPath = path.join(deckDir, meta["deck.css"] || "source.css");
   const localCss = existsSync(cssPath) ? readFileSync(cssPath, "utf8") : "";
   const themePlan = resolveTheme(meta, bundledThemes, localCss);
-  const baseCss = themePlan ? readFileSync(new URL("../_extensions/htmpres/templates/source.css", import.meta.url), "utf8") : "";
+  const baseCss = themePlan ? upgradeOwnedCss(readFileSync(new URL("../_extensions/htmpres/templates/source.css", import.meta.url), "utf8"), themePlan, bundledThemes, localCss) : "";
   for (const file of themeAssets(themePlan, bundledThemes)) {
     const bytes = readFileSync(new URL(file, themeDirectory));
     const target = path.join(deckDir, "assets", "htmpres-themes", file);
@@ -63,7 +64,7 @@ function renderDeck(file) {
   });
   const htmlSlides = rendered.map((slide) => slide.slideHtml).join("\n\n");
   const matchCss = matchThemeStyles(themePlan, bundledThemes, maximumMatchGroups(htmlSlides), theme);
-  const css = themePlan ? `${baseCss}\n${themeStyles(themePlan, bundledThemes)}${matchCss}\n${localCss}` : `${matchCss}${localCss}`;
+  const css = themePlan ? `${baseCss}\n${themeStyles(themePlan, bundledThemes)}${matchCss}\n${upgradeOwnedCss(localCss, themePlan, bundledThemes)}` : `${matchCss}${upgradeOwnedCss(localCss, themePlan, bundledThemes)}`;
   const notes = rendered.map((slide) => slide.notesHtml);
   const audienceHtml = deckShell({
     mode: "audience",
@@ -345,7 +346,7 @@ body.audience-mode .slide .notes {
 .slide > div.sourceCode,
 .slide > pre {
   margin-top: 24px;
-  border: 1px solid var(--htmpres-code-border, rgba(15, 23, 42, 0.16));
+  border: var(--htmpres-code-shell-border, 1px solid var(--htmpres-code-border, rgba(15, 23, 42, 0.16)));
   border-radius: var(--htmpres-code-radius, 8px);
   background: var(--htmpres-code-bg, #172127);
   color: var(--htmpres-code-ink, #eff6f4);
@@ -607,7 +608,7 @@ html[data-slide-direction="none"] .slide.transition-zoom.active {
 .slide .sourceCode .cf,
 .slide .sourceCode .im {
   color: var(--htmpres-code-token-keyword, #7dd3fc);
-  font-weight: 700;
+  font-weight: var(--htmpres-code-emphasis-weight, 700);
 }
 
 .slide .sourceCode .dt,

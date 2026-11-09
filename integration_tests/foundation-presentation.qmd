@@ -1,0 +1,91 @@
+---
+title: Owned foundation acceptance
+deck:
+  theme: nocturne
+  color-mode: auto
+---
+
+## Foundation title {#foundation-title .hero-title}
+
+A clear title uses the display face only at the display size.
+
+## Primary prose and hierarchy {#foundation-prose}
+
+A normal paragraph supplies the comparison for an [ordinary link](#foundation-controls).
+
+- An unordered list remains primary ink.
+- A second item retains the same body size.
+
+1. An ordered list uses the same 30px role.
+2. Reading order has its own clear cue.
+
+## Flat groups {#foundation-groups}
+
+:::: {.two-col}
+::: {.card}
+**A useful group**
+
+Ordinary explanatory prose uses primary ink.
+:::
+::: {.callout .callout-note}
+<div class="callout-header">i Information</div>
+<div class="callout-body">A neutral body keeps the focus on the explanation.</div>
+:::
+::::
+
+## Code and explanation {#foundation-code}
+
+```python
+values = [2, 4, 6]
+mean = sum(values) / len(values)
+print(mean)
+```
+
+## Controls carry explicit jobs {#foundation-controls}
+
+```{=html}
+<p><button id="foundation-primary" class="btn btn-primary">Primary action</button> <button class="btn btn-secondary">Secondary action</button></p>
+<label for="foundation-name">Project name</label><input id="foundation-name" class="form-control" value="Readable input">
+<p><button id="foundation-selected" class="btn btn-primary" aria-pressed="true">✓ Selected</button> <button id="foundation-disabled" class="btn btn-primary" disabled>Unavailable</button></p>
+```
+
+## State actions {#foundation-states}
+
+```{=html}
+<button class="btn btn-success">✓ Success</button> <button class="btn btn-warning">! Warning</button>
+<button class="btn btn-danger">× Error</button> <button class="btn btn-info">i Information</button>
+<p><input class="form-control" aria-invalid="true" aria-describedby="foundation-error" value="?" aria-label="Required identifier"><span id="foundation-error" class="invalid-feedback">× Error: enter an identifier.</span></p>
+```
+
+## Semantic hierarchy and authored CSS {#foundation-semantic}
+
+[The key result keeps its semantic role.]{.key}
+
+[Supporting material has a restrained role.]{.aside}
+
+<p id="local-override" class="local-override">An explicit local override remains 42px.</p>
+
+## Matched colors remain independent {#foundation-matches data-step-summary="match"}
+
+:::: {.two-col}
+::: {}
+```{.python .numberLines data-steps="1|2" data-line-matches="1:collect|2:total"}
+values = [2, 4, 6]
+total = sum(values)
+```
+:::
+::: {}
+[Collect the observations.]{.fragment data-match="collect" data-fragment-index="1"}
+
+[Compute their total.]{.fragment data-match="total" data-fragment-index="2"}
+:::
+::::
+
+## Built-in audience widgets {#foundation-widgets data-section="Audience metadata"}
+
+```{=html}
+<div class="sample-label">A required audience label</div>
+<div class="pill-row"><button id="foundation-pill" class="pill" type="button">Pill choice</button><button class="control-chip" type="button">Control chip</button><button class="action-button active" type="button">Action button</button></div>
+<div class="media-caption" style="margin-top:24px"><h3>A media heading</h3><p>An audience-readable media caption.</p></div>
+<p><button id="foundation-state-selected" class="btn btn-success" aria-pressed="true">✓ Selected success</button><button id="foundation-state-disabled-selected" class="btn btn-success" aria-pressed="true" disabled>Unavailable selected</button></p>
+```

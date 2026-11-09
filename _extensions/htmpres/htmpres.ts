@@ -1,3 +1,4 @@
+import { upgradeOwnedCss } from "./themes/foundations.mjs";
 import { readPreviewHtml, queueRenders, shouldWatchPath } from "./lib/preview.mjs";
 import { colorModeControl, colorModeScript, legacyThemes, resolveTheme, themeAssets, themeAttributes, themeStyles, validateThemeName } from "./themes/themes.mjs";
 import { matchThemeStyles } from "./themes/matches.mjs";
@@ -1676,7 +1677,7 @@ async function renderDeck(file: string) {
 
   const htmlSlides = rendered.map((slide) => slide.slideHtml).join("\n\n");
   const matchCss = matchThemeStyles(themePlan, bundledThemes, maximumMatchGroups(htmlSlides), theme);
-  const css = themePlan ? `${readTemplateFile("source.css")}\n${themeStyles(themePlan, bundledThemes)}${matchCss}\n${localCss}` : `${matchCss}${localCss}`;
+  const css = themePlan ? `${upgradeOwnedCss(readTemplateFile("source.css"), themePlan, bundledThemes, localCss)}\n${themeStyles(themePlan, bundledThemes)}${matchCss}\n${upgradeOwnedCss(localCss, themePlan, bundledThemes)}` : `${matchCss}${localCss}`;
   const notes = rendered.map((slide) => slide.notesHtml);
   const audienceHtml = deckShell({
     mode: "audience",
@@ -2007,7 +2008,7 @@ body.audience-mode .slide .notes {
 .slide > div.sourceCode,
 .slide > pre {
   margin-top: 24px;
-  border: 1px solid var(--htmpres-code-border, rgba(15, 23, 42, 0.16));
+  border: var(--htmpres-code-shell-border, 1px solid var(--htmpres-code-border, rgba(15, 23, 42, 0.16)));
   border-radius: var(--htmpres-code-radius, 8px);
   background: var(--htmpres-code-bg, #172127);
   color: var(--htmpres-code-ink, #eff6f4);
@@ -2344,7 +2345,7 @@ html[data-overflow="fit"] .slide {
 .slide .sourceCode .cf,
 .slide .sourceCode .im {
   color: var(--htmpres-code-token-keyword, #7dd3fc);
-  font-weight: 700;
+  font-weight: var(--htmpres-code-emphasis-weight, 700);
 }
 
 .slide .sourceCode .dt,

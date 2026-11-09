@@ -50,7 +50,7 @@
   text-align: right;
   color: var(--_htmpres-match-ink, var(--muted));
   background: var(--htmpres-summary-number-bg, var(--paper));
-  font-weight: 700;
+  font-weight: var(--htmpres-code-emphasis-weight, 700);
 }
 
 @media (prefers-reduced-motion: reduce) {

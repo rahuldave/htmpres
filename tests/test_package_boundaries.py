@@ -35,11 +35,12 @@ class PackageBoundaryTests(unittest.TestCase):
         self.assertNotIn("Suggests:", source)
         self.assertTrue((ROOT / "packages/r/man/package_info.Rd").is_file())
 
-    def test_spec_is_owned_without_premature_scientific_data(self):
+    def test_promoted_spec_stays_independent_of_native_scaffolds(self):
         spec = json.loads((ROOT / "packages/spec/boundary.json").read_text())
-        self.assertEqual(spec["status"], "identity-scaffold")
+        self.assertEqual(spec["status"], "scientific-contract")
         self.assertEqual(spec["runtimeDependencies"], [])
-        self.assertFalse(spec["scientificContractPromoted"])
+        self.assertTrue(spec["scientificContractPromoted"])
+        self.assertEqual(spec["specVersion"], "0.1.0")
         for directory in ("python", "r", "javascript"):
             path = ROOT / "packages" / directory
             self.assertTrue((path / "README.md").is_file())

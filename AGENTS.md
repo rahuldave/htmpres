@@ -221,6 +221,11 @@ just packages-build
 just packages-test
 just packages-install-test
 just packages-check
+just spec-import
+just spec-validate
+just spec-test
+just spec-build
+just spec-check
 npm run render -- decks/tutorial/index.qmd
 npm run verify
 ```
@@ -242,6 +247,15 @@ After `packages-install-test`, serve its reported `browser_root` with a local HT
 server and inspect the installed `browser_path` using
 `integration_tests/package-boundaries-browser.mjs`; the server path must be the
 clean consumer, not a source-tree example. No package is published by these targets.
+
+`packages/spec/` separately owns the approved standalone scientific data contract.
+`just spec-import` deliberately re-promotes pinned evidence; normal checks never
+regenerate to hide drift. `just spec-validate` checks existing schema/data/resources
+and exact font conversions; `just spec-test` covers mutations, numeric goldens,
+safe staging and extracted archives. `just spec-build` emits a deterministic
+archive/checksum, and `just spec-check` composes validation, tests, build and diff
+hygiene. These optional commands use the pinned build-only environment under
+`packages/spec/` and remain independent of native package/renderer checks.
 
 The statement/credit/quote/counter demo is `decks/authoring-hooks/index.qmd`;
 `just authoring-hooks` renders it. Its rerunnable CUA checks are

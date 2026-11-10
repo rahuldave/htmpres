@@ -1,3 +1,4 @@
+import "./picture-command.test.mjs";
 import "./picture-slides.test.mjs";
 import "./picture-renderer.test.mjs";
 import "./talk-hooks.test.mjs";

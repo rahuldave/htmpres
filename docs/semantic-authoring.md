@@ -100,6 +100,97 @@ credits do not shrink with body text fitting. Keep the short credit concise;
 long source records belong in the linked appendix. Credits are attribution,
 not a general caption/overlay layout tool.
 
+### Pictures that fit, with accessible descriptions
+
+Jonathan Schwabish, *Better Presentations* (2017), pp. 118–124, recommends
+letting a strong picture fill the slide. Adam Wathan and Steve Schoger,
+*Refactoring UI*, “Text needs consistent contrast,” pp. 202–204, explain why
+picture overlays need a dependable ground. These patterns keep those choices
+semantic: the theme supplies all ink, grounds and typography.
+
+For a titled slide containing one picture and an optional credit, write:
+
+```markdown
+## One queue before one database {data-section="The bottleneck"}
+
+![Students wait for one database to answer their searches.](assets/photo.svg){.ds-fit}
+
+[Picture: Creator, source and license.]{.credit}
+```
+
+The description becomes both the image's screen-reader `alt` and its visible
+caption. The picture, caption and credit fit below the title, without cropping
+the picture. Wide, tall and 16:9 images use the same syntax. `.ds-fit` is
+optional for this one-picture layout. Wrapping the image in `::: {.ds-media}`
+also works; a linked image keeps its native Markdown caption behavior.
+`.ds-fill` deliberately crops to fill the available picture box.
+
+For a full-slide picture, keep its description and omit the visible heading:
+
+```markdown
+## {data-title="A queue before one database" data-section="The bottleneck"}
+
+::: {.ds-full .ds-media .ds-no-pad}
+![Students wait for one database to answer their searches.](assets/photo.svg){.ds-fill}
+:::
+
+[Picture: Creator, source and license.]{.credit}
+```
+
+Inside `.ds-full`, the description stays in `alt` and the automatically
+generated caption is hidden, including from screen readers. The image itself
+retains its accessible name. `data-title` supplies the navigation label without
+a visible title. Use `.ds-fit` instead of `.ds-fill` when showing the complete
+picture matters more than filling the slide.
+
+For text over the picture, add a semantic layer:
+
+```markdown
+## {data-title="Every search repeats the work" data-section="The bottleneck"}
+
+::: {.ds-full .ds-media .ds-no-pad .ds-readable}
+![Students wait for one database to answer their searches.](assets/photo.svg){.ds-fill}
+:::
+
+::: {.ds-layer}
+[Every search reads the same rows.]{.key}
+:::
+
+[Picture: Creator, source and license.]{.credit}
+```
+
+`.ds-readable` adds a gradient without changing the full-slide geometry; it
+also works on a contained `.ds-media` picture. `.ds-layer` has an opaque,
+theme-controlled text panel. Its nested `.key` uses that panel's ink while
+retaining semantic emphasis. This keeps text readable on dark, bright and
+mixed pictures; a transparent gradient alone cannot guarantee that contrast.
+
+A decorative background can carry a visible title and body text directly:
+
+```markdown
+## Every search repeats the work {data-background-image="assets/photo.svg" data-section="The bottleneck"}
+
+[Read the data once, then reuse the result.]{.key}
+
+[Picture: Creator, source and license.]{.credit}
+```
+
+The title and body receive the same theme-controlled panels. Background layers
+are decorative (`aria-hidden`); use the described `.ds-full` image pattern
+above when the picture itself needs an accessible description.
+
+In all four examples, `data-section` keeps a readable section label on its own
+opaque theme ground. The credit lane remains separate. A left/right picture
+beside a list also starts below the title and leaves space for its caption and
+credit. Automatic fitting targets the one-picture or two-pane structures;
+complex multi-picture compositions retain their authored container layout.
+
+Themes can override `--htmpres-media-text-bg`, `--htmpres-media-text-ink`,
+`--htmpres-media-label-bg` and `--htmpres-media-label-ink`. Defaults use theme
+paper and an ink targeting 4.8:1 contrast, following the attribution policy.
+Authors need no CSS, colors, sizes or new Markdown attributes. Existing forms
+remain valid; no new lint rejection is introduced.
+
 ## Quotations and their source
 
 Jonathan Schwabish, *Better Presentations* (2017), pp. 72–73, illustrates a

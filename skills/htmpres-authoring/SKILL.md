@@ -276,3 +276,21 @@ semantic; appearance and CSS variables belong in the stylesheet.
 - Do not modify a host project's root `Justfile`; generated htmpres Justfiles
   belong inside the presentation workspace.
 - Report the exact commands run and any render or verification failures.
+
+## Pictures
+
+Use descriptive Markdown image text: `![Description](assets/photo.svg){.ds-fit}`.
+A titled slide with one picture automatically fits its image and caption below
+the heading, including `.credit` attribution. Wide and tall pictures use the
+same structure. A `.ds-media` wrapper is optional in this common case.
+
+For a full picture, use an empty `## {data-title="Navigation label"}` heading,
+then `::: {.ds-full .ds-media .ds-no-pad}` with
+`![Description](assets/photo.svg){.ds-fill}`, then close the div. Full-picture
+alt text is retained; the automatic visible caption is suppressed. Add
+`.ds-readable` to the full wrapper and put overlay copy in a sibling `.ds-layer`
+block. Themes provide opaque contrast panels for the text, semantic `.key`
+and section label. Do not erase descriptions to hide captions.
+`data-background-image` is decorative; use a described image when its content
+needs an accessible name. See the complete picture patterns in
+`docs/semantic-authoring.md` and `docs/quarto-class-map.md`.

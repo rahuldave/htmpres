@@ -4,6 +4,126 @@ Verified on 2026-11-06. This is the exact authoring contract for the downstream
 presentation skill. The plan stays in `plan.md`; the hand-editable deck can be
 named `slides.qmd`. htmpres does not read the planning worksheet.
 
+## Picture-slide corrections for look-talks (2026-11-10)
+
+Implementation: [`7d544ac`](https://github.com/rahuldave/htmpres/commit/7d544ac).
+
+The five reported faults were all reproduced against `f3930fb` in an actual
+1280 × 720 browser, using the supplied Atelier/light examples. The slide ended
+at y=581. These were renderer/layout faults, not mistakes in the supplied QMD.
+
+| Report | Independent observation before the fix | Result |
+| --- | --- | --- |
+| 1. Readability breaks full size | Full wrapper was 880 × 495 at (310,78), instead of the 1008 × 567 slide at (246,14); layer began at y=573 and extended below the slide. | Readability/vignette preserve absolute full/half geometry; text stays inside. |
+| 2. Dark text over a dark picture | Layer/key/title ink was rgb(37,62,66) on a near-black picture, with transparent text grounds. | Theme-owned opaque paper/ink panels protect layers, semantic emphasis, background titles and body text. |
+| 3. Clipped automatic caption | Full-picture caption extended to y=596.75, beyond the slide; its image was shifted upward too. The image already had the correct alt text. | Full wrappers hide the automatic caption visually and from screen readers; exact image alt and accessible image name remain. Ordinary figures keep captions. |
+| 4. Section label obscured | Label had no ground and automatic stacking; the picture obscured it or provided insufficient contrast. | Picture labels have opaque theme grounds, readable ink and foreground stacking, with space separate from caption/credit. |
+| 5. Titled image/caption overflows | Wrapped image ended at y=616.20 and caption at y=647.70; the bare form also overflowed. | Single images use the remaining height below a title, including caption and credit; left/right image panes also start below the title. |
+
+The content structure is unchanged. Authors write no colors, sizes or styles.
+Normal picture captions remain visible; their space is now part of the layout.
+The final syntax is shown below and in [Semantic slides](semantic-authoring.md#pictures-that-fit-with-accessible-descriptions).
+
+### A titled picture with its description and credit
+
+```markdown
+## One queue before one database {data-section="The bottleneck"}
+
+![Students wait for one database to answer their searches.](assets/photo.svg){.ds-fit}
+
+[Picture: Creator, source and license.]{.credit}
+```
+
+### A full picture with a description and no visible caption
+
+```markdown
+## {data-title="A queue before one database" data-section="The bottleneck"}
+
+::: {.ds-full .ds-media .ds-no-pad}
+![Students wait for one database to answer their searches.](assets/photo.svg){.ds-fill}
+:::
+
+[Picture: Creator, source and license.]{.credit}
+```
+
+### Text over a full picture
+
+```markdown
+## {data-title="Every search repeats the work" data-section="The bottleneck"}
+
+::: {.ds-full .ds-media .ds-no-pad .ds-readable}
+![Students wait for one database to answer their searches.](assets/photo.svg){.ds-fill}
+:::
+
+::: {.ds-layer}
+[Every search reads the same rows.]{.key}
+:::
+
+[Picture: Creator, source and license.]{.credit}
+```
+
+### A background title and a readable section label
+
+```markdown
+## Every search repeats the work {data-background-image="assets/photo.svg" data-section="The bottleneck"}
+
+[Read the data once, then reuse the result.]{.key}
+
+[Picture: Creator, source and license.]{.credit}
+```
+
+`data-section` works in all four forms; no extra picture-label syntax is needed.
+Background layers are decorative. Use the described full-picture form for an
+image that needs its own screen-reader name. Standard Markdown descriptions
+now suffice for full pictures: no Quarto-specific `fig-alt` workaround is
+needed or newly introduced. `.ds-readable` without `.ds-full` also remains
+supported. No old form gains a lint rejection, and no author syntax is renamed.
+
+Themes own `--htmpres-media-text-bg`, `--htmpres-media-text-ink`,
+`--htmpres-media-label-bg` and `--htmpres-media-label-ink`. The default opaque
+ground is the theme paper; ink targets 4.8:1 following the existing credit
+policy. This handles bright, dark and mixed photographs without pretending a
+transparent scrim can guarantee contrast. `.key` retains its emphasis size and
+weight while inheriting the panel's readable ink. Explicit `.ds-fill` still
+crops; `.ds-fit` and the ordinary one-picture default preserve shape.
+
+### Verification and boundaries
+
+The rerunnable fixture is `decks/pictures/index.qmd`. Its first six slides
+reproduce the supplied report; additional cases cover wide/tall/16:9 pictures
+with captions and credits, linked pictures without fit classes, deliberate
+fill/cropping, bright backgrounds, non-full readability, and titled/untitled
+split images beside wrapped and plain lists. The ordinary browser harness
+`integration_tests/picture-matrix.html` uses actual renderer HTML, fonts, images
+and controls. `scripts/build-picture-fixtures.mjs` generates its local bundle;
+it does not publish test pages. Both the harness and CUA spot checks use
+`integration_tests/picture-slides-browser.mjs` assertions.
+
+The complete catalog matrix checks all 35 paired themes in both modes and both
+views, plus sage, mono-grid and blank in their one supported mode and both
+views: 146 cases. Legacy seeds have no bundled dark pair. Deno/Node integration
+checks use real Nocturne, Flatly and Sage renders in both output views; the full
+catalog matrix substitutes theme CSS on unchanged canonical slide bodies.
+
+The final matrix passed **3,796 slide checks with zero failures**. A compact
+520 × 900 Nocturne matrix added 104 passing checks across both modes and views.
+`just check` passes, including the 171-page site crawl; `just compat-check`
+passes all 78 tests. Ten focused picture/classification/attribution tests pass,
+including real Deno/Node renders. Existing statement/credit/quote and complete
+semantic/math/step/appendix browser flows also pass in both views and modes.
+The packaged authoring skill validates; independent review has no remaining
+findings.
+
+Paired themes checked: atelier, bootstrap, cerulean, cosmo, cyborg, darkly, darkly-reading, flatly, folio, journal, litera, litera-reading, lumen, lux, materia, minty, morph, nocturne, pulse, pulse-reading, quartz, sandstone, simplex, simplex-reading, sketchy, slate, solar, spacelab, superhero, tufte, united, vapor, yeti, zephyr, zephyr-reading.
+Each was checked in light and dark, audience and presenter. Sage, mono-grid
+and blank were checked in both views in their supported legacy mode.
+
+Automatic remaining-height layout targets one picture, or a picture beside
+one companion pane/list. Arbitrary multi-picture compositions retain their
+authored layout; they are not silently reclassified as a one-picture grid.
+No Deckset commands, color attributes, size attributes or inline style syntax
+were added. Captions in notes and ordinary multi-content slides are unchanged.
+
 ## Current additions for look-talks (2026-11-09)
 
 The following contracts are implemented in

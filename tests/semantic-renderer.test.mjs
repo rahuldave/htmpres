@@ -1,3 +1,5 @@
+import "./picture-slides.test.mjs";
+import "./picture-renderer.test.mjs";
 import "./talk-hooks.test.mjs";
 import "./counter-policy.test.mjs";
 // The serve/watch preview is part of the renderer CLI contract.

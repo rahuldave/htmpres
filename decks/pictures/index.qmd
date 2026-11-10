@@ -1,0 +1,217 @@
+---
+pagetitle: "Picture faults"
+deck:
+  theme: nocturne
+  color-mode: auto
+---
+
+## {data-title="Fault 1: readable" data-section="Pictures"}
+
+::: {.ds-full .ds-media .ds-fill .ds-no-pad .ds-readable}
+![](assets/photo.svg)
+:::
+
+::: {.ds-layer}
+[Every search reads the same rows]{.key}
+:::
+
+## {data-title="Fault 2: layer ink" data-section="Pictures"}
+
+::: {.ds-full .ds-media .ds-no-pad}
+![](assets/photo.svg){.ds-fill}
+:::
+
+::: {.ds-layer}
+[Every search reads the same rows]{.key}
+:::
+
+## Fault 2: title on a background {data-background-image="assets/photo.svg" data-section="Pictures"}
+
+[Every search reads the same rows]{.key}
+
+## {data-title="Fault 3: caption" data-section="Pictures"}
+
+::: {.ds-full .ds-media .ds-no-pad}
+![A long line of students waits before one database](assets/photo.svg){.ds-fill}
+:::
+
+## Fault 4: label over a picture {data-section="Pictures"}
+
+::: {.ds-media}
+![A long line of students waits before one database](assets/photo.svg){.ds-fit}
+:::
+
+## Fault 5: a bare picture under a title {data-section="Pictures"}
+
+![A long line of students waits before one database](assets/photo.svg){.ds-fit}
+
+## Fit wide wrapped {data-section="Pictures"}
+
+::: {.ds-media}
+![A wide picture, fully visible.](assets/wide.svg){.ds-fit}
+:::
+
+[Picture: test fixture.]{.credit}
+
+
+## Fit wide bare {data-section="Pictures"}
+
+![A wide picture, fully visible.](assets/wide.svg){.ds-fit}
+
+[Picture: test fixture.]{.credit}
+
+
+## Fit tall wrapped {data-section="Pictures"}
+
+::: {.ds-media}
+![A tall picture, fully visible.](assets/tall.svg){.ds-fit}
+:::
+
+[Picture: test fixture.]{.credit}
+
+
+## Fit tall bare {data-section="Pictures"}
+
+![A tall picture, fully visible.](assets/tall.svg){.ds-fit}
+
+[Picture: test fixture.]{.credit}
+
+
+## Fit 16 by 9 wrapped {data-section="Pictures"}
+
+::: {.ds-media}
+![A 16 by 9 picture, fully visible.](assets/photo.svg){.ds-fit}
+:::
+
+[Picture: test fixture.]{.credit}
+
+
+## Fit 16 by 9 bare {data-section="Pictures"}
+
+![A 16 by 9 picture, fully visible.](assets/photo.svg){.ds-fit}
+
+[Picture: test fixture.]{.credit}
+
+
+## Split picture and explanation {data-section="Pictures"}
+
+::: {.ds-left .ds-media .ds-no-pad}
+![The observations in the study.](assets/photo.svg){.ds-fit}
+:::
+
+::: {.ds-right}
+- Describe the comparison.
+- Explain the result.
+:::
+
+[Picture: test fixture.]{.credit}
+
+
+## {data-title="Overlay on a bright picture" data-section="Pictures"}
+
+::: {.ds-full .ds-media .ds-fill .ds-no-pad .ds-readable}
+![The same observation on a light ground.](assets/bright.svg)
+:::
+
+::: {.ds-layer}
+[Every search reads the same rows]{.key}
+:::
+
+## A title on a bright background {data-background-image="assets/bright.svg" data-section="Pictures"}
+
+[Every search reads the same rows]{.key}
+
+## Readable media without a full-slide container {data-section="Pictures"}
+
+::: {.ds-media .ds-readable}
+![A readable contained picture.](assets/photo.svg){.ds-fit}
+:::
+
+[Picture: test fixture.]{.credit}
+
+## A left picture beside a list {data-section="Pictures"}
+
+::: {.ds-left .ds-media .ds-no-pad}
+![A left picture beside the explanation.](assets/photo.svg){.ds-fit}
+:::
+
+- Describe the comparison.
+- Explain the result.
+
+[Picture: test fixture.]{.credit}
+
+## A right picture beside a list {data-section="Pictures"}
+
+::: {.ds-right .ds-media .ds-no-pad}
+![A right picture beside the explanation.](assets/photo.svg){.ds-fit}
+:::
+
+- Describe the comparison.
+- Explain the result.
+
+[Picture: test fixture.]{.credit}
+
+## Linked photo picture without a fit class {data-section="Pictures"}
+
+[![A linked photo picture.](assets/photo.svg)](assets/photo.svg)
+
+[Picture: test fixture.]{.credit}
+
+## Linked wide picture without a fit class {data-section="Pictures"}
+
+[![A linked wide picture.](assets/wide.svg)](assets/wide.svg)
+
+[Picture: test fixture.]{.credit}
+
+## Linked tall picture without a fit class {data-section="Pictures"}
+
+[![A linked tall picture.](assets/tall.svg)](assets/tall.svg)
+
+[Picture: test fixture.]{.credit}
+
+## A deliberately cropped picture {data-section="Pictures"}
+
+![A wide picture deliberately cropped to its box.](assets/wide.svg){.ds-fill}
+
+[Picture: test fixture.]{.credit}
+
+## {data-title="Untitled contained picture" data-section="Pictures"}
+
+![An untitled contained picture.](assets/photo.svg){.ds-fit}
+
+[Picture: test fixture.]{.credit}
+
+## {data-title="Untitled split picture" data-section="Pictures"}
+
+::: {.ds-left .ds-media .ds-no-pad}
+![An untitled split picture.](assets/photo.svg){.ds-fit}
+:::
+
+::: {.ds-right}
+- Describe the comparison.
+- Explain the result.
+:::
+
+[Picture: test fixture.]{.credit}
+
+## {data-title="Untitled left picture beside a list" data-section="Pictures"}
+
+::: {.ds-left .ds-media .ds-no-pad}
+![An untitled left picture beside a list.](assets/photo.svg){.ds-fit}
+:::
+
+- Describe the comparison.
+- Explain the result.
+
+[Picture: test fixture.]{.credit}
+
+## {data-title="Untitled right picture beside a list" data-section="Pictures"}
+
+::: {.ds-right .ds-media .ds-no-pad}
+![An untitled right picture beside a list.](assets/photo.svg){.ds-fit}
+:::
+
+- Describe the comparison.
+- Explain the result.
+
+[Picture: test fixture.]{.credit}

@@ -16,6 +16,10 @@ export function attributionInk(ink, paper) {
 export function attributionTokens(palette) {
   return {
     'htmpres-credit-bg':'var(--paper)',
+    'htmpres-media-text-bg':'var(--paper)',
+    'htmpres-media-text-ink':contrastRatio(palette.ink,palette.paper)>=4.8?'var(--ink)':attributionInk(palette.ink,palette.paper),
+    'htmpres-media-label-bg':'var(--paper)',
+    'htmpres-media-label-ink':contrastRatio(palette.ink,palette.paper)>=4.8?'var(--ink)':attributionInk(palette.ink,palette.paper),
     'htmpres-credit-ink':contrastRatio(palette.ink,palette.paper)>=4.8?'var(--ink)':attributionInk(palette.ink,palette.paper),
     'htmpres-source-ink':contrastRatio(palette.muted,palette.paper)>=4.8?'var(--htmpres-importance-0-ink)':attributionInk(palette.muted,palette.paper),
   };

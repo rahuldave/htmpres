@@ -3,7 +3,7 @@ import { readPreviewHtml, queueRenders, shouldWatchPath } from "./lib/preview.mj
 import { colorModeControl, colorModeScript, legacyThemes, resolveTheme, themeAssets, themeAttributes, themeStyles, validateThemeName } from "./themes/themes.mjs";
 import { matchThemeStyles } from "./themes/matches.mjs";
 
-import { counterPolicyFailures, arrangeSlideCredits, assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds, unnamespacedPandocIds } from "./lib/render.mjs";
+import { counterPolicyFailures, slideMediaClasses, arrangeSlideCredits, assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds, unnamespacedPandocIds } from "./lib/render.mjs";
 import { deckCounter, extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, slideSegments, splitFrontMatter as splitSourceFrontMatter } from "./lib/source.mjs";
 
 type DeckSource = {
@@ -953,7 +953,7 @@ Source: replace with source.
       return `## ${title} {.title-hidden data-section="${section}" data-title="${dataTitle}"}
 
 ::: {.ds-full .ds-media .ds-no-pad .ds-readable}
-![](assets/image.svg){.ds-fill .zoomable}
+![Describe the picture](assets/image.svg){.ds-fill .zoomable}
 :::
 
 ::: {.ds-layer .media-caption}
@@ -967,7 +967,7 @@ Replace with supporting copy.
       return `## ${title} {.title-hidden data-section="${section}" data-title="${dataTitle}"}
 
 ::: {.ds-left .ds-media .ds-no-pad}
-![](assets/image.svg){.ds-fill .zoomable}
+![Describe the picture](assets/image.svg){.ds-fill .zoomable}
 :::
 
 ::: {.ds-right .ds-pane}
@@ -985,7 +985,7 @@ Replace with supporting copy.
 :::
 
 ::: {.ds-right .ds-media .ds-no-pad}
-![](assets/image.svg){.ds-fill .zoomable}
+![Describe the picture](assets/image.svg){.ds-fill .zoomable}
 :::`;
     case "split":
       return `${heading}
@@ -1732,6 +1732,7 @@ async function renderSlide(slide: QmdSlide, index: number, globalBackground: Dec
   } catch (error) { throw new Error(`Slide ${index + 1} (${title}): ${error.message}`); }
   bodyHtml = arrangeSlideCredits(matches.html);
   const backgroundHtml = renderBackgroundLayer(attrs, globalBackground);
+  classes.push(...slideMediaClasses(bodyHtml, Boolean(backgroundHtml)));
   const dataAttrs = { ...attrs.keyValues, id: slide.id || attrs.keyValues.id || `slide-${index + 1}` };
   if (matches.groups.length) dataAttrs["data-match-groups"] = matches.groups.join("|");
   if (!dataAttrs["data-title"]) dataAttrs["data-title"] = renderedTitle.plainText || `Slide ${index + 1}`;
@@ -1923,6 +1924,7 @@ ${css}
 ${runtimeCss()}
 .counter[hidden] { display: none !important; }
 ${readRuntimeFile("htmpres-semantic.css")}
+${readRuntimeFile("htmpres-media.css")}
 ${readRuntimeFile("htmpres-steps.css")}
   </style>
 </head>

@@ -102,6 +102,21 @@ def crawl(site):
         "plotting-gallery.html",
     ):
         assert (site / name).is_file(), f"Missing plotting guide: {name}"
+    js_loader = importlib.util.spec_from_file_location(
+        "js_docs", repo / "scripts/stage-javascript-docs.py"
+    )
+    js_docs = importlib.util.module_from_spec(js_loader)
+    js_loader.loader.exec_module(js_docs)
+    expected_js = js_docs.snapshot(repo / "packages/javascript")
+    js_public = site / "_generated/javascript"
+    assert plotting.regular_files(js_public) == sorted(
+        expected_js
+    ), "JavaScript public closure drift"
+    for name, payload in expected_js.items():
+        assert (
+            js_public / name
+        ).read_bytes() == payload, f"JavaScript published byte drift: {name}"
+    assert (site / "plotting-javascript.html").is_file()
     generated = site / "_generated"
     manifest = json.loads((generated / "manifest.json").read_text())
     assert len(manifest["themes"]) == 38 and len(manifest["slides"]) == 12

@@ -90,3 +90,6 @@ they are not signatures or a universal accessibility/projector guarantee.
 
 Other language adapters and full ecosystem documentation remain separate pieces.
 These guides do not announce a JavaScript plotting implementation.
+
+
+The [JavaScript/Observable Plot guide](plotting-javascript.qmd) teaches delivery-time comparisons, energy scatter and signed-change cells with local browser and OJS examples. The JavaScript reference is unreleased; no npm/CDN availability is claimed.

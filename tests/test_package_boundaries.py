@@ -42,11 +42,9 @@ class PackageBoundaryTests(unittest.TestCase):
         self.assertEqual(spec["runtimeDependencies"], [])
         self.assertTrue(spec["scientificContractPromoted"])
         self.assertEqual(spec["specVersion"], "0.1.0")
-        for directory in ("javascript",):
-            path = ROOT / "packages" / directory
-            self.assertTrue((path / "README.md").is_file())
-            for suffix in ("*.ttf", "*.woff", "*palette*.json", "*foundations*.json"):
-                self.assertEqual(list(path.rglob(suffix)), [])
+        javascript = ROOT / "packages/javascript"
+        self.assertTrue((javascript / "resources/data/spec.json").is_file())
+        self.assertTrue((javascript / "README.md").is_file())
         root = json.loads((ROOT / "package.json").read_text())
         self.assertEqual(root["name"], "htmpres")
         self.assertTrue(root["private"])

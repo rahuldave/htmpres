@@ -19,6 +19,7 @@ project:
     - plotting-packages.md
     - plotting-python.qmd
     - plotting-r.qmd
+    - plotting-javascript.qmd
     - plotting-gallery.qmd
   resources:
     - _generated/**
@@ -62,6 +63,7 @@ website:
           - plotting-packages.md
           - plotting-python.qmd
           - plotting-r.qmd
+          - plotting-javascript.qmd
           - plotting-gallery.qmd
       - section: Understand & extend
         contents:

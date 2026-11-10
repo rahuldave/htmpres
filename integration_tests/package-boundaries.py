@@ -166,7 +166,7 @@ def main():
         "import {readFileSync} from 'node:fs'; "
         "const metadata=JSON.parse(readFileSync(new URL('../package.json',import.meta.resolve('plotfoundry')))); "
         "const info=packageInfo(); "
-        "if(info.name!=='plotfoundry'||info.status!=='scaffold'||info.version!==metadata.version) throw Error('identity'); "
+        "if(info.name!=='plotfoundry'||info.status!=='observable-reference'||info.version!==metadata.version) throw Error('identity'); "
         "info.name='changed'; if(packageInfo().name!=='plotfoundry') throw Error('mutation'); "
         "console.log(JSON.stringify(packageInfo()));"
     )

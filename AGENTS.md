@@ -413,3 +413,19 @@ The rerunnable actual-browser flow is `integration_tests/plotting-docs-browser.m
 check desktop/mobile, all interfaces, URL reload/back, intended width and failed
 report/manifest loading. Build-only promotion is explicit; stale evidence never
 silently rerenders scientific plots during a website build.
+
+
+### Standalone JavaScript reference
+
+`packages/javascript` owns the dependency-free core and optional browser-ready
+Observable Plot adapter. `just javascript-check` checks the pinned spec snapshot,
+native focused tests, vendor/resource closure and clean npm installation plus
+real Quarto OJS rendering. It does not publish packages. `just javascript-browser-test`
+uses a local Chrome/Playwright verification environment to exercise all 72 cases,
+PNG/SVG exports, fonts, hover, legends, standalone tutorial modules and local OJS
+with external requests blocked. Browser tools are verification dependencies only.
+`just javascript-docs-test` and `just javascript-docs-stage` use only Python's
+standard library, stage the closed reviewed browser bundle after theme-gallery,
+and do not require npm or native plotting runtimes on Website CI. After source
+changes, explicitly refresh its browser manifest; normal builds reject stale inputs.
+The JavaScript guide uses the nossaifd hard/verbose checks and manual reader review.

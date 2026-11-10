@@ -1,11 +1,5 @@
-<!doctype html>
-<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-<title>Plotfoundry installed browser ESM scaffold</title>
-<h1>Plotfoundry scaffold</h1>
-<p>This installed package exposes identity only. Plotting is not implemented.</p>
-<pre id="identity" aria-live="polite">Loading installed browser ESM…</pre>
-<script type="module">
-import {packageInfo} from "../src/index.js";
-document.querySelector("#identity").textContent = JSON.stringify(packageInfo());
-</script>
-</html>
+<!doctype html><meta charset="utf-8"><title>Plotfoundry installed browser examples</title>
+<style>body{font:16px system-ui;margin:24px}main{overflow:auto}button,select{font:inherit}figure{margin:0}#plots{display:grid;gap:24px}svg{max-width:none}</style>
+<pre id="identity" hidden></pre><h1>Compare delivery times</h1><p>Three routes, a missing interval, and explicit category identity. This page uses only local installed files.</p>
+<label>Case <select id="case"></select></label><button id="save">Save SVG</button><p id="status" role="status">Loading local resources</p><main id="plots"></main>
+<script type="module" src="./browser.js"></script>

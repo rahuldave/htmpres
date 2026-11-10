@@ -1,5 +1,5 @@
 // Disposable CSS coverage from an actual canonical render; no source HTML re-parsing.
-// Run just render decks/pictures/index.qmd first; serve the printed output root.
+// Run just pictures first; serve the printed output root.
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync, cpSync, readdirSync, mkdtempSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';

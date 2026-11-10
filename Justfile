@@ -17,6 +17,10 @@ semantic:
 authoring-hooks:
   quarto run scripts/htmpres.ts render decks/authoring-hooks/index.qmd
 
+# Render picture geometry, contrast and accessible caption regression examples.
+pictures:
+  quarto run scripts/htmpres.ts render decks/pictures/index.qmd
+
 # Render the three-slide mixed-boundary authoring example.
 slide-breaks:
   quarto run scripts/htmpres.ts render decks/slide-breaks/index.qmd
@@ -93,7 +97,7 @@ diff-check:
 
 # Run the normal local verification path for renderer/tutorial changes.
 # This path uses Quarto's bundled Deno runtime and does not require Node.
-check: tutorial example semantic authoring-hooks slide-breaks verify semantic-test authoring-smoke docs-check diff-check
+check: tutorial example semantic authoring-hooks slide-breaks pictures verify semantic-test authoring-smoke docs-check diff-check
 
 # Prepare the private Sites preview app with both tutorial themes.
 # Saving and deploying still happens through the Sites connector.
@@ -104,7 +108,7 @@ publish theme_dir="/private/tmp/htmpres-theme-preview" site_dir="/private/tmp/ht
 node-check: node-render node-verify
 
 # Run the core Deno checks plus optional Node fallback parity checks.
-compat-check: tutorial example semantic authoring-hooks slide-breaks verify node-render node-verify diff-check
+compat-check: tutorial example semantic authoring-hooks slide-breaks pictures verify node-render node-verify diff-check
   node --test tests/semantic-renderer.test.mjs tests/runtime-steps.test.mjs tests/runtime-navigation.test.mjs
 
 # Independent Plotfoundry scaffolds only; optional R/Node toolchains stay separate.

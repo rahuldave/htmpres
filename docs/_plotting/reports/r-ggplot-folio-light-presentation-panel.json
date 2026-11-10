@@ -1,0 +1,51 @@
+{
+  "case": "folio/light/presentation/panel",
+  "interface": "r-ggplot",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    9
+  ],
+  "canvasPixels": [
+    1152,
+    1296
+  ],
+  "placedWidthCssPx": 1152,
+  "tightCrop": false,
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1",
+    "ggplot2": "4.0.3"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/r-ggplot/folio-light-presentation-panel.png",
+      "sha256": "1ca3b2f0e2130cd11d9de6a8794436be8414fa10e125b7b74c3a210f32bddf76",
+      "fontPolicy": "showtext rasterized glyphs"
+    },
+    "svg": {
+      "url": "exports/r-ggplot/folio-light-presentation-panel.svg",
+      "sha256": "86cd2cdc2dbf3cc0a10aeb3e6a544ce40dbb0f0c0ac06af95d8b9f7293149c12",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    },
+    "pdf": {
+      "url": "exports/r-ggplot/folio-light-presentation-panel.pdf",
+      "sha256": "03ed6c46ecbea241f7366afdcf03a0cc98575463fd02ef09c3ca7641eb79165a",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

@@ -1,0 +1,46 @@
+{
+  "case": "pulse-reading/dark/presentation/paper",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    1152,
+    1152
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/pulse-reading-dark-presentation-paper.png",
+      "sha256": "a9b925c6b1d34de8cd8aca572f3f48bc34fd1a3046bb9cc52fa2a90c9a0cabc4",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/pulse-reading-dark-presentation-paper.svg",
+      "sha256": "e3818fcf4618079932d0d75ec61749b9f651a5d752ac5f2f678cf15ba15777f9",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/pulse-reading-dark-presentation-paper.pdf",
+      "sha256": "db474e7dc3e0a8c7349c8787e86898c0f7f61f1de9e868ba1b112bf09f4d7e5c",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

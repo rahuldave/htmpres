@@ -1,0 +1,50 @@
+{
+  "case": "pulse-reading/light/presentation/panel",
+  "interface": "r-base",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    9
+  ],
+  "canvasPixels": [
+    1152,
+    1296
+  ],
+  "placedWidthCssPx": 1152,
+  "tightCrop": false,
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/r-base/pulse-reading-light-presentation-panel.png",
+      "sha256": "91d6e6d7c7134c10c9eba3436984cfe4755292bff7aede99dbe70e74eb4d64a5",
+      "fontPolicy": "showtext rasterized glyphs"
+    },
+    "svg": {
+      "url": "exports/r-base/pulse-reading-light-presentation-panel.svg",
+      "sha256": "c25ebb79c32828ba254eac4ef158e94ddea2ccffdad92f7667fe2818cf14e5fb",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    },
+    "pdf": {
+      "url": "exports/r-base/pulse-reading-light-presentation-panel.pdf",
+      "sha256": "b887874f0afea9b8773eee186244397389b5b5f0347f9056229a56f547f19c57",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

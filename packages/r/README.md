@@ -122,7 +122,7 @@ source(system.file("examples", "quickstart.R", package="plotfoundry"))
 
 `examples/quickstart.qmd` is a Quarto-ready source; executing the same R code needs
 no document engine. `examples/gallery.R` renders both native routes for all 72
-cases with PNG/SVG/PDF outputs. Website publication is a separate following piece.
+cases with PNG/SVG/PDF outputs. Website guides and reviewed static galleries accompany the separate documentation checkpoint.
 
 Tested: R 4.1.1, ggplot2 4.0.3, scales 1.4.0, showtext 0.9.8, sysfonts 0.8.9,
 systemfonts 1.3.2, ragg 1.5.2 and svglite 2.2.2 on macOS arm64. DESCRIPTION minima
@@ -135,3 +135,5 @@ Python-based maintainer promotion are not installed runtime dependencies.
 The new implementation is MIT licensed. `LICENSE` contains R metadata,
 `LICENSE.md` the full notice, and installed `spec/data/notices` preserves all
 third-party notices. Package resources are self-contained and usable offline.
+
+Website documentation: [native guide](https://rahuldave.com/htmpres/plotting-r.html) and [all-nine-family gallery](https://rahuldave.com/htmpres/plotting-gallery.html), deployed with the Python/R documentation checkpoint. This does not announce a registry release.

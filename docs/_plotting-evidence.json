@@ -1,0 +1,1096 @@
+{
+  "sourceRevision": "7b1bff11284ad2960f984f0f8ed772fa09c06d8c",
+  "meaning": "Checksums of independently reviewed native outputs; no signature/authentication claim",
+  "inputManifests": {
+    "python": "a6fb740618f36421d1f28a79f1da742c422cf316e7478e59339da5466cb388fe",
+    "r": "4be3b5fceff43da95c299b100d7f57e2e6cbcc1a160caf26cd3473db9c1a8e1b"
+  },
+  "exports": {
+    "python": {
+      "folio/light/reading/paper": {
+        "png": "a32642f63778af6778a8e32f87b45e5e4f65a2b03472035dd5fb494974f87bed",
+        "svg": "29c55e16c3848d144d481dfbed4c06c4d063569dbf000a8e657e32318409d1b3",
+        "pdf": "e40d803d9616fa5a7c7285ae2d1eb8ac8d25ec74f30e2a994159df0f7c8140cd"
+      },
+      "folio/light/reading/panel": {
+        "png": "2561c7ea9864df48819a3e97eebf5bc0b78430fbfaf68b04bbab578b9a8a0f0a",
+        "svg": "bd48acced5b959052a2391849a5009de9dfe5bb16cb6f6ec8d7d58615ae9e7aa",
+        "pdf": "3ddaf76cfd4ca029c8cf8dcf24f30f0642368f4c0de89ad56dd830573ea437e6"
+      },
+      "folio/light/presentation/paper": {
+        "png": "e85dc1388d72973010f09f1bf4d4fba3f89affaeb4dc6603529a8eb9bac1081d",
+        "svg": "f1e0b6ccbe10d5380ec3080924dc401a9dfc991f2ed611bce8eeb8ddc8eabf05",
+        "pdf": "6effd1d7530260bc86e82362837a5706c89004e348909be9772ce3e88503c000"
+      },
+      "folio/light/presentation/panel": {
+        "png": "2f3412238260f567984d7b3e0b3557ae2b96eddfcb9dcf4f85741eb432425b10",
+        "svg": "530e57eeb5f5ff9a4800d0d6d0740391a9624e85f6a3b36ceac9f392b255fd62",
+        "pdf": "49cce4720ddbfb9950c2998b34f0237f36c81f8c8725f6ed42face592979e28c"
+      },
+      "folio/dark/reading/paper": {
+        "png": "dfddca6d37ee0820ee39ef93f84806a75b9819604bc8a9b555eb39dfff6730d9",
+        "svg": "50aa6a1d7d741c675584d6210ec3e0232a445e77ae8ca06446db38ff1eab550c",
+        "pdf": "934001ab34750de8b9b5c3610d6d63dc3a1c40e6eef43b0d559b75c45b6a2893"
+      },
+      "folio/dark/reading/panel": {
+        "png": "9a59bcbbd6cfe1726cc99aa410a7455e79233105f416d31fa56ebca0c19482c7",
+        "svg": "ee5afca2025d8090a40e0707995fc9503b1300dfac6ecae8a5588f58dfccea8e",
+        "pdf": "a27fa4fa613fb41c7683fe89373696cbfbb61ca7678a094ad2f7ed575ba005af"
+      },
+      "folio/dark/presentation/paper": {
+        "png": "ea6d6b96e6cd7f316f80f9cd6eadb57c065a64d0342b2796b41afaeb1b48fb6e",
+        "svg": "f3d5eee66276e131c535df2af8b6cf46dba75fd7943df4ba430d21a535891c85",
+        "pdf": "475ed12c97c1d276a8f0e3dabedbeb8aa827a4e7a5462830e82cba6b3d4fddd0"
+      },
+      "folio/dark/presentation/panel": {
+        "png": "f30ad430a0ee687d5a00aeda4b2ca1f36d41d94cfde7199921d445cb141c141d",
+        "svg": "79a1515072da5d505843551889bd9c5ec617aac55281b480218ab59d802c278f",
+        "pdf": "132400c151e77b99a0427aa01399778f96e509834fb51166ff3275dfe6df94f0"
+      },
+      "atelier/light/reading/paper": {
+        "png": "772b85784347db940418cf1dc7c9310b6768f2639c95795498f8cf385347db88",
+        "svg": "215a77c283d3cb23fd20a666b8f515ccdcf970f10a9c3b6cfc19b2bb72f139b4",
+        "pdf": "389eeb917967d11033e1111c044197cab584f62a4fca6930c0f37fed7346327d"
+      },
+      "atelier/light/reading/panel": {
+        "png": "4ea9a94573938bf462df730e0ef886f56710e91c48f7c399c8cd9b8a5925392f",
+        "svg": "3dbd3a8453a71e95b09886591606e232873fddc6f90691be2ff987a9df1edba3",
+        "pdf": "050914c144b4c6d37eadbd8d7c26db618c1436a797740b7d60953c82ee62cb03"
+      },
+      "atelier/light/presentation/paper": {
+        "png": "1625d805a16b98cf517478aa96bd1fb6b6ecb6c4b4a31c1fa3efe60b16ba9b8f",
+        "svg": "3c3634da74ba4cc0a4f3020fb5e8af22b09d536d3d6ef26746c5af3276ce26bf",
+        "pdf": "e59627cd1ab14b7f948f6f18385859b4bca2dd14e026b50b7268e82580414c80"
+      },
+      "atelier/light/presentation/panel": {
+        "png": "31642a72bebd37eadc257e5761c41dc236008b489fef727743734a1b8e799ff3",
+        "svg": "f5f9370a3347562e64a0eca4191deb74bcccf927125ef24e0acd984ee1dfc962",
+        "pdf": "48b8652ba817358585931ee68d9b2d66a8e9de328f0f485bc4f11039a3d67535"
+      },
+      "atelier/dark/reading/paper": {
+        "png": "f71a1719866ef855cc6f2a231908e01f2d55f4d0e42ee05ad5dcdba62a17fc03",
+        "svg": "42e2eb2fd02120d3c2953f5f79d46ff62b3dec83eed2691e74e94a99503e010b",
+        "pdf": "00ea87a19f99abeea022da3fb713bc6845a19998c9aeecb5014bcae71c7fdeeb"
+      },
+      "atelier/dark/reading/panel": {
+        "png": "6eb2b40196dbf1d848c74ce29217951a6b25bf44b06d6225c6b9dc208519adca",
+        "svg": "8b6d9cd31a4c1888851f88d105a385743d27ed8e1d8eec88c0fcec98fc881e0a",
+        "pdf": "c2074d01ed67af2b1803e9571576ef9c516932e9b80fb79a4459e31d6cac6a31"
+      },
+      "atelier/dark/presentation/paper": {
+        "png": "6841c0154d31437cf1f9ce9e0d896e6075e0d2015267a46e89d7198cf7b0d966",
+        "svg": "7eb5cc7aef73036702777a57c5189f88b642e751b90d128826d3d92808a86c84",
+        "pdf": "1b8964f2e464efade257bbfc7f3f00ac5c079536a18fb7fe7426434359d564cd"
+      },
+      "atelier/dark/presentation/panel": {
+        "png": "fdfd89ea3cd7306e80bd3ef0232f03abbe645bdb7460261f55a72178a71af849",
+        "svg": "2e3d02e1b2275cb7f0e7458ce790cfe8037d28ec88f2e831179015a572ac2fac",
+        "pdf": "a40e7b3c8610bd0659e41af68aaba5b5a6d827ef979009890db5eb0890082abd"
+      },
+      "nocturne/light/reading/paper": {
+        "png": "e0ab318656ec71f41c8cbfefda10d357c87405375620fb20c7cc6793ccd844c4",
+        "svg": "67a3b104fc3105eb4d217f45f4e2f0a00454f4535c7ca2da2705776346699c55",
+        "pdf": "fa4d655c6b9d0786ed2b9852fa7536a01d946b5ffb6917063c583b80f3e4530c"
+      },
+      "nocturne/light/reading/panel": {
+        "png": "2e8397ea2f07da746d11a04e02d9b3cb1274d1a57985fa1d9f8a1d760f08498e",
+        "svg": "6b582784c952ea9b69b4610020bb2e62ff93040de0e01c95ed6fd6dc70f961cf",
+        "pdf": "fb8581cb20afe29055102f824b3ffe5bc7c826967d5da65133ecaac07f6957ef"
+      },
+      "nocturne/light/presentation/paper": {
+        "png": "a82cd2ec8a2dcfcb0fac8f4b280ae38ab9dd13d21e8d56d92f9b34bd8b3f0da1",
+        "svg": "f9e740dfeb1879dfcbc72841c1cda1ed754a95e5eff325fc88e5d67ba7ba7e5c",
+        "pdf": "074d0f3039bca5ffd5cc63ab5cd7bce10376396c703335c7583a13fcfccfcbb5"
+      },
+      "nocturne/light/presentation/panel": {
+        "png": "7ba21792ca0a5be088eaba997b5c5e643bf7238263e51141110899edc71bb5ca",
+        "svg": "22ace1ffb0a41b51d5756e188fb8d885f0fc598ce25e136be5656c8e71f62e9a",
+        "pdf": "4d34881ccc8d71b16f180450c7d07aeedff9c1955a6ccba9a736bb4c56915c0b"
+      },
+      "nocturne/dark/reading/paper": {
+        "png": "0d6f626a99042875fb8ecf147ba4358d4b3718d8230e97d6e3112d25d9582ee8",
+        "svg": "1f39c33d6537d595cce5eb7b1dfbe905110155233f4528b4551bfdee177954d7",
+        "pdf": "9083974510afb7c55aa9dff5d2e7577997cfc046106c7c05de798d632c21f074"
+      },
+      "nocturne/dark/reading/panel": {
+        "png": "522312b30c0a438303031a88325b96b96cdf37f4bce101903cb9c9317f1c894f",
+        "svg": "def49f6cd2f41f1ff7fa51d85c512f351df768927dce61f7462c8c4ded5259f1",
+        "pdf": "3d5c9f17f71e67109760597662b41b97719e855dedc209d4d1472e59a9afc23f"
+      },
+      "nocturne/dark/presentation/paper": {
+        "png": "e3e45ac66aeede204714b7fc4f9d73f4a1dc99e7d6ad945edd76a1e0a59e7617",
+        "svg": "93275341b115b18fa3f3bc244257498694b1891176204c767bb2958f87f904b9",
+        "pdf": "53da5065202b4a89d0e98dae979db1ae82ce884c847e24949517bd8b6599ef1a"
+      },
+      "nocturne/dark/presentation/panel": {
+        "png": "e93550c48a591373f3cbf5764630c69d4fd28166ab91f5ca632670dd4fb31d92",
+        "svg": "e8649180ba4b87ccd729c95b56a3fed8958198abb9ab58aefa64a99573ab501f",
+        "pdf": "af7a95ae870baafff09e6c3a99a58c449a815d92c0a0589c5d16638d31837d24"
+      },
+      "tufte/light/reading/paper": {
+        "png": "cbca2ae028141af264d1567ca7b2fc54b50f195b9a86550b59de409db1fd487e",
+        "svg": "a0dd2aa728cf20d874c24befc87131ca9e85e42ae02a4ee5b59b7075c7128200",
+        "pdf": "00b3c7af6775949730e28440d29410b9c5a98d36d843efea40d9f34d226510c9"
+      },
+      "tufte/light/reading/panel": {
+        "png": "349c9abaadaffe4b7bf3bc2871b5aef7547856a837974ed8200cf9a987f5ec93",
+        "svg": "b058726567448824aa369c0a40573687aeaf8a66ce282209215d8187427ca65c",
+        "pdf": "59042602d3663c06a2c91e48eef3483990042a8ae9967d9e41923b3712d45ce2"
+      },
+      "tufte/light/presentation/paper": {
+        "png": "e1ae57564a81911c43ab688351cfdcf26e2f7b2087ae38fa0f131a296189e811",
+        "svg": "d38549eeaef739c79cbe406c833f8f3c18af6e0764b6f6f7e3c3f3f59dd41e36",
+        "pdf": "7e60ad5334f537403fdd18fa84160e2cb45d1299cb49fc07833aa25085af240f"
+      },
+      "tufte/light/presentation/panel": {
+        "png": "c7f44574d81f8ea9f25c69c7060726bfb4c1b17b0bd91e969dd7330e9c3f0e98",
+        "svg": "32856ce97d6844be5aff0a6793e034f0144fab47d7c3cdda635398034a6f6f5f",
+        "pdf": "7b03297cbce3742e907c187a411c74214423dc908bd471263d9a6ce8c651c28c"
+      },
+      "tufte/dark/reading/paper": {
+        "png": "725ff818bc2b4dab1028071801ebc708907952765a3ca3f27a7a55d0a9b9b8ca",
+        "svg": "ecd945cb26b502d0ee184bbba7454dc15474882d6dae494fe71d1f94285367d2",
+        "pdf": "8748abac6c59cfcd4baa3950208c68009274f6f19a885a8baa2105f5335d6b17"
+      },
+      "tufte/dark/reading/panel": {
+        "png": "021aa25a0fa44add4e87d0f874f2800c03749ed3a9b44578aca78568094ab149",
+        "svg": "a9857fed471964fcbf2fa14ef1cbcb4eee4642c877d75e399f4ca12e4df3ae69",
+        "pdf": "ad7f5b58444361a8fa0da48fda087873753a2dd13aac7830a8f2df3a69d46798"
+      },
+      "tufte/dark/presentation/paper": {
+        "png": "ddf2114fa48deca33a4b674c848a7fcd6f6bcabf6bfa5e0f9115c8ebcb0ff9f0",
+        "svg": "9543c6efcb1db22910c9dead80f932fd7f83a10304a13e183e7685c4706853ef",
+        "pdf": "7fd9cf485cfbaa6afd902c4e143f68ef602c790740f893fb183929c6b3950160"
+      },
+      "tufte/dark/presentation/panel": {
+        "png": "81a501487719ece0c89166cdb9e83378868f3ae2a333d4fdbc3e9da8a23b4208",
+        "svg": "cebc635e08f640cd77716fa0405dc6b0964a7456f4f5aaee00f5c7b8ebdbb645",
+        "pdf": "344231fb0dfc5c0d7e413102d71b9e599a94ddab1b4578c6de4ea56a1bbb23af"
+      },
+      "zephyr-reading/light/reading/paper": {
+        "png": "2d9b8b3a3f5d8f6e6a2daf09f38acc1e2e21300e098d145ef5d86f9bfc8940aa",
+        "svg": "88cb46cab0f18da1fcfa3f22ddb18ff6adbafb9289f6dc16b7968767afddef8c",
+        "pdf": "79c7d9fef12aeaede33ef03107740ec9e4a0c8e7e42b4a046f972a4e3b37124d"
+      },
+      "zephyr-reading/light/reading/panel": {
+        "png": "3ffd65d7be7465e6d4af45470bac9c635bd388e065dcc14c912eb7b94705a168",
+        "svg": "6b175962b0579254f9a8315d6d1ad04ef610cdf26293a4d123ade8bd97433d56",
+        "pdf": "91d7822fa125a9ab56fe6a8a31bf1f2d6ad95148cedb3cd552e2c008179723bc"
+      },
+      "zephyr-reading/light/presentation/paper": {
+        "png": "04ce344b178c5d3c4e65eea3fab5f92fef623ba1a343cd8c4ad2ff1401044329",
+        "svg": "df1c85814c8189d02855ab573c840790752b1e283b6ee5b09cd3421e66b50730",
+        "pdf": "d1a91012e398add667f53e3b79d4d1e71bc3db8c028c406310f93c30e6c8bdb5"
+      },
+      "zephyr-reading/light/presentation/panel": {
+        "png": "f0e19f3618949f282a2b673d8d3503989710e8210853ac9f4d79ee202f806271",
+        "svg": "66f9f92dcc4641227932b439cfd71babd30730ad10e9cf1d7cfbb2fecdde01aa",
+        "pdf": "a04ec78d035056243a85e53e4e9dbc93a8c9082897dbc95c4b67c1cb55fe0489"
+      },
+      "zephyr-reading/dark/reading/paper": {
+        "png": "83246f984d9a79bd56d3ad5ec2e1fd154aca2f5922ec53caabb9df72ae3eae07",
+        "svg": "d0dfb71e07871f3cfd6dcd4b44af6e7205db0f9e4d63e1cd9231ef3e769b6c21",
+        "pdf": "1cff03d793a037036ab5c062e8567e1f584b0505c2558e5632cf46a05f220153"
+      },
+      "zephyr-reading/dark/reading/panel": {
+        "png": "52a5d6517325dddba514b7b277372f635d5540aea5445eee642d4dce43980a0b",
+        "svg": "7f5a5106372b07fac4018c99b33c99f1a0eed08379fddca929cfbed44be0b264",
+        "pdf": "8762502cdecd20df27c73a9d85af6a6511cb1d45e6d94586fcc3d0d69ad51c84"
+      },
+      "zephyr-reading/dark/presentation/paper": {
+        "png": "579ad2592d175602dc8ba4caf09c14d6290bf633e8e9ff1c0bf65d5e9fad9c98",
+        "svg": "2c279aa4c2789aebd502e5103b6c53c109c0b14a99d265b214aee3ee6461f2c1",
+        "pdf": "d47012ee38b5913383d9f163cab2c458cc31d71047ad95489e1a8c36532753d1"
+      },
+      "zephyr-reading/dark/presentation/panel": {
+        "png": "01691db589cb281d63318b6bb268d0d5464b38b56c264dca35bcf649d3b5ea08",
+        "svg": "1406a71dd6ae3207ab9a707b98e4b4f1569c57d1434e07690a4abfc05447d83d",
+        "pdf": "07db095a239782349b86d1d6c79b2b1a6b128ba5025ff6ee29259c835c540283"
+      },
+      "simplex-reading/light/reading/paper": {
+        "png": "76e12bd2836f99b20b5452e223bdebcee55d4db9a5100443284357884e2a6754",
+        "svg": "6f5ebb7c0b106a20da4bec406e795091c249847b3c645794cdd81be9cf35e275",
+        "pdf": "93d303292853fc657ae4a86fa2ce774d5d84511d6e1a4918db67df2cac36f21b"
+      },
+      "simplex-reading/light/reading/panel": {
+        "png": "24e05906dc6e5cad147ec7e152392f7a9642843c2187472c7c4460bf4eeded7c",
+        "svg": "bc50f609be44262df128c18463525e0e6f0b9938d338a496b39986fa1941c61b",
+        "pdf": "d2362830855c42c29de6d16db777398dd11abf170f3b9654069f493a7b9885a1"
+      },
+      "simplex-reading/light/presentation/paper": {
+        "png": "cdadfcfff3632501036a696c0e6bd4fb48de509907497a0ec85d033b67f402b6",
+        "svg": "af2607335374f04539074ab7e1ce4b4812ac184e958efb5ea170c2e77f87a462",
+        "pdf": "fb1adf26c5fa64d4d6de5b7adca0f28be9f9953497aa177030114fa231d22b5b"
+      },
+      "simplex-reading/light/presentation/panel": {
+        "png": "348864d4d7392d47bf9ad17c40604b080346067e78aa5712fd690e37649f8791",
+        "svg": "e991c9ccf04706a5680cf7bd474f2da1de06bf45139a09bc2b5b5936727f1302",
+        "pdf": "e2402effcdcaa9b84e76d6f86a292189ba99493e8f6f270d5d5109ce7ce7ae11"
+      },
+      "simplex-reading/dark/reading/paper": {
+        "png": "7bf8f8e44fc524b8991d8fab1e327f1bd7e7354c7373ca846be9b10f42fe605a",
+        "svg": "8964d0eb1afd9a410a15543d8b767eb29c27a1d62fbb31c5a1be143647eed9ea",
+        "pdf": "3e51d8f757e7f02d29734ae213d7e7b5d938caa3b125e442093aa3934a85e279"
+      },
+      "simplex-reading/dark/reading/panel": {
+        "png": "a14629421a4e8d607f0f69301450f18b00b904788667b496cde87dd0515b88bf",
+        "svg": "30fcc5a35b510e5ad48c7e8ed5956a5a59c50ea345e93f672e59b67bd1999c97",
+        "pdf": "5cc7cdddff4f2002ff1a3904bd4501c6aae7388bd86ba2b6af48dab09be0d1f3"
+      },
+      "simplex-reading/dark/presentation/paper": {
+        "png": "7b29ed63180c147a412b1461007f703410f797c6712c8a11f28a22e2100f07a5",
+        "svg": "e5c75115ebbd40cd366e93a591d02912a8d53b2d963e32f0c5cbd30b7acf71b1",
+        "pdf": "efcd567e2cd21cb6da3744bfc282657707309293fb412b3834f52d6df8797aee"
+      },
+      "simplex-reading/dark/presentation/panel": {
+        "png": "0f4f854a524ef37393b23d0ca787de12c17c451fa91e6358682980e99bebbb65",
+        "svg": "c57684c2320f771b726f4f890dc5a9ae4205d4391754459a41214fad64020794",
+        "pdf": "7430b19cc79ec52ad1467a691374ba88aeea99c60e543bb51e6450fd17aec11b"
+      },
+      "pulse-reading/light/reading/paper": {
+        "png": "d464fe5518a7d188cbdbc138e875bb7741911ec53056662bd063ded35d5e96f8",
+        "svg": "ef7a5cd985733845077bf2555927c5ed7c03b705827370c655165cbadae5e72a",
+        "pdf": "4d121cb05f68d5934fe1abed18b600d7481fedfe9bf1874411aac1b0b8334b58"
+      },
+      "pulse-reading/light/reading/panel": {
+        "png": "d959184bee3a535813440666b16088518d46ea934ab22999e1ff8abb8c4ec41e",
+        "svg": "94a3ec9e96d3f1836c7ee5f51b0e235c2e61844b8e2c0689ff32341e9382d00a",
+        "pdf": "c937592d0754f8352a5492a40ad88b01c8e6ae712b1ca4680ae5dcc4f3201b8a"
+      },
+      "pulse-reading/light/presentation/paper": {
+        "png": "71746a2cb26645a8b2b1e21003115819cb8bc5a8b323ba7d3d161de2b810f48e",
+        "svg": "82017aa4f452edc41d80e51c06c6fea7f4f511f9b12e179dcecba9d3d829fa8a",
+        "pdf": "1f1f098a604a8cea9cff0f6f70f7821a2136c31fbfa5f7f0009f603e20558b1e"
+      },
+      "pulse-reading/light/presentation/panel": {
+        "png": "0bcb854cbfb6fa1cf00161e5748d6ff9b6fc1427ec1a73fdb3f8821642f73043",
+        "svg": "497158a4ec685bcf97ce4b89ccfb6ca68acd49ea42344d551ffbb8ad4fe351bf",
+        "pdf": "8a20ae0303f0ecf61d1c0a78c9b21539234254aa5ec2e8ea0d50ab921d2bfe5e"
+      },
+      "pulse-reading/dark/reading/paper": {
+        "png": "d8a68912a4fa581cced97a706f042e80ab045209bd9740b4a95602edac66c730",
+        "svg": "e72931997563089fbfeed5720875a93e5fc645b7e707095f0db86a7010e65c2c",
+        "pdf": "3d4c828c01e8de592cfa3699c907cf5f65d2b76e86535cce02d4c15cea787ebe"
+      },
+      "pulse-reading/dark/reading/panel": {
+        "png": "8b9f2a1e0a76d722938dc471cbc4fcf4563157aeb87ff341cc8b9ead54ab3189",
+        "svg": "590a7c0bcfe53a848f5832b96b84826cdb540c989daf8d506ef1c06a59952513",
+        "pdf": "25c575640b2a9a67bda550b403fff473305a61276a573ebf20617686ca0c413e"
+      },
+      "pulse-reading/dark/presentation/paper": {
+        "png": "a9b925c6b1d34de8cd8aca572f3f48bc34fd1a3046bb9cc52fa2a90c9a0cabc4",
+        "svg": "e3818fcf4618079932d0d75ec61749b9f651a5d752ac5f2f678cf15ba15777f9",
+        "pdf": "db474e7dc3e0a8c7349c8787e86898c0f7f61f1de9e868ba1b112bf09f4d7e5c"
+      },
+      "pulse-reading/dark/presentation/panel": {
+        "png": "83378a85df74b2e2f32e0569a32fbf30197cbbb25efaa258d3f10d6c7f5c4994",
+        "svg": "06d440594487cdbf4906de7b5ab1424598f7b6c8a8c750179b0364def862736f",
+        "pdf": "9ec19b54f67cc917b22a089c76f3b857d7b210a28df1504bf16b4462db072dfe"
+      },
+      "litera-reading/light/reading/paper": {
+        "png": "8bf8582d0b35ea3abf1ae5ccf0dd00065a612a78334684f5617d36c550d453bc",
+        "svg": "3de6bc01e164754ad361494e5ba628f6cd7fd8871de1e91fb628eb5366d4396f",
+        "pdf": "207b1eff66f80e1b8fa8ff40e6a4f2d2962358d26c5d91a013d1f572f7855c4d"
+      },
+      "litera-reading/light/reading/panel": {
+        "png": "b65eb7690e2a131ffd9a5eb3cddc6c02d9be365014147d223696a98aba978e93",
+        "svg": "13dabc22c9f58e0ba090492aaa8ab39f717381e78036b09501f22dba9003ddb9",
+        "pdf": "5e656d053115c91db7e5df01dc4c79a367d2b2ee7a2ca2d2f174c3e0145e490d"
+      },
+      "litera-reading/light/presentation/paper": {
+        "png": "be09f06cb5c42d3e0038d508f8794d83d963cdeb52a6214e4905d49431b7e75f",
+        "svg": "ed128e39172ef0a38eebeb26c34342f3a3a3d065d2a13a9812542856dfdb560a",
+        "pdf": "2f07ca273f3183fe628ed61ceeeae4ef844e5088cc082ce5adfd4a1a7496d413"
+      },
+      "litera-reading/light/presentation/panel": {
+        "png": "c0a77f53eaab725ff2aa8f97be9b082e19d8435ae8847cc7f290e301ba797865",
+        "svg": "25fa9365552e9a2825433709589eb0adbc2f91651f220b9d43ee73f5fe536504",
+        "pdf": "570da28fef5fbb7af841a4d04763de25e27580cef3bd65acf2ba90c0aba6068c"
+      },
+      "litera-reading/dark/reading/paper": {
+        "png": "bc3b0dd30783b50bbfce6f96d3fd6713ce5a362ad96c2110849c84cc90b61e83",
+        "svg": "bb9c66c95cf14bdb86a6ac1cdbb44bbd32ef6a88c3785d0151af9d952f469906",
+        "pdf": "3e599fa897be30c4465453c7301c416a4c53178e16cefdd5128f1366531fb7f0"
+      },
+      "litera-reading/dark/reading/panel": {
+        "png": "48fc2471f46efd734918eab85710141945495dd393d926b2943179b7cdce3ff9",
+        "svg": "22114e32ae493a226e3478cb840a63c630405d3f47cea2dc9a369c548e05d717",
+        "pdf": "6ff8cf209c4801b6556b0ac608e220aa3d27544763ed42ae6ecdb6c638a145d4"
+      },
+      "litera-reading/dark/presentation/paper": {
+        "png": "97f284d98d679e5cd5d253361e6fbe493697b8f23eb83bc3428df7941ac96d1b",
+        "svg": "2db822025648a890225845382773356351d1940a9cb843a2ee79a7e9dd50cbe5",
+        "pdf": "3b83bc970d554bdda08fe124185c1346fddf0d5a4c6dc0df6e11eb71057b06e2"
+      },
+      "litera-reading/dark/presentation/panel": {
+        "png": "7f959b8f3fb984b4bfdf7215b6436ace5197c64351bafa70a55a395ecfdbfd68",
+        "svg": "267cead628c395a173a1f575ac3bca28e81e25cf8f64c1197ddf4dbf62636c30",
+        "pdf": "a64ce5e3d00ac1f1838e328572ba4ca4d7a3654bce030c9abc96fa84f44ff233"
+      },
+      "darkly-reading/light/reading/paper": {
+        "png": "4f314659a4e5d91f2e103b3d62e5ecf137298590b4b2faa8510ffdde1fac12ef",
+        "svg": "37c1dd26abdddb2b7012cec59ed7856e6a0424d4f4140921f2121e34abdbbeb1",
+        "pdf": "fb9e96898e07b0b948449b53adf10d5dee248f4a23b90ba4fb01ab5486b759de"
+      },
+      "darkly-reading/light/reading/panel": {
+        "png": "660ae85af478b8879e891499448ef198a6deb1625bc418668bef6013de215fb1",
+        "svg": "d2966cab7cde4d770dce01451d873bd626606aa0f38daa8539cce9be8ec5bbba",
+        "pdf": "e3c868136a20d163e414f3f430dff8cef9df71844784d68911fb91fbdee64609"
+      },
+      "darkly-reading/light/presentation/paper": {
+        "png": "bc8ef5528ce6f5493fc44535f739c31b9c0889a1a61f2caf68b099f9e6331695",
+        "svg": "4a98724c175aaf08f03710cc072b080ca72edf636496d2240158a0e0dc063235",
+        "pdf": "1be6d80b37dc3a7bc04ae53569d5ac5c2433a55674955dd016761da97181322e"
+      },
+      "darkly-reading/light/presentation/panel": {
+        "png": "336566db1b337870ed22024f12e7dc7a6c1f12005bcc80bd8629286fed4c16bd",
+        "svg": "69dd266339e76076fb7320b0af295289a5f2873597b88792973e7504fb68832e",
+        "pdf": "d155b0689a359d8b8789b7c5a28e720db9e8b4ed2356482d18ff26db9e8ad540"
+      },
+      "darkly-reading/dark/reading/paper": {
+        "png": "02eafafeb8becfc605f1ff465c377b67a4ea9c632c855800574b6dd9b7a789f9",
+        "svg": "185138c9c899db7298322bbd394960f96063bc8d9c548b20e12903f248d2094a",
+        "pdf": "34e10b4df83867cac550554909bbb492638f23841a74bb2a50ab113dfed316d5"
+      },
+      "darkly-reading/dark/reading/panel": {
+        "png": "3241c30d9b8075b7e18678f81c1f8e8e03a29dae20ae8d4103bd59dd4db9c164",
+        "svg": "a97f1bc08909e01a85c1c45dd099b9e52e9842211935247d83b6159a8a217928",
+        "pdf": "ced94290d578ad59ce588aa0921e400b52fbaae79e8f3a13e12dfccca9e22ed5"
+      },
+      "darkly-reading/dark/presentation/paper": {
+        "png": "7ccb5424aee80193f11228e85c7291bd4bd6e5c5d05d531b1067968322893c66",
+        "svg": "35541f572856eae66319ce28b3c1132bb4c2b38d1082281b706ba08a50158418",
+        "pdf": "47c4b41bc9489a744c4b4e86a368003fde5d36ba62c3886035e4adda24982be9"
+      },
+      "darkly-reading/dark/presentation/panel": {
+        "png": "4480965b18f0b83b60a988f4edc322800c3c8d9d95565c8c3bfab425681508e6",
+        "svg": "5e75d7d4790aa3a6e5019756399116644cc5d6b1e026a61a7fb7927dc1805f75",
+        "pdf": "7115bc5a3d716a171ba26ec51d5c42f3326f84126606ddc37b612aba3af776e8"
+      }
+    },
+    "r-ggplot": {
+      "folio/light/reading/paper": {
+        "png": "fb05ac7296270ed5843dbe7cf9f3f2275c0034e090fb3a494e5f273a55397d80",
+        "svg": "a4ffa09fef2222864945ca1c60e1b0fc59932e73d4a6f09c725b4ec391e5be22",
+        "pdf": "49b12f1aca6cd7501300c8f67bc7e5a65907959f728654845258f36b0ecc6185"
+      },
+      "folio/light/reading/panel": {
+        "png": "0ef6d63b54d5b5846b410fcc157953cc7d5e22f90b053e47d4990a9f38b35f7e",
+        "svg": "9d1bc299f386fdaf9b3fac2c9f0e0d1fa53a4fb5863fe50e3a0f1f6711ad60a4",
+        "pdf": "9face24d6ef372a4d772f396b3bdfbf1dcfa6119a2ec9005297844647193e09a"
+      },
+      "folio/light/presentation/paper": {
+        "png": "8cace9303158e5a9189adab9bc16aa008f618ef71bcf1352568eb8195239ed8b",
+        "svg": "621a1e854f71218de18e77453738d65122b95c42906cd907289ba926e53341e2",
+        "pdf": "337ef232e40e67ae64c49a78b06a5325d3418f2b8e5cf944e3621bb071aac4e5"
+      },
+      "folio/light/presentation/panel": {
+        "png": "1ca3b2f0e2130cd11d9de6a8794436be8414fa10e125b7b74c3a210f32bddf76",
+        "svg": "86cd2cdc2dbf3cc0a10aeb3e6a544ce40dbb0f0c0ac06af95d8b9f7293149c12",
+        "pdf": "03ed6c46ecbea241f7366afdcf03a0cc98575463fd02ef09c3ca7641eb79165a"
+      },
+      "folio/dark/reading/paper": {
+        "png": "9031a788a646f243a303dd452f14312c243f785e27de8e230d489380359266b2",
+        "svg": "fcefe24934e97ed1c7422aba520d7ef7ca66b74687861372e54e2ffbd0364079",
+        "pdf": "55b5e06ac29ec2a3910d509b2e23d7ffddf22977f573a7cd80ef32c76debcf7d"
+      },
+      "folio/dark/reading/panel": {
+        "png": "21cd62c47abbc1f9c80c4f31c931a7d90682f48d6af3e526e4cb5c7729faa510",
+        "svg": "71a68f6a71440b6e52a69c230f8b4e45c5f1498ff4a38e054bccc6684668da7b",
+        "pdf": "a8eb492d8daef0502ffe7377c5f6167fe65a97263783acea535d0babec75cb44"
+      },
+      "folio/dark/presentation/paper": {
+        "png": "2c1a3b8f98dfab89fcdfdb4d85b42e776ec4d6819d2e55d9749ba5c37b011a88",
+        "svg": "3b08e85461deb78ff4633ee16c4c84f079a63edd4fa4e4874fb2df64b259c4a5",
+        "pdf": "034a985a5230f30a829cc5643d397e35fc43a58eae67f65a2b4e14c0747bd2d4"
+      },
+      "folio/dark/presentation/panel": {
+        "png": "13ecfd242f7fc94ee185dc8577efc1dea9d16d8aa205e9cbb09e1d085e2f2184",
+        "svg": "cb8fd999855578908119f4e419afa33971acf6dc19de6ec97e63448182e66747",
+        "pdf": "aeb51bb0ec3213feabc5be9bac64aecb8a48fa885b6f961db4646ebe85b53648"
+      },
+      "atelier/light/reading/paper": {
+        "png": "c33b5a06644a8f10dab689c52a37aa6ee9a50b44cb42308ace8a3a97b57e95f7",
+        "svg": "75418e42df7a313ab5dac06e59fd8e000b8d96c58759dfbb95c1bcb7e9654c68",
+        "pdf": "66644685d2b6c2f349c488cb9590152a4a5cefb6425aad23e4b06a25adc73d5b"
+      },
+      "atelier/light/reading/panel": {
+        "png": "1b9d83ded86c93a8d7479999a6a1b38b3b0eb1a7ff0a5f72e70d7706281f8c23",
+        "svg": "3338150f9a76d96baf5b2448085cdfd8f55b753d43269428ab94bb8827d371e2",
+        "pdf": "20f47676d684cb6ac75affd2e82151b5be9dcf93c069534d038d4c0dd4eb4ccf"
+      },
+      "atelier/light/presentation/paper": {
+        "png": "720df8e408fd0a6511e1e18051528f63ee85dc506d42e30fae1363a6f6f59748",
+        "svg": "e86da36a52a6dbb1b5ae90e8e25a2e27f871973abd3d2743123e1430b39f560b",
+        "pdf": "af228eb871be3ebf1bd1da2dc14e9db268027d25a21b58b4865bcf6fab4967d2"
+      },
+      "atelier/light/presentation/panel": {
+        "png": "033642828f06d9d585d5cb2e2b7e10b22cad1d5125b8aac6dfbceb13facc6e3d",
+        "svg": "77e0566c50813151c31149d6fcd594d2c4f68744ff2e97004e97a16680dacb0b",
+        "pdf": "65f41b6032ff60fa7cd037395f70b4fa067835e4fa651e4bdd9042e0638bfdef"
+      },
+      "atelier/dark/reading/paper": {
+        "png": "7b435456a2247e73c25b7a7d4aaa69e39748f2a2b268834ebb23058f7532ba89",
+        "svg": "d19ae34d73b2246a119efc3c02a07c1e5f208f90ffaa648e7741e73f613bb3bc",
+        "pdf": "9194ae5b4c9aac10336c7aa92e5078b6557e1c1b84a2272e49bc2c728fbfe6a8"
+      },
+      "atelier/dark/reading/panel": {
+        "png": "7256d6d4920402b6767c8c8225eb62495ace916b8cd93c88dbdcfc398d64f21c",
+        "svg": "37acba5573f846264497b0165ed63e52fcbc0565ed2059bc183732bbb65a36e2",
+        "pdf": "d34ce9d72d9efc1c5c04bed0666f7c87add28514c401fe6b7d426ebb7224dd75"
+      },
+      "atelier/dark/presentation/paper": {
+        "png": "dfe0ad6a84f71e4ecc0bf98b8443ef01a4a184f9faf4359d3cdf051f1408fd87",
+        "svg": "dfcee19d6dcf3a8d5ea24fb9fb77c31d91a4c14276bc85667c5e312ff81f528e",
+        "pdf": "ebfb2ac5b5f7f0f4f6ecf329a46549b79c7387d094b337ef31ccfea99c019f26"
+      },
+      "atelier/dark/presentation/panel": {
+        "png": "39a65bf030255726853b145a626693f56a8d27b151def3ce53fe64f5f44923ed",
+        "svg": "e990b59e8b58af0fa5fb807bd099db1fc3489a01b8956ee26ea9835e31f94b67",
+        "pdf": "942710ebad8c78d73b255d2d66a05fad2b9ff3f4b5d74018a3a47bba05d8a94a"
+      },
+      "nocturne/light/reading/paper": {
+        "png": "f5b40f9dbf7a4d287e27aed85f8779955b1f20fef2b45c64578ad2979bf7acdd",
+        "svg": "703ecc59af57e4bc1f36dab230e78bd1020c791994b4299082c092b9ef5d142d",
+        "pdf": "b78b7611d8ef734e447763e7bb013f847d2dcafe362ce967bf433860cf61f550"
+      },
+      "nocturne/light/reading/panel": {
+        "png": "33deec990cf71f96cc7ebe18f9e7daa228bbb0b238db198aeb5fde8e04a7444e",
+        "svg": "e6c3a28bbfa7247e0d1d7ffe6f599bacd939a923d2fc52b5cc465b9432c2f9b3",
+        "pdf": "dee78ee05120c1fd9a3598450c75940dcfa3b1f948caa4db7e51fca73cb62ad2"
+      },
+      "nocturne/light/presentation/paper": {
+        "png": "70e5de031a37483d6e95d1f76a54fec2534a00a59a118f2f078775ead00ba541",
+        "svg": "d56cf443d7b063d36851ba99623469cbe22c3b10e35cc27ff77767caf0b9e6d1",
+        "pdf": "3b9712d9fb9efaa78979659305e474ca6acae988b24ceba999af14bc60e52d25"
+      },
+      "nocturne/light/presentation/panel": {
+        "png": "262109068fd71024e771003f19b1b9fa9815bfac61dd5a97fd7837c2e4fb8cd4",
+        "svg": "fff1192e32ca4cb6ec4fb228398cd47b5102f62aa3d6bbd3dcf83f0f3f1f412c",
+        "pdf": "871cd5872ea9ec21e89716230b1c7fea5077275e48a906483e903dead86a93f0"
+      },
+      "nocturne/dark/reading/paper": {
+        "png": "e7d1e35fadb284c94d1890984cc46a8f5188c1122224126cac2c99c70a5070e6",
+        "svg": "e3603336dd162a7d0a8b490534a8a28a8db915a45e42ec3e6572a33727c29dc0",
+        "pdf": "9e8221edc4505bd44531c40fe3230832c26b6a541620967c5750b189ad177d76"
+      },
+      "nocturne/dark/reading/panel": {
+        "png": "a19ecf4c00dd769149726b51b0aeaaf53994aa7def6d469ae1d407df1948ac5a",
+        "svg": "9c7355f8941ac11205d474cd1b8d2d31604080366ff5e639561fe26d3a8d8171",
+        "pdf": "da36f322e1f2a2b8ee9d258be855565251a621993c2d99ac898f29df6f5813db"
+      },
+      "nocturne/dark/presentation/paper": {
+        "png": "6a2435dfb0dc9d26b08add49c5fcfa9c458a810c1ea975658c85ee6c4714a1fc",
+        "svg": "d3e26fb51d70df208072ed614f2209fd40bdd253b47fb464b22c5f3905ecb770",
+        "pdf": "372a06245e339aebf5dbcde397cc638d03f18e39234d67e4925f3ee9b7ef8a61"
+      },
+      "nocturne/dark/presentation/panel": {
+        "png": "a2eaec244e8e6c5a0b498a580677c75f3ef5743f7815cdac3b44946b0eae008d",
+        "svg": "ef0c7f8f1b323e4726a8d3c00e966dafb53485096588e0298b18ab01c8372ba7",
+        "pdf": "6ab8ac2691683fc76a5a54179b19bf4c6ea43b7e2b39975f71dc0f52fbc4684e"
+      },
+      "tufte/light/reading/paper": {
+        "png": "977eebb8901773a8dfe1b30232cb1e54f443a5ba30ba0e72e0eafc30a95aabb3",
+        "svg": "9295b9126bab63facf35054a7dce416c6c9ab896eff107a1fef115118b337639",
+        "pdf": "988759ae02c84db6c7bb9e137b6893454ca4bcb3f0df6744d2a35f1a86281f2d"
+      },
+      "tufte/light/reading/panel": {
+        "png": "c840584b4e8e757c3a4f990186fa5bbb635b6f15e457a81908ff83f767138530",
+        "svg": "4ccd90b2b892045ae163c0e15e899af11ccf806a901a249efa29534b54b822a3",
+        "pdf": "3fbefc8c05a39c75ce0a3bc9166d60d6656b507da605204649d3127644578a0d"
+      },
+      "tufte/light/presentation/paper": {
+        "png": "7db37b70e14f1ba70e258748e5a07d9bccd10a142e9acf1cb39f0b8780d5d0d9",
+        "svg": "f47cadf72d21c2d39c89acf268bcf8418830028760e550cdef74a9f1ec0832a4",
+        "pdf": "15113c88e7d6f1af6c481227a190d7a8723fdf5c6ae32a7bceb85dcaf14c802c"
+      },
+      "tufte/light/presentation/panel": {
+        "png": "6b691d18a7990502710fc18c189687c988fa23ad84192a30a2883ff2983249bc",
+        "svg": "818f9793a394a3211f15f40d1a98f90930d99554bed7b8a0e0b2f1055cdd7f96",
+        "pdf": "b58ec977911ab3a33dfbeceb3ccd8a043f23117fdad0a9b2f65f068f5691b8ac"
+      },
+      "tufte/dark/reading/paper": {
+        "png": "0c99ac7ea06fb8d0fe85afba781882cf2b9f9cdc4c41e7d6632d3f4cb5112dba",
+        "svg": "aec8a3132850c4e66133ae846d1cf8d70e84bf12bff7111d4e21d6eea4adbf5b",
+        "pdf": "7b4588a2e35b48689387acff3be74c40e3910360552c6af6d3be6d65f6441528"
+      },
+      "tufte/dark/reading/panel": {
+        "png": "7178872db1d2cc2b90ba2d8c43521555fbce32c19c136ef90d40da0d1be4d8b7",
+        "svg": "a0a93b89937709bb31aeff0ed397f8994ae78fad0c5ddecac4b4edc1f64b8745",
+        "pdf": "ec3819663703d869ad6de6e18a3f32abf02807694eb424f8122cb5ca84b821b1"
+      },
+      "tufte/dark/presentation/paper": {
+        "png": "f1fc01c5ff8dd66e143fba2856a400a5693ea17c0c13b9f51ead378851b46a38",
+        "svg": "fa88463c668a436e00ac4bf2a4aa38fc69a501a0a200ddc736b0f60f64fc938d",
+        "pdf": "bed8c9df6dbff3fddf84b03441cb6bc2c1914678caec5923f7490cdedae07b96"
+      },
+      "tufte/dark/presentation/panel": {
+        "png": "2fc409659413dd1002a84360e4400ca46df03e41cfb68d2a90a83ca90eff9499",
+        "svg": "f5a0f70bf9c0d1f6dd02021f61071c68e3d10bd9f3b92d703b353460dd99a83c",
+        "pdf": "6989cf9e3583438453c83db87a2e4716a5b86bc05f0f1e56c846a02ca5d6217b"
+      },
+      "zephyr-reading/light/reading/paper": {
+        "png": "516d403c02aa24abe3fc702433d90a7658328974dcbefd809ac9a5b6f45a08c8",
+        "svg": "281b25bce86a45425d6cc3a941e69c5a7f68bf5bf1c7921d4412aff052bcd76e",
+        "pdf": "9d1bc52567d084fbdefb31eda6a94eaf2ad54a1afde4d45cab3928ff8f197195"
+      },
+      "zephyr-reading/light/reading/panel": {
+        "png": "21ed5b89200a848444740f4a17e646e157d4eac922d7a76146722b532b326ffa",
+        "svg": "9628784dc5fac1b9c23e22c819d78f619b7653365b216cd8b873a4465d3d75b6",
+        "pdf": "1a2084de219cd0c9be78f9911bf565f3847660ea3d51b86d16c5dab2a8f76889"
+      },
+      "zephyr-reading/light/presentation/paper": {
+        "png": "383acb5673e7ecf2186c125251a8567df7ad19b31a4eeb5e667ebd49d512e872",
+        "svg": "f1ca5ebb281b2704ca2a2fe17924142d21329afd90d297075e25f844e079da83",
+        "pdf": "6c9f0ba18ae4c8e93aa7a1b6163afb90c0430d142b5d2bf07a489ada7cc1ce8e"
+      },
+      "zephyr-reading/light/presentation/panel": {
+        "png": "ab1b3641e9985823db5a1e87b4d5d61ee3423f640df5ebe086353648341e5f59",
+        "svg": "93007e8f1bb0f74ece014b51778de48e9a0064cb6a004e40f168713bf1fa4fe8",
+        "pdf": "aee08860169bf74ae368d850decd64e81a9eeb6f81ca3d31a236db134b68918d"
+      },
+      "zephyr-reading/dark/reading/paper": {
+        "png": "437280e1fa11e98d814b7588119f148a9369c301bcc1d3697df95a0c58f9b711",
+        "svg": "de7ac43a708312545e5bb26718b349b71a654a7940387870154fedce71a5d98c",
+        "pdf": "fe97db64d92b87651107a70297572477676d9e46b1c701b71db2a75553aa71e3"
+      },
+      "zephyr-reading/dark/reading/panel": {
+        "png": "a90e45a6e18679719fecc4fc45bc7ee2afc5db8c3ad4f3e0cf5c3583c6af11b6",
+        "svg": "507f2fb730ff98a1f0315424e6b2410645635c16e12ec9abebf1381d62414156",
+        "pdf": "1b64eb378d8852556db99f180c0a03c76059f70fafeff3b6099e37f22a89f95b"
+      },
+      "zephyr-reading/dark/presentation/paper": {
+        "png": "532041f1d1d3f7321e70dd61265866928d02ff27b48e94d2bb6384dc077eb1fc",
+        "svg": "7d8413dc625c729941d6ab01c41193e01b30496fd53911a98a4ee8e5484e08a4",
+        "pdf": "9c6adbeec353c1c84e414e4a54c9d9353cbf28b860262f03ba023d02020aa3d1"
+      },
+      "zephyr-reading/dark/presentation/panel": {
+        "png": "8f34cfceabf2adabd293d73e14be1bccb2532e0f2560b435b4c8a734849e810c",
+        "svg": "b1f797fcf573a00c5808b8d1af424ad4eb93f549607d2d61823729e5a7a0557c",
+        "pdf": "14ee4c67e91e03672f604eefaa13354c6ba8bceb25772ca9266d9738014ecd31"
+      },
+      "simplex-reading/light/reading/paper": {
+        "png": "e0d21139d8917820a40acab1ec6afb8a53305216536df20555e106904cc5ec46",
+        "svg": "040680b3d6e2c2ab461fafe269d5049d754171ca59d607b5d9bc13f36c65a252",
+        "pdf": "95d4a0f30f57085b872f9033e31a992709028c33417ee8b14bbe294b9700295e"
+      },
+      "simplex-reading/light/reading/panel": {
+        "png": "9b878c678bda47204668da8a5f7644a30ebf624f5a8c76b4c50802a6057a49bf",
+        "svg": "473ca5e07f4ec0135cb65b9cd18ad43748fbed95bc899f297280783313716760",
+        "pdf": "51e208eacd4353fc9d95bbaf7e9b13fa511e26c86a3956e3a4dc7f131beaab9e"
+      },
+      "simplex-reading/light/presentation/paper": {
+        "png": "42a0259857198d7e6ffe0a0a87b8af6fd2e7d79ff74cd99dfa8e29ba5470d55c",
+        "svg": "33886f3f6f91fd030bae1c05caf2ed776b9a9d0fae2003b95c8df12379b80b3c",
+        "pdf": "8776d5bb7e4f4605e75e26e6a6e7005a3069d784cb7b5af78a55ea75fb17957f"
+      },
+      "simplex-reading/light/presentation/panel": {
+        "png": "fd862ebd7aedc03fc847c91d2827588ba050b694fe5e6d7cee3d6158d4cd9a00",
+        "svg": "64aed5ea9f56ac8ee100f0cf7ce47b4b67cae16eb23c7e5f3b836e92bd638b1a",
+        "pdf": "9dc61b048b5f6132a65206d35bfaad985c11d994cc4528dd86442017e6fe4ca2"
+      },
+      "simplex-reading/dark/reading/paper": {
+        "png": "67baf38b0654ebabd35268131170397cf0613635bca378461e059ffb02c7b1ba",
+        "svg": "1af4adc9e7569d455e7ea37043911b2f86aefe2fbcb0ee97ef38c3e004eb3568",
+        "pdf": "ed80f0eacb3693d778e400b9c4dd9e616bc663b042a5b9547b23b7b2423734ee"
+      },
+      "simplex-reading/dark/reading/panel": {
+        "png": "65b9120849e0eafb734be0bfa9e0313b192769f017c63db24186323f2306ab93",
+        "svg": "54118d1232267640448b7e1ed5ecd1fc11549161e082506faedcc826c3b24ba8",
+        "pdf": "bb440248b9da7af5c1d299ebeb17479cb3594914e36dfd7e272c67de047d5313"
+      },
+      "simplex-reading/dark/presentation/paper": {
+        "png": "1a1bf2a1a4fd390984d6085bce12719da1ab6cb7fc654f814f24f8a7dc9852b0",
+        "svg": "19cb10e70a6b8768a1d168a57a6539a662799d707f1084959a6be460ff79c239",
+        "pdf": "891d814aab14992697e2246a58fd2037ba835d53df9a397971a689d5dc6d033d"
+      },
+      "simplex-reading/dark/presentation/panel": {
+        "png": "81a15341b4e285f3c5fb29954e636659be302ba41e53523dd61d359e7845b380",
+        "svg": "74c0b04d158d5aff349a2ec44f91534cc5ce7ce0fd35ec9be75d4562ee4fba33",
+        "pdf": "d07111e9c470ea915eaf7470c96c76ef416ca2e302dbd60c1e0d2bd8f88bfeb6"
+      },
+      "pulse-reading/light/reading/paper": {
+        "png": "ebcd21a8c66fecdaf35e2b1e5d7d3c50bdae99e2f93488eb0ee0a600266f7ff1",
+        "svg": "f64f5ed5036907e7619301bbcab1d8a8ca907bdc00e209d2e89d5fd6046e3dd3",
+        "pdf": "16634a07094e55a23115a8981a98557975ea4fdfff953a91634a966701a672c0"
+      },
+      "pulse-reading/light/reading/panel": {
+        "png": "c05437b26b248ec8b7d7b319d126494aea0b9bd7add163ba01207afcf089a266",
+        "svg": "8e6c70b30ade8c753088fce5b61b28b4e124f825b7172747be6938be47f0e9ac",
+        "pdf": "0ec72b449aaf4f55d9bcda7183b0e8fc2c855478739499ce6c17a66e4df535a3"
+      },
+      "pulse-reading/light/presentation/paper": {
+        "png": "b92fc9555d7bf13b89d19fae958cece315fb1645ac3ff45143bbe137dc619dbe",
+        "svg": "1598a71a5971516b7bfa65af225604859f3519a6df8347ddd0aa961028dc7146",
+        "pdf": "afe60a708413e20290c2af01da5d797c39ffdb02718d9d7c4221fd0b617a8052"
+      },
+      "pulse-reading/light/presentation/panel": {
+        "png": "3f9f560411f56b0471445112f406142d0ed51bf64417b6395f0e98d92f1b6d95",
+        "svg": "51eba8c19b9ecec2ddb07d9d961389891f7e27cc8931e1bed5c81a49b8e808c2",
+        "pdf": "c3170dbe858f15287d80c63e956174977bdcc1fbf9f7ab4854e33a72f197e677"
+      },
+      "pulse-reading/dark/reading/paper": {
+        "png": "2f5d983ac8306f8f0173ecb843502b44cd05fe5ce20a267f06777c27f7fa43c2",
+        "svg": "edb85e660644388179b63e98ef4c2b4e91d290e527011c9aef69c2b7e2cd8a28",
+        "pdf": "0eee7616affcca8756e147dbf2933af41c942dbc8ac9c37c7c45254befa0e822"
+      },
+      "pulse-reading/dark/reading/panel": {
+        "png": "5d1c383668f8846f99362d24b41cfd7abe77164fd7a91314f35f8c4ca19be4b5",
+        "svg": "8928abeec79a661285da8b56e138937c3eca6a0771f53c5262199447ad282fb3",
+        "pdf": "0ab4e586b6e32a0f51f099a81cd10337e8737e230d6476feca95d60e4cbc31eb"
+      },
+      "pulse-reading/dark/presentation/paper": {
+        "png": "856034e9f43f70120491613aedcf9fdf3c41b5f0147f143e149ad45599d669cb",
+        "svg": "49e919ad30b847dd2a59d4a414b15690a9b94195a53c913615f3fee8232dbd55",
+        "pdf": "fdaa5c73574c1449bee0e7fc3396861b9812d38b3a778f5f096c2a3dc8449c07"
+      },
+      "pulse-reading/dark/presentation/panel": {
+        "png": "f81fd8f2ee4ec61eca896f1eb13185a036922c9bbf9ff5f61a344730a2eaac95",
+        "svg": "5bd0a43d8ed33a6d6894bda9722289d6f243a1be3ca8f47795a00878208cbd03",
+        "pdf": "c554bc55650e1a4d6d74996203254d8a268cff17437c75ce694c0d2718342549"
+      },
+      "litera-reading/light/reading/paper": {
+        "png": "21960b5373f18b15d32d569af27236e52301b835b484110547745247f394ea4e",
+        "svg": "dee6f3e477854781f4060d8f9f591dc2199dd21b2f072ecc0eb2c399e9395720",
+        "pdf": "95ce07622b447e20f3ed7160bf6831b1ee87cdea040c21ea46ec2901009fbb5c"
+      },
+      "litera-reading/light/reading/panel": {
+        "png": "304e94df73fdcb89cdd50fa8372649f9188a2a71567b9704f866207318b50f96",
+        "svg": "bc1f5b2dfb737290f29651d276d7f2c52624b6ba5779a5689d40df990dd8fe3d",
+        "pdf": "7182010bfc6c4cad8080736a3d21c7ca9e942f7f3b0bfa4223750f37e6d8435c"
+      },
+      "litera-reading/light/presentation/paper": {
+        "png": "97441c622604be199d616970a35974e003669607d07ddeb299fabeb77869f69d",
+        "svg": "79169194fa2bbd870b9d4788e5ac49ca329af6dee8a1dfc39e04a84f17449ad4",
+        "pdf": "2def369a08fffa6a2f4b0e0638d14012ac274f4635fc25d9206079df9f7265d5"
+      },
+      "litera-reading/light/presentation/panel": {
+        "png": "bb14c9c2527bc911d27bdb9f873610f5560909b5df10ca67fd2c3f4a18230de5",
+        "svg": "05ee758943a235402240368cfcc78786d9c7fe14707909418c2a8e2d9d550dc7",
+        "pdf": "62e8b164017a55ade92fec1b3c0ac9d59ac81f2af47f88524386354b3499a5c1"
+      },
+      "litera-reading/dark/reading/paper": {
+        "png": "3f8e90bd75d4096062ea0554c51529ff852293b2712c6f9ae07c682642bbba95",
+        "svg": "e5131f0c6ed0d352e58640ed0db9e21100693d0d729c69085c3735fe00969cf0",
+        "pdf": "b2afe542bdf92e9e167529a8ace3dff38865fabadd4066f0a264b653b441aedc"
+      },
+      "litera-reading/dark/reading/panel": {
+        "png": "ce4f259356af4e77a8aa790a99894a7e5ebe6c56e6456b5fecce00713d8b7af2",
+        "svg": "8abdddc37f22c9962084fcf18e2fabd2256794247aa93cb51ef12876ea9471c4",
+        "pdf": "6a6138b3931f8945d680b474f5d40b3a5ba79dd0b7ce390d3aef252cee1f4e28"
+      },
+      "litera-reading/dark/presentation/paper": {
+        "png": "97465ac7dc2bac638c61609c9e6bca95fc8b671b5ac7824d7f2e247fdedc982f",
+        "svg": "8823eb0daca3ef94c300eda111477d900dd9240e70646c025c6696b41fccc156",
+        "pdf": "37ecf8c266dba5b15cc314ee219eaf11d5a1dbeb05ff08826a3f1b1b88fffa29"
+      },
+      "litera-reading/dark/presentation/panel": {
+        "png": "865f7d79f8b0fd8206b8cba457879083e367ae861962ef9fd6e6041049741d35",
+        "svg": "d3c4195e3c8fc2b7b9f39151493c0c183b66a7412ab5964ff09c9ca3de9826d0",
+        "pdf": "8b702b103d78cd7abfdd988e6a95747066a36d8c4777e4f3155a22935ea983bb"
+      },
+      "darkly-reading/light/reading/paper": {
+        "png": "a67cf1e3f18a9af5c793b06c0ecde0e016eb5a91e146ac82683706a3c5502bf1",
+        "svg": "5340e5eb568d93e3a5460cebe2c125f77bec44fefe7653034de051621afdbb93",
+        "pdf": "039a1c40db0c43bc79dddefc31b820f6385af82714427bda4c9833e4973e6759"
+      },
+      "darkly-reading/light/reading/panel": {
+        "png": "7aa4d773fce70cc64410853dd02d284a38122182a8f93bae4af7583c1889cf2c",
+        "svg": "bd980a6fbd7cbafcf5442ad64169e5d4ff661addf0e8b653189ec9dc0d2e25af",
+        "pdf": "4ade7a0c1780ccfa83d583498e630cc274811a01f57a28e23288ddfbf9e373fe"
+      },
+      "darkly-reading/light/presentation/paper": {
+        "png": "4996a5d21d86df4887ac6640ca3f97c193e79e023dfbc8e3e24118fe88b4e37d",
+        "svg": "139800bf8227ac50c5e46fc7b0dda3f7aa4014480787414191d84a8c10df5fed",
+        "pdf": "bf92d846d41d4bbe149df9480d523a92e192e8f8341e9b0bd30b9155d6ecc8ef"
+      },
+      "darkly-reading/light/presentation/panel": {
+        "png": "654fcb68eaa1a1d78de9992b16e4488726c80ca5c0b4117d19c8298016c2dcd6",
+        "svg": "fc0d8a80a7099e33cd7d90670e5d047fde0cfa081cfbbe7eaf476101b34c0cb5",
+        "pdf": "0b9684e5701ed5e834eaba46f3b789e7e62920718148dfd506e9494861907fe3"
+      },
+      "darkly-reading/dark/reading/paper": {
+        "png": "5a6578972ba48a4f508d4acb8e912c57b260c8b792f692ab672a6249cddfdcbe",
+        "svg": "02bd61c3fcea1febef5b55493d547c3063cf19b46721b745e464b616aec3f005",
+        "pdf": "b501d52921339b42310eed79d2d8b822e0a434994e9ea4abebfa5a4aeb05775f"
+      },
+      "darkly-reading/dark/reading/panel": {
+        "png": "89ae2eebc3e6ac918b5974ffdec369a809f1c7da24c66c79631f13f2c78f1135",
+        "svg": "455113d6625861cecc9966f3dca0836c5df24e2672ff5d2762877e3ef3a7a5f7",
+        "pdf": "a7aaaf1756b014d2eac046df3ce117a47a60afee9cb0c5906cb1c68d3363a0cf"
+      },
+      "darkly-reading/dark/presentation/paper": {
+        "png": "13215a38942bc590a219b5961d2677918d573dab70a4cc91af2494ce53878397",
+        "svg": "5d6d66b79069ebbd2130038ce8cc3aad21c1426e45e1a8d9c1ec82a9dc9e55b6",
+        "pdf": "b05c4a9686a54bbc018623942a3b52ac6144337808c4506b5b13540dc56e8ab9"
+      },
+      "darkly-reading/dark/presentation/panel": {
+        "png": "700ee5b8cb70281e16d2e099c94830ed1a8cc46d155e65347aee136a2a4da993",
+        "svg": "f89b92ed18a870840f3553f6de16acd688028ab21ba59f7c05e4ea0cd0bbb11a",
+        "pdf": "a394321ab76072b793ca0b9e9577692015018c94cf4e5bdbdacc31e7cdcfc77e"
+      }
+    },
+    "r-base": {
+      "folio/light/reading/paper": {
+        "png": "5156caeadbf30358e9b7279b9f94a468b7d9baf5d5be3840af61c02aa908ce67",
+        "svg": "b5e489556e67438a611c6b585818bd564a134b6e6fc6a8affb3fbbfc2f29629d",
+        "pdf": "68bec7806f6f8018be254e812893f436cbd9f80a8b0bf86d4e5370215316af0f"
+      },
+      "folio/light/reading/panel": {
+        "png": "2a1954fb621840fd01d8db0c6f0348e28bada544a5e920b2ee8e82e90b0ccee2",
+        "svg": "7b57e76ca236169ae36ffe1cc041fc5c6465543ee08b1b41d48076c69167cdec",
+        "pdf": "3dacb8a68459ce58e3905e6e0533549a70cd263b09bd0c86a11ca181b0ae55b4"
+      },
+      "folio/light/presentation/paper": {
+        "png": "157d006c9e985aa24b75a2344f4fd9d03d3bf057fbab8042c0012c973a0e2843",
+        "svg": "af8f453cdda7db1305b8e4d021629140624d352f1c4e1c55230ec1b58de07758",
+        "pdf": "27f239b2fd4c99e91acd2cd09458ec9b9294639890ee3408892d2166bfacd65e"
+      },
+      "folio/light/presentation/panel": {
+        "png": "f0af5cf986ea20f88957e66a6f500ef16a054aad4f647002612425a292ab7307",
+        "svg": "109068fd52df5402feda3d555483c948889a11ab8178c901d9442adc4c2289ec",
+        "pdf": "808f1b61400213beae87524af7c0b161d70e181812b7bf83c65373eef62c933a"
+      },
+      "folio/dark/reading/paper": {
+        "png": "23ae362571afac89a590be763b02f52893dcd8bcaefaa5746d8e796f5178d27e",
+        "svg": "898d84512b26c70d9a2d093da152de2ab67ed71ba52a78dd927b1ee1934aa638",
+        "pdf": "52d5998db0adcbdca60c4e090ff2c92144b91927c63d5539c9fe7a9110e3d252"
+      },
+      "folio/dark/reading/panel": {
+        "png": "5815274f61c048b46d8115d1056843383ba13848f02172d7f62a8ebf17223ea8",
+        "svg": "49ff16cb48b1121610f03e53339141939b26d63bc6b5e1fbc5bc9896f1fadbaf",
+        "pdf": "84c0d9c749d01749980374f0f1e1b97e1eecc29ea52d74c5302fc985ab17db49"
+      },
+      "folio/dark/presentation/paper": {
+        "png": "e58a82c607a808a5c492bbcb05324964040ac3f894530da38815e835f0ef46ff",
+        "svg": "9d68e2666580400408a273cb59555f0a8cec57544345b8c9a3a7b39f466cdd3b",
+        "pdf": "0bbdebcdbaceb91ebb944ff17aa6514215efbe2de557e4eca29ae9d58bde39c1"
+      },
+      "folio/dark/presentation/panel": {
+        "png": "43521fb718db9be752255f555f1beaf5fb094474822cf2b6951711f7674e03d6",
+        "svg": "25abff7f559cfce635f38d7b4bad54a69964ead1c33dd193b50ff5062389f2bf",
+        "pdf": "17431d4ab9b9a1e4f95e7da91b2c7bac6b918a741d673cfc36c17745016f8437"
+      },
+      "atelier/light/reading/paper": {
+        "png": "8bb67556973b7386a590f0778048feb05f4fd3ebe6260f20ec68ba886378d233",
+        "svg": "233efe612b9d6fea875410ce28eead941fac0d61c067742d9c6b9881bf4a0f6e",
+        "pdf": "9cf892ea3c44bb2e89c42df91ea69563c3ebec125f4ca1a5d4aa625d414f79a1"
+      },
+      "atelier/light/reading/panel": {
+        "png": "95ebbaceedac3b59f591e466e9c42d94473dc33713325c05f9d70f6ebf511cbb",
+        "svg": "fb3679e89bb0b8d16691445f889bac175f3bb2f799bbb885a0141d3da3faa8ae",
+        "pdf": "4861953df4642d0b9dcb11fc962538f6c685083b8fa87e9be59321c8fa8fe45a"
+      },
+      "atelier/light/presentation/paper": {
+        "png": "e3966b83713f8da111f691d2f72c1591247f3ca33f7d790b7427971a132d493d",
+        "svg": "e9400e1a04b272001d0d40a0752f4764cb5f6294e5abc8792fc957f8fa3b82fb",
+        "pdf": "c5850c180b2811489fb7dd40f4699c427b7f392d30fddf2a9357ff8657fcfe62"
+      },
+      "atelier/light/presentation/panel": {
+        "png": "83b8f9be89d2f995446ed5da498bcff734dff663e30ae088e15efe198badf862",
+        "svg": "993fdcfb391c9139cedfce84c1150bf6664d8d7ebcd78dc8fc866cf1bf8b7ac1",
+        "pdf": "f5b851e0afc08addb87ef613718bd35a6b88a9b8a9347eae8687aadcf80816a0"
+      },
+      "atelier/dark/reading/paper": {
+        "png": "92b5e33a23e679306f0b1877866ed97e5a59c306989b1009460c4b8b1757ca4a",
+        "svg": "5b3114baa9df2a65605d3e5837d9829cc13eac4c0949f3629dcfee52520c1565",
+        "pdf": "c917fa77f6d0a8fe7959588596ab58a7afe505006712ef238d2c1cb132c6caf0"
+      },
+      "atelier/dark/reading/panel": {
+        "png": "8a1062012e8b5657129c2cb04e4d6be3365013ed526b666d7fe884e09b706ff7",
+        "svg": "c3a490390ae4a5c83c085cc3fd30f627cc842856179e555549006feb20fee018",
+        "pdf": "46e4c465c5d0439794da0c74d4bd658c645f17ed5c943c8c7d290dbfc3c58975"
+      },
+      "atelier/dark/presentation/paper": {
+        "png": "25c6067f2d1567d42da56b5a2f9ffc9ca64711fd327901ef8fbae8f4d55d7d1f",
+        "svg": "95a6bf3b47ae15302f3300260c928126e53fe991f546f273d28ea45f2c84af8e",
+        "pdf": "78dcb63ee1fa1ef5452d5b9a6b87c2a4ddd899dcd5da2c883f38cc40547ff769"
+      },
+      "atelier/dark/presentation/panel": {
+        "png": "bd572b44dbfa27e28f61051bd93ef2172b5d8a63f4df946deebb7095358ef78e",
+        "svg": "a8998305c5542f0852c81997ba42d6cddaa0ae3b8094bd78d243f953ecfddc37",
+        "pdf": "0dcc29a1eacc7a232fbb91cb268709401fdc7d462b8f0a8b50e9343927db7a76"
+      },
+      "nocturne/light/reading/paper": {
+        "png": "5291a12dc07373996983b7df05802215dc5eb1051196771d4d6975d1c7f45f00",
+        "svg": "23c178654b156733bab427b4ee28c1b4842724d2676d50618f684101d6882aab",
+        "pdf": "b0d890158f762968a366207cc516bd7a8d001cde615fd80de491ce39467576c5"
+      },
+      "nocturne/light/reading/panel": {
+        "png": "3be0372b8afec516000aa83213d51257f1947c31851b6c9d3d2e7de34272da85",
+        "svg": "d61c278b0625809257e2be3b9252bb2fd49a33c3ff1bc29af28bb6c231708f93",
+        "pdf": "a5a7ed854eea7dab9ab8459be16e7b58297697e174777179dea005bb4b6a63ff"
+      },
+      "nocturne/light/presentation/paper": {
+        "png": "2de70b434d88e151936eb331c2dfed95197ab8b63dd49fcc10cbf942f7125556",
+        "svg": "64cb3ce4e4600b3e4c74553c717fa486976d9c237c1b454408c27de68c796d88",
+        "pdf": "d795ebc00d082b306ef3ed8aa281468fbfc651b4c9dd6963e3c28e45650df8c5"
+      },
+      "nocturne/light/presentation/panel": {
+        "png": "4b535ddfe02de20715a9da8857d4cab4e7f1da44b02e1aa43138d23ea1c98bba",
+        "svg": "c959ac01cb4140704f11fd8990d7b27e9f64110b267cd8a5571d0e8c7423919d",
+        "pdf": "f54f90263054246fae3f36f52f11f932f38d170e79b8b57d62db347e81bab0b9"
+      },
+      "nocturne/dark/reading/paper": {
+        "png": "baca3b9cca8fc80ba9d1f8425b860791c02d16749795250e5c2841248f56add1",
+        "svg": "0621529c303ba21e88ec7574d7778208d566408576887dffeb55ebdbe76d2edd",
+        "pdf": "26e1bdf2059575b155e2b8fc34a0da03cd269a720ca8139e4bee8896d02d02c5"
+      },
+      "nocturne/dark/reading/panel": {
+        "png": "efdb6743104265cb023d4296f1314072047ab14b8431ecd9a92b485cb03f0da8",
+        "svg": "32d584be0e5fa763d5264b50c5a1e849426e7e3bd570fbc590d6c4a9221a12d6",
+        "pdf": "8d2d2f0d6d4e22c4bb74c64800374eee1faa6bda4ac6058b76d01960e5ab49a9"
+      },
+      "nocturne/dark/presentation/paper": {
+        "png": "5a196e14785878ed01ec10182232ea8c9fb86c2da924dda5b38a0b1360daf68e",
+        "svg": "c9e5a3b0571def3c783e2f53ca4c37793b3294b780cff9e5ef7e83aa53e99b7a",
+        "pdf": "61d10950e579187f9e6c4887f8f3e23ddb1abfeca4925b696e1b844c009ae6c8"
+      },
+      "nocturne/dark/presentation/panel": {
+        "png": "b8d5e16e2822c81ac0455544fc35c3348e82511bb7c1a1b8e3aa94be686df0b1",
+        "svg": "43c308d67319c4987fb6bb10ab87e0ace389ae21997921f657a9c6209abc966d",
+        "pdf": "ecc4d3b8b738cf9eef34159858a67da2b410efd7f26d0f465f651355ec8bacd4"
+      },
+      "tufte/light/reading/paper": {
+        "png": "e4c1d9f9c39c9d2f4ece3b71e0cbc237d4808e93bb192d084f1100907c406bf8",
+        "svg": "3f9eb7615b4c1584163c8272e03a8bd023fc3b4882972d64dc97894f2f0699f7",
+        "pdf": "b07a59867204a25e714a23da3afec1ba83c96ae7c16aa4fdf7d1629ce1247548"
+      },
+      "tufte/light/reading/panel": {
+        "png": "5399529fa197d2802612e3702d59e09d02c73c416ea3875f4971b3124518209f",
+        "svg": "1870f4510de53081f53eaa9fd3cf2441d3767dbae0877da101bd27ad2862fd0a",
+        "pdf": "78828499c51714225785fcb6858de966c200e7bed63ce26f3e008020f5c5450c"
+      },
+      "tufte/light/presentation/paper": {
+        "png": "8b5fdfd90af4ffb42bcd374466018de957de290da94b54730ad9e5b27a36a00e",
+        "svg": "64ad68ae2a8732ce8436b00b0f076abdc023bb7918378fbb124ed9a004df4e2b",
+        "pdf": "006a2e7dd42e4456bbbfb3b8750b5dfed62002474a16ec01db9e71ca79a59902"
+      },
+      "tufte/light/presentation/panel": {
+        "png": "689c565cdea1b9f20b2145777d02ea736a1e1ff5575b45d85468750268099208",
+        "svg": "ba933539cf7577a1e599d714b8897b528552a5c983b8f66975c8f0f65ee2602c",
+        "pdf": "4c8d5397ff53fb619d92c974ac1347b5595353e2a301f3b39aa3d352678aecfa"
+      },
+      "tufte/dark/reading/paper": {
+        "png": "47af92e2eed8607a4b31983136ceccc41d61b87c8ab0b4e21c9e81fd53e9568b",
+        "svg": "8bda3d2dd1d29547ed88f628e1e6a29f207f5840f556adaffc59aac322a779b0",
+        "pdf": "567e4c2cfe576d26b9819b454eb27683af19aeb3bcf1a4ac8f6e09531fd0b751"
+      },
+      "tufte/dark/reading/panel": {
+        "png": "da376c4576bdad1ee3564b52ae6596759ce6eb0c9f9cd2a2866da4b6c60ea9ef",
+        "svg": "351d9622af5fdd3e0139b6e39998ea5522a96dfd150ed926744732c25259236d",
+        "pdf": "eda8c96c3bb3e644f61398b7dfc0786fdf5c6bb076956a59cdb21acd045f2836"
+      },
+      "tufte/dark/presentation/paper": {
+        "png": "131d8da3ad418c7a3d9641d464ad57877aa5f916659c0b6b01cae3d7957d6f3d",
+        "svg": "0f5698a9198034cf2f652293ec4ea3ace1adf9a2b8968adea7d1779d8787ff29",
+        "pdf": "042374cb3682cf16df28d5006061bb9fdfae3e9466466c184a0dedb393e7ce9a"
+      },
+      "tufte/dark/presentation/panel": {
+        "png": "bafcb627535dc93461aac7963c09376b9e1fde7d55800f5e06ebd24ee236c822",
+        "svg": "501e99158136115c1d3fd5a80ad68bc6dbb2e9bb7095b37143d239906878edbb",
+        "pdf": "7089281440389dc942ec335a0612af8bb32cc030e8b79b9d2341dac834aa0a88"
+      },
+      "zephyr-reading/light/reading/paper": {
+        "png": "0ed972486acf8e7ee7fd17de20c09f868d42b6c39c40301658e2cff975f7035b",
+        "svg": "44440e90084b2592e0c26e79e4fdc9dc8c438a4fde604fff2245a8df52724f87",
+        "pdf": "8a8f2295e21af4848c897dcc060a819b51e1c354a87ab65d286b458010619981"
+      },
+      "zephyr-reading/light/reading/panel": {
+        "png": "e6457fdcf8bd36a5f7e36e7e1409cd358e03f715e623213c287f93b98debc052",
+        "svg": "b07a9db008fbfb5748bec36d864ce4d5e0301ae73d17f9027e0aff7fe1cc2a86",
+        "pdf": "fb91380031940b8f89c41cd21bf38275b53cb50debcbd08d7ed2226505212aae"
+      },
+      "zephyr-reading/light/presentation/paper": {
+        "png": "86bc791d0aabdab3465467c803132e8f6afb76949709e0980d004e246cf9131a",
+        "svg": "b76a3416d480d91b2115033b40dac953de823b51e7dba2fba52d4a8fe1c8f3fc",
+        "pdf": "86191ac4fcec46daf42822efebaac1ddb357f47ff35b05e652bc2ddde0c397c5"
+      },
+      "zephyr-reading/light/presentation/panel": {
+        "png": "7e94c95fa7e0e8b62003fa1c23aba015347d3090f3c21ee0f92766cf65f6b8ec",
+        "svg": "8edc115d01dcdbe1c6fe14715c2e3a933b121b830fb27bf13e51bc9aa14dd0f7",
+        "pdf": "4bd6ab3064e34bc9e3c189cb9ed25cf6d558711c711e07027ad36cb5d329073a"
+      },
+      "zephyr-reading/dark/reading/paper": {
+        "png": "958b3b4719b7adc43f65e2604ea09da5112a10a4a171b1a29a36497a6cfedc1d",
+        "svg": "212c2014f668f03aa12b95656b2db56bead28a272b27c01784d054244d8417e9",
+        "pdf": "fc9832aad7dd0206fff2eee6b3415162ca22adfb634a9741755e7f1f0afff72b"
+      },
+      "zephyr-reading/dark/reading/panel": {
+        "png": "5a83a810916cea4268d2ad590bf76d92c1002f72b90c58f835edced8f160e25e",
+        "svg": "cd9e4fafa435e7ab94e5ef84ee9d70c9441c27d15d5b4be1c946fff5e7a8f409",
+        "pdf": "bab1c6b7959f7c6dbcba4d95b637ad8f5cccf611c282b9e6aa1ddb70411f18d9"
+      },
+      "zephyr-reading/dark/presentation/paper": {
+        "png": "9b53c68edf2d0b85f0b0ab7d26c2d761b0a0f7b0e9c01d1dc872957d29f3142b",
+        "svg": "bb28bb6debc4bc50a8e136fc51e442653b488c80243924d53fab1632a5effaec",
+        "pdf": "d85e3376d61f1de46e533d0b3412c2721c703f3a090ee00c2537731d2e29c7b4"
+      },
+      "zephyr-reading/dark/presentation/panel": {
+        "png": "adddcc89704816c5661869dc9eb73832ef35fc6e53b540f4380e62ad3ec6000c",
+        "svg": "5ad284b6cd2c04ac41c4358c38957117f3b69baa7cf15730ba24dc0cbb460bc1",
+        "pdf": "eb1157ea3674e3d31f07c7ca3a7fd2440defdc4ad0fc8da8383abf0d6bf2448e"
+      },
+      "simplex-reading/light/reading/paper": {
+        "png": "bfa714e7046cea4e0b6d20181e0ea838d00f843754c7898d806d43348314fdbc",
+        "svg": "e33114156769a5c4bfb814b2ce1750f57e84da5f98cea4ac63d88a4bf68a336f",
+        "pdf": "dc343d7dbd953d671188149479257a82c2eff1b8b5709fefe5fe0e8fa468bb33"
+      },
+      "simplex-reading/light/reading/panel": {
+        "png": "09bce12a25f1ccdfcef705d101d4f3c54713c48ccb3dd105c0266004b866699a",
+        "svg": "6f9b4c240f6fe9cba9879711a6ebae90b8cbde53b44b878f06378da818395188",
+        "pdf": "cdbd284190c0f5fa6ded7f14956fe2f65d82662aa54e2d44348a91713d0003db"
+      },
+      "simplex-reading/light/presentation/paper": {
+        "png": "eec38c4491ffe6ac83b85a22757fed0e076aad302260052ba1ab3dc81339cec1",
+        "svg": "d6d9652e181fa7cea05f222754e83f2b23f26a14ed4ce0dcbf38b4c379d99d7e",
+        "pdf": "ac98fe0b202bbd17a73cb18ee4981f117a44e76c19d7e3ec8bd27e9ec679080a"
+      },
+      "simplex-reading/light/presentation/panel": {
+        "png": "aba2fb097cc97f5b62111e1d8b6147aae0065ba502ce4234bef948feec20eaad",
+        "svg": "743ec20df116989d0896351ae94826485c4bd7af5d3f20bb166f4040b6f8db67",
+        "pdf": "6b7829b98c7b171b035f8c5276f6aa31da4907dc8c09f4e8117b8f473bab5b37"
+      },
+      "simplex-reading/dark/reading/paper": {
+        "png": "7cea18da191b703f6179c78450d0afdbd7a9df294fc45f0dad554a22037d45f2",
+        "svg": "076b527bd827d34fa0a5dd3254650ea4e348851c5672ee79281993d40a6ea183",
+        "pdf": "49cb45798d30c9249c45fe7ad899320987f67c4ccb82ad38e984ea5e48aa94ec"
+      },
+      "simplex-reading/dark/reading/panel": {
+        "png": "af4763da1a2d0f23333ff0a70ab00cd7a991785acf647faea152706038618dd5",
+        "svg": "4a7dbc9b3c3387877f84b04d3f4e2c010c5c4c87eb2dab51a9b6e9d0753cb444",
+        "pdf": "b3678ff487a099fd2b851b229a409c395d3032367ab934b4f4cd1d4ffd61da50"
+      },
+      "simplex-reading/dark/presentation/paper": {
+        "png": "a540336dd84957b84035efe2b4ecd5d8a79bdcbdf835f4df9b5ec3d8c2346e8e",
+        "svg": "b23e367b7d6c29cff019fe2de8232034f0f98a29ebe53a3d06f6dc0840ceb7b2",
+        "pdf": "a527e19320a7b729a90929ebee287dd54b8bb849f2ddfe1c65d5a5c94a0884e5"
+      },
+      "simplex-reading/dark/presentation/panel": {
+        "png": "37a3205fee6a21455f501d660ae385b180923c32838930790371904ecb618f6d",
+        "svg": "4c89f38428ed44373cb81af9c295e70f4603056913b697af715e3f5d8f91eb6a",
+        "pdf": "238faf17338670401fa2e3104f20721b9f851ab82fb5e2f09fa10e42f0ec845c"
+      },
+      "pulse-reading/light/reading/paper": {
+        "png": "65d32d6fddc6e1feb0c8e0325242f145204e82ae4bae380940bf658328257805",
+        "svg": "42e2952f73c61bb1685e9069e51dfc66df84ac9019f3d2ee8df6d81fef124f95",
+        "pdf": "935f5aa14a68d9827beac5a1cb7ad6536e6401ef74a8ca60cd947732040d1ccc"
+      },
+      "pulse-reading/light/reading/panel": {
+        "png": "68871c1878c83fb495469612866113eafcd7e30e2ef0cf950415f5de84950682",
+        "svg": "cf274e81171ca384f6e6ac828afb33f31ff15095fcb3c3105502adf85ffc02c8",
+        "pdf": "adde09d4eeada44f4a4a059c0d5a31f483af19e5e7b6be2c7ed668a29a27dc15"
+      },
+      "pulse-reading/light/presentation/paper": {
+        "png": "c82937afced1e7926f1ae366e9da57d972242e828187f8623347f1193c144a56",
+        "svg": "7e5077f524879d5f387657da8bd812d94c6de5955c87e3f097663d5684ef1f29",
+        "pdf": "4de83ac819500e2e6048d790cffbbde2f3981f967115eec24c68c0e750308137"
+      },
+      "pulse-reading/light/presentation/panel": {
+        "png": "91d6e6d7c7134c10c9eba3436984cfe4755292bff7aede99dbe70e74eb4d64a5",
+        "svg": "c25ebb79c32828ba254eac4ef158e94ddea2ccffdad92f7667fe2818cf14e5fb",
+        "pdf": "b887874f0afea9b8773eee186244397389b5b5f0347f9056229a56f547f19c57"
+      },
+      "pulse-reading/dark/reading/paper": {
+        "png": "dd6b298c2e787ef599da3415c56b48260c2232ebb271f1348316bcba56e8c6a0",
+        "svg": "058bf2da6e14dfb5edf5395a3fc190f236193180083e0e1bb8fa42c6661c9e22",
+        "pdf": "05fb76b54dd3c6256ab996cfe4a83e8dfc6da4861be477b5f1cab15048a14c34"
+      },
+      "pulse-reading/dark/reading/panel": {
+        "png": "0e6e4a5c078adcaa342dd4bf602ef59ae75bfcea8238052120ae571f3847939a",
+        "svg": "b68a6eff527faf6fa0b5df4af9c4cf8c3dcff0ca36fded636c6e3239d9f43308",
+        "pdf": "f1b633d82548fd0a4449facd2f4fa71c9cb3adcf397b84a30c667b6474f5454d"
+      },
+      "pulse-reading/dark/presentation/paper": {
+        "png": "6efaa777c2ce1df55895c5a7ba36c68ffdcdf41be794954e0a2fc28e1f4a9dc7",
+        "svg": "792af234a9225947b8751fd69c3ef7067f1bedf83d996f97018239193dd03248",
+        "pdf": "82607abd6b192de59de5d781e761afc9a3da090e863f7db9628d91b7c9e58f3c"
+      },
+      "pulse-reading/dark/presentation/panel": {
+        "png": "70f078fde91e8e0d414da6d900dfd71c85dffd1ce136dcfb1c6d0972330e1893",
+        "svg": "1c4d175d4fe1aadf16d259f25ba9323fb4e76f2370141c8e520d14c75df021f0",
+        "pdf": "c165b71102a1934dea2a96f256fe7319bef8d1e68529757289b9279e66e1bba4"
+      },
+      "litera-reading/light/reading/paper": {
+        "png": "fe853ee01e5d3728dfcee943454b0062a2c0f31286d35c809668c2c20f17d91a",
+        "svg": "b7d196820f9d27df90533c4691a413cd90a73aa7ebe26aec5c4082b04b2cc6bd",
+        "pdf": "658e4b66443912aa032185a720443c9ff3b70f49cd44b47efc56efbf068f9169"
+      },
+      "litera-reading/light/reading/panel": {
+        "png": "919e1eda6d441e75b6296efb6e5bb215ea45b63a59dd2ba9879555c438774003",
+        "svg": "f912657fb2ba621f02618077b772ae9d7fb6a71930221aeb02ab006593683fcd",
+        "pdf": "29a03996f851975e30e01362d3e42137253306b07805ed692082706972fe6e1d"
+      },
+      "litera-reading/light/presentation/paper": {
+        "png": "4d291b47682f0b0d5cf9ec42c757c9a65968e6e898cac69372232fe6503b50b1",
+        "svg": "08806a798312937013f88fce8a413826839119151587618a83e5fdc9242061ac",
+        "pdf": "8cda60ff7af75eec58fa9a305aa7bc607bb8d070f07738d4309303caaf69b2d2"
+      },
+      "litera-reading/light/presentation/panel": {
+        "png": "d7a72313e9e8ad2b5887c720fc525b2051833c9062f83df11134f737a57479c1",
+        "svg": "2fe4e11a3d1a5c948d30837b84d7a3a50186c47a85e128638e18238dc0b21826",
+        "pdf": "f52bdc9a0384990604e71427b0110b9c117dc1de26cf700802676065befb7f65"
+      },
+      "litera-reading/dark/reading/paper": {
+        "png": "f6f35e3553a9e3bb67a835bb0a91597a975a7801efab736f4558e12a286205cd",
+        "svg": "37191b1bb19a8af5c7696af8bd26e74cfbd58de37a347d48493a5f10dad1daef",
+        "pdf": "bc6536d25d78dac57f29035d7aa8e3661f7e99a714cc304c5a188518a88aaf38"
+      },
+      "litera-reading/dark/reading/panel": {
+        "png": "96ea985b70fc99a0e8d5b4e7c2991583c572b51759b33216ff52d4a9b00266c1",
+        "svg": "ba71a6c9eea9038aed76b42914b28b9fdb422846dab75e19ee70b31b8783cc19",
+        "pdf": "1dfe9a059092175858b090c5d05789a52fdb8387129023ba8fed61c961b4a303"
+      },
+      "litera-reading/dark/presentation/paper": {
+        "png": "4675cad88cc2c8d01d92272a2af54b7de7a0ead1183e3f3e1535da52b153fd99",
+        "svg": "534710bc5cf3fe202b48235aaab16e7b2391be1b6912fb321e7e4cf6fe1027bc",
+        "pdf": "3d2cdc54fe95f5095cdd59290e750c258a91d00d8c3a49fe30059e27d144b8a5"
+      },
+      "litera-reading/dark/presentation/panel": {
+        "png": "ecdac00cce092f06dce0cfe027d9b93737355086dfd6efa785e3272fe821eabe",
+        "svg": "a943c88b71de533daa8dc30b2adf1c41bb245f6e98cb38f7c932f186bdf1a28e",
+        "pdf": "07887396570bfc7d208d75fc9b94064120bddea4b6748ff44f86e757bd2e3311"
+      },
+      "darkly-reading/light/reading/paper": {
+        "png": "9e68b4e13fb433bcc478cb589e384209a0e2e8d69353ec2da2681db7f3db011f",
+        "svg": "a95287dfb3b8d51d5b0fdecaddae8fa35809112fa37cb4d69a64b514cb6c0786",
+        "pdf": "fa18d48c2ba341422090e3d3ba6cc17a087306ac2f2eec7f3a995b8feb73451a"
+      },
+      "darkly-reading/light/reading/panel": {
+        "png": "5d30289a16e1ad379d1e0e65c20220f0964fbe897d21b1688579375890ecf31d",
+        "svg": "e2a0544044b86b520e907e3219b864faff089029ed76ad3b40bf69f524388cb4",
+        "pdf": "11322cdc4ffc3d0da4484fb08132c4f3c0a444eafe2aa14b70b2f01dc099255b"
+      },
+      "darkly-reading/light/presentation/paper": {
+        "png": "2254993f93cfb22b5b8d9feaef3a48b3cae97ab4cab9d7c5f047e2d90e8ca269",
+        "svg": "97542bba655843be01d8d71cf6cf821442bdbcb70401aff1576c00b22589f135",
+        "pdf": "14766e86d19eeaf5d7b20f5fb921aec5d643e659d08b97a306809f3b75e63760"
+      },
+      "darkly-reading/light/presentation/panel": {
+        "png": "f8667cf520c8354b3337b174d4cd273eb2040349a62db5358ffb412d11a5e51b",
+        "svg": "87088b0cb42b692f071ec908944b4c232bf229da813216fdbb31b4f1f74cb047",
+        "pdf": "15721affb3ccb249d77fb182d466898c805f37edbea98d1f9be6f68d518344cf"
+      },
+      "darkly-reading/dark/reading/paper": {
+        "png": "14ce5c9ba6bcb26a3aaa4fd32edbac9b8c621aaf0e1171a35d3db9714e83507f",
+        "svg": "948ec04e2876f9094881ae043e2059df0a6a2dfc4690f8b88b0c9f2d3c5ea628",
+        "pdf": "47c236613a3e817f8f00d9d3f64fb1de2c3de138a8f09a4692f99df5b426d54f"
+      },
+      "darkly-reading/dark/reading/panel": {
+        "png": "3c7da0d47aef971e0075ee86c3fab49607f0e4181434ebccfede0be54008c70b",
+        "svg": "27eb27013385b1649209d49aaa71791417d7a3872ad8ee6f4c5dd870bd16c4c9",
+        "pdf": "fac3b5b1be2723e111e694a6c982f0251019b11cb7ce4da6d5ad9ae8931cbab1"
+      },
+      "darkly-reading/dark/presentation/paper": {
+        "png": "68bba79c5507082cfd945690ed2be767352553ed4300fc02dc883c9b8da39df5",
+        "svg": "4343ef8b2f59194eb678375fa1099b66b0fa3e0d4cde84f97b17ff6eae5d3975",
+        "pdf": "eed231ad774b8747ca848fdc63a5a6e11fab8aec4a32ad312e6f524cb9675945"
+      },
+      "darkly-reading/dark/presentation/panel": {
+        "png": "2e0711f756c655a708857597bc3a920eee442dc6119ebeea03b2c00dc41dd61f",
+        "svg": "d03031cacb13c1dbb6e4c293cca06b11c4215656a229177adc718e54a131e62e",
+        "pdf": "6d48c7db365f4bfad40d0fb2358a755480022a0105a8088c29faf53ab9d9eaf9"
+      }
+    }
+  }
+}

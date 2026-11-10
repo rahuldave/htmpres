@@ -1,0 +1,46 @@
+{
+  "case": "folio/dark/presentation/panel",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    1152,
+    1152
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/folio-dark-presentation-panel.png",
+      "sha256": "f30ad430a0ee687d5a00aeda4b2ca1f36d41d94cfde7199921d445cb141c141d",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/folio-dark-presentation-panel.svg",
+      "sha256": "79a1515072da5d505843551889bd9c5ec617aac55281b480218ab59d802c278f",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/folio-dark-presentation-panel.pdf",
+      "sha256": "132400c151e77b99a0427aa01399778f96e509834fb51166ff3275dfe6df94f0",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

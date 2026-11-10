@@ -1,0 +1,40 @@
+{
+  "case": "tufte/dark/reading/panel",
+  "interface": "r-base",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    9
+  ],
+  "canvasPixels": [
+    640,
+    720
+  ],
+  "placedWidthCssPx": 640,
+  "tightCrop": false,
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/r-base/tufte-dark-reading-panel.png",
+      "sha256": "da376c4576bdad1ee3564b52ae6596759ce6eb0c9f9cd2a2866da4b6c60ea9ef",
+      "fontPolicy": "showtext rasterized glyphs"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

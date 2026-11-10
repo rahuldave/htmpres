@@ -1,0 +1,46 @@
+{
+  "case": "folio/light/reading/paper",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    640,
+    640
+  ],
+  "placedWidthCssPx": 640.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/folio-light-reading-paper.png",
+      "sha256": "a32642f63778af6778a8e32f87b45e5e4f65a2b03472035dd5fb494974f87bed",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/folio-light-reading-paper.svg",
+      "sha256": "29c55e16c3848d144d481dfbed4c06c4d063569dbf000a8e657e32318409d1b3",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/folio-light-reading-paper.pdf",
+      "sha256": "e40d803d9616fa5a7c7285ae2d1eb8ac8d25ec74f30e2a994159df0f7c8140cd",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

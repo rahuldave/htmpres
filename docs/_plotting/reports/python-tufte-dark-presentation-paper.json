@@ -1,0 +1,46 @@
+{
+  "case": "tufte/dark/presentation/paper",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    1152,
+    1152
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/tufte-dark-presentation-paper.png",
+      "sha256": "ddf2114fa48deca33a4b674c848a7fcd6f6bcabf6bfa5e0f9115c8ebcb0ff9f0",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/tufte-dark-presentation-paper.svg",
+      "sha256": "9543c6efcb1db22910c9dead80f932fd7f83a10304a13e183e7685c4706853ef",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/tufte-dark-presentation-paper.pdf",
+      "sha256": "7fd9cf485cfbaa6afd902c4e143f68ef602c790740f893fb183929c6b3950160",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

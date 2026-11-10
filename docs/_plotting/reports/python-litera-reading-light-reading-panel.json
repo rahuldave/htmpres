@@ -1,0 +1,46 @@
+{
+  "case": "litera-reading/light/reading/panel",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    640,
+    640
+  ],
+  "placedWidthCssPx": 640.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/litera-reading-light-reading-panel.png",
+      "sha256": "b65eb7690e2a131ffd9a5eb3cddc6c02d9be365014147d223696a98aba978e93",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/litera-reading-light-reading-panel.svg",
+      "sha256": "13dabc22c9f58e0ba090492aaa8ab39f717381e78036b09501f22dba9003ddb9",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/litera-reading-light-reading-panel.pdf",
+      "sha256": "5e656d053115c91db7e5df01dc4c79a367d2b2ee7a2ca2d2f174c3e0145e490d",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

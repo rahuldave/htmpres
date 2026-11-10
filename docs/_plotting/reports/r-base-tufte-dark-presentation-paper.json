@@ -1,0 +1,50 @@
+{
+  "case": "tufte/dark/presentation/paper",
+  "interface": "r-base",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    9
+  ],
+  "canvasPixels": [
+    1152,
+    1296
+  ],
+  "placedWidthCssPx": 1152,
+  "tightCrop": false,
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/r-base/tufte-dark-presentation-paper.png",
+      "sha256": "131d8da3ad418c7a3d9641d464ad57877aa5f916659c0b6b01cae3d7957d6f3d",
+      "fontPolicy": "showtext rasterized glyphs"
+    },
+    "svg": {
+      "url": "exports/r-base/tufte-dark-presentation-paper.svg",
+      "sha256": "0f5698a9198034cf2f652293ec4ea3ace1adf9a2b8968adea7d1779d8787ff29",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    },
+    "pdf": {
+      "url": "exports/r-base/tufte-dark-presentation-paper.pdf",
+      "sha256": "042374cb3682cf16df28d5006061bb9fdfae3e9466466c184a0dedb393e7ce9a",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

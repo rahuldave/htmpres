@@ -1,0 +1,46 @@
+{
+  "case": "simplex-reading/light/presentation/panel",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    1152,
+    1152
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "47ed1cfaa7ffca04a04ab850b2938fd52c09d1b44cfa3e2980878e166b0cbd87",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "733eb93b167e6d45de09aa768f6c0355647c2c26f5416dbc7407a08ed41e81c6",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/simplex-reading-light-presentation-panel.png",
+      "sha256": "348864d4d7392d47bf9ad17c40604b080346067e78aa5712fd690e37649f8791",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/simplex-reading-light-presentation-panel.svg",
+      "sha256": "e991c9ccf04706a5680cf7bd474f2da1de06bf45139a09bc2b5b5936727f1302",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/simplex-reading-light-presentation-panel.pdf",
+      "sha256": "e2402effcdcaa9b84e76d6f86a292189ba99493e8f6f270d5d5109ce7ce7ae11",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

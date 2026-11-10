@@ -1,0 +1,46 @@
+{
+  "case": "tufte/dark/presentation/panel",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    1152,
+    1152
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/tufte-dark-presentation-panel.png",
+      "sha256": "81a501487719ece0c89166cdb9e83378868f3ae2a333d4fdbc3e9da8a23b4208",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/tufte-dark-presentation-panel.svg",
+      "sha256": "cebc635e08f640cd77716fa0405dc6b0964a7456f4f5aaee00f5c7b8ebdbb645",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/tufte-dark-presentation-panel.pdf",
+      "sha256": "344231fb0dfc5c0d7e413102d71b9e599a94ddab1b4578c6de4ea56a1bbb23af",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

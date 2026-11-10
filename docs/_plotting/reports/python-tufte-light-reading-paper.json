@@ -1,0 +1,46 @@
+{
+  "case": "tufte/light/reading/paper",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    640,
+    640
+  ],
+  "placedWidthCssPx": 640.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/tufte-light-reading-paper.png",
+      "sha256": "cbca2ae028141af264d1567ca7b2fc54b50f195b9a86550b59de409db1fd487e",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/tufte-light-reading-paper.svg",
+      "sha256": "a0dd2aa728cf20d874c24befc87131ca9e85e42ae02a4ee5b59b7075c7128200",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/tufte-light-reading-paper.pdf",
+      "sha256": "00b3c7af6775949730e28440d29410b9c5a98d36d843efea40d9f34d226510c9",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

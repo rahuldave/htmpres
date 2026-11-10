@@ -1,0 +1,50 @@
+{
+  "case": "nocturne/light/reading/panel",
+  "interface": "r-base",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    9
+  ],
+  "canvasPixels": [
+    640,
+    720
+  ],
+  "placedWidthCssPx": 640,
+  "tightCrop": false,
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/r-base/nocturne-light-reading-panel.png",
+      "sha256": "3be0372b8afec516000aa83213d51257f1947c31851b6c9d3d2e7de34272da85",
+      "fontPolicy": "showtext rasterized glyphs"
+    },
+    "svg": {
+      "url": "exports/r-base/nocturne-light-reading-panel.svg",
+      "sha256": "d61c278b0625809257e2be3b9252bb2fd49a33c3ff1bc29af28bb6c231708f93",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    },
+    "pdf": {
+      "url": "exports/r-base/nocturne-light-reading-panel.pdf",
+      "sha256": "a5a7ed854eea7dab9ab8459be16e7b58297697e174777179dea005bb4b6a63ff",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

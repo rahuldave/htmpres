@@ -1,0 +1,160 @@
+---
+title: R plotting guide
+---
+
+Plotfoundry `0.0.0.9001` is an unreleased native R reference. ggplot2 and base
+helpers run without Python, Node, htmpres or a document engine.
+[Scientific choices](plotting-packages.md) · [Browse R specimens](plotting-gallery.qmd?interface=r-ggplot)
+
+## Install reviewed source
+
+Use R 4.1+ and download the pinned public source archive. These commands can run
+outside any checkout; the temporary directory contains source, not a runtime
+path dependency:
+
+```r
+revision <- "7b1bff11284ad2960f984f0f8ed772fa09c06d8c"
+work <- tempfile("plotfoundry-source-")
+dir.create(work)
+archive <- file.path(work, "source.tar.gz")
+download.file(paste0("https://github.com/rahuldave/htmpres/archive/", revision, ".tar.gz"), archive)
+untar(archive, exdir=work)
+source <- file.path(work, paste0("htmpres-", revision), "packages", "r")
+library_path <- file.path(path.expand("~"), "R", "plotfoundry-library")
+dir.create(library_path, recursive=TRUE, showWarnings=FALSE)
+.libPaths(c(library_path, .libPaths()))
+install.packages(c("jsonlite", "digest"), lib=library_path, repos="https://cloud.r-project.org")
+install.packages(source, repos=NULL, type="source", lib=library_path)
+```
+
+There is no Plotfoundry CRAN/r-universe release behind this recipe. You install
+only `packages/r`; the monorepo location does not install the slide tool. To build
+a local source tarball instead, run `R CMD build /path/to/reviewed-source/packages/r`
+and install its `plotfoundry_0.0.0.9001.tar.gz` with `R CMD INSTALL --library=...`.
+The source package itself is R code and bundled resources; optional dependency
+packages may need their usual native compilation/system libraries.
+
+Install optional plotting/device dependencies during setup:
+
+```r
+install.packages(c("ggplot2", "scales", "showtext", "sysfonts", "systemfonts",
+                   "ragg", "svglite"), lib=library_path, repos="https://cloud.r-project.org")
+```
+
+Installed use is offline. For an offline machine, prepare the source/binary
+packages for **all transitive native R dependencies** on a compatible system,
+transfer them and install into its library; the Plotfoundry tarball alone does
+not supply ggplot2 or device dependencies. No Python/uv or Node step is required.
+
+## ggplot2 quickstart
+
+```r
+library(plotfoundry)
+s <- pf_theme("folio", mode="dark", profile="reading", surface="paper")
+d <- data.frame(x=rep(1:3,3), y=c(1,2,1,3,4,3,5,6,5),
+                category=rep(c("A","B","C"), each=3))
+p <- ggplot2::ggplot()+
+  pf_line(d,"x","y","category",s,domain=c("A","B","C"))+
+  pf_theme_gg(s)+ggplot2::labs(title="Observations",x="Time",y="Value")
+pf_export(s,"observations",plot=p,height_inches=4)
+```
+
+`pf_line`/`pf_scatter` retain original facet columns and input row/path order.
+Explicit domains retain identity across absent categories and factor level order.
+Supported coordinates are linear Cartesian, including native axis scale
+transforms; nonlinear/polar coordinates fail explicitly. Room for direct labels,
+clipping and dense overlap remains your layout responsibility.
+
+## Base R quickstart
+
+```r
+pf_export(s,"base-observations",draw=function(style) {
+  pf_base_plot(style,c(0,4),c(0,7),"Time","Value","Observations")
+  pf_base_lines(d$x,d$y,d$category,style,domain=c("A","B","C"))
+})
+```
+
+For an already opened/configured device, `pf_base_context()` scopes furniture and
+restores `par`, options and palette through nesting/errors. Set `mfrow` before an
+inner context because native layout changes reset text scale. Closing the original
+device prevents restoring it; unrelated devices are never closed. Exact-file
+font evidence applies to the selected export/device setup, not arbitrary native
+callbacks. Use `pf_export` for the tested showtext path.
+
+## API and scales
+
+| Operation | Use |
+| --- | --- |
+| `pf_spec()`, `pf_theme(...)` | Fresh native data and explicit configuration, complete pinned resource closure |
+| `pf_points()`, `pf_mm()` | Shared placement conversion; geometry uses 72/inch points, not grid's 72.27/inch `points` unit |
+| `pf_categories()` | Explicit named domain, factor labels and variant capacity |
+| `pf_theme_gg()`, `pf_scales_manual()` | Native furniture/scales only; ordinary addition/override precedence |
+| `pf_line()`, `pf_scatter()` | Layered lines/points, stable cues and direct labels |
+| `pf_scale_continuous()`, `pf_normalize()`, `pf_lookup()` | Explicit limits/center and exact bin lookup |
+| `pf_heatmap()`, `pf_base_heatmap()` | Missing fill and two opposite cross diagonals; first row at top |
+| `pf_base_plot()`, `pf_base_lines()`, `pf_base_points()` | Native base furniture and physically constructed marks |
+| `pf_fonts()`, `pf_export()` | Explicit file-hash font setup and selected device export |
+
+Pass `variant="colorblind-subset-5"` for conditional five; never silently expand
+three. Both ink under-stroke and foreground share the same physical segmented
+dash geometry. Native `lty` rescaling cannot reproduce the fractional pattern by
+itself. Solid caps project; dashed caps are butt. Marker polygons have an explicit
+7-pixel bounding box, not a promise of identical Matplotlib marker outlines.
+
+```r
+pf_normalize(c(-2,0,1,NA_real_),vmin=-2,vmax=1,center=0)
+# 0, 0.5, 1, NA: separate arms, explicit missing
+heatmap_layers <- pf_heatmap(matrix(c(-2,0,NA,1),2),s,vmin=-2,vmax=1,
+                             kind="diverging",center=0)
+heatmap_plot <- ggplot2::ggplot()+heatmap_layers+pf_theme_gg(s)
+pf_export(s,"heatmap",plot=heatmap_plot)
+```
+
+Add returned heatmap layers/scales to a native ggplot. Later authored themes,
+scales and guides have ordinary ggplot precedence. A manual scale or native
+color cycle alone does not apply compliant ink strokes, marker edges or labels.
+Exact float LUT lookup precedes native hex conversion (about 0.5/255 maximum
+channel rounding); PDF can additionally serialize stroke colors to three decimals.
+
+## Fonts, devices and constraints
+
+`pf_fonts()` explicitly registers bundled real faces under reserved
+`plotfoundry-<hash>` aliases. Those aliases persist and may be rebound; other
+caller family names are untouched. Namespace loading does not register them.
+Export binds UI/heading files even with conflicting host families, preserving
+native authored text size/color. Plot titles use heading faces; guide/legend titles,
+subtitle/caption and body annotations use the real UI face. The theme sets furniture sizes; export preserves authored annotation sizes rather than silently resizing them. For a deliberate prose annotation, use `size=pf_points(s,s$case$typography$body_annotation), size.unit="pt"` in `ggplot2::annotate("text",...)`, rather than its native default size.
+
+Supported devices: **ragg PNG**, **svglite SVG**, native **grDevices PDF**, with
+showtext raster DPI matching the opened raster device. Vector glyphs are outlines;
+there is no editable/embedded-font promise. Cairo/XQuartz was unavailable in the
+reference environment and is not advertised. Strict plain text only: plotmath and
+missing glyphs fail rather than silently substitute. Arbitrary third-party grobs
+or callbacks are not universally certified.
+
+Export preserves an explicit canvas, no tight cropping, and restores owned device/
+showtext state without closing caller devices. Reports record actual PNG dimensions,
+font hashes/weights and used native device versions. Inspect real output; the
+report is not universal font/layout/accessibility certification.
+
+## Reproduce and embed
+
+[Download quickstart R](_generated/plotting/source/quickstart.R) ·
+[Quarto-ready source](_generated/plotting/source/quickstart.qmd.txt) ·
+[Full gallery source](_generated/plotting/source/r-ggplot-gallery.R)
+
+```sh
+Rscript r-ggplot-gallery.R plots tufte/dark/reading/paper
+```
+
+Save the Quarto-ready download as `quickstart.qmd` (the `.txt` suffix keeps it a source download on this website). Rendering it additionally needs Quarto plus the R packages `knitr` and `rmarkdown`. Install these document tools in your chosen R library with `install.packages(c("knitr", "rmarkdown"), repos="https://cloud.r-project.org")`; they are not Plotfoundry runtime dependencies, and plain R exports do not require them.
+
+The gallery source renders **both native R routes** for that case, each on an
+8 × 9-inch canvas. The same code runs in plain R; Quarto/SmallDocs integration is
+optional. Save exports and reference their files from your document. Preserve
+the declared 640/1152 CSS-pixel placement instead of changing DPI to resize type.
+
+Tested: R 4.1.1/macOS arm64, ggplot2 4.0.3, scales 1.4.0, showtext 0.9.8,
+sysfonts 0.8.9, systemfonts 1.3.2, ragg 1.5.2, svglite 2.2.2. DESCRIPTION minima
+are not proof of every other platform/version/device. The native package ships
+its resources/notices and requires no development lock at runtime.

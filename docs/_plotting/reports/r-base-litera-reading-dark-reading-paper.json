@@ -1,0 +1,50 @@
+{
+  "case": "litera-reading/dark/reading/paper",
+  "interface": "r-base",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    9
+  ],
+  "canvasPixels": [
+    640,
+    720
+  ],
+  "placedWidthCssPx": 640,
+  "tightCrop": false,
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/r-base/litera-reading-dark-reading-paper.png",
+      "sha256": "f6f35e3553a9e3bb67a835bb0a91597a975a7801efab736f4558e12a286205cd",
+      "fontPolicy": "showtext rasterized glyphs"
+    },
+    "svg": {
+      "url": "exports/r-base/litera-reading-dark-reading-paper.svg",
+      "sha256": "37191b1bb19a8af5c7696af8bd26e74cfbd58de37a347d48493a5f10dad1daef",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    },
+    "pdf": {
+      "url": "exports/r-base/litera-reading-dark-reading-paper.pdf",
+      "sha256": "bc6536d25d78dac57f29035d7aa8e3661f7e99a714cc304c5a188518a88aaf38",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

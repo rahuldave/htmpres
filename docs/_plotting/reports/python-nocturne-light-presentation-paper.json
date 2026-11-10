@@ -1,0 +1,46 @@
+{
+  "case": "nocturne/light/presentation/paper",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    1152,
+    1152
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/nocturne-light-presentation-paper.png",
+      "sha256": "a82cd2ec8a2dcfcb0fac8f4b280ae38ab9dd13d21e8d56d92f9b34bd8b3f0da1",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/nocturne-light-presentation-paper.svg",
+      "sha256": "f9e740dfeb1879dfcbc72841c1cda1ed754a95e5eff325fc88e5d67ba7ba7e5c",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/nocturne-light-presentation-paper.pdf",
+      "sha256": "074d0f3039bca5ffd5cc63ab5cd7bce10376396c703335c7583a13fcfccfcbb5",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

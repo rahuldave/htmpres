@@ -1,0 +1,46 @@
+{
+  "case": "atelier/dark/presentation/paper",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    1152,
+    1152
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/atelier-dark-presentation-paper.png",
+      "sha256": "6841c0154d31437cf1f9ce9e0d896e6075e0d2015267a46e89d7198cf7b0d966",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/atelier-dark-presentation-paper.svg",
+      "sha256": "7eb5cc7aef73036702777a57c5189f88b642e751b90d128826d3d92808a86c84",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/atelier-dark-presentation-paper.pdf",
+      "sha256": "1b8964f2e464efade257bbfc7f3f00ac5c079536a18fb7fe7426434359d564cd",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

@@ -1,0 +1,40 @@
+{
+  "case": "zephyr-reading/dark/presentation/panel",
+  "interface": "r-base",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    9
+  ],
+  "canvasPixels": [
+    1152,
+    1296
+  ],
+  "placedWidthCssPx": 1152,
+  "tightCrop": false,
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "e7a1aaf7eda9f2fad4131725fa556265ec75ca7b2d756260173a040363e8d4f7",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/r-base/zephyr-reading-dark-presentation-panel.png",
+      "sha256": "adddcc89704816c5661869dc9eb73832ef35fc6e53b540f4380e62ad3ec6000c",
+      "fontPolicy": "showtext rasterized glyphs"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

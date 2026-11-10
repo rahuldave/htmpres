@@ -1,0 +1,46 @@
+{
+  "case": "atelier/light/presentation/paper",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    1152,
+    1152
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/atelier-light-presentation-paper.png",
+      "sha256": "1625d805a16b98cf517478aa96bd1fb6b6ecb6c4b4a31c1fa3efe60b16ba9b8f",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/atelier-light-presentation-paper.svg",
+      "sha256": "3c3634da74ba4cc0a4f3020fb5e8af22b09d536d3d6ef26746c5af3276ce26bf",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/atelier-light-presentation-paper.pdf",
+      "sha256": "e59627cd1ab14b7f948f6f18385859b4bca2dd14e026b50b7268e82580414c80",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

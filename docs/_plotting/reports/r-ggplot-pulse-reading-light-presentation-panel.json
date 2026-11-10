@@ -1,0 +1,51 @@
+{
+  "case": "pulse-reading/light/presentation/panel",
+  "interface": "r-ggplot",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    9
+  ],
+  "canvasPixels": [
+    1152,
+    1296
+  ],
+  "placedWidthCssPx": 1152,
+  "tightCrop": false,
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1",
+    "ggplot2": "4.0.3"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/r-ggplot/pulse-reading-light-presentation-panel.png",
+      "sha256": "3f9f560411f56b0471445112f406142d0ed51bf64417b6395f0e98d92f1b6d95",
+      "fontPolicy": "showtext rasterized glyphs"
+    },
+    "svg": {
+      "url": "exports/r-ggplot/pulse-reading-light-presentation-panel.svg",
+      "sha256": "51eba8c19b9ecec2ddb07d9d961389891f7e27cc8931e1bed5c81a49b8e808c2",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    },
+    "pdf": {
+      "url": "exports/r-ggplot/pulse-reading-light-presentation-panel.pdf",
+      "sha256": "c3170dbe858f15287d80c63e956174977bdcc1fbf9f7ab4854e33a72f197e677",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

@@ -1,0 +1,46 @@
+{
+  "case": "nocturne/light/reading/panel",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    640,
+    640
+  ],
+  "placedWidthCssPx": 640.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/nocturne-light-reading-panel.png",
+      "sha256": "2e8397ea2f07da746d11a04e02d9b3cb1274d1a57985fa1d9f8a1d760f08498e",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/nocturne-light-reading-panel.svg",
+      "sha256": "6b582784c952ea9b69b4610020bb2e62ff93040de0e01c95ed6fd6dc70f961cf",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/nocturne-light-reading-panel.pdf",
+      "sha256": "fb8581cb20afe29055102f824b3ffe5bc7c826967d5da65133ecaac07f6957ef",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

@@ -158,3 +158,5 @@ is immutable in this piece; the native R reference is implemented separately; Ja
 New code/docs are MIT licensed; all imported font/manifest notices retain their
 original licenses. Actual SVG outlines/PDF subsets are renderer outputs, not a
 relicensing of those assets.
+
+Website documentation: [native guide](https://rahuldave.com/htmpres/plotting-python.html) and [all-nine-family gallery](https://rahuldave.com/htmpres/plotting-gallery.html), deployed with the Python/R documentation checkpoint. This does not announce a registry release.

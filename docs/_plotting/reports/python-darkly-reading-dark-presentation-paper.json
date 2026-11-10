@@ -1,0 +1,46 @@
+{
+  "case": "darkly-reading/dark/presentation/paper",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    1152,
+    1152
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "f43f1c7780d69792278f04b136c934a0298fc66f2e974bac13dd2e53adc52bde",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "02e8f4be57ddc47cb7882c41b60216b6085b1ceaf717514be2b88fa15396238d",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/darkly-reading-dark-presentation-paper.png",
+      "sha256": "7ccb5424aee80193f11228e85c7291bd4bd6e5c5d05d531b1067968322893c66",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/darkly-reading-dark-presentation-paper.svg",
+      "sha256": "35541f572856eae66319ce28b3c1132bb4c2b38d1082281b706ba08a50158418",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/darkly-reading-dark-presentation-paper.pdf",
+      "sha256": "47c4b41bc9489a744c4b4e86a368003fde5d36ba62c3886035e4adda24982be9",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

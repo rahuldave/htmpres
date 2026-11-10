@@ -1,0 +1,51 @@
+{
+  "case": "simplex-reading/dark/reading/paper",
+  "interface": "r-ggplot",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    9
+  ],
+  "canvasPixels": [
+    640,
+    720
+  ],
+  "placedWidthCssPx": 640,
+  "tightCrop": false,
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1",
+    "ggplot2": "4.0.3"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "47ed1cfaa7ffca04a04ab850b2938fd52c09d1b44cfa3e2980878e166b0cbd87",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "733eb93b167e6d45de09aa768f6c0355647c2c26f5416dbc7407a08ed41e81c6",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/r-ggplot/simplex-reading-dark-reading-paper.png",
+      "sha256": "67baf38b0654ebabd35268131170397cf0613635bca378461e059ffb02c7b1ba",
+      "fontPolicy": "showtext rasterized glyphs"
+    },
+    "svg": {
+      "url": "exports/r-ggplot/simplex-reading-dark-reading-paper.svg",
+      "sha256": "1af4adc9e7569d455e7ea37043911b2f86aefe2fbcb0ee97ef38c3e004eb3568",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    },
+    "pdf": {
+      "url": "exports/r-ggplot/simplex-reading-dark-reading-paper.pdf",
+      "sha256": "ed80f0eacb3693d778e400b9c4dd9e616bc663b042a5b9547b23b7b2423734ee",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

@@ -1,0 +1,41 @@
+{
+  "case": "tufte/light/reading/paper",
+  "interface": "r-ggplot",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    9
+  ],
+  "canvasPixels": [
+    640,
+    720
+  ],
+  "placedWidthCssPx": 640,
+  "tightCrop": false,
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1",
+    "ggplot2": "4.0.3"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/r-ggplot/tufte-light-reading-paper.png",
+      "sha256": "977eebb8901773a8dfe1b30232cb1e54f443a5ba30ba0e72e0eafc30a95aabb3",
+      "fontPolicy": "showtext rasterized glyphs"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

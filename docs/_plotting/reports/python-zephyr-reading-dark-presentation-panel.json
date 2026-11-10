@@ -1,0 +1,46 @@
+{
+  "case": "zephyr-reading/dark/presentation/panel",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    1152,
+    1152
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "e7a1aaf7eda9f2fad4131725fa556265ec75ca7b2d756260173a040363e8d4f7",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/zephyr-reading-dark-presentation-panel.png",
+      "sha256": "01691db589cb281d63318b6bb268d0d5464b38b56c264dca35bcf649d3b5ea08",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/zephyr-reading-dark-presentation-panel.svg",
+      "sha256": "1406a71dd6ae3207ab9a707b98e4b4f1569c57d1434e07690a4abfc05447d83d",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/zephyr-reading-dark-presentation-panel.pdf",
+      "sha256": "07db095a239782349b86d1d6c79b2b1a6b128ba5025ff6ee29259c835c540283",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

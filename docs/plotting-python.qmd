@@ -1,0 +1,138 @@
+---
+title: Python plotting guide
+---
+
+Plotfoundry `0.1.0.dev1` supplies a dependency-free data core and an optional
+Matplotlib adapter. It runs without R, Node, htmpres or a document engine.
+[Scientific choices](plotting-packages.md) · [Browse specimens](plotting-gallery.qmd?interface=python)
+
+## Install reviewed source
+
+Use **Python 3.12+** in a virtual environment. Git is needed only for this
+source-install recipe; pip builds the selected Python directory, not htmpres:
+
+```sh
+python3.12 -m venv .venv
+# Activate the environment using your shell's usual command.
+.venv/bin/python -m pip install 'plotfoundry[matplotlib] @ git+https://github.com/rahuldave/htmpres.git@7b1bff11284ad2960f984f0f8ed772fa09c06d8c#subdirectory=packages/python'
+```
+
+On Windows, use the environment's `Scripts/python.exe` instead of `.venv/bin/python`.
+Nothing is being installed from a Plotfoundry PyPI release. Git/pip and network
+access are setup tools; installed plotting does not invoke Git or fetch assets.
+
+If you already downloaded the pinned repository source, build a local artifact:
+
+```sh
+python -m pip install build
+python -m build /path/to/reviewed-source/packages/python --outdir dist
+python -m pip install 'dist/plotfoundry-0.1.0.dev1-py3-none-any.whl[matplotlib]'
+```
+
+The source distribution rebuilds independently with bundled inputs. For an
+**offline target**, prepare a wheelhouse containing the package and all selected
+native dependency wheels on a compatible connected machine, transfer it, then:
+
+```sh
+python -m pip install --no-index --find-links wheelhouse 'plotfoundry[matplotlib]==0.1.0.dev1'
+```
+
+A lone wheel is not a substitute for NumPy/Matplotlib dependencies. pandas and
+Seaborn are optional; install them explicitly when using their examples.
+
+## First Matplotlib plot
+
+```python
+import matplotlib.pyplot as plt
+from plotfoundry import theme
+from plotfoundry.matplotlib import context, line, style_axes, export
+
+style = theme("folio", mode="dark", profile="presentation", surface="paper",
+              figure_width_inches=8, placed_width_css_px=1152)
+with context(style):
+    fig, ax = plt.subplots(figsize=(8, 4))
+    line(ax, [0, 1, 2], [1, None, 3], style,
+         domain=["Observed"], category="Observed")
+    ax.set(title="Results", xlabel="Time", ylabel="Value")
+    style_axes(ax, style)
+    export(fig, style, "results", formats=["png", "svg", "pdf"], dpi=144)
+    plt.close(fig)
+```
+
+The missing observation stays a gap. Supply an explicit ordered domain even when
+some categories are absent. Theme selection accepts all nine family IDs from the
+gallery, `light`/`dark`, `reading`/`presentation`, and `paper`/`panel`.
+
+## Supported API
+
+| Operation | Use |
+| --- | --- |
+| `load_spec()`, `theme(...)` | Native data/configuration; no Matplotlib import or global mutation |
+| `rc(style)`, `context(style, overrides={...})` | Theme-only furniture; nested/error restoration and explicit overrides |
+| `line(..., domain=[...], category=...)` | Opaque line/ink under-stroke, shared dash geometry, edged markers and direct labels |
+| `scatter(..., domain=[...], categories=[...])` | Explicit category identities, shapes/edges and labels |
+| `colorscale(style, vmin=..., vmax=..., kind="sequential")` | Exact sampled map and explicit normalization |
+| `colorscale(..., kind="diverging", center=...)` | Exact center and asymmetric arms |
+| `scatter_values(...)` | Continuous points, exact map/norm; missing points omitted |
+| `heatmap(...)` | Explicit numeric cell colors and crossed missing cues |
+| `style_axes(ax, style)`, `annotate(..., role="body_annotation")` | Rebind supported native furniture and late-created text |
+| `export(...)` | Fixed canvas, exact-file text checks and PNG/SVG/PDF reports |
+
+Unknown/duplicate/over-capacity domains and malformed numeric inputs fail before
+artist mutation. `variant="colorblind-subset-5"` explicitly selects the conditional
+five slots. Variant changes can recolor IDs; review the mapping yourself. Dense
+labels, arbitrary filled/dense marks and unsupported artists are not made compliant
+by a color cycle or a global theme. Missing scatter points are omitted; there is
+no separate missing-point symbol API.
+
+## Seaborn and pandas
+
+Use their ordinary APIs when you want native plots with furniture. That is
+**theme-only** unless supported Plotfoundry helpers add the operational treatment.
+For example, pass dataframe columns to `line()` with a stable domain rather than
+claiming `sns.lineplot()` automatically adds under-strokes and direct labels.
+
+```sh
+python -m pip install 'pandas==3.1.1' 'seaborn==0.13.2'
+python -m plotfoundry.examples.dataframes
+```
+
+The shipped example exercises `sns.lineplot`, `DataFrame.plot` and treated helper
+lines separately. Late-created legends, colorbars and annotations need explicit
+styling/export; no implicit guarantee applies to arbitrary Seaborn artist trees.
+
+[Download dataframe example](_generated/plotting/source/dataframes.py)
+
+## Fonts, placement and export
+
+Bundled exact-file FontProperties are applied to supported text, including axes,
+legend and colorbar furniture, even with a conflicting host family installed.
+Only real resolved weights are used. Keep plain text: mathtext/TeX, log formatters
+that introduce mathtext, or missing glyphs fail rather than claim a false font match.
+Use explicit plain-text tick formatters when necessary.
+
+`style.points(px)` applies the shared placement formula. Preserve the declared
+figure width when composing it into a document. DPI is not an alternate font-size
+control; `export` uses explicit dimensions without tight cropping and reports
+actual PNG dimensions. SVG outlines are not editable text. PDF requests TrueType
+subsets and checks structure; this is not full PDF conformance certification.
+Always inspect the actual output, especially clipping, label density and downstream
+SVG/PDF handling. Original font notices still apply.
+
+## Reproduce the gallery
+
+```sh
+python -m plotfoundry.examples.gallery --case folio/dark/reading/paper --output plots
+```
+
+[Download standalone gallery source](_generated/plotting/source/python-gallery.py).
+After installing the package, the downloaded equivalent runs as
+`python python-gallery.py --case folio/dark/reading/paper --output plots`.
+The specimen canvas is 8 × 8 inches. All 72 Python cases have PNG/SVG/PDF downloads.
+
+Tested reference: Python 3.12.10, Matplotlib 3.11.2, NumPy 2.5.4, pandas 3.1.1,
+Seaborn 0.13.2. Declared compatibility ranges are Matplotlib `>=3.11.2,<3.12` and
+NumPy `>=2.5.4,<2.6`; this does not prove every future patch/platform/backend.
+The development lock is verification tooling, not an installed runtime dependency.
+
+[All specimens](plotting-gallery.qmd?interface=python) · [R guide](plotting-r.qmd)

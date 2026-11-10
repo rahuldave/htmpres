@@ -1,0 +1,46 @@
+{
+  "case": "tufte/dark/reading/panel",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    640,
+    640
+  ],
+  "placedWidthCssPx": 640.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/tufte-dark-reading-panel.png",
+      "sha256": "021aa25a0fa44add4e87d0f874f2800c03749ed3a9b44578aca78568094ab149",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/tufte-dark-reading-panel.svg",
+      "sha256": "a9857fed471964fcbf2fa14ef1cbcb4eee4642c877d75e399f4ca12e4df3ae69",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/tufte-dark-reading-panel.pdf",
+      "sha256": "ad7f5b58444361a8fa0da48fda087873753a2dd13aac7830a8f2df3a69d46798",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

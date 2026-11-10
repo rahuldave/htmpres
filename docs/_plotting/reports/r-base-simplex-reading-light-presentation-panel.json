@@ -1,0 +1,40 @@
+{
+  "case": "simplex-reading/light/presentation/panel",
+  "interface": "r-base",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    9
+  ],
+  "canvasPixels": [
+    1152,
+    1296
+  ],
+  "placedWidthCssPx": 1152,
+  "tightCrop": false,
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "47ed1cfaa7ffca04a04ab850b2938fd52c09d1b44cfa3e2980878e166b0cbd87",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "733eb93b167e6d45de09aa768f6c0355647c2c26f5416dbc7407a08ed41e81c6",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/r-base/simplex-reading-light-presentation-panel.png",
+      "sha256": "aba2fb097cc97f5b62111e1d8b6147aae0065ba502ce4234bef948feec20eaad",
+      "fontPolicy": "showtext rasterized glyphs"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

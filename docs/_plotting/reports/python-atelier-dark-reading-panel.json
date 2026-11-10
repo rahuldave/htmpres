@@ -1,0 +1,46 @@
+{
+  "case": "atelier/dark/reading/panel",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    640,
+    640
+  ],
+  "placedWidthCssPx": 640.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/atelier-dark-reading-panel.png",
+      "sha256": "6eb2b40196dbf1d848c74ce29217951a6b25bf44b06d6225c6b9dc208519adca",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/atelier-dark-reading-panel.svg",
+      "sha256": "8b6d9cd31a4c1888851f88d105a385743d27ed8e1d8eec88c0fcec98fc881e0a",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/atelier-dark-reading-panel.pdf",
+      "sha256": "c2074d01ed67af2b1803e9571576ef9c516932e9b80fb79a4459e31d6cac6a31",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

@@ -1,0 +1,46 @@
+{
+  "case": "folio/dark/reading/panel",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    640,
+    640
+  ],
+  "placedWidthCssPx": 640.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/folio-dark-reading-panel.png",
+      "sha256": "9a59bcbbd6cfe1726cc99aa410a7455e79233105f416d31fa56ebca0c19482c7",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/folio-dark-reading-panel.svg",
+      "sha256": "ee5afca2025d8090a40e0707995fc9503b1300dfac6ecae8a5588f58dfccea8e",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/folio-dark-reading-panel.pdf",
+      "sha256": "a27fa4fa613fb41c7683fe89373696cbfbb61ca7678a094ad2f7ed575ba005af",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

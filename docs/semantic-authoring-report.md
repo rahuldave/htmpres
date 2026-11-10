@@ -4,6 +4,89 @@ Verified on 2026-11-06. This is the exact authoring contract for the downstream
 presentation skill. The plan stays in `plan.md`; the hand-editable deck can be
 named `slides.qmd`. htmpres does not read the planning worksheet.
 
+## Picture descriptions and fitted space (2026-11-10)
+
+The two follow-ups to PR #28 were independently reproduced on `4e6a967` and
+corrected in [PR #30](https://github.com/rahuldave/htmpres/pull/30).
+The description contract was introduced in `b1c78b0`.
+
+**Descriptions.** Every meaningful picture needs `![A useful description](asset.svg)`.
+An empty description is now an `image-description` **error** from `lint`,
+`render` and both verifiers. The exact diagnostic message for the supplied e1
+slide is:
+
+```text
+Slide 3 (A titled picture, empty description): describe this picture, or mark a purely decorative picture with {.decorative}.
+```
+
+The JSON report retains `version: 1`, sets `ok: false`, and includes
+`severity: "error"`, `code: "image-description"`, the source file,
+slide-start `line`/`column`, `slide` number and `slideId`. Exit status is 1.
+The supplied e1, e2 and e3 slides all report this error, naming their own slide.
+The check uses the same Pandoc reader as rendering, separately for titles,
+audience content and presenter notes. References, linked pictures and raw HTML
+are covered; code examples, comments and escaped syntax are not pictures.
+
+For a purely decorative image, put `.decorative` on the image and leave its
+description empty:
+
+```markdown
+## A decorative texture
+
+![](assets/texture.svg){.decorative .ds-fit}
+```
+
+This produces `alt=""` and passes lint. `data-background-image` remains the
+decorative background form. All actual output images have an `alt` attribute;
+the verifiers also inspect serialized presenter notes and reject stale output
+where an attribute is removed. Meaningful full pictures keep their description
+and use `.ds-full` to suppress the visible caption, without erasing the alt.
+
+**Fitted space.** The picture uses the remaining space below the title. The
+runtime reserves the actual credit and section-label boxes, with the theme's
+gaps, instead of adding a fixed empty band. A missing caption allocates no
+caption row. Captions are centered under centered pictures. `.ds-fit` keeps
+shape and scales past natural size; `.ds-fill` still deliberately crops.
+No author color, size or style attributes were added.
+
+The supplied Atelier/light case was measured in a real 1280 × 720 browser.
+The slide ran from y=14 to y=581 in both captures. The viewBox-only SVG had
+browser intrinsic dimensions 267 × 150. These are **drawn** sizes, calculated
+from intrinsic dimensions, the image content box and `object-fit: contain`:
+
+| Supplied slide | Before | After |
+| --- | --- | --- |
+| t1: title, caption, credit and section label | 342.84 × 192.61 px | 468.33 × 263.11 px |
+| t2: title and caption, no credit or section label | 517.28 × 290.61 px | 677.48 × 380.61 px |
+
+The title-to-picture gap in these cases is 16 px; the image/caption gap is
+8 px. On t2 the caption ends at y=557, leaving the theme's 24 px bottom inset.
+On t1 the remaining space contains the section label, credit and their gaps.
+The fixtures use the same aspect ratios as the supplied drawings; pixel
+rounding follows the browser's viewBox intrinsic size.
+
+**Browser verification.** The regression fixture now has 55 slides. The catalog
+matrix passed all 146 theme/mode/view cases: 35 paired themes in light and dark,
+audience and presenter, plus three legacy seeds in their supported mode and
+both views. That is **8,030 passing slide checks**. Compact Nocturne at
+520 × 900 added **220 passing checks**, both modes and views. Checks assert
+`hasAttribute('alt')`, decoded descriptions/explicit decoration, real drawn
+size against independently derived available space, captions and footer
+clearance, and the earlier full-picture geometry/contrast contracts. Actual
+Nocturne audience/presenter light/dark navigation checks confirm that leaving
+and returning does not accumulate reserve or shrink the picture.
+
+Focused callable tests cover both renderer/verifier paths, packaged workspace
+imports, notes, raw HTML, references, quotes/citations, whitespace entities and
+large embedded images, plus measured footer reservation. The report to
+look-talks identifies the final merge commit and full verification gates.
+
+Existing described-image syntax is unchanged. `.decorative` is the one new
+optional semantic image class. Previously unmarked empty descriptions now
+fail intentionally. Browser printing retains these HTML image alternatives;
+no separate PDF exporter or tagged-PDF accessibility claim was added. The
+website/tutorial audit requested afterward is a separate PR.
+
 ## Picture-slide corrections for look-talks (2026-11-10)
 
 Implementation: [`7d544ac`](https://github.com/rahuldave/htmpres/commit/7d544ac).

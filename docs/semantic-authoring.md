@@ -153,7 +153,10 @@ For a titled slide containing one picture and an optional credit, write:
 
 The description becomes both the image's screen-reader `alt` and its visible
 caption. The picture, caption and credit fit below the title, without cropping
-the picture. Wide, tall and 16:9 images use the same syntax. `.ds-fit` is
+the picture. It grows to a limiting edge of the space below the title,
+reserving the actual caption, credit and section-label boxes plus the theme’s
+gaps. It can scale beyond its intrinsic size, including viewBox-only SVGs.
+Captions are centered under centered pictures. Wide, tall and 16:9 images use the same syntax. `.ds-fit` is
 optional for this one-picture layout. Wrapping the image in `::: {.ds-media}`
 also works; a linked image keeps its native Markdown caption behavior.
 `.ds-fill` deliberately crops to fill the available picture box.

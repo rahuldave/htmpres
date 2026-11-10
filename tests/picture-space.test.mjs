@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import {readFileSync} from 'node:fs';
+const runtime=readFileSync(new URL('../_extensions/htmpres/runtime/htmpres-custom-deck.js',import.meta.url),'utf8');
+const pixels=runtime.slice(runtime.indexOf('function cssPixels'),runtime.indexOf('function updateViewportHeight'));
+const media=runtime.slice(runtime.indexOf('function updateMediaLayout'),runtime.indexOf('function resetTextFit'));
+test('picture reserve follows actual credit and label boxes without accumulating',()=>{
+ const properties=new Map(),credit={offsetHeight:50},label={height:'32px',boxSizing:'content-box',paddingTop:'6px',paddingBottom:'6px',bottom:'86px',display:'block',visibility:'visible'};
+ const slide={dataset:{},matches:()=>true,style:{setProperty:(k,v)=>properties.set(k,v)},querySelector:()=>null};
+ const style={getPropertyValue:key=>key==='--htmpres-credit-inset'?'24px':key==='--htmpres-media-footer-gap'?'12px':''};
+ const context={slide,getComputedStyle:(el,pseudo)=>pseudo?label:el===slide?style:{bottom:'24px'}};
+ vm.createContext(context);vm.runInContext(pixels+media,context);
+ const update=()=>{vm.runInContext('updateMediaLayout(slide)',context);return properties.get('--htmpres-media-bottom');};
+ assert.equal(update(),'24px','no footer leaves the normal inset');
+ slide.querySelector=()=>credit;assert.equal(update(),'86px','credit needs its height, inset and normal gap');
+ slide.dataset.section='Results';assert.equal(update(),'142px','section label sits above credit with another gap');
+ assert.equal(update(),'142px','remeasuring does not accumulate reserve');
+ credit.offsetHeight=80;label.bottom='116px';assert.equal(update(),'172px','wrapped credit increases only its occupied lane');
+ slide.matches=()=>false;properties.clear();update();assert.equal(properties.size,0,'ordinary slides keep their existing layout');
+});

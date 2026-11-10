@@ -30,7 +30,7 @@ semantic-test: semantic authoring-hooks
   quarto run tests/semantic-importance.test.ts
   quarto run tests/semantic-deck.test.ts
 
-# Check the same source-break rule used by render and verify.
+# Check source boundaries, counter settings and picture descriptions.
 lint *decks:
   quarto run scripts/htmpres.ts lint {{decks}} --json
 

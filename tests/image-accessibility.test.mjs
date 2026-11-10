@@ -57,6 +57,8 @@ test('both CLI paths reject missing descriptions and verify mutated alt, includi
   writeFileSync(output,valid);
   const presenter=path.join(dir,'presenter.html');writeFileSync(presenter,readFileSync(presenter,'utf8').replace('Speaker cue description',''));
   for(const [program,prefix]of verifiers){const v=run(program,[...prefix,file]);assert.notEqual(v.status,0);assert.match(v.stdout+v.stderr,/empty description/);}
+  writeFileSync(file,'## Empty {#empty}\n![](photo.svg)\n');
+  for(const [program,prefix]of verifiers){const v=run(program,[...prefix,file]);assert.notEqual(v.status,0);assert.match(v.stdout+v.stderr,/image-description/);}
  }finally{rmSync(dir,{recursive:true,force:true});}
 });
 

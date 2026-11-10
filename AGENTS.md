@@ -267,7 +267,9 @@ before the all-deck verifier, including in a fresh checkout.
 The semantic demo source is `decks/semantic/index.qmd`. `just semantic-test`
 checks semantic importance across every paired theme and the rendered demo's
 source/IDs/math assets. `just lint <path> [more paths]` emits versioned JSON
-for empty slides. Top-level `---` and `##` start slides; a separator before a
+for empty slides, invalid counter policy and missing picture descriptions.
+Meaningful images need descriptions; `.decorative` on an image explicitly
+allows `alt=""`. Source diagnostics cover titles, body and presenter notes. Top-level `---` and `##` start slides; a separator before a
 heading coalesces. Initial YAML, code, comments and fenced divs are exempt.
 `just slide-breaks` renders the three-slide boundary example.
 Both `just verify <path> [more paths]` and `just node-verify <path> [more paths]`

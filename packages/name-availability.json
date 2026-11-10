@@ -1,0 +1,31 @@
+{
+  "checkedAtUtc": "2026-11-10T00:22:44.973262+00:00",
+  "selectedUmbrella": "Plotfoundry",
+  "selectedIdentities": {
+    "pythonDistribution": "plotfoundry",
+    "pythonImport": "plotfoundry",
+    "rPackage": "plotfoundry",
+    "npmPackage": "plotfoundry"
+  },
+  "observations": [
+    {
+      "registry": "PyPI",
+      "url": "https://pypi.org/pypi/plotfoundry/json",
+      "httpStatus": 404,
+      "meaning": "No package record observed at this exact endpoint"
+    },
+    {
+      "registry": "npm",
+      "url": "https://registry.npmjs.org/plotfoundry",
+      "httpStatus": 404,
+      "meaning": "No package record observed at this exact endpoint"
+    },
+    {
+      "registry": "CRAN",
+      "url": "https://cran.r-project.org/src/contrib/PACKAGES.gz",
+      "indexSha256": "43e826c99e6f38a8f8b0b7a40c11aa6e6d771cabfc924ae4eb8d4b254690bc2c",
+      "caseInsensitivePackageMatch": false
+    }
+  ],
+  "limitations": "Observed registry absence is not reservation, trademark clearance or ownership; CRAN absence says nothing about all GitHub/r-universe R projects. No accounts or publication."
+}

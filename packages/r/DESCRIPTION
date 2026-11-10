@@ -1,0 +1,10 @@
+Package: plotfoundry
+Type: Package
+Title: Independent Plotting Package Boundary Scaffold
+Version: 0.0.0.9000
+Authors@R: person("Rahul", "Dave", role = c("aut", "cre"), email = "rahuldave@gmail.com")
+Description: An identity-only scaffold for independently installed plotting
+    packages. No plotting themes, palettes, fonts or adapters are implemented.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: R (>= 4.1.0)

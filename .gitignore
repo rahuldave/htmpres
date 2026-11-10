@@ -38,3 +38,14 @@ docs/_generated/
 docs/_extensions/nocturne/fonts/
 decks/*/assets/htmpres-themes/
 decks/*/assets/htmpres-math/
+
+# Independent package scaffold build outputs and local Python caches.
+/.build/packages/
+/packages/python/dist/
+/packages/python/build/
+/packages/python/.venv/
+/packages/python/src/*.egg-info/
+/packages/python/**/__pycache__/
+/scripts/__pycache__/
+/tests/__pycache__/
+/integration_tests/__pycache__/

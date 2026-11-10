@@ -1,10 +1,12 @@
 #!/usr/bin/env node
+import { lintDeckSource } from '../_extensions/htmpres/lib/images.mjs';
+import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 
-import { extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, splitFrontMatter as splitSourceFrontMatter } from "../_extensions/htmpres/lib/source.mjs";
+import { extractNotes as extractSourceNotes, maskCodeAndMetadata, parseSlides as parseSourceSlides, splitFrontMatter as splitSourceFrontMatter } from "../_extensions/htmpres/lib/source.mjs";
 
-import { counterPolicyFailures, unnamespacedPandocIds } from "../_extensions/htmpres/lib/render.mjs";
+import { imageAltFailures, counterPolicyFailures, unnamespacedPandocIds } from "../_extensions/htmpres/lib/render.mjs";
 
 const root = process.cwd();
 const sourceRoot = path.join(root, "source_presentations");
@@ -46,7 +48,7 @@ for (const sourcePath of explicit.length ? [] : discoverSourceDecks()) {
   const audience = readRequired(audiencePath);
   const presenter = readRequired(presenterPath);
   const notes = extractDeckNotes(presenter);
-  verifyQmdVerbatimBlocks(slug, qmd, qmdPath);
+  await verifyQmdVerbatimBlocks(slug, qmd, qmdPath);
   verifyGeneratedHtml(slug, qmd, audience, audiencePath, "audience");
   verifyGeneratedHtml(slug, qmd, presenter, presenterPath, "presenter");
   const row = {
@@ -104,7 +106,7 @@ for (const qmdPath of selected) {
   const audience = readRequired(audiencePath);
   const presenter = readRequired(presenterPath);
   const notes = extractDeckNotes(presenter);
-  verifyQmdVerbatimBlocks(slug, qmd, qmdPath);
+  await verifyQmdVerbatimBlocks(slug, qmd, qmdPath);
   verifyGeneratedHtml(slug, qmd, audience, audiencePath, "audience");
   verifyGeneratedHtml(slug, qmd, presenter, presenterPath, "presenter");
   const row = {
@@ -190,8 +192,8 @@ function readRequired(file, kind = "generated file") {
   return readFileSync(file, "utf8");
 }
 
-function verifyQmdVerbatimBlocks(deck, qmd, file) {
-  for (const diagnostic of lintSource(qmd, path.relative(root, file))) fail(deck, file, `${diagnostic.code} at ${diagnostic.line}:${diagnostic.column}: ${diagnostic.message}`);
+async function verifyQmdVerbatimBlocks(deck, qmd, file) {
+  for (const diagnostic of await lintDeckSource(qmd, path.relative(root, file), markdownToAst)) fail(deck, file, `${diagnostic.code} at ${diagnostic.line}:${diagnostic.column}: ${diagnostic.message}`);
   const blocks = extractExpectedPreBlocks(qmd);
   blocks.forEach((block, index) => {
     if (!block.trim()) fail(deck, file, `verbatim block ${index + 1} is empty`);
@@ -205,6 +207,7 @@ function verifyQmdVerbatimBlocks(deck, qmd, file) {
 function verifyGeneratedHtml(deck, qmd, html, file, mode) {
   const expected = extractExpectedPreBlocks(qmd);
   const actual = extractHtmlPreBlocks(html);
+  for (const message of [...imageAltFailures(html), ...extractDeckNotes(html).flatMap(note => imageAltFailures(note))]) fail(deck, file, message);
   for (const message of counterPolicyFailures(qmd, html, mode)) fail(deck, file, message);
   const meta = parseSimpleYaml(splitFrontMatter(qmd).yaml);
 
@@ -543,4 +546,10 @@ function stripHtmlPreBlocks(text) {
 
 function escapeRegExp(text) {
   return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function markdownToAst(markdown) {
+  const result = spawnSync("quarto", ["pandoc", "-f", "markdown+native_divs+native_spans+fenced_divs+pipe_tables+raw_html+yaml_metadata_block", "-t", "json"], {input:markdown, encoding:"utf8", maxBuffer:256 * 1024 * 1024});
+  if (result.error || result.status !== 0) throw new Error(`quarto pandoc failed while checking images: ${result.error || result.stderr}`);
+  return JSON.parse(result.stdout);
 }

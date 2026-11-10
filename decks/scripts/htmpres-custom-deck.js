@@ -164,14 +164,37 @@ function fitSlideText(slide) {
 // Credit height depends on wrapping, fonts and the current audience viewport.
 function updateCreditLayout(slide) {
   const lane = slide.querySelector('.slide-credits');
-  if (!lane) return;
-  slide.classList.remove('htmpres-has-credits');
-  const base = getComputedStyle(slide).paddingBottom;
-  slide.style.setProperty('--htmpres-credit-base-padding', base);
-  slide.classList.add('htmpres-has-credits');
-  const height = lane.offsetHeight;
-  slide.style.setProperty('--htmpres-credit-height', `${height}px`);
-  slide.style.setProperty('--htmpres-credit-reserve', `${height + 48}px`);
+  if (lane) {
+    slide.classList.remove('htmpres-has-credits');
+    const base = getComputedStyle(slide).paddingBottom;
+    slide.style.setProperty('--htmpres-credit-base-padding', base);
+    slide.classList.add('htmpres-has-credits');
+    const height = lane.offsetHeight;
+    slide.style.setProperty('--htmpres-credit-height', `${height}px`);
+    slide.style.setProperty('--htmpres-credit-reserve', `${height + 48}px`);
+  }
+  updateMediaLayout(slide);
+}
+
+// Measure only the occupied footer lanes. Values are unscaled slide CSS pixels;
+// the deck transform applies afterward in compact presenter panes.
+function updateMediaLayout(slide) {
+  if (!slide.matches('.htmpres-picture-slide,.htmpres-split-media')) return;
+  const style = getComputedStyle(slide);
+  const inset = cssPixels(style.getPropertyValue('--htmpres-credit-inset')) || 24;
+  const gap = cssPixels(style.getPropertyValue('--htmpres-media-footer-gap')) || 12;
+  let reserve = inset;
+  const credit = slide.querySelector('.slide-credits');
+  if (credit) reserve = Math.max(reserve, cssPixels(getComputedStyle(credit).bottom) + credit.offsetHeight + gap);
+  if (slide.dataset.section?.trim()) {
+    const label = getComputedStyle(slide, '::after');
+    if (label.display !== 'none' && label.visibility !== 'hidden') {
+      let height = cssPixels(label.height);
+      if (label.boxSizing !== 'border-box') height += cssPixels(label.paddingTop) + cssPixels(label.paddingBottom) + cssPixels(label.borderTopWidth) + cssPixels(label.borderBottomWidth);
+      reserve = Math.max(reserve, cssPixels(label.bottom) + height + gap);
+    }
+  }
+  slide.style.setProperty('--htmpres-media-bottom', `${reserve}px`);
 }
 
 function resetTextFit(slide) {

@@ -446,7 +446,7 @@ Clicking the diagram should open the custom zoom modal. This is a browser smoke-
 ## Full-Slide Media {.title-hidden data-section="Media" data-title="Full-Slide Media"}
 
 ::: {.ds-full .ds-media .ds-no-pad .ds-readable style="--ds-readable-start: 0.42; --ds-readable-end: 0.08;"}
-![](assets/tutorial-landscape.svg){.ds-fill .zoomable}
+![](assets/tutorial-landscape.svg){.decorative .ds-fill .zoomable}
 :::
 
 ::: {.ds-layer .media-caption}
@@ -464,7 +464,7 @@ This is the Deckset full-background image idea translated to Quarto containers: 
 ## Half-Slide Left Media {.title-hidden data-section="Media" data-title="Half-Slide Left Media"}
 
 ::: {.ds-left .ds-media .ds-no-pad}
-![](assets/tutorial-landscape.svg){.ds-fill .zoomable}
+![](assets/tutorial-landscape.svg){.decorative .ds-fill .zoomable}
 :::
 
 ::: {.ds-right .ds-pane}
@@ -501,7 +501,7 @@ Use ds-fit when the full image matters more than edge-to-edge coverage.
 ::::
 
 ::: {.ds-right .ds-media .ds-frame}
-![](assets/tutorial-detail.svg){.ds-fit .zoomable}
+![](assets/tutorial-detail.svg){.decorative .ds-fit .zoomable}
 :::
 
 ## Split Containers {data-section="Media" data-title="Split Containers"}
@@ -518,7 +518,7 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 :::
 
 ::: {.ds-pane .ds-media .ds-frame}
-![](assets/tutorial-detail.svg){.ds-fit .zoomable}
+![](assets/tutorial-detail.svg){.decorative .ds-fit .zoomable}
 :::
 ::::
 
@@ -528,15 +528,15 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 
 :::: {.ds-grid .sample-media-grid style="--ds-columns: 3; --ds-gap: 14px;"}
 ::: {.ds-media .ds-frame}
-![](assets/tutorial-landscape.svg){.ds-fit}
+![](assets/tutorial-landscape.svg){.decorative .ds-fit}
 :::
 
 ::: {.ds-media .ds-frame}
-![](assets/tutorial-landscape.svg){.ds-fill}
+![](assets/tutorial-landscape.svg){.decorative .ds-fill}
 :::
 
 ::: {.ds-media .ds-frame}
-![](assets/tutorial-landscape.svg){.ds-fit .ds-noir .ds-sharpen}
+![](assets/tutorial-landscape.svg){.decorative .ds-fit .ds-noir .ds-sharpen}
 :::
 
 ::: {.sample-label}
@@ -554,10 +554,10 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 
 :::: code-card
 ```markdown
-![](assets/tutorial-landscape.svg){.ds-fit}
-![](assets/tutorial-landscape.svg){.ds-fill}
-![](assets/tutorial-landscape.svg){.ds-fit .ds-noir .ds-sharpen}
-![](assets/tutorial-landscape.svg){.ds-fit .ds-vivid .zoomable}
+![](assets/tutorial-landscape.svg){.decorative .ds-fit}
+![](assets/tutorial-landscape.svg){.decorative .ds-fill}
+![](assets/tutorial-landscape.svg){.decorative .ds-fit .ds-noir .ds-sharpen}
+![](assets/tutorial-landscape.svg){.decorative .ds-fit .ds-vivid .zoomable}
 ```
 ::::
 
@@ -567,15 +567,15 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 
 :::: {.ds-grid .sample-media-grid style="--ds-columns: 3; --ds-gap: 14px;"}
 ::: {.ds-media .ds-frame}
-![](assets/tutorial-landscape.svg){.ds-fill .ds-bn}
+![](assets/tutorial-landscape.svg){.decorative .ds-fill .ds-bn}
 :::
 
 ::: {.ds-media .ds-frame}
-![](assets/tutorial-detail.svg){.ds-fill .ds-theme-filter}
+![](assets/tutorial-detail.svg){.decorative .ds-fill .ds-theme-filter}
 :::
 
 ::: {.ds-media .ds-frame .ds-vignette style="--ds-vignette: 0.42; --ds-vignette-size: 96px;"}
-![](assets/tutorial-landscape.svg){.ds-fill .ds-filter .ds-sharpen style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
+![](assets/tutorial-landscape.svg){.decorative .ds-fill .ds-filter .ds-sharpen style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
 :::
 
 ::: {.sample-label}
@@ -595,15 +595,15 @@ custom filter + sharpen
 ```markdown
 :::: {.ds-grid style="--ds-columns: 3"}
 ::: {.ds-media}
-![](assets/photo-1.svg){.ds-fill .ds-bn}
+![](assets/photo-1.svg){.decorative .ds-fill .ds-bn}
 :::
 
 ::: {.ds-media}
-![](assets/photo-2.svg){.ds-fill .ds-theme-filter}
+![](assets/photo-2.svg){.decorative .ds-fill .ds-theme-filter}
 :::
 
 ::: {.ds-media .ds-vignette style="--ds-vignette: 0.42;"}
-![](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
+![](assets/photo-3.svg){.decorative .ds-fill .ds-filter .ds-sharpen style="--ds-saturation: 1.15; --ds-contrast: 1.1; --ds-exposure: 0.08;"}
 :::
 ::::
 ```

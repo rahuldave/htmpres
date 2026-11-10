@@ -272,6 +272,39 @@ letting a strong picture fill the slide. Adam Wathan and Steve Schoger,
 picture overlays need a dependable ground. These patterns keep those choices
 semantic: the theme supplies all ink, grounds and typography.
 
+Every meaningful picture needs a description between `![` and `]`. The
+`lint`, `render` and `verify` commands reject an empty or missing description
+with an `image-description` **error**, including pictures in presenter notes,
+reference images and raw HTML. Diagnostics identify the slide and point to its
+starting line. For example, slide 3 titled “A titled picture, empty description”
+produces this exact message:
+
+```text
+Slide 3 (A titled picture, empty description): describe this picture, or mark a purely decorative picture with {.decorative}.
+```
+
+`lint --json` retains schema version 1 and includes `severity: "error"`,
+`code: "image-description"`, `slide`, `slideId`, `line` and `column`; it exits
+with status 1. Both verifiers also reject exported images with no `alt`
+attribute, including serialized presenter notes. All rendered images have an
+`alt` attribute. Code examples and comments are not pictures.
+
+For a purely decorative picture that adds no information, explicitly write an
+empty description with `.decorative` on the **image**:
+
+```markdown
+## A decorative texture
+
+![](assets/texture.svg){.decorative .ds-fit}
+```
+
+This renders `alt=""` and lint accepts it. Raw HTML may use
+`<img src="assets/texture.svg" class="decorative" alt="">`. Do not mark an
+informative picture decorative to remove a caption; the described `.ds-full`
+form below already hides its visible caption. `data-background-image` remains
+the decorative full-slide background form. These HTML attributes are retained
+when printing; htmpres does not provide a separate tagged-PDF export.
+
 For a titled slide containing one picture and an optional credit, write:
 
 ```markdown
@@ -284,7 +317,10 @@ For a titled slide containing one picture and an optional credit, write:
 
 The description becomes both the image's screen-reader `alt` and its visible
 caption. The picture, caption and credit fit below the title, without cropping
-the picture. Wide, tall and 16:9 images use the same syntax. `.ds-fit` is
+the picture. It grows to a limiting edge of the space below the title,
+reserving the actual caption, credit and section-label boxes plus the theme’s
+gaps. It can scale beyond its intrinsic size, including viewBox-only SVGs.
+Captions are centered under centered pictures. Wide, tall and 16:9 images use the same syntax. `.ds-fit` is
 optional for this one-picture layout. Wrapping the image in `::: {.ds-media}`
 also works; a linked image keeps its native Markdown caption behavior.
 `.ds-fill` deliberately crops to fill the available picture box.
@@ -359,7 +395,7 @@ Half-slide media:
 
 ```markdown
 ::: {.ds-left .ds-media .ds-no-pad}
-![](assets/photo.svg){.ds-fill .zoomable}
+![Describe the photograph](assets/photo.svg){.ds-fill .zoomable}
 :::
 
 ::: {.ds-right .ds-pane}
@@ -376,7 +412,7 @@ Split flow layout:
 :::
 
 ::: {.ds-pane .ds-media .ds-frame}
-![](assets/detail.svg){.ds-fit .zoomable}
+![Describe the detail](assets/detail.svg){.ds-fit .zoomable}
 :::
 ::::
 ```
@@ -405,15 +441,15 @@ Three inline images laid out by an enclosing div:
 ```markdown
 :::: {.ds-grid}
 ::: {.ds-media}
-![](assets/photo-1.svg){.ds-fill .ds-bn}
+![Describe picture 1](assets/photo-1.svg){.ds-fill .ds-bn}
 :::
 
 ::: {.ds-media}
-![](assets/photo-2.svg){.ds-fill .ds-theme-filter}
+![Describe picture 2](assets/photo-2.svg){.ds-fill .ds-theme-filter}
 :::
 
 ::: {.ds-media .ds-vignette}
-![](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen}
+![Describe picture 3](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen}
 :::
 ::::
 ```

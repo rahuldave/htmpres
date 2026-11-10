@@ -8,7 +8,7 @@ deck:
 ## {data-title="Fault 1: readable" data-section="Pictures"}
 
 ::: {.ds-full .ds-media .ds-fill .ds-no-pad .ds-readable}
-![](assets/photo.svg)
+![A long line of students waits before one database](assets/photo.svg)
 :::
 
 ::: {.ds-layer}
@@ -18,7 +18,7 @@ deck:
 ## {data-title="Fault 2: layer ink" data-section="Pictures"}
 
 ::: {.ds-full .ds-media .ds-no-pad}
-![](assets/photo.svg){.ds-fill}
+![A long line of students waits before one database](assets/photo.svg){.ds-fill}
 :::
 
 ::: {.ds-layer}
@@ -215,3 +215,153 @@ deck:
 - Explain the result.
 
 [Picture: test fixture.]{.credit}
+
+## Every student waits for one database {#t1 data-section="Students wait eight seconds at nine"}
+
+![A long line of students waits before one database](assets/photo-viewbox.svg){.ds-fit}
+
+[Drawing: look-talks example.]{.credit}
+
+## A titled picture, no section {#t2}
+
+![A long line of students waits before one database](assets/photo-viewbox.svg){.ds-fit}
+
+## ViewBox photo, caption, credit, label {data-section="Pictures"}
+
+![A photo picture, fully visible.](assets/photo-viewbox.svg){.ds-fit}
+
+[Picture: test fixture.]{.credit}
+
+## ViewBox photo, caption, credit
+
+![A photo picture, fully visible.](assets/photo-viewbox.svg){.ds-fit}
+
+[Picture: test fixture.]{.credit}
+
+## ViewBox photo, caption, label {data-section="Pictures"}
+
+![A photo picture, fully visible.](assets/photo-viewbox.svg){.ds-fit}
+
+## ViewBox photo, caption
+
+![A photo picture, fully visible.](assets/photo-viewbox.svg){.ds-fit}
+
+## ViewBox photo, linked, credit, label {data-section="Pictures"}
+
+[![A photo picture, fully visible.](assets/photo-viewbox.svg){.ds-fit}](assets/photo-viewbox.svg)
+
+[Picture: test fixture.]{.credit}
+
+## ViewBox photo, linked, credit
+
+[![A photo picture, fully visible.](assets/photo-viewbox.svg){.ds-fit}](assets/photo-viewbox.svg)
+
+[Picture: test fixture.]{.credit}
+
+## ViewBox photo, linked, label {data-section="Pictures"}
+
+[![A photo picture, fully visible.](assets/photo-viewbox.svg){.ds-fit}](assets/photo-viewbox.svg)
+
+## ViewBox photo, linked
+
+[![A photo picture, fully visible.](assets/photo-viewbox.svg){.ds-fit}](assets/photo-viewbox.svg)
+
+## ViewBox wide, caption, credit, label {data-section="Pictures"}
+
+![A wide picture, fully visible.](assets/wide-viewbox.svg){.ds-fit}
+
+[Picture: test fixture.]{.credit}
+
+## ViewBox wide, caption, credit
+
+![A wide picture, fully visible.](assets/wide-viewbox.svg){.ds-fit}
+
+[Picture: test fixture.]{.credit}
+
+## ViewBox wide, caption, label {data-section="Pictures"}
+
+![A wide picture, fully visible.](assets/wide-viewbox.svg){.ds-fit}
+
+## ViewBox wide, caption
+
+![A wide picture, fully visible.](assets/wide-viewbox.svg){.ds-fit}
+
+## ViewBox wide, linked, credit, label {data-section="Pictures"}
+
+[![A wide picture, fully visible.](assets/wide-viewbox.svg){.ds-fit}](assets/wide-viewbox.svg)
+
+[Picture: test fixture.]{.credit}
+
+## ViewBox wide, linked, credit
+
+[![A wide picture, fully visible.](assets/wide-viewbox.svg){.ds-fit}](assets/wide-viewbox.svg)
+
+[Picture: test fixture.]{.credit}
+
+## ViewBox wide, linked, label {data-section="Pictures"}
+
+[![A wide picture, fully visible.](assets/wide-viewbox.svg){.ds-fit}](assets/wide-viewbox.svg)
+
+## ViewBox wide, linked
+
+[![A wide picture, fully visible.](assets/wide-viewbox.svg){.ds-fit}](assets/wide-viewbox.svg)
+
+## ViewBox tall, caption, credit, label {data-section="Pictures"}
+
+![A tall picture, fully visible.](assets/tall-viewbox.svg){.ds-fit}
+
+[Picture: test fixture.]{.credit}
+
+## ViewBox tall, caption, credit
+
+![A tall picture, fully visible.](assets/tall-viewbox.svg){.ds-fit}
+
+[Picture: test fixture.]{.credit}
+
+## ViewBox tall, caption, label {data-section="Pictures"}
+
+![A tall picture, fully visible.](assets/tall-viewbox.svg){.ds-fit}
+
+## ViewBox tall, caption
+
+![A tall picture, fully visible.](assets/tall-viewbox.svg){.ds-fit}
+
+## ViewBox tall, linked, credit, label {data-section="Pictures"}
+
+[![A tall picture, fully visible.](assets/tall-viewbox.svg){.ds-fit}](assets/tall-viewbox.svg)
+
+[Picture: test fixture.]{.credit}
+
+## ViewBox tall, linked, credit
+
+[![A tall picture, fully visible.](assets/tall-viewbox.svg){.ds-fit}](assets/tall-viewbox.svg)
+
+[Picture: test fixture.]{.credit}
+
+## ViewBox tall, linked, label {data-section="Pictures"}
+
+[![A tall picture, fully visible.](assets/tall-viewbox.svg){.ds-fit}](assets/tall-viewbox.svg)
+
+## ViewBox tall, linked
+
+[![A tall picture, fully visible.](assets/tall-viewbox.svg){.ds-fit}](assets/tall-viewbox.svg)
+
+## Explicit decorative bare
+
+![](assets/photo.svg){.decorative .ds-fit}
+
+## Explicit decorative full
+
+::: {.ds-full .ds-media .ds-no-pad}
+![](assets/photo.svg){.decorative .ds-fill}
+:::
+
+## Explicit decorative split
+
+::: {.ds-left .ds-media}
+![](assets/photo.svg){.decorative .ds-fit}
+:::
+
+::: {.ds-right .ds-pane}
+- The decorative texture adds no information.
+:::

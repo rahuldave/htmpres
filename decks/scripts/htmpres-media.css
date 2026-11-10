@@ -9,14 +9,12 @@
 .slide.active.htmpres-picture-slide {
   display: flex;
   flex-direction: column;
-  gap: var(--htmpres-group-gap, 24px);
+  gap: var(--htmpres-media-title-gap, var(--htmpres-within-gap, 16px));
 }
-.slide.htmpres-picture-slide,
-.slide.htmpres-split-media {
-  padding-bottom: 82px;
-}
+/* Reserve actual footer boxes, rather than a fixed blank band plus credits. */
+.slide:is(.htmpres-picture-slide,.htmpres-split-media),
 .slide:is(.htmpres-picture-slide,.htmpres-split-media).htmpres-has-credits {
-  padding-bottom: calc(var(--htmpres-credit-base-padding,82px) + var(--htmpres-credit-reserve,0px));
+  padding-bottom: var(--htmpres-media-bottom, var(--htmpres-credit-inset,24px));
 }
 .slide.htmpres-picture-slide > h2 { flex: none; }
 .slide.htmpres-picture-slide > :is(figure,p,.ds-media) {
@@ -29,12 +27,17 @@
 .slide.htmpres-picture-slide > .ds-media > :is(figure,p),
 .slide.htmpres-split-media > .ds-media > :is(figure,p) {
   display: grid;
-  grid-template-rows: minmax(0,1fr) auto;
-  gap: .5em;
+  grid-template-rows: minmax(0,1fr);
+  gap: 0;
   width: 100%;
   height: 100%;
   min-height: 0;
   margin: 0;
+}
+.slide.htmpres-picture-slide figure:has(> figcaption),
+.slide.htmpres-split-media figure:has(> figcaption) {
+  grid-template-rows: minmax(0,1fr) auto;
+  gap: var(--htmpres-media-caption-gap, 8px);
 }
 .slide:is(.htmpres-picture-slide,.htmpres-split-media) :is(figure,p) > :is(img,a:has(>img)),
 .slide:is(.htmpres-picture-slide,.htmpres-split-media) :is(figure,p) > a > img {
@@ -54,6 +57,7 @@
   color: var(--htmpres-media-label-ink,var(--ink));
   margin: 0;
   line-height: 1.3;
+  text-align: var(--htmpres-media-caption-align, center);
 }
 .slide.active.htmpres-split-media {
   display: grid;
@@ -102,9 +106,5 @@
   color: var(--htmpres-media-label-ink, var(--ink));
   padding: .25em .5em;
 }
-@media (max-width: 980px) {
-  .slide.htmpres-picture-slide,
-  .slide.htmpres-split-media {
-    padding-bottom: var(--htmpres-mobile-slide-bottom-clearance,120px);
-  }
-}
+.slide:is(.htmpres-picture-slide,.htmpres-split-media):not([data-section])::after,
+.slide:is(.htmpres-picture-slide,.htmpres-split-media)[data-section=""]::after { display: none; }

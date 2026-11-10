@@ -1,6 +1,6 @@
 # Customize layouts and themes
 
-This is a customization reference for authors who want to change theme tokens,
+Use this customization reference for authors who want to change theme tokens,
 backgrounds, typography, layout behavior or renderer settings. For a guided
 first talk using the supplied themes, follow [Start a deck](quickstart.qmd).
 For working patterns with their source, use [Learn from the Markdown](example.qmd).
@@ -19,22 +19,23 @@ This workspace uses the local shim `scripts/htmpres.ts`. In a separate project
 where the extension has been installed with `quarto add`, use
 `_extensions/htmpres/htmpres.ts` in the commands instead.
 
-## 1. Create A Deck Folder
+## 1. Create a deck folder
 
 ```sh
-mkdir -p decks/my-deck/assets
+quarto run scripts/htmpres.ts deck new decks/my-deck --theme nocturne
 ```
 
-Each deck folder should contain:
+The command creates a new deck folder with the supplied starter stylesheet:
 
 - `index.qmd`: the editable markdown source.
 - `source.css`: the deck-specific style sheet.
 - `assets/`: images and other deck assets.
 
-## 2. Add Front Matter
+## 2. Add front matter
 
-Use `pagetitle`, not `title`, so Quarto does not try to create its own title
-slide when fragments are converted.
+Use `pagetitle` for the browser tab title. The custom renderer also accepts
+`title` as a fallback. Write your first visible slide explicitly with `##`;
+neither setting creates a title slide.
 
 ```yaml
 ---
@@ -67,7 +68,7 @@ automatically run the fitting pass, and `fit-scroll` turns on scrolling only
 for slides that still overflow. Scrollable slides show a small bottom cue until
 the reader scrolls near the end of the slide.
 
-## 3. Choose A Theme
+## 3. Choose a theme
 
 Themes are ordinary CSS variable sets selected from front matter. Keep layout
 classes structural, and put palette, typography, code token colors, and default
@@ -98,7 +99,7 @@ html[data-theme="mono-grid"] {
 Use `.ds-theme-filter` on media that should receive the active theme's default
 filter. Use `.ds-original` when a media item must bypass theme filtering.
 
-## 4. Add A Global Background
+## 4. Add a global background
 
 Use front matter when the whole deck should carry the same low background
 image. The renderer inserts a `.ds-global-background` layer into every slide:
@@ -116,7 +117,7 @@ tokens such as `theme`, `bn`, `noir`, `chrome`, `fade`, `vivid`, `sharpen`, or
 `original`. Use `.no-background` on a slide or
 `data-background-image="none"` when a slide should opt out.
 
-## 5. Enable Theme-Level Text Fitting
+## 5. Enable theme-level text fitting
 
 Use `deck.text-fit: true` to let the runtime scale down theme typography when
 a slide would overflow:
@@ -145,7 +146,7 @@ Supported overflow modes are:
   active slide still overflows. A small bottom cue appears while more content is
   below the visible slide area.
 
-## 6. Start Slides With Headings Or Separators
+## 6. Start slides with headings or separators
 
 Start a slide with `## Title` or top-level `---`. A separator followed by a
 heading, with only blank lines between, makes one slide. Use `## {#backup}`
@@ -165,7 +166,7 @@ The short version of the story goes here.
 Heading classes become slide classes. `data-title` is used by the table of
 contents and overview. `data-section` appears as the slide footer label.
 
-## 7. Use Fenced Divs For Layout
+## 7. Use fenced divs for layout
 
 Use Quarto/Pandoc fenced divs for visual blocks:
 
@@ -185,12 +186,12 @@ Approvals and evidence travel with the work.
 ::::
 ```
 
-Use more colons for an outer div when nesting divs. This keeps the source easy
+Use more colons for an outer div when nesting divs. The extra colons make the nesting easier
 to scan.
 
 Use `docs/quarto-class-map.md` as the class reference. A class is reusable
 when it has renderer behavior or starter CSS there. Other classes are ordinary
-deck-local hooks: define them in the deck's `source.css` or theme stylesheet.
+deck-local hooks. Define them in the deck's `source.css` or theme stylesheet.
 For example, `::: lead` is part of the starter vocabulary, while a custom block
 such as `::: why-line` only has meaning in decks whose CSS defines
 `.why-line`.
@@ -201,7 +202,7 @@ A short framing sentence for the slide or section.
 :::
 ```
 
-## 8. Add Speaker Notes
+## 8. Add speaker notes
 
 Notes are normal QMD fenced divs:
 
@@ -214,7 +215,7 @@ These notes only appear in presenter.html.
 `quarto run scripts/htmpres.ts render` removes notes from `index.html` and
 places them in the presenter panel in `presenter.html`.
 
-## 9. Highlight Code By Line
+## 9. Highlight code by line
 
 Use Pandoc fenced-code attributes for highlighted code examples:
 
@@ -242,7 +243,7 @@ Use `data-highlight` only when a line should stay highlighted across every
 step. Use a leading `none` step when the block should start with no active
 line.
 
-## 10. Add Bullet, Fragment, And Slide Transitions
+## 10. Add bullet, fragment, and slide transitions
 
 Wrap a list in `.incremental` to reveal list items one-by-one:
 
@@ -282,17 +283,19 @@ Supported slide transitions are `.transition-fade`, `.transition-slide`,
 Mixed slides use one step graph. Shared `data-fragment-index` text numbers
 and code/equation `data-step-indices` mappings advance together, even across
 columns. Sparse numbers consume no empty keypresses. Without mappings, mixed
-events run in source order. Ordinary revealed text remains visible; `dim`
-keeps the latest text point current until another text point appears. Only
-legacy unmapped code-only slides retain their first-snapshot baseline and
-shared kth snapshots across code blocks.
+events run in source order.
+
+Ordinary revealed text remains visible; `dim`
+keeps the latest text point current until another text point appears. On a
+slide containing only code steps, without explicit mappings, the first snapshot
+is visible initially. Blocks then advance to their next snapshots together.
 
 Persistent `data-highlight` lines and slide transitions do not consume a
 navigation step. The transition runs when entering the next slide after all
 frames have completed. See [Semantic slides](semantic-authoring.md) for
 copyable shared code/text/equation examples.
 
-## 11. Add Images And Deckset-Inspired Layouts
+## 11. Add images and Deckset-inspired layouts
 
 Keep appearance in the theme stylesheet. The examples below use class-based
 structure and theme defaults, with no inline style attributes.
@@ -352,8 +355,8 @@ Split content in normal slide flow:
 ::::
 ```
 
-Inline image groups and grids use the same split: the enclosing div lays out
-the group, while each media element keeps its own fit/fill/filter behavior.
+For image groups and grids, the enclosing div places the group. Each media
+element keeps its own fit, fill and filter behavior.
 
 ```markdown
 :::: {.ds-grid}
@@ -375,7 +378,7 @@ Useful media classes:
 
 - `.ds-fit`: contain the whole image/video inside its box.
 - `.ds-fill`: cover the box and crop if needed.
-- `.ds-bn` / `.ds-bw`, `.ds-vivid`, `.ds-noir`, `.ds-chrome`, `.ds-fade`: simple filter presets.
+- Filter presets include `.ds-bn` / `.ds-bw`, `.ds-vivid`, `.ds-noir`, `.ds-chrome` and `.ds-fade`.
 - `.ds-filter`: custom filter variables such as `--ds-grayscale`, `--ds-sepia`, `--ds-saturation`, `--ds-contrast`, `--ds-brightness`, `--ds-exposure`, `--ds-hue`, `--ds-blur`, and `--ds-opacity`.
 - `.ds-theme-filter`: apply the active theme's `--ds-theme-filter` value.
 - `.ds-sharpen`: apply the browser SVG sharpen filter and compose it with preset or custom CSS filters.
@@ -412,7 +415,7 @@ Playback directive classes supported by the runtime:
 - `.ds-autoadvance`
 - `.ds-keep-time`
 
-## 12. Add Small Interactions And Buttons
+## 12. Add small interactions and buttons
 
 For a click-to-update panel, use raw HTML buttons with data attributes:
 
@@ -465,7 +468,7 @@ Open:
 - `decks/my-deck/index.html` for the audience view.
 - `decks/my-deck/presenter.html` for the presenter view.
 
-## 14. Import Existing HTML
+## 14. Import existing HTML
 
 When starting from an HTML deck copied into `source_presentations/`, run:
 

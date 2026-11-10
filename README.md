@@ -20,6 +20,7 @@ Included:
 
 - `_extensions/htmpres/`: installable Quarto utility extension and runtime.
 - `decks/tutorial/`: advanced customization reference deck (legacy folder name).
+- `decks/patterns/`: copyable picture, background, statement and quotation examples.
 - `decks/example/`: twelve-slide Nocturne feature tour with inline speaker notes.
 - `decks/semantic/`: semantic importance, offline math, mixed steps and appendix links.
 - `decks/scripts/`: project-local runtime copies used by this workspace.

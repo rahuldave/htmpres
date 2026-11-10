@@ -54,6 +54,25 @@ for (const view of ["index", "presenter"]) {
 copy(new URL("decks/authoring-hooks/assets/two-views.svg", root), new URL("authoring-hooks/assets/two-views.svg", output));
 write("source/authoring-hooks.qmd.txt", read("decks/authoring-hooks/index.qmd"));
 write("source/semantic.qmd.txt", read("decks/semantic/index.qmd"));
+// An independent source keeps the historical comparison and its links stable.
+const patternSource = read("decks/patterns/index.qmd");
+const patternAudience = read("decks/patterns/index.html");
+for (const mode of ["light", "dark"]) {
+  for (const view of ["audience", "presenter"]) {
+    const input = view === "audience" ? patternAudience : read("decks/patterns/presenter.html");
+    write(`patterns/nocturne/${mode}/${view === "audience" ? "index" : "presenter"}.html`,
+      themeVariant(input, { ...options, localCss: "", name: "nocturne", mode }));
+  }
+  for (const asset of ["two-views.svg", "texture.svg"]) {
+    copy(new URL(`decks/patterns/assets/${asset}`, root), new URL(`patterns/nocturne/${mode}/assets/${asset}`, output));
+  }
+}
+write("patterns-manifest.json", JSON.stringify({ version: 1, deckSet: "patterns",
+  themes: themes.filter(theme => theme.name === "nocturne"), slides: slideTitles(patternSource, patternAudience),
+  slideSources: slideSources(patternSource) }, null, 2) + "\n");
+write("source/patterns.qmd.txt", patternSource);
+copy(new URL("decks/patterns/assets/texture.svg", root), new URL("source/texture.svg", output));
+
 // Vendor site fonts from the same licensed bundle; do not depend on a sibling checkout.
 for (const asset of catalog.themes.nocturne.assets) {
   if (asset.startsWith("fonts/") || asset.startsWith("licenses/")) copy(new URL(`_extensions/htmpres/themes/${asset}`, root), new URL(`docs/_extensions/nocturne/${asset}`, root));

@@ -26,6 +26,10 @@ The remaining sections explain the shared scientific choices and export limits.
 | Seaborn / pandas | Ordinary native plots with furniture, plus supported helpers using dataframe columns | A native automatic color cycle is theme-only |
 | ggplot2 | Native theme/scales and supported layered geometries, facets and explicit export | Linear Cartesian coordinates; native scale transforms supported |
 | Base R | Scoped graphics furniture, physical line/point geometry and heatmaps | Explicit device/export path; caller device is preserved |
+| JavaScript / Observable Plot / Quarto OJS | Browser charts, interactive inspection and local PNG/SVG export | Supported marks and explicit adapters; see the [JavaScript guide](plotting-javascript.qmd) |
+
+Plot furniture means axes, labels, grids and legends. A profile selects reading
+or presentation sizes; a surface selects a paper or panel background.
 
 All routes consume the same versioned scientific contract. It includes nine families,
 light/dark, reading/presentation and paper/panel, giving **72 configurations**.
@@ -53,7 +57,7 @@ headings use their approved resolved faces.
   heatmaps use muted fill and an explicit crossed cue. Under/over values clip to
   endpoints and remain distinct from missing.
 
-The exact gamma-sRGB LUT floats are shared. Sample locations `i/(N-1)` are not
+The exact gamma-sRGB lookup table (LUT) values are shared. Sample locations `i/(N-1)` are not
 lookup bins. Lookup uses `floor(u*N)`, capped at the last entry. BrBG has 257
 entries and center index 128 (zero based). There is no automatic reversal or
 interpolation substitute. R converts exact lookup values to native hex, then a
@@ -98,5 +102,5 @@ they are not signatures or a universal accessibility/projector guarantee.
 [Static download index](_generated/plotting/index.html) and
 [Font and code notices](_generated/plotting/index.html#notices)
 
-Other language adapters remain separate pieces. The JavaScript guide covers
-the browser and Quarto OJS reference; no npm release is implied.
+The [JavaScript guide](plotting-javascript.qmd) covers the browser and Quarto OJS
+reference. It has its own pinned installation recipe; no npm release is implied.

@@ -201,6 +201,7 @@ just authoring-hooks
 just pictures
 just lint slides.qmd
 just example
+just patterns
 just theme-gallery
 just docs
 just docs-check
@@ -453,3 +454,12 @@ standard library, stage the closed reviewed browser bundle after theme-gallery,
 and do not require npm or native plotting runtimes on Website CI. After source
 changes, explicitly refresh its browser manifest; normal builds reject stale inputs.
 The JavaScript guide uses the nossaifd hard/verbose checks and manual reader review.
+
+The normal-use picture and statement examples live in `decks/patterns/index.qmd`;
+`just patterns` renders them. The website lab at `patterns.html` uses a separate
+manifest and four Nocturne mode/view exports, preserving the historical
+12-slide theme comparison. `integration_tests/docs-layout-browser.mjs` checks
+actual geometry, including stacked preview/source boxes with matching widths, and
+`integration_tests/patterns-browser.mjs` checks its source and interactions.
+The public documentation review is recorded in `docs/documentation-audit.md`;
+it is a maintainer record outside the website page allowlist.

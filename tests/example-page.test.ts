@@ -1,5 +1,5 @@
 import { slideSources } from "../scripts/showcase.mjs";
-import { stepAction, exampleKeyboardAction } from "../docs/assets/deck-example.mjs";
+import { stepAction, exampleKeyboardAction, exampleCanvas } from "../docs/assets/deck-example.mjs";
 const assert = (value: unknown, message: string) => { if (!value) throw new Error(message); };
 const original = '---\r\ntitle: Example\r\n---\r\n\r\n## A *claim* {#claim}\r\n\r\n````markdown\r\n## Only code\r\n```\r\n````\r\n\r\n::: notes\r\nA cue.\r\n:::\r\n\r\n## Another\r\n\r\nBody.\r\n';
 const chunks = slideSources(original);
@@ -52,3 +52,14 @@ console.log('Example-only bridge passed: shared runtime state, boundaries and fu
 const mixedBoundaries = '---\npagetitle: Mixed\n---\n\n---\nOpening.\n## Two\nBody.\n---\n## {#third}\nEnd.';
 const mixedSources = slideSources(mixedBoundaries);
 assert(mixedSources.length === 3 && mixedSources[0].line === 5 && mixedSources[2].markdown.startsWith('---\n## {#third}'), 'Source picker preserves mixed boundaries as one slice per slide');
+
+for (const [view, height] of [['audience', 720], ['presenter', 930]]) {
+  const canvas = exampleCanvas(view);
+  assert(canvas.width === 1280 && canvas.height === height, 'Virtual desktop slide and optional notes have explicit geometry');
+}
+const patterns = { themes: [{name:'nocturne',modes:['light','dark']}], slides:['Picture'], deckSet:'patterns' };
+const {selection} = await import('../docs/assets/theme-comparison.mjs');
+assert(selection('nocturne','dark','presenter',1,patterns).open === '_generated/patterns/nocturne/dark/presenter.html#/1', 'Pattern lab has an independent source and deck root');
+let rejectedPath = false;
+try { selection('nocturne','light','audience',1,{...patterns,deckSet:'../private'}); } catch { rejectedPath=true; }
+assert(rejectedPath, 'Manifest deck root stays within a named generated set');

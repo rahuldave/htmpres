@@ -1,0 +1,158 @@
+---
+pagetitle: Picture and statement patterns
+deck:
+  theme: nocturne
+  color-mode: auto
+  counter: presenter
+  text-fit: true
+  overflow: fit-scroll
+---
+
+## {#statement data-title="A statement"}
+
+::: {.statement}
+Give each idea room.
+:::
+
+::: notes
+Explain the claim before showing its supporting evidence.
+:::
+
+## A quotation {.quote #quotation}
+
+> A useful diagram gives the audience [a relationship to follow.]{.key}
+>
+> [Original demonstration copy, htmpres authors.]{.source}
+
+::: notes
+The source belongs with the quote. This is example copy, not an external quotation.
+:::
+
+## One source makes two views {#contained data-section="A contained picture"}
+
+![One Markdown document branches into audience slides and a presenter view with notes.](assets/two-views.svg){.ds-fit .zoomable}
+
+[Diagram: htmpres authors, [source record](#sources).]{.credit}
+
+::: notes
+The full diagram remains visible. Select the image to zoom; Escape closes it.
+:::
+
+## {#full data-title="A full-slide picture" data-section="Full-slide media"}
+
+::: {.ds-full .ds-media .ds-no-pad}
+![One Markdown document branches into audience slides and a presenter view with notes.](assets/two-views.svg){.ds-fill}
+:::
+
+[Diagram: htmpres authors, [source record](#sources).]{.credit}
+
+::: notes
+Fill crops the picture to cover the slide. Use ds-fit to retain every edge.
+:::
+
+## {#overlay data-title="Text over a picture" data-section="Picture and explanation"}
+
+::: {.ds-full .ds-media .ds-no-pad .ds-readable}
+![One Markdown document branches into audience slides and a presenter view with notes.](assets/two-views.svg){.ds-fill}
+:::
+
+::: {.ds-layer}
+[Keep your cues in the presenter view.]{.key}
+:::
+
+[Diagram: htmpres authors, [source record](#sources).]{.credit}
+
+::: notes
+The theme supplies the readable text panel. The image keeps its accessible description.
+:::
+
+## A decorative background {#background data-background-image="assets/texture.svg" data-section="Backgrounds"}
+
+[The heading and body use theme-controlled panels.]{.key}
+
+The texture adds decoration. The words carry the explanation.
+
+[Texture: htmpres authors, [source record](#sources).]{.credit}
+
+::: notes
+Background layers are decorative. For an informative image use a described ds-full image instead.
+:::
+
+## Picture on the left {#left data-section="Two panes"}
+
+::: {.ds-left .ds-media .ds-no-pad}
+![One source produces separate audience and presenter views.](assets/two-views.svg){.ds-fit}
+:::
+
+::: {.ds-right .ds-pane}
+::: {.incremental}
+- Write the talk in Markdown.
+- Keep your cues in notes.
+- Render both views together.
+:::
+:::
+
+[Diagram: htmpres authors, [source record](#sources).]{.credit}
+
+::: notes
+Advance three times. The explaining points appear in order; earlier points stay visible.
+:::
+
+## Picture on the right {#right data-section="Two panes"}
+
+::: {.ds-left .ds-pane}
+[Share the audience view.]{.key}
+
+Keep the presenter file and the editable Markdown for yourself.
+:::
+
+::: {.ds-right .ds-media .ds-no-pad}
+![Audience slides omit notes; the presenter view includes them.](assets/two-views.svg){.ds-fit}
+:::
+
+[Diagram: htmpres authors, [source record](#sources).]{.credit}
+
+::: notes
+Both the source Markdown and presenter HTML contain these cues.
+:::
+
+## A grid of pictures {#grid data-section="Several pictures"}
+
+::: {.ds-grid}
+::: {.ds-media}
+![Audience and presenter views share one source.](assets/two-views.svg){.ds-fit}
+:::
+::: {.ds-media}
+![The same diagram can be reused in another panel.](assets/two-views.svg){.ds-fit}
+:::
+:::
+
+[Diagram: htmpres authors, [source record](#sources).]{.credit}
+
+::: notes
+The grid container places the pictures. Each picture chooses its own fit or fill behavior.
+:::
+
+## Notes and counters {#counters}
+
+The audience does not need a slide count.
+
+With `counter: presenter`, the presenter keeps the count and the audience sees the slide without it.
+
+[Open the source record](#sources), then return here.
+
+::: notes
+The deck front matter selects the counter policy. It is not a per-slide attribute.
+End stops on this last main slide. The source record is an appendix slide.
+:::
+
+## Source record {#sources data-kind="appendix"}
+
+The diagram and decorative texture are original SVG assets supplied with this example.
+The quotation is original demonstration copy.
+
+[Back to the contained picture](#contained), [background](#background), or [last main slide](#counters).
+
+::: notes
+An appendix link is a detour. Use one of the return links to resume the main talk.
+:::

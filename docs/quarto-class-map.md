@@ -1,10 +1,10 @@
-# QMD Class Map
+# QMD class map
 
 The editable deck source is Quarto-flavored Markdown. The renderer uses
 Quarto/Pandoc for Markdown fragments, then writes a custom HTML slide shell
 with navigation, overview, zoom, presenter notes, and small interactions.
 
-## Slide Syntax
+## Slide syntax
 
 Slides start with top-level `---` or a level-2 heading; a separator immediately
 before a heading makes one slide. Empty headings carry untitled-slide settings.
@@ -25,17 +25,20 @@ Common slide classes:
 - `.no-autoscale`: opts one slide out of deck-level text fitting.
 - `.no-background`: opts one slide out of a global deck background.
 
-## Semantic Importance, Math And Titles
+## Semantic importance, math and titles
 
 Use `[The claim.]{.statement}`, `[The point.]{.key}` and `[A qualification.]{.aside}`, or fenced
 `::: {.key}` / `::: {.aside}` blocks. The theme maps importance to weight,
-size and ink; keep authored QMD free of inline styles, colors and font choices.
-All paired themes support both modes. `.key` uses importance token level 3,
-`.aside` level 1, `.statement` level 4, `.credit`/`.source` level 0 and ordinary body level 2; themes expose levels 0–4 as
+size and ink. Use semantic roles without inline styles or font choices. Optional
+matched-color overrides are the explicit exception; see the examples below.
+.key and the other semantic roles work in all paired themes, in both modes.
+
+ `.key` uses importance token level 3,
+`.aside` level 1, `.statement` level 4, `.credit`/`.source` level 0 and ordinary body level 2; themes expose levels 0 to 4 as
 `--htmpres-importance-N-scale`, `-weight` and `-ink` for future remapping.
 There are no numbered author classes.
 
-Titles accept inline Markdown: `## Why *structure* matters {#structure}`.
+Titles accept inline Markdown, for example `## Why *structure* matters {#structure}`.
 Math uses `$x^2$` / `$$...$$` and local KaTeX assets. Name a term with
 `\htmlClass{term-a}{x}`; only this KaTeX HTML extension is trusted. Keep the
 rendered `assets/htmpres-math/` folder with the HTML for offline viewing.
@@ -45,12 +48,12 @@ write `[^1]` and `[^1]: Source.` normally.
 See [Semantic slides](semantic-authoring.md) for complete, copyable examples
 and the [audience demo](_generated/semantic/index.html).
 
-## Statement, Picture Credit, Quote Source And Counter
+## Statement, picture credit, quote source and counter
 
-Jonathan Schwabish's *Better Presentations* (2017) motivates these hooks:
-dominant claims (pp. 70–72), spare statement/header slides (pp. 139–140), picture
-credits and endnotes (pp. 128–129), quotations with highlighted passages and
-sources (pp. 72–73), and omitting audience slide numbers (pp. 69–70).
+Jonathan Schwabish's *Better Presentations* (2017) motivates these hooks.
+They cover dominant claims (pp. 70 to 72), spare statement/header slides (pp. 139 to 140), picture
+credits and endnotes (pp. 128 to 129). His examples also cover quotations with highlighted passages and
+sources (pp. 72 to 73), and omitting audience slide numbers (pp. 69 to 70).
 
 | Hook | Meaning |
 |---|---|
@@ -109,7 +112,7 @@ lengthy attribution in endnotes so the picture credit remains short and readable
 See the [complete guide](semantic-authoring.md#picture-credits) and
 [runnable example](_generated/authoring-hooks/index.html).
 
-## Matched Final View
+## Matched final view
 
 `## A result {data-step-summary="match"}` adds one automatic final step after
 all text/code/equation reveals. Named source parts and explaining text share their colors from each group's
@@ -134,7 +137,7 @@ includes copyable code/equation slides, direct inline-math attributes, defaults,
 override precedence and contrast limits. Semantic-only QMD remains the default;
 the optional color attributes are explicit author overrides.
 
-## Presenter Notes
+## Presenter notes
 
 Speaker notes are authored as a fenced div:
 
@@ -147,7 +150,7 @@ Use this as the presenter cue.
 During rendering, notes are removed from audience slide content and written to
 the presenter notes panel in `presenter.html`.
 
-## Layout Blocks
+## Layout blocks
 
 Use fenced divs for structure. These examples use theme defaults; customize
 appearance in the theme stylesheet, keeping QMD semantic:
@@ -224,7 +227,7 @@ Theme variables currently cover deck colors, typography, code token colors,
 panel colors, media frame colors, filter preset values, `.ds-theme-filter`,
 and text-fit typography tokens.
 
-## Global Backgrounds And Text Fit
+## Global backgrounds and text fit
 
 Set global background and text-fit behavior in front matter:
 
@@ -253,30 +256,29 @@ tokens scale. `deck.overflow` can be `hidden`, `scroll`, `fit`, or
 `fit-scroll` only scrolls slides that still overflow. Scrollable slides show a
 small bottom cue while more content is below the visible slide area.
 
-## Deckset-Inspired Containers
+## Deckset-inspired containers
 
 Deckset uses image alt-text modifiers for full backgrounds, split images,
 fit/fill, filters, video, and audio. In `htmpres`, the same ideas are expressed
 with composable Quarto containers plus media attributes:
 
-- Containers decide where the box is: `.ds-full`, `.ds-left`, `.ds-right`, `.ds-split`, `.ds-pane`, `.ds-media`, `.ds-grid`, `.ds-inline`, `.ds-global-background`.
-- Media attributes decide how the asset behaves: `.ds-fit`, `.ds-fill`, `.ds-rounded`, `.zoomable`, and filter classes.
+- Place the container with `.ds-full`, `.ds-left`, `.ds-right`, `.ds-split`, `.ds-pane`, `.ds-media`, `.ds-grid`, `.ds-inline`, `.ds-global-background`.
+- Set media behavior with `.ds-fit`, `.ds-fill`, `.ds-rounded`, `.zoomable`, and filter classes.
 - `.ds-layer` raises text or controls above full-slide media on a theme-controlled readable panel.
 - `.ds-no-pad`, `.ds-no-border`, `.ds-frame`, `.ds-center`, `.ds-top`, and `.ds-bottom` tune the container box.
 
 ### Pictures that fit, with accessible descriptions
 
-Jonathan Schwabish, *Better Presentations* (2017), pp. 118–124, recommends
+Jonathan Schwabish, *Better Presentations* (2017), pp. 118 to 124, recommends
 letting a strong picture fill the slide. Adam Wathan and Steve Schoger,
-*Refactoring UI*, “Text needs consistent contrast,” pp. 202–204, explain why
-picture overlays need a dependable ground. These patterns keep those choices
-semantic: the theme supplies all ink, grounds and typography.
+*Refactoring UI*, "Text needs consistent contrast," pp. 202 to 204, explain why
+picture overlays need a dependable ground. The patterns use semantic roles. The theme supplies ink, backgrounds and typography.
 
 Every meaningful picture needs a description between `![` and `]`. The
 `lint`, `render` and `verify` commands reject an empty or missing description
 with an `image-description` **error**, including pictures in presenter notes,
 reference images and raw HTML. Diagnostics identify the slide and point to its
-starting line. For example, slide 3 titled “A titled picture, empty description”
+starting line. For example, slide 3 titled "A titled picture, empty description"
 produces this exact message:
 
 ```text
@@ -298,7 +300,7 @@ empty description with `.decorative` on the **image**:
 ![](assets/texture.svg){.decorative .ds-fit}
 ```
 
-This renders `alt=""` and lint accepts it. Raw HTML may use
+The decorative image renders `alt=""` and lint accepts it. Raw HTML may use
 `<img src="assets/texture.svg" class="decorative" alt="">`. Do not mark an
 informative picture decorative to remove a caption; the described `.ds-full`
 form below already hides its visible caption. `data-background-image` remains
@@ -318,8 +320,9 @@ For a titled slide containing one picture and an optional credit, write:
 The description becomes both the image's screen-reader `alt` and its visible
 caption. The picture, caption and credit fit below the title, without cropping
 the picture. It grows to a limiting edge of the space below the title,
-reserving the actual caption, credit and section-label boxes plus the theme’s
+reserving the actual caption, credit and section-label boxes plus the theme's
 gaps. It can scale beyond its intrinsic size, including viewBox-only SVGs.
+
 Captions are centered under centered pictures. Wide, tall and 16:9 images use the same syntax. `.ds-fit` is
 optional for this one-picture layout. Wrapping the image in `::: {.ds-media}`
 also works; a linked image keeps its native Markdown caption behavior.
@@ -362,7 +365,7 @@ For text over the picture, add a semantic layer:
 `.ds-readable` adds a gradient without changing the full-slide geometry; it
 also works on a contained `.ds-media` picture. `.ds-layer` has an opaque,
 theme-controlled text panel. Its nested `.key` uses that panel's ink while
-retaining semantic emphasis. This keeps text readable on dark, bright and
+retaining semantic emphasis. The panel keeps text readable on dark, bright and
 mixed pictures; a transparent gradient alone cannot guarantee that contrast.
 
 A decorative background can carry a visible title and body text directly:
@@ -388,8 +391,8 @@ complex multi-picture compositions retain their authored container layout.
 Themes can override `--htmpres-media-text-bg`, `--htmpres-media-text-ink`,
 `--htmpres-media-label-bg` and `--htmpres-media-label-ink`. Defaults use theme
 paper and an ink targeting 4.8:1 contrast, following the attribution policy.
-Authors need no CSS, colors, sizes or new Markdown attributes. Existing forms
-remain valid; no new lint rejection is introduced.
+Authors can use these layouts without CSS, colors or sizes. Every informative
+image needs a description; decorative images need an explicit `.decorative` mark.
 
 Half-slide media:
 
@@ -417,7 +420,7 @@ Split flow layout:
 ::::
 ```
 
-## Media Classes
+## Media classes
 
 Use layout classes on containers and fit/filter classes on the media. Wrapper
 effects such as vignette and readability overlays belong on the nearest
@@ -426,7 +429,7 @@ container, because they use pseudo-elements around the media.
 - `.ds-fit`: contain the whole asset.
 - `.ds-fill`: cover the box and crop if needed.
 - `.ds-bn` / `.ds-bw`: black and white.
-- `.ds-vivid`, `.ds-noir`, `.ds-chrome`, `.ds-fade`: filter presets.
+- Filter presets include `.ds-vivid`, `.ds-noir`, `.ds-chrome` and `.ds-fade`.
 - `.ds-filter`: custom filter variables such as `--ds-grayscale`, `--ds-sepia`, `--ds-saturation`, `--ds-contrast`, `--ds-brightness`, `--ds-exposure`, `--ds-hue`, `--ds-blur`, and `--ds-opacity`.
 - `.ds-theme-filter`: apply the active theme's `--ds-theme-filter` value.
 - `.ds-sharpen`: apply the browser SVG sharpen filter and compose it with preset or custom CSS filters.
@@ -463,13 +466,13 @@ stylesheet. The QMD examples use the theme defaults.
 
 Media playback directive classes:
 
-- `.ds-controls`
-- `.ds-autoplay`
-- `.ds-loop`
-- `.ds-muted`
-- `.ds-hide`
-- `.ds-autoadvance`
-- `.ds-keep-time`
+- `.ds-controls`: show native playback controls.
+- `.ds-autoplay`: request playback when the slide becomes active; browser autoplay policy still applies.
+- `.ds-loop`: repeat playback.
+- `.ds-muted`: mute playback.
+- `.ds-hide`: hide the player visually and from screen readers.
+- `.ds-autoadvance`: advance the deck when this active slide's media ends.
+- `.ds-keep-time`: retain the playback position when leaving the slide; other media reset.
 
 For video, audio, and embeds, raw HTML is the most predictable authoring form:
 
@@ -479,7 +482,7 @@ For video, audio, and embeds, raw HTML is the most predictable authoring form:
 <iframe class="ds-fill" src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
 ```
 
-## Images And Zoom
+## Images and zoom
 
 Normal images use Pandoc image attributes:
 
@@ -490,7 +493,7 @@ Normal images use Pandoc image attributes:
 Clicking a `.zoomable` image opens the custom deck zoom modal. Press `Esc` or
 click outside the image to close it.
 
-## Code Blocks
+## Code blocks
 
 Use fenced-code attributes for syntax highlighting, line numbers, static line
 highlights, and step-through code transitions:
@@ -514,7 +517,7 @@ Supported code attributes:
 - `data-highlight-steps` is accepted as a more explicit alias for `data-steps`.
 - `data-step-indices="1|3|7"` maps code snapshots to shared text/equation frames.
 
-## Transitions And Fragments
+## Transitions and fragments
 
 Use `.incremental` around a list to reveal each list item one step at a time:
 
@@ -565,6 +568,7 @@ For equations, wrap classed math in
 `::: {.equation-steps data-equation-steps="term-a|term-b|term-a,term-b" data-step-indices="1|3|7"}`.
 Use `\htmlClass{term-a}{x}` and `\htmlClass{term-b}{y}` in the equation.
 Only referenced named terms dim; unrelated operators keep their appearance.
+
 Stepped display math defaults to twice the fitted body size; theme CSS can
 set `--htmpres-equation-scale`. Inline math and notes retain their normal size.
 Mappings require one decimal positive safe integer per snapshot, strictly
@@ -604,7 +608,7 @@ Surfaces call the same runtime contract.
 The interaction helper scopes updates to the current custom `.slide`, falling
 back to the document only when necessary.
 
-## Slide IDs, Appendix And Breaks
+## Slide iDs, appendix and breaks
 
 `## Extra {#appendix-data data-kind="appendix"}` starts a trailing appendix.
 All later slides belong to it. Normal counters, Next, End and media

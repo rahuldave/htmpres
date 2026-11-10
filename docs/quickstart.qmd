@@ -21,7 +21,7 @@ This creates `decks/example/index.html` for the audience and
 `decks/example/presenter.html` with speaking cues. Open either file in your
 browser. Use Right or Space to advance; some slides have several reveal steps.
 
-You can try the same patterns online first: [open the interactive example](example.qmd?slide=5).
+To try the patterns online first, [open the interactive example](example.qmd?slide=5).
 Its controls work directly on the page, and its Markdown shows how each slide
 was written. [Compare themes](compare.qmd) when you want to choose an appearance.
 
@@ -33,7 +33,8 @@ From the repository folder, run:
 quarto run scripts/htmpres.ts deck new decks/my-talk --title "My first talk" --theme nocturne
 ```
 
-The command creates `decks/my-talk/index.qmd`, a starter stylesheet and an
+The command creates `decks/my-talk/index.qmd`, a Quarto Markdown (QMD) file,
+a starter stylesheet and an
 `assets/` folder. Leave the stylesheet as supplied. Open `index.qmd` in your
 text editor and replace its contents with this complete three-slide talk:
 
@@ -83,7 +84,9 @@ presenter output. Use top-level `---` or `##` for the next slide. A separator
 followed by a heading, with only blank lines between, makes one slide. For
 untitled-slide settings use `## {#backup data-kind="appendix"}`. The initial
 YAML delimiters and rules inside code, comments or fenced divs do not split
-slides. See [the full boundary contract](semantic-authoring.md#slide-boundaries-and-lint).
+slides.
+
+See [the full boundary contract](semantic-authoring.md#slide-boundaries-and-lint).
 
 ## 3. Preview while you write
 
@@ -132,12 +135,12 @@ The [interactive example](example.qmd) shows the source together with the
 rendered slide. Copy the slide's Markdown, paste it after your existing slides,
 and replace its content:
 
-- [Code and explaining text](example.qmd?slide=5): step a line highlight and its explanation together.
+- [Code and explaining text](example.qmd?slide=5) advance a line highlight and its explanation together.
 - [A stepped equation](example.qmd?slide=6): typeset math and emphasize named terms in order.
 - [Speaker notes](example.qmd?slide=8): switch between audience and presenter views of one source.
 - [Appendix links](example.qmd?slide=10): keep supporting detail after the main ending and return to the result.
 
-The code and equation examples include an optional fourth advance: a
+The code and equation examples include an optional fourth advance for a
 [matched-color summary](semantic-authoring.md#finish-with-matched-colors).
 The guide shows how to keep theme defaults or set a color on a term, on one
 slide, or in CSS.
@@ -165,6 +168,15 @@ For a local image, put the file in your talk's `assets/` folder and write
 `![A description of the image](assets/result.svg){.zoomable}`. The description
 helps readers using assistive tools; clicking a zoomable image opens it larger.
 
+For images, use the [picture patterns](patterns.qmd). They show a contained image,
+a full-slide picture, readable text over an image, decorative backgrounds, and
+pictures beside text on either side. Each pattern includes its actual Markdown,
+notes, credits and a supplied SVG that you can replace.
+
+For a large claim use `.statement`. For a quotation, mark the slide `.quote` and
+its attribution `.source`. Set `deck.counter: presenter` to keep slide counts
+out of the audience view. The [pattern deck](patterns.qmd?slide=1) shows these roles.
+
 ## 6. Check and share
 
 ```sh
@@ -173,15 +185,14 @@ just verify decks/my-talk/index.qmd
 ```
 
 Render writes `index.html` and `presenter.html` beside your source. Verify
-checks that the generated views match that source. To check slide breaks with
-machine-readable output, use `just lint decks/my-talk/index.qmd`.
+checks that the generated views match that source. Lint also checks empty slides, picture descriptions and counter settings.
+For machine-readable output, use `just lint decks/my-talk/index.qmd`.
 
 For an offline audience copy, share `index.html` together with its generated
-`assets/` folder, preserving the relative paths. Keep `presenter.html` and your
+`assets/` folder. Keep the relative paths. Keep `presenter.html` and your
 QMD source for yourself when the speaking cues should stay private. The assets
 include the fonts and math files needed by the deck.
 
-You now have an editable talk, a theme, an audience page and a presenter page.
 Use the [semantic authoring guide](semantic-authoring.md) for further syntax,
 or the [class reference](quarto-class-map.md) to look up a layout.
 

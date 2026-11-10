@@ -5,7 +5,7 @@ sidebar: false
 page-layout: full
 ---
 
-Choose a slide, try its steps, and read the **exact Markdown alongside the preview**.
+Choose a slide, try its steps, and read the **exact Markdown below the preview**.
 Switch to **Presenter with notes** to see what the speaker receives from that
 same source. This page teaches authoring; [Compare themes](compare.qmd) shows
 how the same content looks in different themes.
@@ -26,12 +26,13 @@ how the same content looks in different themes.
   <p class="example-key-hint">Use <kbd>→</kbd> or <kbd>Space</kbd> to advance, <kbd>←</kbd> to go back, and <kbd>Home</kbd> to restart. The controls stay on the selected slide. Choose another slide from the menu.</p>
   <div class="example-workspace">
   <div class="example-output">
+      <div class="example-preview-heading"><h2>Slide preview</h2><a id="example-open" target="_blank" rel="noopener">Open full deck ↗</a></div>
   <div class="example-preview"><iframe title="Interactive slide example" loading="eager"></iframe></div>
-  <p><a id="example-open" target="_blank" rel="noopener">Open full deck ↗</a></p>
+
   </div>
   <section class="example-source" aria-labelledby="example-source-title">
     <div class="example-source-heading">
-      <h2 id="example-source-title">Markdown for this slide</h2>
+      <h2 id="example-source-title">Markdown</h2>
       <span id="example-source-location"></span>
       <button type="button" class="btn btn-outline-primary" id="example-copy">Copy slide Markdown</button>
       <span id="example-copy-status" role="status"></span>
@@ -55,6 +56,12 @@ how the same content looks in different themes.
 | [A stepped equation](example.qmd?slide=6) | Reveal the mean, total and count in turn; the fourth advance restores all three colored pairs to full strength on the same slide. |
 | [Speaker notes](example.qmd?slide=8) | Switch between Audience and Presenter to see how one source produces two views. |
 | [The appendix](example.qmd?slide=10) | Follow “The supporting data,” visit the detail slide, then return. The Markdown follows your navigation. |
+
+## Pictures and other slide patterns
+
+Use [Pictures and slide patterns](patterns.qmd) for full-slide images, backgrounds,
+pictures on either side of text, statements, quotations and credits. It has the
+same preview, notes, step controls and copyable source.
 
 ## Use it in your own talk {#edit-the-source}
 

@@ -242,6 +242,8 @@ the right center for an arbitrary measurement.
 
 ## Change the theme and save for a document
 
+A profile selects sizes for chart text and marks in a reading document or presentation.
+
 All examples use an eight-inch canvas and the reading profile's declared
 640 CSS-pixel placement. The height varies to make space for each chart.
 The export uses 80 DPI here, so the PNG is 640 pixels wide. Increasing DPI
@@ -257,7 +259,7 @@ and [download its complete source](_generated/plotting-tutorials/python-electric
 This version changes the profile and uses 144 DPI to export 1152 raster pixels.
 A 640-pixel preview of that file reduces its apparent text size.
 
-Select another family, mode or surface in `theme`, for example
+A surface selects a paper or panel background. Select another family, mode or surface in `theme`, for example
 `theme("nocturne", mode="dark", surface="panel")`. The
 [theme gallery](plotting-gallery.qmd?interface=python) compares all nine families
 and both profiles. It is a reference for appearance, not a replacement for

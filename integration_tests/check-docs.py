@@ -136,6 +136,25 @@ def crawl(site):
         "assets/deck-example.mjs",
     ):
         assert token in example, f"Interactive example missing {token}"
+    patterns = json.loads((generated / "patterns-manifest.json").read_text())
+    assert patterns["deckSet"] == "patterns" and len(patterns["slides"]) == 11
+    pattern_source = (repo / "decks/patterns/index.qmd").read_bytes()
+    assert (generated / "source/patterns.qmd.txt").read_bytes() == pattern_source
+    for asset in ("two-views.svg", "texture.svg"):
+        assert (generated / "source" / asset).read_bytes() == (repo / "decks/patterns/assets" / asset).read_bytes(), f"Pattern download drift: {asset}"
+    assert "".join(s["markdown"] for s in patterns["slideSources"]).encode() == pattern_source[pattern_source.index(b"## "):]
+    assert 'data-manifest="_generated/patterns-manifest.json"' in (site / "patterns.html").read_text()
+    for mode in ("light", "dark"):
+        for view in ("index", "presenter"):
+            pattern_page = generated / "patterns/nocturne" / mode / f"{view}.html"
+            text = pattern_page.read_text()
+            assert len(re.findall(r'<section\b[^>]*class="[^"]*\bslide\b', text)) == 11
+            for token in ('id="statement"', 'id="full"', 'id="left"', 'id="right"', 'id="background"', 'class="source"', 'class="slide-credits"'):
+                assert token in text, f"Missing normal-use pattern: {token}"
+            assert ('id="counter" hidden' in text) == (view == "index")
+            assert ('id="deckNotes"' in text) == (view == "presenter"), "Pattern notes isolation"
+        for asset in ("two-views.svg", "texture.svg"):
+            assert (generated / "patterns/nocturne" / mode / "assets" / asset).read_bytes() == (repo / "decks/patterns/assets" / asset).read_bytes()
     audience_reference = None
     note_reference = None
     count = 0
@@ -226,6 +245,7 @@ def crawl(site):
         (site / name).exists()
         for name in (
             "showcase-spec.html",
+            "documentation-audit.html",
             "semantic-authoring-spec.html",
             "theme-catalog-spec.html",
             "tag_dependency_workflow.html",

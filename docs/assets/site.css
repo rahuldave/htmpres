@@ -34,8 +34,8 @@ body:has(#theme-comparison) .quarto-btn-toggle { display:none; }
 #example-slide { min-width:min(30rem, 80vw); }
 .example-key-hint, #example-source-location, #example-step-status { font-size:.85rem; color:var(--bs-secondary-color); }
 .example-key-hint { margin:.75rem 0; }
-.example-preview { width:100%; aspect-ratio:1100/780; position:relative; overflow:hidden; border:1px solid var(--bs-border-color); border-radius:.5rem; background:var(--bs-tertiary-bg); }
-.example-preview iframe { position:absolute; top:0; left:0; width:1100px; height:780px; border:0; transform-origin:top left; }
+.example-preview { width:100%; aspect-ratio:16/9; position:relative; overflow:hidden; border:1px solid var(--bs-border-color); border-radius:.5rem; background:var(--bs-tertiary-bg); }
+.example-preview iframe { position:absolute; top:0; left:0; width:1280px; height:720px; border:0; transform-origin:top left; }
 .example-source h2 { border:0; margin:0; font-size:1.25rem; }
 .example-source pre { max-height:42rem; overflow:auto; padding:1.2rem; border:1px solid var(--bs-border-color); background:var(--bs-tertiary-bg); color:var(--bs-body-color); font-size:.85rem; white-space:pre-wrap; overflow-wrap:anywhere; }
 .example-source { margin:1.5rem 0; }
@@ -44,7 +44,7 @@ body:has(#deck-example) #quarto-sidebar { display:none; }
 body:has(#deck-example) #quarto-content { grid-template-columns:[body] minmax(0,1fr); --sd-left:0px; }
 body:has(#deck-example) .quarto-btn-toggle { display:none; }
 
-.example-workspace { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:1.4rem; align-items:start; }
+.example-workspace { display:grid; grid-template-columns:minmax(0,1fr); gap:1.5rem; align-items:start; }
 .example-output, .example-source { min-width:0; }
 .example-workspace .example-source { margin:0; }
 .example-step-controls { position:sticky; top:4rem; z-index:5; padding:.6rem 0; background:var(--bs-body-bg); }
@@ -61,3 +61,44 @@ body:has(#deck-example) .quarto-btn-toggle { display:none; }
 #plot-downloads { display:flex; flex-wrap:wrap; gap:.75rem 1.25rem; margin:1rem 0; }
 #plotting-gallery figcaption { margin-top:1rem; }
 #plot-reproduce { white-space:pre-wrap; overflow-wrap:anywhere; }
+
+/* Interactive workspaces need room beyond Nocturne's prose measure. */
+html body:has(:is(#deck-example, #theme-comparison)) #quarto-content main.content {
+  max-width:1440px;
+}
+html body:has(:is(#deck-example, #theme-comparison)) #quarto-content main.content > p {
+  max-width:72ch;
+}
+html body #quarto-content #deck-example :is(.example-source, .example-output) h2 {
+  font-family:var(--bs-font-sans-serif); font-size:1.1rem; line-height:1.3;
+  margin:0; padding:0; border:0;
+}
+html body #quarto-content #deck-example .example-source pre,
+html body #quarto-content #deck-example .example-source pre :is(code, span),
+html body #quarto-content #theme-comparison pre.theme-config,
+html body #quarto-content #deck-example #example-theme {
+  font-size:15px; line-height:1.6;
+}
+html body #quarto-content #deck-example .example-source pre {
+  margin:0; padding:1rem; max-height:32rem;
+  white-space:pre-wrap; overflow:auto; overflow-wrap:anywhere;
+}
+html body #quarto-content #deck-example .example-source pre :is(code, span) {
+  white-space:inherit; padding:0;
+}
+html body #quarto-content .home-grid h2 {
+  font-size:1.25rem; line-height:1.3; margin:.7rem 0; padding:0; border:0;
+}
+
+#deck-example select { width:100%; }
+#example-slide { min-width:0; }
+.example-toolbar label:first-child { flex:1 1 26rem; }
+@media(max-width:1099px) { .example-workspace { grid-template-columns:1fr; } }
+
+/* Stack slide and source at the same width; controls stay with their own pane. */
+html body:has(#deck-example) #quarto-content main.content { max-width:1040px; }
+.example-output, .example-workspace .example-source {
+  display:grid; grid-template-rows:auto auto; gap:.75rem; align-items:start;
+}
+.example-preview-heading { display:flex; flex-wrap:wrap; align-items:center; gap:.65rem 1rem; }
+.example-preview-heading a { font-size:.85rem; }

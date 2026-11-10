@@ -1,10 +1,5 @@
 # Presentation themes
 
-For theme-colored code/equation summaries and semantic overrides such as
-`--htmpres-match-mean`, see [matched final views](semantic-authoring.md#finish-with-matched-colors).
-The guide covers per-term, per-slide and stylesheet choices, including dark
-mode and the generated palette's contrast checks.
-
 Select a bundled theme directly in a deck's front matter:
 
 ```yaml
@@ -20,7 +15,7 @@ button cycles Auto → Light → Dark → Auto. A reader's choice is saved per d
 when storage is available; an explicit `light` or `dark` declaration takes
 precedence on initial load. Audience and presenter pages share the setting.
 
-These are palette and typography adapters for the custom htmpres HTML renderer.
+The themes are palette and typography adapters for the custom htmpres HTML renderer.
 They retain its layouts, navigation, fragments, media, and presenter view.
 Bootstrap's page resets, navbar rules, and JavaScript are not loaded. PowerPoint
 reference templates are a separate output system.
@@ -41,12 +36,17 @@ pairs. Light Bootswatch themes retain their native light palettes and use their
 Bootstrap 5.3 dark variables. Dark-native stock themes keep their native dark
 palettes and receive an htmpres light adaptation. The five Reading refinements
 keep their native palettes (Darkly Reading is dark; the other four are light)
-and now publish explicit paired foundation contracts upstream. Both modes come
-from the merged source project; htmpres does not invent a companion palette.
+and supply explicit paired foundation contracts. Both modes come from the
+source project; htmpres uses the supplied companion palette.
 The catalog records each theme's native mode and adaptation policy.
 
-The existing three seeds retain their previous behavior and deck-local CSS.
-The new `color-mode` option requires an imported theme or a custom paired seed.
+The three seeds use deck-local CSS and have no bundled dark pair.
+The `color-mode` option requires a bundled theme or a custom paired seed.
+
+For theme-colored code/equation summaries and semantic overrides such as
+`--htmpres-match-mean`, see [matched final views](semantic-authoring.md#finish-with-matched-colors).
+The guide covers per-term, per-slide and stylesheet choices, including dark
+mode and the generated palette's contrast checks.
 
 ## Owned foundation profiles
 

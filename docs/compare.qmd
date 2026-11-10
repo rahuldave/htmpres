@@ -52,5 +52,5 @@ The shared selector loads the chosen slide in both panes. You can explore each
 embedded deck independently afterward. The pane's mode selector sets its palette;
 open the full view to use the deck's own mode button.
 
-[Download and edit the example](example.qmd#edit-the-source) ·
+[Download and edit the example](example.qmd#edit-the-source)  /
 [Theme declarations and provenance](themes.md)

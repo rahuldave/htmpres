@@ -1,16 +1,24 @@
 ---
-title: R plotting guide
+title: "Make charts with R"
 ---
 
-Plotfoundry `0.0.0.9001` is an unreleased native R reference. ggplot2 and base
-helpers run without Python, Node, htmpres or a document engine.
-[Scientific choices](plotting-packages.md) · [Browse R specimens](plotting-gallery.qmd?interface=r-ggplot)
+Compare crop yield under three irrigation regimes, inspect stream measurements,
+and find rooms that miss a temperature target. These examples use ggplot2 and
+base R. All measurements are illustrative, not evidence from a real experiment.
+Every script contains its complete local data.
 
-## Install reviewed source
+![Drip irrigation has no yield reading in 2023. The line leaves that interval open.](_generated/plotting-tutorials/r-yield.png){width=640px}
 
-Use R 4.1+ and download the pinned public source archive. These commands can run
-outside any checkout; the temporary directory contains source, not a runtime
-path dependency:
+[Open full size](_generated/plotting-tutorials/r-yield.png), [SVG](_generated/plotting-tutorials/r-yield.svg), [PDF](_generated/plotting-tutorials/r-yield.pdf), [source](_generated/plotting-tutorials/r-yield.R), [export report](_generated/plotting-tutorials/r-yield.report.json).
+
+Plotfoundry supplies fonts, backgrounds, axes and explicit color scales.
+Its line helper also adds shapes, dashes, ink edges and direct labels.
+Native ggplot2 layers and base graphics still work in their usual way.
+
+## Install once and run a script
+
+Plotfoundry is an unreleased R reference. There is no CRAN or r-universe release.
+Use R 4.1 or later and install this reviewed source snapshot:
 
 ```r
 revision <- "7b1bff11284ad2960f984f0f8ed772fa09c06d8c"
@@ -18,143 +26,261 @@ work <- tempfile("plotfoundry-source-")
 dir.create(work)
 archive <- file.path(work, "source.tar.gz")
 download.file(paste0("https://github.com/rahuldave/htmpres/archive/", revision, ".tar.gz"), archive)
-untar(archive, exdir=work)
+untar(archive, exdir = work)
 source <- file.path(work, paste0("htmpres-", revision), "packages", "r")
-library_path <- file.path(path.expand("~"), "R", "plotfoundry-library")
-dir.create(library_path, recursive=TRUE, showWarnings=FALSE)
-.libPaths(c(library_path, .libPaths()))
-install.packages(c("jsonlite", "digest"), lib=library_path, repos="https://cloud.r-project.org")
-install.packages(source, repos=NULL, type="source", lib=library_path)
+install.packages(c("jsonlite", "digest", "ggplot2", "scales", "showtext",
+                   "sysfonts", "systemfonts", "ragg", "svglite"),
+                 repos = "https://cloud.r-project.org")
+install.packages(source, repos = NULL, type = "source")
 ```
 
-There is no Plotfoundry CRAN/r-universe release behind this recipe. You install
-only `packages/r`; the monorepo location does not install the slide tool. To build
-a local source tarball instead, run `R CMD build /path/to/reviewed-source/packages/r`
-and install its `plotfoundry_0.0.0.9001.tar.gz` with `R CMD INSTALL --library=...`.
-The source package itself is R code and bundled resources; optional dependency
-packages may need their usual native compilation/system libraries.
+Network access is a setup requirement. Optional dependencies can need native
+compilation and system libraries. Installed plots use bundled local resources
+and need no Python, Node or document engine.
 
-Install optional plotting/device dependencies during setup:
+Save the first script as `r-yield.R`. Run `Rscript r-yield.R` from your working
+directory, or source it in R. It writes PNG, SVG, PDF and an export report
+into that working directory. The source download contains the same code shown here.
 
-```r
-install.packages(c("ggplot2", "scales", "showtext", "sysfonts", "systemfonts",
-                   "ragg", "svglite"), lib=library_path, repos="https://cloud.r-project.org")
-```
+## Compare crop yield across years
 
-Installed use is offline. For an offline machine, prepare the source/binary
-packages for **all transitive native R dependencies** on a compatible system,
-transfer them and install into its library; the Plotfoundry tarball alone does
-not supply ggplot2 or device dependencies. No Python/uv or Node step is required.
-
-## ggplot2 quickstart
+Irrigation names have no numeric order. Assign each regime a stable category
+slot, then compare its yield in tonnes per hectare across five years.
+Keep the explicit domain even if you filter out one regime.
 
 ```r
+# Illustrative trial yields, not observations from a real farming experiment.
 library(plotfoundry)
-s <- pf_theme("folio", mode="dark", profile="reading", surface="paper")
-d <- data.frame(x=rep(1:3,3), y=c(1,2,1,3,4,3,5,6,5),
-                category=rep(c("A","B","C"), each=3))
-p <- ggplot2::ggplot()+
-  pf_line(d,"x","y","category",s,domain=c("A","B","C"))+
-  pf_theme_gg(s)+ggplot2::labs(title="Observations",x="Time",y="Value")
-pf_export(s,"observations",plot=p,height_inches=4)
+library(ggplot2)
+trial <- data.frame(
+  year = rep(2021:2025, 3),
+  yield_t_ha = c(3.2, 3.4, 3.3, 3.6, 3.7,
+                 4.0, 4.1, NA, 4.3, 4.5,
+                 4.4, 4.6, 4.5, 4.8, 4.9),
+  irrigation = rep(c("Rainfed", "Drip", "Sprinkler"), each = 5)
+)
+s <- pf_theme("folio", mode = "light", profile = "reading")
+p <- ggplot() +
+  pf_line(trial, "year", "yield_t_ha", "irrigation", s,
+          domain = c("Rainfed", "Drip", "Sprinkler")) +
+  pf_theme_gg(s) +
+  scale_x_continuous(breaks = 2021:2025, limits = c(2020.8, 2026.2)) +
+  scale_y_continuous(limits = c(2.5, 5.5)) +
+  labs(title = "Irrigation and crop yield",
+       x = "Year", y = "Yield (tonnes/ha)")
+pf_export(s, "r-yield", plot = p, height_inches = 4.8, dpi = 80)
 ```
 
-`pf_line`/`pf_scatter` retain original facet columns and input row/path order.
-Explicit domains retain identity across absent categories and factor level order.
-Supported coordinates are linear Cartesian, including native axis scale
-transforms; nonlinear/polar coordinates fail explicitly. Room for direct labels,
-clipping and dense overlap remains your layout responsibility.
+Sprinkler has the largest yield in this illustrative trial. Drip has no reading
+in 2023, so the line has a gap. A missing observation does not mean zero yield.
+These invented values cannot show that irrigation caused the differences.
 
-## Base R quickstart
+Replace the yield values with your observations and keep the source rows in time
+order. Change the year breaks and limits together if you extend the trial.
+Leave missing yields as `NA` rather than filling the gap with an estimate.
+
+Three categories are the default. To use five, pass
+`variant="colorblind-subset-5"` to `pf_line` with a five-category domain.
+Five is conditional because its measured simulated color separation is lower.
+Keep all shapes, dashes, edges and labels, then inspect the result.
+A variant change can change the color of a category.
+
+## Adapt a native faceted ggplot
+
+The next chart compares upstream and downstream samples. Position shows sampling
+day and water discharge. Color shows nitrate concentration in mg/L.
+Use a sequential cividis map, because more nitrate means more of one quantity.
+Keep limits from 0 to 12 mg/L across both panels.
+The native point uses a colored fill and an ink edge, so pale colors keep a visible outline.
+
+![Downstream samples have more nitrate in these illustrative rows. The upstream day-three nitrate reading is absent.](_generated/plotting-tutorials/r-nitrate.png){width=640px}
+
+[Open full size](_generated/plotting-tutorials/r-nitrate.png), [SVG](_generated/plotting-tutorials/r-nitrate.svg), [PDF](_generated/plotting-tutorials/r-nitrate.pdf), [source](_generated/plotting-tutorials/r-nitrate.R), [export report](_generated/plotting-tutorials/r-nitrate.report.json).
 
 ```r
-pf_export(s,"base-observations",draw=function(style) {
-  pf_base_plot(style,c(0,4),c(0,7),"Time","Value","Observations")
-  pf_base_lines(d$x,d$y,d$category,style,domain=c("A","B","C"))
-})
+# Illustrative stream samples. One nitrate measurement is unavailable.
+library(plotfoundry)
+library(ggplot2)
+samples <- data.frame(
+  day = rep(1:4, 2),
+  discharge_l_s = c(20, 25, 28, 32, 18, 22, 26, 30),
+  nitrate_mg_l = c(2, 3, NA, 5, 4, 6, 8, 10),
+  location = rep(c("Upstream", "Downstream"), each = 4)
+)
+samples$location <- factor(samples$location, levels = c("Upstream", "Downstream"))
+# Keep the missing row in the source; explicitly omit it from this native plot.
+visible <- samples[complete.cases(samples), ]
+s <- pf_theme("atelier", mode = "light", profile = "reading")
+p <- ggplot(visible, aes(day, discharge_l_s, fill = nitrate_mg_l)) +
+  geom_point(size = pf_mm(s, 7),
+             stroke = pf_mm(s, 1), shape = 21, colour = s$case$roles$ink) +
+  facet_wrap(~location, nrow = 1) +
+  pf_scale_continuous(s, vmin = 0, vmax = 12, aesthetics = "fill") +
+  pf_theme_gg(s) +
+  scale_x_continuous(breaks = 1:4) +
+  labs(title = "Nitrate along the stream", x = "Sampling day",
+       y = "Discharge (L/s)", fill = "Nitrate\n(mg/L)")
+pf_export(s, "r-nitrate", plot = p, height_inches = 5, dpi = 80)
 ```
 
-For an already opened/configured device, `pf_base_context()` scopes furniture and
-restores `par`, options and palette through nesting/errors. Set `mfrow` before an
-inner context because native layout changes reset text scale. Closing the original
-device prevents restoring it; unrelated devices are never closed. Exact-file
-font evidence applies to the selected export/device setup, not arbitrary native
-callbacks. Use `pf_export` for the tested showtext path.
+The factor levels keep Upstream before Downstream, regardless of alphabetical
+order. One row lacks nitrate. The explicit filter omits it from this native
+point chart, so day three has no upstream point. It does not draw a missing-cell
+cross because this is a native point layer, not a heatmap.
 
-## API and scales
+Replace `samples` with your rows and update both axis units. Keep the same color
+limits when comparing another stream. Set new factor levels if your locations
+need a different order.
 
-| Operation | Use |
-| --- | --- |
-| `pf_spec()`, `pf_theme(...)` | Fresh native data and explicit configuration, complete pinned resource closure |
-| `pf_points()`, `pf_mm()` | Shared placement conversion; geometry uses 72/inch points, not grid's 72.27/inch `points` unit |
-| `pf_categories()` | Explicit named domain, factor labels and variant capacity |
-| `pf_theme_gg()`, `pf_scales_manual()` | Native furniture/scales only; ordinary addition/override precedence |
-| `pf_line()`, `pf_scatter()` | Layered lines/points, stable cues and direct labels |
-| `pf_scale_continuous()`, `pf_normalize()`, `pf_lookup()` | Explicit limits/center and exact bin lookup |
-| `pf_heatmap()`, `pf_base_heatmap()` | Missing fill and two opposite cross diagonals; first row at top |
-| `pf_base_plot()`, `pf_base_lines()`, `pf_base_points()` | Native base furniture and physically constructed marks |
-| `pf_fonts()`, `pf_export()` | Explicit file-hash font setup and selected device export |
+`geom_point` and `facet_wrap` remain ordinary ggplot2 calls.
+`pf_scale_continuous` supplies the approved map and normalization, while
+`pf_theme_gg` supplies the fonts, background and axes. The theme does not add
+category shapes or direct labels to arbitrary native layers.
+You can add later ggplot2 themes or guides using normal addition order.
 
-Pass `variant="colorblind-subset-5"` for conditional five; never silently expand
-three. Both ink under-stroke and foreground share the same physical segmented
-dash geometry. Native `lty` rescaling cannot reproduce the fractional pattern by
-itself. Solid caps project; dashed caps are butt. Marker polygons have an explicit
-7-pixel bounding box, not a promise of identical Matplotlib marker outlines.
+## Separate missing rooms from rooms on target
+
+A room can be cooler or warmer than a 20 C target. Use a diverging BrBG map,
+with zero at the center. The limits run from -2 to +5 C, so the negative and
+positive arms use different numeric ranges.
+
+![The Studio is 5 C above target on day four. A crossed cell is missing; an uncrossed pale cell is on target.](_generated/plotting-tutorials/r-temperature.png){width=640px}
+
+[Open full size](_generated/plotting-tutorials/r-temperature.png), [SVG](_generated/plotting-tutorials/r-temperature.svg), [PDF](_generated/plotting-tutorials/r-temperature.pdf), [source](_generated/plotting-tutorials/r-temperature.R), [export report](_generated/plotting-tutorials/r-temperature.report.json).
 
 ```r
-pf_normalize(c(-2,0,1,NA_real_),vmin=-2,vmax=1,center=0)
-# 0, 0.5, 1, NA: separate arms, explicit missing
-heatmap_layers <- pf_heatmap(matrix(c(-2,0,NA,1),2),s,vmin=-2,vmax=1,
-                             kind="diverging",center=0)
-heatmap_plot <- ggplot2::ggplot()+heatmap_layers+pf_theme_gg(s)
-pf_export(s,"heatmap",plot=heatmap_plot)
+# Illustrative room deviations from a 20 C target. NA does not mean zero.
+library(plotfoundry)
+library(ggplot2)
+rooms <- c("Reading", "Meeting", "Studio")
+s <- pf_theme("litera-reading", mode = "light", profile = "reading")
+# pf_heatmap takes a matrix with its first row at the top.
+values <- matrix(c(-2, -1, 0, 1, 0, NA, 2, 3, -1, 0, 3, 5),
+                 nrow = 3, byrow = TRUE)
+layers <- pf_heatmap(values, s, vmin = -2, vmax = 5,
+                     kind = "diverging", center = 0)
+p <- ggplot() + layers + pf_theme_gg(s) +
+  scale_x_continuous(breaks = 1:4, labels = paste("Day", 1:4)) +
+  scale_y_reverse(breaks = 1:3, labels = rooms) +
+  labs(title = "Temperature relative to 20 C", x = NULL, y = NULL,
+       fill = "Deviation\n(C)")
+pf_export(s, "r-temperature", plot = p, height_inches = 4.8, dpi = 80)
 ```
 
-Add returned heatmap layers/scales to a native ggplot. Later authored themes,
-scales and guides have ordinary ggplot precedence. A manual scale or native
-color cycle alone does not apply compliant ink strokes, marker edges or labels.
-Exact float LUT lookup precedes native hex conversion (about 0.5/255 maximum
-channel rounding); PDF can additionally serialize stroke colors to three decimals.
+The Studio has the largest positive deviation on day four. The Meeting room has
+no reading on day two. Its crossed cell differs from the pale cells that are
+exactly on target.
 
-## Fonts, devices and constraints
+Replace the matrix rows and room labels together. The first matrix row appears
+at the top. If your input contains absolute temperatures, subtract the target
+first. Keep the same limits and center when comparing another building.
 
-`pf_fonts()` explicitly registers bundled real faces under reserved
-`plotfoundry-<hash>` aliases. Those aliases persist and may be rebound; other
-caller family names are untouched. Namespace loading does not register them.
-Export binds UI/heading files even with conflicting host families, preserving
-native authored text size/color. Plot titles use heading faces; guide/legend titles,
-subtitle/caption and body annotations use the real UI face. The theme sets furniture sizes; export preserves authored annotation sizes rather than silently resizing them. For a deliberate prose annotation, use `size=pf_points(s,s$case$typography$body_annotation), size.unit="pt"` in `ggplot2::annotate("text",...)`, rather than its native default size.
+`pf_heatmap` returns layers and a color scale. Add them to a ggplot, then pass
+the complete plot to `pf_export`. Printing a list of layers does not create the
+finished chart.
 
-Supported devices: **ragg PNG**, **svglite SVG**, native **grDevices PDF**, with
-showtext raster DPI matching the opened raster device. Vector glyphs are outlines;
-there is no editable/embedded-font promise. Cairo/XQuartz was unavailable in the
-reference environment and is not advertised. Strict plain text only: plotmath and
-missing glyphs fail rather than silently substitute. Arbitrary third-party grobs
-or callbacks are not universally certified.
+## Draw the same yield comparison with base R
 
-Export preserves an explicit canvas, no tight cropping, and restores owned device/
-showtext state without closing caller devices. Reports record actual PNG dimensions,
-font hashes/weights and used native device versions. Inspect real output; the
-report is not universal font/layout/accessibility certification.
+Use base graphics if you already work with native plotting frames and callbacks.
+The data and category order stay the same as in the first task.
+The different typeface comes from the Tufte theme, not a change to the measurements.
 
-## Reproduce and embed
+![Base graphics shows the same yield values and missing interval, using Tufte fonts.](_generated/plotting-tutorials/r-base-yield.png){width=640px}
 
-[Download quickstart R](_generated/plotting/source/quickstart.R) ·
-[Quarto-ready source](_generated/plotting/source/quickstart.qmd.txt) ·
-[Full gallery source](_generated/plotting/source/r-ggplot-gallery.R)
+[Open full size](_generated/plotting-tutorials/r-base-yield.png), [SVG](_generated/plotting-tutorials/r-base-yield.svg), [PDF](_generated/plotting-tutorials/r-base-yield.pdf), [source](_generated/plotting-tutorials/r-base-yield.R), [export report](_generated/plotting-tutorials/r-base-yield.report.json).
 
-```sh
-Rscript r-ggplot-gallery.R plots tufte/dark/reading/paper
+```r
+# The same illustrative trial, drawn with native base graphics helpers.
+library(plotfoundry)
+trial <- data.frame(
+  year = rep(2021:2025, 3),
+  yield_t_ha = c(3.2, 3.4, 3.3, 3.6, 3.7,
+                 4.0, 4.1, NA, 4.3, 4.5,
+                 4.4, 4.6, 4.5, 4.8, 4.9),
+  irrigation = rep(c("Rainfed", "Drip", "Sprinkler"), each = 5)
+)
+s <- pf_theme("tufte", mode = "light", profile = "reading")
+pf_export(s, "r-base-yield", height_inches = 4.8, dpi = 80,
+  draw = function(style) {
+    pf_base_plot(style, c(2020.8, 2026.4), c(2.5, 5.5),
+                 "Year", "Yield (tonnes/ha)", "Irrigation and crop yield")
+    pf_base_lines(trial$year, trial$yield_t_ha, trial$irrigation, style,
+                  domain = c("Rainfed", "Drip", "Sprinkler"))
+  })
 ```
 
-Save the Quarto-ready download as `quickstart.qmd` (the `.txt` suffix keeps it a source download on this website). Rendering it additionally needs Quarto plus the R packages `knitr` and `rmarkdown`. Install these document tools in your chosen R library with `install.packages(c("knitr", "rmarkdown"), repos="https://cloud.r-project.org")`; they are not Plotfoundry runtime dependencies, and plain R exports do not require them.
+The callback draws on the device owned by `pf_export`.
+`pf_base_plot` creates the frame and labels; `pf_base_lines` draws the treated
+paths and endpoints. Change the frame limits when your data need more space.
+Do not open or close another device inside this callback.
 
-The gallery source renders **both native R routes** for that case, each on an
-8 × 9-inch canvas. The same code runs in plain R; Quarto/SmallDocs integration is
-optional. Save exports and reference their files from your document. Preserve
-the declared 640/1152 CSS-pixel placement instead of changing DPI to resize type.
+For an existing device, `pf_base_context` can scope the fonts, colors and native
+`par` settings. Set a multi-panel layout before entering the inner context.
+Use `pf_export` for the tested exact-file font path rather than assuming every
+arbitrary device callback has the same font behavior.
 
-Tested: R 4.1.1/macOS arm64, ggplot2 4.0.3, scales 1.4.0, showtext 0.9.8,
-sysfonts 0.8.9, systemfonts 1.3.2, ragg 1.5.2, svglite 2.2.2. DESCRIPTION minima
-are not proof of every other platform/version/device. The native package ships
-its resources/notices and requires no development lock at runtime.
+## Change the theme and save for a document
+
+The examples use an eight-inch canvas at the reading profile's declared
+640 CSS-pixel placement. Their heights leave room for labels and legends.
+The PNG uses 80 DPI here, so it is 640 pixels wide. More DPI adds raster pixels;
+it does not change the declared size of text.
+
+For a presentation, select `profile="presentation"` in `pf_theme` and place the
+result at 1152 CSS pixels. Keep the figure eight inches wide.
+The presentation profile uses 24-pixel labels and 36-pixel chart headings.
+Leave enough space for the whole chart rather than reducing it to a tiny panel.
+
+[Open the 1152-pixel presentation version](_generated/plotting-tutorials/r-yield-presentation.png)
+and [download its complete source](_generated/plotting-tutorials/r-yield-presentation.R).
+This version changes the profile and exports at 144 DPI. A reduced preview
+does not show the intended 24-pixel label size.
+
+Select another family, mode or surface in `pf_theme`, for example
+`pf_theme("nocturne", mode="dark", surface="panel")`. The
+[gallery](plotting-gallery.qmd?interface=r-ggplot) compares all nine families and
+both native R routes. It is an appearance reference, not a chart tutorial.
+
+Reference the exported PNG in a Markdown document at its declared placement:
+
+```markdown
+![Irrigation and crop yield](r-yield.png){width=640px}
+```
+
+The source download also writes SVG and PDF. R vector exports contain glyph
+outlines, so text is not editable or embedded as a font. PNG uses ragg, SVG
+uses svglite and PDF uses R's native PDF device. Export keeps the full canvas
+without tight cropping. Check the actual files for clipped or crowded labels.
+
+A narrow preview scales the whole picture, including text. Use the full-size
+image or vector download to inspect the intended placement.
+Every example links to its exact source and all three export formats.
+
+## Fonts, limits and offline setup
+
+Export binds UI and heading text to bundled files and real weights.
+Native annotation sizes remain authored sizes. For deliberate body text, use
+`pf_points(s, s$case$typography$body_annotation)` with a native text layer's
+point-size option. The theme does not silently resize arbitrary annotations.
+
+Keep plain text. Plotmath and missing glyphs fail instead of silently
+substituting a different face. Complex shaping is outside the verified path.
+The reference uses showtext for the selected devices. Cairo and arbitrary
+third-party grobs are not certified.
+
+The scale lookup uses exact sampled values before conversion to native hex colors.
+Eight-bit color rounding and later device quantization mean R and Python exports
+are not pixel-identical. They keep the same scale limits, center and category meanings.
+Helpers support linear Cartesian coordinates; polar charts and alternative curves
+need another approach.
+
+For an offline machine, prepare Plotfoundry and all selected dependency packages
+on a compatible connected system. Install them into the offline machine's R
+library. The Plotfoundry tarball alone does not include ggplot2 or native device
+dependencies. No Python or development lock is required at installed use.
+
+The examples were checked with R 4.1.1, ggplot2 4.0.3, scales 1.4.0,
+showtext 0.9.8, sysfonts 0.8.9, systemfonts 1.3.2, ragg 1.5.2 and svglite 2.2.2.
+Other versions and platforms need their own checks. See the
+[scientific choices](plotting-packages.md) and
+[font and code notices](_generated/plotting/index.html#notices) for background.

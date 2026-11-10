@@ -1,138 +1,303 @@
 ---
-title: Python plotting guide
+title: "Make charts with Python"
 ---
 
-Plotfoundry `0.1.0.dev1` supplies a dependency-free data core and an optional
-Matplotlib adapter. It runs without R, Node, htmpres or a document engine.
-[Scientific choices](plotting-packages.md) · [Browse specimens](plotting-gallery.qmd?interface=python)
+Compare electricity use across buildings, check a falling reservoir level, and
+find rooms that miss a temperature target. These examples teach Matplotlib,
+pandas and Seaborn through small chart tasks. All measurements are illustrative,
+not evidence from a real study. Each script contains its complete local data.
 
-## Install reviewed source
+![The Library uses less electricity each week. The Office has no reading in week three.](_generated/plotting-tutorials/python-electricity.png){width=640px}
 
-Use **Python 3.12+** in a virtual environment. Git is needed only for this
-source-install recipe; pip builds the selected Python directory, not htmpres:
+[Open full size](_generated/plotting-tutorials/python-electricity.png), [SVG](_generated/plotting-tutorials/python-electricity.svg), [PDF](_generated/plotting-tutorials/python-electricity.pdf), [source](_generated/plotting-tutorials/python-electricity.py), [export report](_generated/plotting-tutorials/python-electricity.report.json).
+
+Plotfoundry supplies fonts, backgrounds, axes and explicit color scales.
+Its line helper also adds shapes, dashes, ink edges and direct labels.
+You can keep native pandas and Seaborn plots when you only need the theme.
+
+## Install once and run a script
+
+Use Python 3.12 or later. Plotfoundry is an unreleased reference, not a PyPI
+release. This command installs the reviewed Python source and its Matplotlib
+dependencies into a virtual environment:
 
 ```sh
 python3.12 -m venv .venv
-# Activate the environment using your shell's usual command.
 .venv/bin/python -m pip install 'plotfoundry[matplotlib] @ git+https://github.com/rahuldave/htmpres.git@7b1bff11284ad2960f984f0f8ed772fa09c06d8c#subdirectory=packages/python'
 ```
 
-On Windows, use the environment's `Scripts/python.exe` instead of `.venv/bin/python`.
-Nothing is being installed from a Plotfoundry PyPI release. Git/pip and network
-access are setup tools; installed plotting does not invoke Git or fetch assets.
+Git and network access are setup requirements. Installed plots use local resources
+and need no document engine, R, Node or htmpres installation.
+On Windows, use `.venv/Scripts/python.exe` instead of `.venv/bin/python`.
 
-If you already downloaded the pinned repository source, build a local artifact:
+Save the first script below as `python-electricity.py`. Run it in your working
+directory with `.venv/bin/python python-electricity.py`. It writes PNG, SVG,
+PDF and an export report beside the script's working directory.
+The source download contains the same code shown here.
 
-```sh
-python -m pip install build
-python -m build /path/to/reviewed-source/packages/python --outdir dist
-python -m pip install 'dist/plotfoundry-0.1.0.dev1-py3-none-any.whl[matplotlib]'
-```
-
-The source distribution rebuilds independently with bundled inputs. For an
-**offline target**, prepare a wheelhouse containing the package and all selected
-native dependency wheels on a compatible connected machine, transfer it, then:
+For the pandas and Seaborn tasks, install their optional dependencies:
 
 ```sh
-python -m pip install --no-index --find-links wheelhouse 'plotfoundry[matplotlib]==0.1.0.dev1'
+.venv/bin/python -m pip install 'pandas==3.1.1' 'seaborn==0.13.2'
 ```
 
-A lone wheel is not a substitute for NumPy/Matplotlib dependencies. pandas and
-Seaborn are optional; install them explicitly when using their examples.
+## Compare weekly electricity use
 
-## First Matplotlib plot
+The question is whether electricity use falls in all three buildings.
+Use a category color for each building, because building names have no numeric
+order. Keep the explicit domain when filtering the rows, so a building retains
+its color and shape.
 
 ```python
+"""Illustrative weekly electricity readings; no external data download."""
 import matplotlib.pyplot as plt
 from plotfoundry import theme
 from plotfoundry.matplotlib import context, line, style_axes, export
 
-style = theme("folio", mode="dark", profile="presentation", surface="paper",
-              figure_width_inches=8, placed_width_css_px=1152)
-with context(style):
-    fig, ax = plt.subplots(figsize=(8, 4))
-    line(ax, [0, 1, 2], [1, None, 3], style,
-         domain=["Observed"], category="Observed")
-    ax.set(title="Results", xlabel="Time", ylabel="Value")
-    style_axes(ax, style)
-    export(fig, style, "results", formats=["png", "svg", "pdf"], dpi=144)
+weeks = [1, 2, 3, 4, 5, 6]
+readings = {
+    "Library": [420, 400, 390, 350, 330, 320],
+    "Office": [510, 500, None, 470, 460, 450],
+    "Workshop": [610, 630, 620, 600, 590, 580],
+}
+config = theme("folio", mode="light", profile="reading")
+with context(config):
+    fig, ax = plt.subplots(figsize=(8, 4.8))
+    fig.subplots_adjust(left=.14, right=.80, bottom=.19, top=.82)
+    for building, kwh in readings.items():
+        line(ax, weeks, kwh, config, domain=list(readings), category=building)
+    ax.set(title="Weekly electricity use", xlabel="Week", ylabel="Electricity (kWh)",
+           xlim=(.8, 7), ylim=(250, 700), xticks=weeks)
+    style_axes(ax, config)
+    export(fig, config, "python-electricity", dpi=80)
     plt.close(fig)
 ```
 
-The missing observation stays a gap. Supply an explicit ordered domain even when
-some categories are absent. Theme selection accepts all nine family IDs from the
-gallery, `light`/`dark`, `reading`/`presentation`, and `paper`/`panel`.
+The Library falls from 420 to 320 kWh. The Workshop falls more slowly, while
+the Office has no observation in week three. The gap represents an absent
+reading, not zero use and not an interpolated estimate.
 
-## Supported API
+Replace the six values for each building with your readings. Keep the week and
+value lists the same length. Leave missing readings as `None`, and update the
+axis units if your meter reports a different quantity.
 
-| Operation | Use |
-| --- | --- |
-| `load_spec()`, `theme(...)` | Native data/configuration; no Matplotlib import or global mutation |
-| `rc(style)`, `context(style, overrides={...})` | Theme-only furniture; nested/error restoration and explicit overrides |
-| `line(..., domain=[...], category=...)` | Opaque line/ink under-stroke, shared dash geometry, edged markers and direct labels |
-| `scatter(..., domain=[...], categories=[...])` | Explicit category identities, shapes/edges and labels |
-| `colorscale(style, vmin=..., vmax=..., kind="sequential")` | Exact sampled map and explicit normalization |
-| `colorscale(..., kind="diverging", center=...)` | Exact center and asymmetric arms |
-| `scatter_values(...)` | Continuous points, exact map/norm; missing points omitted |
-| `heatmap(...)` | Explicit numeric cell colors and crossed missing cues |
-| `style_axes(ax, style)`, `annotate(..., role="body_annotation")` | Rebind supported native furniture and late-created text |
-| `export(...)` | Fixed canvas, exact-file text checks and PNG/SVG/PDF reports |
+Three categories are the default. If you need five, pass
+`variant="colorblind-subset-5"` to each `line` call and keep one explicit domain.
+Five is conditional because its measured simulated color separation is lower.
+Keep all shapes, dashes, edges and labels, then inspect the actual chart.
+Changing variants can change a category's color.
 
-Unknown/duplicate/over-capacity domains and malformed numeric inputs fail before
-artist mutation. `variant="colorblind-subset-5"` explicitly selects the conditional
-five slots. Variant changes can recolor IDs; review the mapping yourself. Dense
-labels, arbitrary filled/dense marks and unsupported artists are not made compliant
-by a color cycle or a global theme. Missing scatter points are omitted; there is
-no separate missing-point symbol API.
+## Keep a native pandas chart
 
-## Seaborn and pandas
+A single reservoir level does not need category colors. Use one ink color,
+then mark the level that triggers planning. This example uses ordinary
+`DataFrame.plot`, a native Matplotlib reference line, and a sized annotation.
 
-Use their ordinary APIs when you want native plots with furniture. That is
-**theme-only** unless supported Plotfoundry helpers add the operational treatment.
-For example, pass dataframe columns to `line()` with a stable domain rather than
-claiming `sns.lineplot()` automatically adds under-strokes and direct labels.
+![The reservoir crosses the 5.5 m planning level between months five and six.](_generated/plotting-tutorials/python-reservoir.png){width=640px}
 
-```sh
-python -m pip install 'pandas==3.1.1' 'seaborn==0.13.2'
-python -m plotfoundry.examples.dataframes
+[Open full size](_generated/plotting-tutorials/python-reservoir.png), [SVG](_generated/plotting-tutorials/python-reservoir.svg), [PDF](_generated/plotting-tutorials/python-reservoir.pdf), [source](_generated/plotting-tutorials/python-reservoir.py), [export report](_generated/plotting-tutorials/python-reservoir.report.json).
+
+```python
+"""Illustrative reservoir measurements plotted with the native pandas API."""
+import matplotlib.pyplot as plt
+import pandas as pd
+from plotfoundry import theme
+from plotfoundry.matplotlib import context, annotate, style_axes, export
+
+levels = pd.DataFrame({"month": [1, 2, 3, 4, 5, 6],
+                       "level_m": [7.4, 7.1, 6.8, 6.0, 5.6, 5.2]})
+config = theme("atelier", mode="light", profile="reading")
+ink = config.case["roles"]["ink"]
+with context(config):
+    fig, ax = plt.subplots(figsize=(8, 4.8))
+    fig.subplots_adjust(left=.14, right=.94, bottom=.19, top=.82)
+    levels.plot(x="month", y="level_m", ax=ax, legend=False, color=ink,
+                marker="o", linewidth=config.points(2.5))
+    ax.axhline(5.5, color=ink, linestyle="--", linewidth=config.points(1))
+    annotate(ax, "Planning level: 5.5 m", (1.1, 5.62), config, role="label")
+    ax.set(title="Reservoir level falls below 5.5 m",
+           xlabel="Month", ylabel="Water level (m)", xticks=levels.month,
+           xlim=(.8, 6.2), ylim=(4.8, 8))
+    style_axes(ax, config)
+    export(fig, config, "python-reservoir", dpi=80)
+    plt.close(fig)
 ```
 
-The shipped example exercises `sns.lineplot`, `DataFrame.plot` and treated helper
-lines separately. Late-created legends, colorbars and annotations need explicit
-styling/export; no implicit guarantee applies to arbitrary Seaborn artist trees.
+The final observation is below 5.5 m. The dashed line is a planning threshold
+chosen for this example, not a statistical estimate. Change the threshold and
+annotation together when adapting the chart.
 
-[Download dataframe example](_generated/plotting/source/dataframes.py)
+The theme changes the background, fonts and axes. It does not add category
+shapes or direct labels to arbitrary pandas plots. If you add several building
+series, use the first example's `line` helper with an explicit domain.
 
-## Fonts, placement and export
+## Explore temperature, electricity and occupancy with Seaborn
 
-Bundled exact-file FontProperties are applied to supported text, including axes,
-legend and colorbar furniture, even with a conflicting host family installed.
-Only real resolved weights are used. Keep plain text: mathtext/TeX, log formatters
-that introduce mathtext, or missing glyphs fail rather than claim a false font match.
-Use explicit plain-text tick formatters when necessary.
+Position can show two measurements, while color shows a third. Here temperature
+and electricity use define position. Color shows the occupied percentage of the
+building, which runs from 0 to 100. Use the sequential cividis map because a
+larger percentage means more of the same quantity.
 
-`style.points(px)` applies the shared placement formula. Preserve the declared
-figure width when composing it into a document. DPI is not an alternate font-size
-control; `export` uses explicit dimensions without tight cropping and reports
-actual PNG dimensions. SVG outlines are not editable text. PDF requests TrueType
-subsets and checks structure; this is not full PDF conformance certification.
-Always inspect the actual output, especially clipping, label density and downstream
-SVG/PDF handling. Original font notices still apply.
+![Electricity use falls as outdoor temperature rises in these illustrative rows. Color shows occupancy, not a building category.](_generated/plotting-tutorials/python-occupancy.png){width=640px}
 
-## Reproduce the gallery
+[Open full size](_generated/plotting-tutorials/python-occupancy.png), [SVG](_generated/plotting-tutorials/python-occupancy.svg), [PDF](_generated/plotting-tutorials/python-occupancy.pdf), [source](_generated/plotting-tutorials/python-occupancy.py), [export report](_generated/plotting-tutorials/python-occupancy.report.json).
 
-```sh
-python -m plotfoundry.examples.gallery --case folio/dark/reading/paper --output plots
+```python
+"""Illustrative building observations; native Seaborn with an explicit color scale."""
+import matplotlib.pyplot as plt
+from matplotlib.cm import ScalarMappable
+import pandas as pd
+import seaborn as sns
+from plotfoundry import theme
+from plotfoundry.matplotlib import context, colorscale, style_axes, export
+
+observations = pd.DataFrame({
+    "temperature_c": [8, 10, 12, 14, 16, 18, 20, 22, 24, 26],
+    "electricity_kwh": [68, 62, 58, 53, 51, 48, 46, 45, 43, 42],
+    "occupied_percent": [25, 35, None, 50, 60, 65, 70, 80, 90, 95],
+})
+# Use the same complete rows for the visible points and the descriptive fit.
+observations = observations.dropna(subset=["temperature_c", "electricity_kwh",
+                                            "occupied_percent"])
+config = theme("nocturne", mode="dark", profile="reading")
+ink = config.case["roles"]["ink"]
+cmap, norm = colorscale(config, vmin=0, vmax=100)
+with context(config):
+    fig, ax = plt.subplots(figsize=(8, 5))
+    fig.subplots_adjust(left=.14, right=.84, bottom=.18, top=.82)
+    sns.scatterplot(data=observations, x="temperature_c", y="electricity_kwh",
+                    hue="occupied_percent", palette=cmap, hue_norm=norm,
+                    legend=False, alpha=1, edgecolor=ink, linewidth=1, s=55, ax=ax)
+    sns.regplot(data=observations, x="temperature_c", y="electricity_kwh",
+                scatter=False, ci=None, color=ink,
+                line_kws={"linewidth": config.points(1)}, ax=ax)
+    bar = fig.colorbar(ScalarMappable(norm=norm, cmap=cmap), ax=ax, pad=.04)
+    bar.set_label("Occupied (%)")
+    ax.set(title="Electricity and outdoor temperature", xlabel="Temperature (C)",
+           ylabel="Electricity (kWh)")
+    style_axes(ax, config)
+    style_axes(bar.ax, config)
+    export(fig, config, "python-occupancy", dpi=80)
+    plt.close(fig)
 ```
 
-[Download standalone gallery source](_generated/plotting/source/python-gallery.py).
-After installing the package, the downloaded equivalent runs as
-`python python-gallery.py --case folio/dark/reading/paper --output plots`.
-The specimen canvas is 8 × 8 inches. All 72 Python cases have PNG/SVG/PDF downloads.
+One row has no occupancy reading. The explicit complete-case filter removes it
+from both the visible points and the fitted line. This native Seaborn example
+does not draw a crossed missing-point symbol. Keep missing counts in your analysis
+when using this approach.
 
-Tested reference: Python 3.12.10, Matplotlib 3.11.2, NumPy 2.5.4, pandas 3.1.1,
-Seaborn 0.13.2. Declared compatibility ranges are Matplotlib `>=3.11.2,<3.12` and
-NumPy `>=2.5.4,<2.6`; this does not prove every future patch/platform/backend.
-The development lock is verification tooling, not an installed runtime dependency.
+The line is a descriptive least-squares fit with no confidence interval.
+The invented rows cannot support a causal conclusion about temperature or
+occupancy. Replace the data, then decide whether a fitted line helps answer
+your own question. Remove the `regplot` call if you only need the observations.
 
-[All specimens](plotting-gallery.qmd?interface=python) · [R guide](plotting-r.qmd)
+Keep the 0 to 100 color limits when comparing another building or filtering rows.
+Otherwise, the same color could mean a different occupied percentage.
+The approved `colorscale` supplies the map and normalization; Seaborn still owns
+the native points and fit. A theme alone does not add the category helper's cues.
+
+## Separate missing rooms from rooms on target
+
+A room can be cooler or warmer than a 20 C target. Use the diverging BrBG map,
+with zero at the center. The observed limits are asymmetric, from -2 to +5 C.
+Use those same limits across room comparisons.
+
+![The Studio is 5 C above target on day four. Cross-hatching means missing; an uncrossed pale cell means zero deviation.](_generated/plotting-tutorials/python-temperature.png){width=640px}
+
+[Open full size](_generated/plotting-tutorials/python-temperature.png), [SVG](_generated/plotting-tutorials/python-temperature.svg), [PDF](_generated/plotting-tutorials/python-temperature.pdf), [source](_generated/plotting-tutorials/python-temperature.py), [export report](_generated/plotting-tutorials/python-temperature.report.json).
+
+```python
+"""Illustrative room deviations from a 20 C target; missing is not zero."""
+import matplotlib.pyplot as plt
+from plotfoundry import theme
+from plotfoundry.matplotlib import context, heatmap, style_axes, export
+
+# Rows are rooms; columns are successive inspection days.
+deviations_c = [[-2, -1, 0, 1], [0, None, 2, 3], [-1, 0, 3, 5]]
+config = theme("litera-reading", mode="light", profile="reading")
+with context(config):
+    fig, ax = plt.subplots(figsize=(8, 4.8))
+    fig.subplots_adjust(left=.16, right=.84, bottom=.19, top=.82)
+    image = heatmap(ax, deviations_c, config, vmin=-2, vmax=5,
+                    kind="diverging", center=0)
+    ax.set(title="Temperature relative to 20 C", xlabel="Inspection day",
+           yticks=[0, 1, 2], yticklabels=["Reading", "Meeting", "Studio"],
+           xticks=[0, 1, 2, 3], xticklabels=["1", "2", "3", "4"])
+    bar = fig.colorbar(image, ax=ax, pad=.04, ticks=[-2, -1, 0, 2.5, 5])
+    bar.set_label("Deviation (C)")
+    style_axes(ax, config)
+    style_axes(bar.ax, config)
+    export(fig, config, "python-temperature", dpi=80)
+    plt.close(fig)
+```
+
+The Studio has the largest positive deviation on day four. The Meeting room has
+no reading on day two. Its crossed cell differs from the pale cells that are
+exactly on target.
+
+Replace each row with one room's deviations, then update the room labels.
+If your input contains absolute temperatures, subtract the target first.
+Choose a meaningful target before selecting the center; zero is not always
+the right center for an arbitrary measurement.
+
+## Change the theme and save for a document
+
+All examples use an eight-inch canvas and the reading profile's declared
+640 CSS-pixel placement. The height varies to make space for each chart.
+The export uses 80 DPI here, so the PNG is 640 pixels wide. Increasing DPI
+adds raster pixels; it does not change the declared size of text.
+
+To make a presentation chart, select `profile="presentation"` in `theme` and
+place the result at 1152 CSS pixels. Keep `figsize` eight inches wide.
+The presentation profile uses 24-pixel labels and 36-pixel chart headings.
+Use more space between plots rather than shrinking a dense chart into a corner.
+
+[Open the 1152-pixel presentation version](_generated/plotting-tutorials/python-electricity-presentation.png)
+and [download its complete source](_generated/plotting-tutorials/python-electricity-presentation.py).
+This version changes the profile and uses 144 DPI to export 1152 raster pixels.
+A 640-pixel preview of that file reduces its apparent text size.
+
+Select another family, mode or surface in `theme`, for example
+`theme("nocturne", mode="dark", surface="panel")`. The
+[theme gallery](plotting-gallery.qmd?interface=python) compares all nine families
+and both profiles. It is a reference for appearance, not a replacement for
+choosing the right chart and limits.
+
+In a Markdown document, reference the exported file at its declared placement:
+
+```markdown
+![Weekly electricity use](python-electricity.png){width=640px}
+```
+
+The examples also write SVG and PDF. SVG contains outlined glyphs, so text is
+not editable. Python PDF requests TrueType subsets and checks their presence;
+this is not full PDF conformance certification. Export keeps the full canvas
+without tight cropping. Check the actual file for clipped or crowded labels.
+
+The small preview on a phone scales the whole picture, including text.
+Use the full-size image or vector download to inspect the intended placement.
+Every image above links to its exact source and all three export formats.
+
+## Fonts, limits and offline setup
+
+The exporter binds supported text to bundled font files and real weights.
+It checks axes, titles, legends and colorbars, including text created late.
+Keep plain text. Mathtext, TeX, unsupported glyphs and log formatters that create
+mathtext fail instead of silently using a different face.
+
+`style_axes` styles native axes after you add artists. `annotate` lets you choose
+a label, metadata or body annotation size deliberately. Arbitrary artists,
+dense labels and filled marks do not gain the line helper's treatment merely
+because they use its theme.
+
+For an offline machine, prepare the Plotfoundry wheel and all selected dependency
+wheels on a compatible connected machine. Install them with
+`pip install --no-index --find-links wheelhouse 'plotfoundry[matplotlib]==0.1.0.dev1'`.
+Add pandas and Seaborn wheels if using those tasks. A lone wheel does not include
+Matplotlib or its native dependencies.
+
+The examples were checked with Python 3.12.10, Matplotlib 3.11.2, NumPy 2.5.4,
+pandas 3.1.1 and Seaborn 0.13.2. Other versions and platforms need their own checks.
+The package's development lock is not a plotting runtime dependency.
+See the [scientific choices](plotting-packages.md) and
+[font and code notices](_generated/plotting/index.html#notices) for background.

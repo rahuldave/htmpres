@@ -18,3 +18,10 @@ packages/javascript/resources/data/notices/DejaVu-LICENSE whitespace=-blank-at-e
 
 # Preserve the verbatim upstream iconv-lite notice, including its final blank line.
 packages/javascript/vendor/notices/iconv-lite-LICENSE whitespace=-blank-at-eof
+
+# Preserve the five reviewed Matplotlib tutorial exports without changing bytes.
+docs/_plotting-tutorials/python-electricity.svg whitespace=-blank-at-eol
+docs/_plotting-tutorials/python-electricity-presentation.svg whitespace=-blank-at-eol
+docs/_plotting-tutorials/python-reservoir.svg whitespace=-blank-at-eol
+docs/_plotting-tutorials/python-occupancy.svg whitespace=-blank-at-eol
+docs/_plotting-tutorials/python-temperature.svg whitespace=-blank-at-eol

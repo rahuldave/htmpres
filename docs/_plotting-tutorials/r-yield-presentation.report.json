@@ -1,0 +1,53 @@
+{
+  "case": "folio/light/presentation/paper",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    4.8
+  ],
+  "canvasPixels": [
+    1152,
+    691
+  ],
+  "placedWidthCssPx": 1152,
+  "tightCrop": false,
+  "fonts": [
+    {
+      "role": "ui",
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "file": "fonts/dm-sans-400-normal.ttf",
+      "weight": 400
+    },
+    {
+      "role": "heading",
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "file": "fonts/dm-sans-600-normal.ttf",
+      "weight": 600
+    }
+  ],
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1",
+    "ggplot2": "4.0.3"
+  },
+  "files": {
+    "png": {
+      "path": "r-yield-presentation.png",
+      "sha256": "61ab8892ae7c1a229916ed9ce5e44ca02d90b8bc9be790f4c98c6853c66cfdc5",
+      "fontPolicy": "showtext rasterized glyphs"
+    },
+    "svg": {
+      "path": "r-yield-presentation.svg",
+      "sha256": "4fca26e5c6de2c87e9279d7e71108e47697cd93ae23a4e37b37fdd6d3c4cec6c",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    },
+    "pdf": {
+      "path": "r-yield-presentation.pdf",
+      "sha256": "2ca0934a304f9f483b277bfaab8a8bf5d0ac68388046a69b4a10dbd6c4342851",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "case": "tufte/light/reading/paper",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    4.8
+  ],
+  "canvasPixels": [
+    640,
+    384
+  ],
+  "placedWidthCssPx": 640,
+  "tightCrop": false,
+  "fonts": [
+    {
+      "role": "ui",
+      "sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500",
+      "file": "fonts/et-book-roman-line-figures.ttf",
+      "weight": 400
+    },
+    {
+      "role": "heading",
+      "sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb",
+      "file": "fonts/et-book-bold-line-figures.ttf",
+      "weight": 700
+    }
+  ],
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1"
+  },
+  "files": {
+    "png": {
+      "path": "r-base-yield.png",
+      "sha256": "510a238f7e9d6b5198937f99c782741c8b58373a2dc4f5863dac791f969c6b4d",
+      "fontPolicy": "showtext rasterized glyphs"
+    },
+    "svg": {
+      "path": "r-base-yield.svg",
+      "sha256": "fb4baefa1ee9d1ceafa33807908991591143b7347691d2cf8e35661aa110d816",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    },
+    "pdf": {
+      "path": "r-base-yield.pdf",
+      "sha256": "3173346387d6e99344a7f6b853f3e5396da29015bceecf2290c37b294902110f",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    }
+  }
+}

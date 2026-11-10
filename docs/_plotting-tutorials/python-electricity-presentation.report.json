@@ -1,0 +1,48 @@
+{
+  "case": "folio/light/presentation/paper",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    4.8
+  ],
+  "canvasPixels": [
+    1152,
+    691
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "fonts": [
+    {
+      "role": "ui",
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "file": "fonts/dm-sans-400-normal.ttf",
+      "weight": 400
+    },
+    {
+      "role": "heading",
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "file": "fonts/dm-sans-600-normal.ttf",
+      "weight": 600
+    }
+  ],
+  "devices": {
+    "matplotlib": "3.11.2"
+  },
+  "files": {
+    "png": {
+      "path": "python-electricity-presentation.png",
+      "sha256": "d4b800089282fe3f9cb12bb84ff3b850b15ca608073ba2c32ce1c255e0d6ebd1",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "path": "python-electricity-presentation.svg",
+      "sha256": "8e5074b5cfb2655e7d5d03a9893c06383fa5e150f9667c9250f79ed9603dc8d2",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "path": "python-electricity-presentation.pdf",
+      "sha256": "a3443a2b8b1ceb9ee6d40beabc0f388ee7f76ae74d9d67a987d6c26d19ae27d6",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  }
+}

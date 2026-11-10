@@ -1,0 +1,53 @@
+{
+  "case": "atelier/light/reading/paper",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    5
+  ],
+  "canvasPixels": [
+    640,
+    400
+  ],
+  "placedWidthCssPx": 640,
+  "tightCrop": false,
+  "fonts": [
+    {
+      "role": "ui",
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "file": "fonts/dm-sans-400-normal.ttf",
+      "weight": 400
+    },
+    {
+      "role": "heading",
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "file": "fonts/dm-sans-600-normal.ttf",
+      "weight": 600
+    }
+  ],
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1",
+    "ggplot2": "4.0.3"
+  },
+  "files": {
+    "png": {
+      "path": "r-nitrate.png",
+      "sha256": "54b626429b9cc0700b86897dfe4ec3c366e20e1343ebc1900551519de1aa3b03",
+      "fontPolicy": "showtext rasterized glyphs"
+    },
+    "svg": {
+      "path": "r-nitrate.svg",
+      "sha256": "982f8fb8146d47f52978f70dea483df2477f68f0cab0d480fe771c1231d3a606",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    },
+    "pdf": {
+      "path": "r-nitrate.pdf",
+      "sha256": "b9b413484e191a4719a192309f75e578b48811de7ade38e896b38c57b9ea2dee",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    }
+  }
+}

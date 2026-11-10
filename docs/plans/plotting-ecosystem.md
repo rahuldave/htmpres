@@ -1,6 +1,6 @@
 # Standalone plotting ecosystem: next-phase plan
 
-**Status: identity scaffolds (piece 1) and the standalone approved scientific contract (piece 2) are implemented; the Python reference (piece 3) and R reference (piece 4) are implemented; the Python/R website documentation (piece 4a) is implemented pending integration/deployment verification; other adapters and integrations are not implemented.** This document plans phase 6, tracked by parent task `vxltssko`. Delivery is organized in iteration `wkssvzoo`; the planning leaf is `rlpsynzs` and identity-scaffold leaf is `ruzntmky`. The agreed Doc 3 recommendations are the scientific baseline. This plan does not begin implementation or publish anything. After each independently reviewed piece, the parent presents the result and the user selects the next piece; only genuinely unresolved or changed decisions return for design review.
+**Status: identity scaffolds (piece 1) and the standalone approved scientific contract (piece 2) are implemented; the Python reference (piece 3) and R reference (piece 4) are implemented; the Python/R website documentation (piece 4a) is published at `0ae4354c`; the JavaScript reference (piece 5) is in implementation/review. Piece 5a will improve Python/R tutorials next. Other adapters and integrations are not implemented.** This document plans phase 6, tracked by parent task `vxltssko`. Delivery is organized in iteration `wkssvzoo`; the planning leaf is `rlpsynzs` and identity-scaffold leaf is `ruzntmky`. The agreed Doc 3 recommendations are the scientific baseline. This plan does not begin implementation or publish anything. After each independently reviewed piece, the parent presents the result and the user selects the next piece; only genuinely unresolved or changed decisions return for design review.
 
 The repository will be a monorepo containing independent plotting pieces. They must work with plain Python, R and JavaScript, and in Quarto or SmallDocs, **without installing, importing, running or naming htmpres as a package dependency**. The htmpres website hosts their documentation. Hosting and repository location do not create a runtime dependency.
 
@@ -132,11 +132,11 @@ Altair is a Python authoring interface for Vega-Lite. Observable Plot is a disti
 
 ## Small delivery pieces and review gates
 
-**Stop after every piece.** A distinct Sol 6.1 agent conducts substantive independent review of the writer's artifacts, tests and docs. The parent integrates that review and presents the result; the user selects the next piece. No automatic advancement follows a passing test, completed task or merged PR. Docs grow with each piece; piece 11a consolidates them rather than postponing them.
+**Stop after every piece unless the user has selected a sequence.** The user has authorized piece 5 followed by piece 5a; no later adapter is authorized. A distinct Sol 6.1 agent conducts substantive independent review of the writer's artifacts, tests and docs. The parent integrates that review and presents the result; the user selects the next piece. No automatic advancement follows a passing test, completed task or merged PR. Docs grow with each piece; piece 11a consolidates them rather than postponing them.
 
 ### Delivery task and dependency map
 
-Parent `vxltssko`, iteration `wkssvzoo`, planning leaf `rlpsynzs`. The iteration contains the planning gate plus 19 delivery leaves in 20 phases. The table records current native `blocked-by` prerequisites from the parent's final task snapshot; row order is the selected presentation order. “After” is an execution/review dependency, **not runtime package coupling**. The current graph hard-blocks piece 9 on all adapter leaves listed in its row and consequently blocks downstream release work on them. A smaller release subset is possible only through an explicit user-selected re-scoping and parent dependency review/update before execution; the current graph does not already permit skipping prerequisites. Retain genuine contract dependencies when updating the selected execution order. After that explicit update, a reviewed subset need not wait for adapters excluded from its scope.
+Parent `vxltssko`, iteration `wkssvzoo`, planning leaf `rlpsynzs`. The iteration contains the planning gate plus 20 delivery leaves in 21 phases. The table records current native `blocked-by` prerequisites from the parent's final task snapshot; row order is the selected presentation order. “After” is an execution/review dependency, **not runtime package coupling**. The current graph hard-blocks piece 9 on all adapter leaves listed in its row and consequently blocks downstream release work on them. A smaller release subset is possible only through an explicit user-selected re-scoping and parent dependency review/update before execution; the current graph does not already permit skipping prerequisites. Retain genuine contract dependencies when updating the selected execution order. After that explicit update, a reviewed subset need not wait for adapters excluded from its scope.
 
 | Piece | Gest task | Output | Selected after |
 | --- | --- | --- | --- |
@@ -146,7 +146,8 @@ Parent `vxltssko`, iteration `wkssvzoo`, planning leaf `rlpsynzs`. The iteration
 | 4 | `tsmttwvv` | R reference | 2, 3 |
 | 4a | `mlzqvvmv` | Python/R website docs and galleries | 3, 4 |
 | 5 | `zzqspzmp` | JS / Observable Plot | 2, 3, 4, 4a |
-| 6a | `xztkkvxk` | Vega-Lite | 2, 5 |
+| 5a | `punnvmwq` | Task-led Python/R tutorial improvement | 5 |
+| 6a | `xztkkvxk` | Vega-Lite | 2, 5, 5a |
 | 6b | `xyrzryyt` | Altair | 3, 6a |
 | 6c | `mxpztosn` | Limited full Vega exporter | 6a, 6b |
 | 7a | `rzuvmpkx` | Plotly.js | 2, 5 |
@@ -187,7 +188,7 @@ Parent `vxltssko`, iteration `wkssvzoo`, planning leaf `rlpsynzs`. The iteration
 
 ### 4a. Publish Python/R website guides and galleries — `mlzqvvmv`
 
-Implementation checkpoint: standalone overview/Python/R guides and all 72 configurations across 216 interface views, with reviewed static assets, closed publication validation and browser verification. Deployment verification remains the integration gate; no registry publication or next adapter is implied.
+Implementation checkpoint: standalone overview/Python/R guides and all 72 configurations across 216 interface views, with reviewed static assets, closed publication validation and browser verification. Published and deployment-verified at `0ae4354c`. No registry publication is implied.
 
 **Prerequisites:** reviewed R reference and the existing user authorization to publish Python/R documentation immediately afterward. **Outputs:** publish installation, native API, font/device/export/offline guides and reproducible galleries for the completed Python/R references on the htmpres website. Reuse installed examples and verified specimens; clearly distinguish unreleased source artifacts from registry availability. No new adapter implementation.
 
@@ -198,6 +199,10 @@ Implementation checkpoint: standalone overview/Python/R guides and all 72 config
 **Prerequisites:** shared contract and approved package names; no R/Python runtime dependency. **Outputs:** browser-ready ESM, options/scales/domain functions and supported layered Plot mark helpers; local font assets and plain HTML example. Keep the compiled dependency closure usable offline; optional bundler consumption also works.
 
 **Review gate:** import the packed npm artifact in a clean plain browser project; no Node globals, remote imports or htmpres; 36 configurations on both paper and panel backgrounds (72 cases), exact font loading, hover/legend/label/layer behavior and documented static browser export. Verify network-off use after setup. **Docs/examples:** plain HTML/ESM and Observable examples, explicit domains, font loading and browser/static differences.
+
+### 5a. Improve Python/R task-led tutorials — `punnvmwq`
+
+**Prerequisite:** reviewed JavaScript piece 5. This user-authorized slice follows JS before another adapter. A distinct Sol writer will teach meaningful native tasks with runnable code/output pairs, native integrations, missing/limit choices and export instructions. A distinct Sol reviewer checks copied examples, reader flow and desktop/mobile results. Follow the nossaifd guide, hard and verbose checks, then manual revision. Do not change scientific policy or native runtime APIs without a separate finding.
 
 ### 6a. Vega-Lite native adapter — `xztkkvxk`
 

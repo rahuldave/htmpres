@@ -142,3 +142,5 @@ makes one slide; an empty heading carries settings for an untitled slide. See
 [the boundary contract](docs/semantic-authoring.md)
 and the three-slide [mixed example](decks/slide-breaks/index.qmd), rendered with
 `just slide-breaks`.
+
+The standalone [JavaScript/Observable Plot guide](docs/plotting-javascript.qmd) includes complete browser examples and local Quarto OJS use.

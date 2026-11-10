@@ -12,3 +12,9 @@ docs/_plotting/notices/DejaVu-LICENSE.txt whitespace=-blank-at-eol
 
 # Preserve exact reviewed plotting SVG serialization; ordinary sources retain checks.
 docs/_plotting/exports/python/*.svg whitespace=-blank-at-eol
+
+# Preserve the exact approved notice in the independent JavaScript resource bundle.
+packages/javascript/resources/data/notices/DejaVu-LICENSE whitespace=-blank-at-eol
+
+# Preserve the verbatim upstream iconv-lite notice, including its final blank line.
+packages/javascript/vendor/notices/iconv-lite-LICENSE whitespace=-blank-at-eof

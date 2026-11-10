@@ -1,0 +1,376 @@
+---
+title: "JavaScript charts with Observable Plot"
+---
+
+Compare delivery routes over time, explore energy use, and find plants with
+longer delivery times. These examples use invented local observations and
+Observable Plot, a JavaScript library that draws charts from rows of data.
+
+![North improves after week four; Central has no observation in week three.](assets/javascript/deliveries.png)
+
+Plotfoundry adds chart furniture, exact sampled colors, file-backed fonts,
+and helpers with distinct shapes, dashes, direct labels and ink edges.
+The package is an unreleased reference. There is no npm or CDN publication.
+It runs independently in a browser or Quarto Observable JavaScript (OJS).
+No htmpres installation, Python or R is needed at runtime.
+
+[Install and run](#install-and-run), [Compare routes](#compare-routes) ,
+[Explore energy use](#explore-energy-use), [Find signed changes](#find-signed-changes) ,
+[Adapt native Plot](#adapt-native-plot), [Use Quarto](#use-quarto) ,
+[Fonts and export limits](#fonts-and-export-limits)
+
+## Install and run
+
+Start with the repository checkout that contains this guide. To get a checkout,
+use these commands, record its revision, and check the package version:
+
+```sh
+git clone --depth 1 https://github.com/rahuldave/htmpres.git plotfoundry-source
+cd plotfoundry-source
+git rev-parse HEAD
+cd packages/javascript
+node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync("package.json")); if(p.version!=="0.1.0-dev.1") throw Error("Use the source revision for this guide"); console.log(p.version)'
+```
+
+These instructions target version `0.1.0-dev.1`, not an npm release. The clone
+selects the current source branch; record the printed Git revision to pin your
+own copy. Stop if the version differs. Then build its local archive:
+
+```sh
+npm pack --ignore-scripts
+```
+
+The package includes the browser bundle. You do not need a build step. Record the
+source revision for your work. The repository's private root npm package is
+not installed. In a new project outside that checkout, run:
+
+```sh
+npm init -y
+npm install --offline --ignore-scripts /absolute/path/plotfoundry-0.1.0-dev.1.tgz
+```
+
+Copy the installed package's `examples/standalone/` files into your new project
+root. Each example has an HTML file and a JavaScript module. Serve the new
+project over HTTP, then open `deliveries.html`. For example, a development server
+may use `python3 -m http.server 8000`. Python is only one server choice.
+
+To write a page yourself, save the module below as `deliveries.js` and use
+this HTML file in the same project root:
+
+```html
+<!doctype html><meta charset="utf-8"><title>Delivery times</title>
+<style>#chart{overflow:auto}svg{max-width:none}</style>
+<div id="chart"></div><p id="downloads"></p>
+<script type="module" src="./deliveries.js"></script>
+```
+
+For package-aware build tools, imports such as `plotfoundry` and
+`plotfoundry/observable` select the same modules. Plain browsers use the local
+paths in these examples. Nothing fetches an external library after setup.
+
+## Compare routes
+
+Start with three named routes and delivery time in hours. The explicit category
+domain fixes each route's slot, even when one route is absent after filtering.
+A missing observation stays a gap. The helper does not connect across that interval or turn it into zero.
+
+```js
+import {loadSpec, theme} from "./node_modules/plotfoundry/src/index.js";
+import {line, plot, loadFonts, stylePlot, watchPlot, exportSvg, exportPng}
+  from "./node_modules/plotfoundry/src/observable.js";
+const spec = await loadSpec();
+const config = theme(spec, "folio", {mode: "light", profile: "reading"});
+const fonts = await loadFonts(config);
+const deliveries = ["North", "Central", "South"].flatMap((route, i) =>
+  [1,2,3,4,5,6].map((week, j) => ({route, week,
+    hours: route === "Central" && week === 3 ? null :
+      [2.2,2.6,2.4,2.1,1.8,1.9][j] + i * 2.3})));
+const chart = plot(config, {
+  height: 384, x: {label: "Week"},
+  y: {label: "Delivery time (hours)", domain: [0,10]},
+  marks: line(config, deliveries, {
+    x: "week", y: "hours", category: "route",
+    domain: ["North", "Central", "South"]
+  })
+});
+stylePlot(config, chart);
+document.querySelector("#chart").append(chart);
+const observer = watchPlot(config, chart);
+function download(blob, name) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url; link.download = name; link.textContent = "Download " + name;
+  document.querySelector("#downloads").append(link, " ");
+  // Revoke the URL when your app removes the link.
+}
+download((await exportSvg(config, chart)).blob, "deliveries.svg");
+download((await exportPng(config, chart, {pixelRatio:2})).blob, "deliveries.png");
+// When removing the chart: observer.dispose(); fonts.dispose();
+```
+
+North improves after week four. Central is slower than North and has no
+observation in week three. South stays slower throughout this invented example.
+Replace `deliveries` with your rows and change the axis labels to your units.
+The download links save the chart without requiring a file API of your own.
+
+The default has three slots. Five needs the explicit
+`variant: "colorblind-subset-5"` option. Five is conditional because the frozen simulations showed lower separation.
+Extra marks can also obscure each other.
+Keep its shapes, dashes, ink edges and direct labels, then inspect your chart.
+
+A variant change can change slot colors. The package never expands a variant automatically.
+
+## Explore energy use
+
+The next chart asks whether energy use rises with temperature and load.
+Position shows temperature and load. Color shows a third measurement in kWh.
+The sequential cividis scale has fixed limits, so another chart can use the
+same color meaning.
+
+![Higher temperatures have higher energy use in these invented observations. The crossed point has no energy reading.](assets/javascript/energy.png)
+
+```js
+import {loadSpec, theme, colorScale}
+  from "./node_modules/plotfoundry/src/index.js";
+import {plot, scatterValues, legend, loadFonts, stylePlot}
+  from "./node_modules/plotfoundry/src/observable.js";
+const spec = await loadSpec();
+const config = theme(spec, "tufte", {mode:"dark", profile:"reading"});
+const fonts = await loadFonts(config);
+const sensors = Array.from({length:18}, (_,i) => ({
+  temperature:12+i, load:20+(i%6)*5+Math.floor(i/6)*2,
+  energy:i===5 ? null : 10+i*3
+}));
+const scale = colorScale(config, {vmin:10, vmax:61});
+const chart = plot(config, {
+  height:384,
+  x:{label:"Temperature (C)"}, y:{label:"Load (%)"},
+  marks:scatterValues(config, sensors, {
+    x:"temperature", y:"load", value:"energy", scale
+  })
+});
+stylePlot(config, chart);
+document.querySelector("#chart").append(chart,
+  legend(config, {scale, label:"Energy (kWh)"}));
+// Dispose fonts when removing every chart that uses this session.
+```
+
+Energy rises with temperature in these invented observations; load varies within
+that trend. The muted crossed point has a location but no energy value.
+Change the `sensors` rows and choose limits for your comparison question.
+Keep those limits when you filter the rows.
+
+Values below 10 or above 61 use endpoint colors. Null, undefined and NaN remain
+missing. Infinity, booleans and string numeric coercion are rejected.
+The legend uses the exact discrete bins, not interpolation between samples.
+The legend rounds tick labels for readability. The lookup values do not change.
+
+## Find signed changes
+
+Use a diverging map when a meaningful center separates two kinds of change.
+Here zero means no change in delivery time. Faster deliveries reach -2 hours;
+slower deliveries reach +8 hours. The two arms keep those different limits.
+
+![The Hub has the largest slowdown in week four. The crossed Depot cell is missing, while uncrossed pale cells are zero.](assets/javascript/changes.png)
+
+```js
+import {loadSpec, theme, colorScale}
+  from "./node_modules/plotfoundry/src/index.js";
+import {plot, heatmap, legend, loadFonts, stylePlot}
+  from "./node_modules/plotfoundry/src/observable.js";
+const spec = await loadSpec();
+const config = theme(spec, "litera-reading", {mode:"light", profile:"reading"});
+const fonts = await loadFonts(config);
+const values = [-2,-1,0,2, 1,null,4,6, -1,0,3,8];
+const cells = values.map((change,i) => ({
+  week:i%4, plant:Math.floor(i/4),
+  x1:i%4, x2:i%4+1, y1:Math.floor(i/4), y2:Math.floor(i/4)+1,
+  change
+}));
+const scale = colorScale(config, {kind:"diverging", vmin:-2, center:0, vmax:8});
+const chart = plot(config, {
+  height:320,
+  x:{domain:[0,4], ticks:[.5,1.5,2.5,3.5],
+     tickFormat:v=>"Week "+Math.floor(v+1), label:null},
+  y:{domain:[0,3], reverse:true, ticks:[.5,1.5,2.5],
+     tickFormat:v=>["Mill","Depot","Hub"][Math.floor(v)], label:null},
+  marks:heatmap(config, cells, {value:"change", scale})
+});
+stylePlot(config, chart);
+document.querySelector("#chart").append(chart,
+  legend(config, {scale, label:"Change in delivery time (hours)"}));
+```
+
+The Hub has the largest slowdown in week four. The Depot's week-two cell is
+missing, while the pale uncrossed cells mean zero change. A symmetric range would allocate negative colors to values absent from this example.
+Replace `values` and the plant names while keeping an explicit center and limits.
+
+Cells need finite ordered bounds. The helper keeps the source rows unchanged.
+Missing cells use a muted fill and a contrasting cross, so missing and zero
+remain distinct. `legend` uses the same asymmetric inverse for every tick.
+
+## Adapt native Plot
+
+You can keep a native Plot chart and apply only its furniture and fonts.
+The next module uses native `Plot.line`; the `options` call supplies the selected
+background, text and axis settings. Native options still control the axes and
+mark data.
+
+![Native lines use Nocturne furniture, but do not have the helper's redundant category cues.](assets/javascript/native.png)
+
+```js
+import {loadSpec, theme, categories}
+  from "./node_modules/plotfoundry/src/index.js";
+import {Plot, options, loadFonts, stylePlot}
+  from "./node_modules/plotfoundry/src/observable.js";
+const spec = await loadSpec();
+const config = theme(spec, "nocturne", {mode:"dark", profile:"reading"});
+const fonts = await loadFonts(config);
+const domain = ["North","Central","South"];
+const data = domain.flatMap((route,i) => [1,2,3,4,5,6].map((week,j) =>
+  ({route,week,hours:route==="Central"&&week===3?null:
+    [2.2,2.6,2.4,2.1,1.8,1.9][j]+i*2.3})));
+const chart = Plot.plot(options(config, {
+  height:384,
+  x:{label:"Week"}, y:{label:"Delivery time (hours)",domain:[0,10]},
+  color:{domain,range:categories(config,domain,domain).map(slot=>slot.color)},
+  marks:[Plot.line(data,{x:"week",y:"hours",stroke:"route"})]
+}));
+stylePlot(config, chart);
+document.querySelector("#chart").append(chart);
+// Theme-only native marks: no helper ink edges, shapes, dashes or direct labels.
+```
+
+The native lines keep Plot's thin default strokes. Applying a theme alone does
+not add shapes, dashes, ink edges or direct labels. To add those cues, replace
+the `marks` entry with `line(config, data, {x:"week", y:"hours",
+category:"route", domain})` from the first example. Keep your native axis options.
+
+`createPlotAdapter(Plot, {version:"0.6.19"})` accepts an explicitly supplied
+module with the tested API shape. The bundled exact version is the default.
+A supplied version is caller-declared provenance, not package verification.
+Untested versions are rejected.
+
+## Change the theme and placement
+
+Select any of the nine families, either mode, and either profile in `theme`.
+For example, use `theme(spec, "folio", {mode:"dark", profile:"presentation"})`.
+Presentation width is 1152 CSS pixels, with 24-pixel labels and 36-pixel headings.
+Reading width is 640, with 16-pixel labels and 30-pixel headings.
+
+Body annotations use 20 pixels for serif reading families and 18 otherwise;
+presentation body annotations use 30. Metadata uses 14 pixels in reading mode.
+Use `data-pf-role` to distinguish heading, label, metadata and body_annotation.
+`stylePlot(..., {resize:true})` applies their sizes. By default, it preserves
+authored sizes and binds the real font face and weight.
+
+`theme(..., {width})` declares another placement width and scales SVG lengths
+together. A later CSS resize also scales the whole picture, including text.
+Use the declared width to judge readability, rather than a thumbnail.
+The full browser example offers all 72 case selections.
+
+## Use Quarto
+
+Copy `node_modules/plotfoundry/examples/quarto.qmd` into your project root,
+then run `quarto render quarto.qmd`. No Python or R engine is used. The OJS cells
+import the locally installed package and its pinned Plot, rather than the
+implicit Plot version that Quarto supplies.
+
+The imports use `document.baseURI` because OJS evaluates modules from its own
+runtime directory. The file includes the same delivery data and a complete
+chart cell. Font loading is an explicit dependency, and OJS invalidation
+disposes that font session. Serve the rendered directory over HTTP.
+Keep its `node_modules/plotfoundry` resource tree when moving the document.
+
+The installed Quarto example is tested with external requests blocked.
+`embed-resources` cannot collect resources loaded dynamically by JavaScript.
+A local resource directory is part of this offline document, not a remote CDN.
+
+## Fonts and export limits
+
+`loadFonts` registers hash-named faces in the selected Document after an explicit
+call. Await it before rendering. Each session has `dispose()`. Concurrent sessions share faces until the last
+owner disposes them. Unknown caller registrations
+using reserved names are rejected. The package never substitutes a host font
+with the same family name.
+
+`stylePlot` binds exact UI or heading files and real weights, then checks visible
+glyphs. `watchPlot` applies role sizes and faces to inserted hover text.
+Dispose the observer when removing the chart. The native Plot zero-width
+separator is layout formatting, not a visible glyph.
+
+The first example creates working SVG and PNG download links. Exports clone a single SVG canvas. The caller's chart remains unchanged. Surrounding HTML
+headings, captions and separate legends are not part of that canvas.
+Save those SVGs separately or compose them in your document.
+
+SVG text becomes paths from the exact bundled files. The result needs no font
+network request, but has no selectable text or live hover. PNG rasterizes the
+same outlined SVG at an explicit pixel ratio. Its report gives actual canvas
+dimensions; resolution does not change placed typography. The package has no PDF exporter.
+
+Plain Latin text, punctuation and approved glyphs are supported. Math, complex
+shaping, missing glyphs, italic or vertical text and external SVG images, filters
+or HTML are rejected. Supported text runs keep native offsets, anchors and tspan
+positions. The exporter is a tested Plot path, not a universal SVG converter.
+Dense labels still need author review.
+
+Helpers accept row objects with numeric Cartesian coordinates and linear paths.
+They preserve input order, missing intervals, facet fields and native clipping.
+Projections and alternative curves are rejected. Arbitrary filled areas, maps,
+third-party marks and automatic label-overlap repair are outside this adapter.
+Do not infer compliance from a native theme-only chart.
+
+## Reference, offline use and maintenance
+
+The core import does not fetch, touch the DOM or register fonts. `loadSpec` checks
+every immutable resource before parsing. In Node, import `loadSpec` from
+`plotfoundry/node` for regular-file closure checks. An installed browser consumer needs no Node runtime.
+Every spec file, font and dependency notice ships in the archive.
+
+The current verification uses Node 25.1.0, Chrome 157, Quarto 1.8.26,
+Playwright 1.65.0 and Pillow 13.0.0 on macOS. Plot 0.6.19 is the tested renderer.
+Renderer and
+Quarto versions are recorded in the installed-browser evidence. Compatible
+engine ranges are not a claim that every version or platform was tested.
+There is no registry account, package publication or live CDN promise.
+
+Maintainers run `npm test` and `node tools/check-package.mjs` from this package.
+`npm ci --ignore-scripts` installs locked build tools; installed consumers do not need these build tools.
+`node tools/build-vendor.mjs` rebuilds both browser bundles and notices.
+Normal validation does not regenerate files to hide drift. The source lock,
+original foundations, ET Book conversion recipe and notices stay included.
+
+The scientific spec remains 0.1.0. JavaScript has its own package version.
+
+API behavior follows [Plot marks](https://observablehq.github.io/plot/features/marks),
+[Plot lines](https://observablehq.github.io/plot/marks/line),
+[Plot legends](https://observablehq.github.io/plot/features/legends) and
+[Quarto OJS libraries](https://quarto.org/docs/interactive/ojs/libraries.html).
+The task-led explanation follows the nossaifd guide, including Rosalind Reid's
+problem-to-result and explained-figure guidance and Shreya Shankar's plain-writing
+guidance. No source prose from those guides is reproduced.
+
+
+## Download and explore
+
+[Open the local browser example](_generated/javascript/examples/browser.html)
+with all 72 case selections. The figure's colors are independent of this site's
+page theme. The example can scroll at its intended width on a narrow screen.
+
+Download the complete modules, save each in your installed project root, and
+use the HTML wrapper shown above:
+
+- [Delivery times](_generated/javascript/examples/standalone/deliveries.js).
+- [Energy use](_generated/javascript/examples/standalone/energy.js).
+- [Signed changes](_generated/javascript/examples/standalone/changes.js).
+- [Native Plot adaptation](_generated/javascript/examples/standalone/native.js).
+- [Quarto OJS source](_generated/javascript/examples/quarto.qmd.txt).
+- [Runtime and dependency notices](_generated/javascript/vendor/provenance.json).
+
+The package `resources/data/notices` directory retains the font and upstream
+notices. Browser dependencies have their own `vendor/notices` files. Preserve
+both directories when distributing a copy. Source comes from the
+[JavaScript package directory](https://github.com/rahuldave/htmpres/tree/main/packages/javascript);
+there is no npm registry release to install.
+
+Maintainer browser checks need an installed Chrome executable. The default path is macOS-specific; the browser runner accepts `--browser-executable` for an explicit path. The locked verification recipe provisions Playwright/Pillow only as developer tools.

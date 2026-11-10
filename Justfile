@@ -35,7 +35,7 @@ theme-gallery: example semantic authoring-hooks
   quarto run scripts/build-showcase.ts
 
 # Build the SmallDocs site (requires uv; SmallDocs is pinned by the wrapper).
-docs: theme-gallery plotting-docs-test plotting-docs-stage
+docs: theme-gallery plotting-docs-test plotting-docs-stage javascript-docs-test javascript-docs-stage
   scripts/smalldocs.sh check docs
   scripts/smalldocs.sh render docs --strict
 
@@ -199,3 +199,25 @@ plotting-docs-validate:
 # Optional local snippet execution; not a site/CI dependency.
 plotting-guide-examples:
   python3 -B integration_tests/plotting-guide-examples.py
+
+# Independent browser-ready JS reference; Node is developer tooling, not browser runtime.
+javascript-snapshot-check:
+  uv run --project packages/spec --locked python -B scripts/promote-javascript-spec.py
+
+javascript-test:
+  node --test packages/javascript/tests/*.test.mjs
+  node packages/javascript/tools/check-package.mjs
+
+javascript-install-test:
+  python3 -B integration_tests/javascript-installed.py
+
+javascript-browser-test:
+  uv run --no-project --with playwright==1.65.0 --with pillow==13.0.0 python integration_tests/javascript-browser.py
+
+javascript-docs-test:
+  python3 -B -m unittest tests/test_javascript_docs.py
+
+javascript-docs-stage:
+  python3 -B scripts/stage-javascript-docs.py
+
+javascript-check: javascript-snapshot-check javascript-test javascript-install-test diff-check

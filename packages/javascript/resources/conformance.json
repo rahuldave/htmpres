@@ -1,0 +1,225 @@
+{
+  "fixtureVersion": 1,
+  "sequential": [
+    {
+      "vmin": 0,
+      "vmax": 10,
+      "value": -1,
+      "expected": 0
+    },
+    {
+      "vmin": 0,
+      "vmax": 10,
+      "value": 5,
+      "expected": 0.5
+    },
+    {
+      "vmin": 0,
+      "vmax": 10,
+      "value": 11,
+      "expected": 1
+    },
+    {
+      "vmin": 0,
+      "vmax": 10,
+      "value": null,
+      "expected": null
+    },
+    {
+      "vmin": -1e+308,
+      "vmax": 1e+308,
+      "value": 0,
+      "expected": 0.5
+    },
+    {
+      "vmin": -1e+308,
+      "vmax": 1e+308,
+      "value": 1e+308,
+      "expected": 1
+    }
+  ],
+  "diverging": [
+    {
+      "vmin": -2,
+      "center": 0,
+      "vmax": 1,
+      "value": -3,
+      "expected": 0
+    },
+    {
+      "vmin": -2,
+      "center": 0,
+      "vmax": 1,
+      "value": -1,
+      "expected": 0.25
+    },
+    {
+      "vmin": -2,
+      "center": 0,
+      "vmax": 1,
+      "value": 0,
+      "expected": 0.5
+    },
+    {
+      "vmin": -2,
+      "center": 0,
+      "vmax": 1,
+      "value": 0.5,
+      "expected": 0.75
+    },
+    {
+      "vmin": -2,
+      "center": 0,
+      "vmax": 1,
+      "value": 2,
+      "expected": 1
+    },
+    {
+      "vmin": -1e+308,
+      "center": 1e+308,
+      "vmax": 1.5e+308,
+      "value": 0,
+      "expected": 0.25
+    },
+    {
+      "vmin": -1e+308,
+      "center": 0,
+      "vmax": 1e+308,
+      "value": 0,
+      "expected": 0.5
+    }
+  ],
+  "lookup": [
+    {
+      "size": 256,
+      "u": 0,
+      "expected": 0
+    },
+    {
+      "size": 256,
+      "u": 0.0039062499999999996,
+      "expected": 0
+    },
+    {
+      "size": 256,
+      "u": 0.00390625,
+      "expected": 1
+    },
+    {
+      "size": 256,
+      "u": 0.5,
+      "expected": 128
+    },
+    {
+      "size": 256,
+      "u": 1,
+      "expected": 255
+    },
+    {
+      "size": 257,
+      "u": 0.5,
+      "expected": 128
+    },
+    {
+      "size": 257,
+      "u": 1,
+      "expected": 256
+    },
+    {
+      "size": 257,
+      "u": null,
+      "expected": null
+    }
+  ],
+  "placement": [
+    {
+      "css_px": 16,
+      "figure_width_inches": 8,
+      "placed_width_css_px": 640,
+      "points": 14.4
+    },
+    {
+      "css_px": 20,
+      "figure_width_inches": 8,
+      "placed_width_css_px": 640,
+      "points": 18
+    },
+    {
+      "css_px": 24,
+      "figure_width_inches": 8,
+      "placed_width_css_px": 1152,
+      "points": 12
+    },
+    {
+      "css_px": 36,
+      "figure_width_inches": 8,
+      "placed_width_css_px": 1152,
+      "points": 18
+    },
+    {
+      "css_px": 7,
+      "figure_width_inches": 8,
+      "placed_width_css_px": 1152,
+      "points": 3.5,
+      "area_points2": 12.25
+    }
+  ],
+  "categories": [
+    {
+      "variant": "colorblind-subset-3",
+      "domain": [
+        "Observed",
+        "Predicted",
+        "Reference"
+      ],
+      "observed": [
+        "Reference",
+        "Observed"
+      ],
+      "slots": [
+        "C",
+        "A"
+      ]
+    },
+    {
+      "variant": "colorblind-subset-5",
+      "domain": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "observed": [
+        "e",
+        "c"
+      ],
+      "slots": [
+        "E",
+        "C"
+      ]
+    }
+  ],
+  "default_dash_css_px": {
+    "dashed": [
+      9.25,
+      4
+    ],
+    "dotted": [
+      2.5,
+      4.125
+    ],
+    "dashdot": [
+      16,
+      4,
+      2.5,
+      4
+    ],
+    "custom": [
+      12.5,
+      2.5,
+      2.5,
+      2.5
+    ]
+  }
+}

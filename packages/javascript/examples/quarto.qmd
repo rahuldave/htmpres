@@ -1,0 +1,49 @@
+---
+title: "Delivery times with Plotfoundry"
+format: html
+resources:
+  - node_modules/plotfoundry/**
+---
+
+This document uses the locally installed JavaScript package and its bundled Plot.
+No Python or R engine is used. Serve the rendered directory over local HTTP.
+
+```{ojs}
+pf = import(new URL("./node_modules/plotfoundry/src/index.js", document.baseURI).href)
+adapter = import(new URL("./node_modules/plotfoundry/src/observable.js", document.baseURI).href)
+spec = pf.loadSpec()
+config = pf.theme(spec, "tufte", {mode: "light", profile: "reading"})
+fonts = {
+  const session = await adapter.loadFonts(config);
+  invalidation.then(() => session.dispose());
+  return session;
+}
+observations = ["North", "Central", "South"].flatMap((route, i) =>
+  [1,2,3,4,5,6].map((week, j) => ({route, week,
+    hours: route === "Central" && week === 3 ? null :
+      [2.2,2.6,2.4,2.1,1.8,1.9][j] + i * 2.3})))
+```
+
+North improves after week four. Central has no observation in week three;
+the gap does not mean zero hours. South stays slower throughout this invented example.
+
+```{ojs}
+{
+  fonts;
+  const chart = adapter.plot(config, {
+    height: 384,
+    x: {label: "Week"},
+    y: {label: "Delivery time (hours)", domain: [0,10]},
+    marks: adapter.line(config, observations, {
+      x: "week", y: "hours", category: "route",
+      domain: ["North", "Central", "South"]
+    })
+  });
+  adapter.stylePlot(config, chart);
+  return chart;
+}
+```
+
+The canvas is 640 CSS pixels wide. Change the mode or profile in `config` to
+compare light/dark or reading/presentation output. A fit-to-page preview reduces
+all marks and text together; use the declared width to judge the placed sizes.

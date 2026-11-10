@@ -12,10 +12,10 @@ CDN artifact, registry account or r-universe repository is published by this wor
 | [Specification](spec/README.md) | `specVersion`: `0.1.0`; schema major 1 | Approved data/conformance reference; no plotting adapter | `just spec-build` |
 | [Python](python/README.md) | `pyproject.toml`: `0.1.0.dev1` | Data/Matplotlib reference; `package_info()` | `uv build` |
 | [R](r/README.md) | `DESCRIPTION`: `0.0.0.9001` | Native ggplot2/base reference | `R CMD build` |
-| [JavaScript](javascript/README.md) | `package.json`: `0.1.0-dev.0` | `packageInfo()` | `npm pack` |
+| [JavaScript](javascript/README.md) | `package.json`: `0.1.0-dev.1` | Native core / Observable Plot reference; `packageInfo()` | `npm pack` |
 
 Each version is independent. Python now has a dependency-free scientific core and
-an optional Matplotlib extra. R has native data dependencies and optional plotting/devices; JavaScript remains identity-only. The packages do not import or install htmpres, research files, sibling
+an optional Matplotlib extra. R has native data dependencies and optional plotting/devices; JavaScript has a dependency-free core and a browser-ready Observable Plot adapter. The packages do not import or install htmpres, research files, sibling
 packages, document engines or a different language runtime. The root private npm
 project remains separate. Installed identity calls perform no downloads or
 subprocess calls.
@@ -25,7 +25,7 @@ their original notices. The [scientific specification](spec/README.md) now bundl
 nine exact pinned upstream manifests, approved sampled maps, categorical treatments,
 72 resolved cases and twelve resolved font faces. The nine upstream repositories
 remain authoritative. Promotion is reproducible and build-time only; installed
-consumers do not read research files or fetch a central manifest. Python and R bundle and consume this contract; JavaScript still exposes identity APIs only.
+consumers do not read research files or fetch a central manifest. Python, R and JavaScript bundle and consume this contract.
 
 ## Development commands
 

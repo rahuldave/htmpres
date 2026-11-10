@@ -119,3 +119,18 @@ packages-install-test: packages-build
   python3 -B integration_tests/package-boundaries.py
 
 packages-check: packages-test packages-install-test diff-check
+
+# Standalone approved scientific data; validation never regenerates evidence.
+spec-import:
+  uv run --project packages/spec --locked python -B packages/spec/tools/promote.py import
+
+spec-validate:
+  uv run --project packages/spec --locked python -B packages/spec/tools/validate_spec.py packages/spec --verify-font-conversions
+
+spec-test:
+  uv run --project packages/spec --locked python -B -m unittest tests/test_plotfoundry_spec.py
+
+spec-build:
+  uv run --project packages/spec --locked python -B packages/spec/tools/promote.py build
+
+spec-check: spec-validate spec-test spec-build diff-check

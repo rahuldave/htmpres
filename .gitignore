@@ -49,3 +49,7 @@ decks/*/assets/htmpres-math/
 /scripts/__pycache__/
 /tests/__pycache__/
 /integration_tests/__pycache__/
+
+# Build-only neutral specification tools.
+/packages/spec/.venv/
+/packages/spec/tools/__pycache__/

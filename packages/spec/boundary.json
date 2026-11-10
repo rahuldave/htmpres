@@ -1,7 +1,8 @@
 {
   "name": "Plotfoundry",
-  "status": "identity-scaffold",
+  "status": "scientific-contract",
   "boundaryVersion": 1,
   "runtimeDependencies": [],
-  "scientificContractPromoted": false
+  "scientificContractPromoted": true,
+  "specVersion": "0.1.0"
 }

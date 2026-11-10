@@ -1,4 +1,4 @@
-# Plotfoundry independent packages — unreleased identity scaffold
+# Plotfoundry independent packages — unreleased packages and scientific contract
 
 Plotfoundry is the selected neutral umbrella; all three native identities are
 `plotfoundry`. The Python import is also `plotfoundry`. The dated
@@ -9,7 +9,7 @@ CDN artifact, registry account or r-universe repository is published by this wor
 
 | Boundary | Version source | Current API | Build |
 | --- | --- | --- | --- |
-| [Specification](spec/README.md) | `boundary.json` metadata only | No scientific contract/API | Not packaged yet |
+| [Specification](spec/README.md) | `specVersion`: `0.1.0`; schema major 1 | Approved data/conformance reference; no plotting adapter | `just spec-build` |
 | [Python](python/README.md) | `pyproject.toml`: `0.1.0.dev0` | `package_info()` | `uv build` |
 | [R](r/README.md) | `DESCRIPTION`: `0.0.0.9000` | `package_info()` | `R CMD build` |
 | [JavaScript](javascript/README.md) | `package.json`: `0.1.0-dev.0` | `packageInfo()` | `npm pack` |
@@ -21,14 +21,13 @@ packages, document engines or a different language runtime. The root private npm
 project remains separate. Installed identity calls perform no downloads or
 subprocess calls.
 
-The new scaffold code/documentation is MIT licensed per package; this does not
-change the licenses of existing repository files. No fonts, scientific datasets,
-foundation manifests, palettes or adapters are included. Future imported assets
-will retain their own notices. The nine upstream repositories remain the source
-of truth for their published foundation manifests. A future separately reviewed
-spec import will snapshot pinned manifests and approved scientific decisions at
-build time, and native artifacts will bundle their resources. No installed package
-will read a checkout or fetch a central manifest at runtime.
+The new code/documentation is MIT licensed per package; imported font assets retain
+their original notices. The [scientific specification](spec/README.md) now bundles
+nine exact pinned upstream manifests, approved sampled maps, categorical treatments,
+72 resolved cases and twelve resolved font faces. The nine upstream repositories
+remain authoritative. Promotion is reproducible and build-time only; installed
+consumers do not read research files or fetch a central manifest. Native packages
+still expose identity APIs only and do not yet bundle or consume this contract.
 
 ## Development commands
 
@@ -39,6 +38,7 @@ just packages-test
 just packages-build
 just packages-install-test
 just packages-check
+just spec-check
 ```
 
 `packages-test` checks boundaries. `packages-build` invokes the independent native
@@ -66,6 +66,6 @@ directory when finished. R package validation can additionally run
 `LANG=C LC_ALL=C R CMD check --no-manual <built-source-archive>` in a scratch directory. The coordinator sets this portable locale for R to avoid
 host-specific unsupported locale settings; it does not change the system locale.
 
-The package API docs and examples are deliberately minimal. Themes, palettes,
-fonts, scientific schema promotion, adapters and public releases belong to later
+The native package API docs and examples are deliberately minimal. Native theme/
+palette/font APIs, adapter bundling and public releases belong to later
 user-selected pieces of the [ecosystem plan](../docs/plans/plotting-ecosystem.md).

@@ -9,11 +9,11 @@ Approved 9 November 2026, after joint review of Doc 1 (design language) and Doc 
 | 3: upstream verification | `rroytwov` | Passed | Numerical, asset/font, build and browser checks before slide imports |
 | 4: slide consumer adoption | `pvttvwwo` | Complete | Import authoritative manifests from merged upstream revisions; audience-scale and browser QA |
 | 5: rerun scientific experiments | `xrtvkvpx` | Complete — review checkpoint | Reading/presentation comparisons and role separation |
-| 6: standalone plotting ecosystem | `vxltssko` | Identity scaffolds implemented; scientific contract/adapters remain gated | Agreed Doc 3 baseline; distinct Sol reviews and user-selected small native-package/integration pieces |
+| 6: standalone plotting ecosystem | `vxltssko` | Identity scaffolds and scientific contract implemented; adapters remain gated | Agreed Doc 3 baseline; distinct Sol reviews and user-selected small native-package/integration pieces |
 
 Upstream adoption used nine independent physical worktrees managed by three owners/workstreams: custom three, Reading five, and Tufte. Shared build patterns do not create a central runtime dependency. Later phases wait for preceding gates.
 
-The [upstream verification record](upstream-verification.md) pins all nine merged source revisions, published manifest hashes and rerunnable browser helpers. The upstream gate passed; slide consumer adoption passed at verified commit `04cef45c3374a018d3b32b9c53a2e4e43e7c88ec`. The scientific run and rewritten Doc3 form a verified review checkpoint. The agreed Doc 3 recommendations are the phase 6 baseline; piece 1 has selected Plotfoundry identities and implemented minimal independent scaffolds; scientific contract/adapters remain unimplemented and later pieces require user selection.
+The [upstream verification record](upstream-verification.md) pins all nine merged source revisions, published manifest hashes and rerunnable browser helpers. The upstream gate passed; slide consumer adoption passed at verified commit `04cef45c3374a018d3b32b9c53a2e4e43e7c88ec`. The scientific run and rewritten Doc3 form a verified review checkpoint. The agreed Doc 3 recommendations are the phase 6 baseline; piece 1 has selected Plotfoundry identities and implemented minimal independent scaffolds; piece 2 has promoted the standalone scientific contract; native adapters remain unimplemented and later pieces require user selection.
 
 ## Phase 6 planning checkpoint
 

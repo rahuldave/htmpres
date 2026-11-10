@@ -1,0 +1,165 @@
+{
+  "specVersion": "0.1.0",
+  "files": {
+    "conversion-sources/et-book-bold-line-figures.woff": {
+      "sha256": "ea6efd96090dc2d0be0a826d1f2b79b07ca9af21f6483f2f96694b761d669ddc",
+      "source": "inputs/fonts/et-book-bold-line-figures.woff"
+    },
+    "conversion-sources/et-book-roman-line-figures.woff": {
+      "sha256": "be0f2c061cd8c57b38b5edd8c03dac72ca7d87fb5c3f7f5c32ed72dede39a601",
+      "source": "inputs/fonts/et-book-roman-line-figures.woff"
+    },
+    "fonts/dejavu-sans-400.ttf": {
+      "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+      "source": "fonts/dejavu-sans-400.ttf"
+    },
+    "fonts/dejavu-sans-700.ttf": {
+      "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+      "source": "fonts/dejavu-sans-700.ttf"
+    },
+    "fonts/dm-sans-400-normal.ttf": {
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "source": "inputs/fonts/dm-sans-400-normal.ttf"
+    },
+    "fonts/dm-sans-600-normal.ttf": {
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "source": "inputs/fonts/dm-sans-600-normal.ttf"
+    },
+    "fonts/et-book-bold-line-figures.ttf": {
+      "sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb",
+      "source": "fonts/et-book-bold-line-figures.ttf"
+    },
+    "fonts/et-book-roman-line-figures.ttf": {
+      "sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500",
+      "source": "fonts/et-book-roman-line-figures.ttf"
+    },
+    "fonts/inter-400-normal.ttf": {
+      "sha256": "1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba",
+      "source": "inputs/fonts/inter-400-normal.ttf"
+    },
+    "fonts/inter-600-normal.ttf": {
+      "sha256": "e7a1aaf7eda9f2fad4131725fa556265ec75ca7b2d756260173a040363e8d4f7",
+      "source": "inputs/fonts/inter-600-normal.ttf"
+    },
+    "fonts/lato-400-normal.ttf": {
+      "sha256": "f43f1c7780d69792278f04b136c934a0298fc66f2e974bac13dd2e53adc52bde",
+      "source": "inputs/fonts/lato-400-normal.ttf"
+    },
+    "fonts/lato-700-normal.ttf": {
+      "sha256": "02e8f4be57ddc47cb7882c41b60216b6085b1ceaf717514be2b88fa15396238d",
+      "source": "inputs/fonts/lato-700-normal.ttf"
+    },
+    "fonts/open-sans-400-normal.ttf": {
+      "sha256": "47ed1cfaa7ffca04a04ab850b2938fd52c09d1b44cfa3e2980878e166b0cbd87",
+      "source": "inputs/fonts/open-sans-400-normal.ttf"
+    },
+    "fonts/open-sans-600-normal.ttf": {
+      "sha256": "733eb93b167e6d45de09aa768f6c0355647c2c26f5416dbc7407a08ed41e81c6",
+      "source": "inputs/fonts/open-sans-600-normal.ttf"
+    },
+    "foundations/atelier.json": {
+      "sha256": "3ec385d97407a81a0c0296742f1e96a6ef4ffa58d23ca5327059389614e6a44c",
+      "source": "inputs/foundations/atelier.json"
+    },
+    "foundations/darkly-reading.json": {
+      "sha256": "b084c63f7487aeb8e93f690258cd7ab0384529ea6007a30656c4c2423124823d",
+      "source": "inputs/foundations/darkly-reading.json"
+    },
+    "foundations/folio.json": {
+      "sha256": "55d01ee2b4df07fc32bb058833ff4c267b511854fa1ee338fe2f226fa784ee33",
+      "source": "inputs/foundations/folio.json"
+    },
+    "foundations/litera-reading.json": {
+      "sha256": "eddd68b2ae7ebfb4b2f98be61da0f53e1cfe7bb0be8b9acb55a1d54ac139de0d",
+      "source": "inputs/foundations/litera-reading.json"
+    },
+    "foundations/nocturne.json": {
+      "sha256": "02381470c683f1002f88f0ef82b07543d3b168bb8dff5f3d7e7557f39cffb5b2",
+      "source": "inputs/foundations/nocturne.json"
+    },
+    "foundations/pulse-reading.json": {
+      "sha256": "272ef2054d08336592d526087db1ae6be86beda2d68d27c3ad2c5e9428ec092d",
+      "source": "inputs/foundations/pulse-reading.json"
+    },
+    "foundations/simplex-reading.json": {
+      "sha256": "e7b79329b789a89a06183b9de58e03ce2ce76d1fd368403f3bb777aa6206e09b",
+      "source": "inputs/foundations/simplex-reading.json"
+    },
+    "foundations/tufte.json": {
+      "sha256": "b0cb548a3a28a689450693806eec82f09632610e72828991bd1d74aee68aea85",
+      "source": "inputs/foundations/tufte.json"
+    },
+    "foundations/zephyr-reading.json": {
+      "sha256": "e426bbf820b70b1a36646df17c5d3e626644b2f17c93601fd68e5dd24a74ccbf",
+      "source": "inputs/foundations/zephyr-reading.json"
+    },
+    "notices/DejaVu-LICENSE": {
+      "sha256": "d75938dec098f06f0ac3c00853065d94f020be1c3c62ef1dc2975ba15b4d9b0e",
+      "source": "fonts/DejaVu-LICENSE"
+    },
+    "notices/atelier-LICENSE": {
+      "sha256": "2f32e9058e5d102b484b05a8fefa046b61602aa7c6bf549846a495bf794ea0a7",
+      "source": "inputs/licenses/atelier-LICENSE"
+    },
+    "notices/atelier-dmsans-OFL.txt": {
+      "sha256": "7ec15e79c59bc14b86436a17e5eb7926b46cbcaeb08e1a7e6c110b415e6eb2a2",
+      "source": "inputs/licenses/atelier-dmsans-OFL.txt"
+    },
+    "notices/darkly-reading-LICENSE": {
+      "sha256": "046dc06f2aad319757fba6a3747da64c73d30745b22a0d4972a21660d9626d46",
+      "source": "inputs/licenses/darkly-reading-LICENSE"
+    },
+    "notices/darkly-reading-lato-OFL.txt": {
+      "sha256": "19e7e97ffc31e58fa0e54919b8189b2ddcc6fd75539f387e2822b107b6a51423",
+      "source": "inputs/licenses/darkly-reading-lato-OFL.txt"
+    },
+    "notices/folio-LICENSE": {
+      "sha256": "2f32e9058e5d102b484b05a8fefa046b61602aa7c6bf549846a495bf794ea0a7",
+      "source": "inputs/licenses/folio-LICENSE"
+    },
+    "notices/folio-dmsans-OFL.txt": {
+      "sha256": "7ec15e79c59bc14b86436a17e5eb7926b46cbcaeb08e1a7e6c110b415e6eb2a2",
+      "source": "inputs/licenses/folio-dmsans-OFL.txt"
+    },
+    "notices/litera-reading-LICENSE": {
+      "sha256": "6b56df744c53c8c74b901efc790e416f158577a77c911c6c99ab887b7c468418",
+      "source": "inputs/licenses/litera-reading-LICENSE"
+    },
+    "notices/nocturne-LICENSE": {
+      "sha256": "2f32e9058e5d102b484b05a8fefa046b61602aa7c6bf549846a495bf794ea0a7",
+      "source": "inputs/licenses/nocturne-LICENSE"
+    },
+    "notices/nocturne-dmsans-OFL.txt": {
+      "sha256": "7ec15e79c59bc14b86436a17e5eb7926b46cbcaeb08e1a7e6c110b415e6eb2a2",
+      "source": "inputs/licenses/nocturne-dmsans-OFL.txt"
+    },
+    "notices/pulse-reading-LICENSE": {
+      "sha256": "edbb3e836c1f58537d2419bbc4a9eba003c7f37fe6a54eaa95bd8949177bcd74",
+      "source": "inputs/licenses/pulse-reading-LICENSE"
+    },
+    "notices/simplex-reading-LICENSE": {
+      "sha256": "e7046a4da350799e60a47cbf9954383900a118c4be66b45d0802f54dd1ba92e2",
+      "source": "inputs/licenses/simplex-reading-LICENSE"
+    },
+    "notices/simplex-reading-open-sans-OFL.txt": {
+      "sha256": "fbbbcfef55318de350562559b671360de6d597112ecc5c73881b05092db89602",
+      "source": "inputs/licenses/simplex-reading-open-sans-OFL.txt"
+    },
+    "notices/tufte-LICENSE": {
+      "sha256": "46ee34d6a00a975a506db5b0faa0cc99acd3154cd52a09d0309a224979898d02",
+      "source": "inputs/licenses/tufte-LICENSE"
+    },
+    "notices/zephyr-reading-LICENSE": {
+      "sha256": "7e5570620fafd604efd27ef20a976acd96fd3b3bea5c4c2334a32dc85100aed8",
+      "source": "inputs/licenses/zephyr-reading-LICENSE"
+    },
+    "notices/zephyr-reading-inter-OFL.txt": {
+      "sha256": "5dd548d31a85f756e01d63e00d7faf1e324103ed3e9102fcbbabf2cc2db6dd39",
+      "source": "inputs/licenses/zephyr-reading-inter-OFL.txt"
+    },
+    "spec.json": {
+      "sha256": "e45ddacfaddf07f7de593c844fe75c42be5e3b528ba4592e9b7db4d37441ef29",
+      "generated": true
+    }
+  }
+}

@@ -3,3 +3,5 @@
 research/theme-audit/runs/foundations-2026-11-09/figures/*.svg whitespace=-blank-at-eol
 research/theme-audit/runs/foundations-2026-11-09/placements/*.svg whitespace=-blank-at-eol
 research/theme-audit/runs/foundations-2026-11-09/fonts/DejaVu-LICENSE whitespace=-blank-at-eol
+# Preserve the exact approved notice bytes in the standalone data artifact.
+packages/spec/data/notices/DejaVu-LICENSE whitespace=-blank-at-eol

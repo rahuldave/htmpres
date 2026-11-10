@@ -35,7 +35,7 @@ theme-gallery: example semantic authoring-hooks
   quarto run scripts/build-showcase.ts
 
 # Build the SmallDocs site (requires uv; SmallDocs is pinned by the wrapper).
-docs: theme-gallery
+docs: theme-gallery plotting-docs-test plotting-docs-stage
   scripts/smalldocs.sh check docs
   scripts/smalldocs.sh render docs --strict
 
@@ -182,3 +182,20 @@ r-gallery-check:
   python3 -B integration_tests/check-r-gallery.py .build/packages/r-gallery
 
 r-check: r-snapshot-check r-promotion-test r-test r-install-test diff-check
+
+# Reviewed static plotting publication; no native plotting runtime on CI.
+plotting-docs-test:
+  python3 -B -m unittest tests/test_plotting_docs.py tests/test_plotting_doc_apis.py
+
+plotting-gallery-test:
+  node --test tests/plotting-gallery.test.mjs
+
+plotting-docs-stage:
+  python3 -B scripts/plotting_docs.py stage
+
+plotting-docs-validate:
+  python3 -B scripts/plotting_docs.py validate
+
+# Optional local snippet execution; not a site/CI dependency.
+plotting-guide-examples:
+  python3 -B integration_tests/plotting-guide-examples.py

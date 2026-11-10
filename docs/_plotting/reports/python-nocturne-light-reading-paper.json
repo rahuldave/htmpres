@@ -1,0 +1,46 @@
+{
+  "case": "nocturne/light/reading/paper",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    640,
+    640
+  ],
+  "placedWidthCssPx": 640.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/nocturne-light-reading-paper.png",
+      "sha256": "e0ab318656ec71f41c8cbfefda10d357c87405375620fb20c7cc6793ccd844c4",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/nocturne-light-reading-paper.svg",
+      "sha256": "67a3b104fc3105eb4d217f45f4e2f0a00454f4535c7ca2da2705776346699c55",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/nocturne-light-reading-paper.pdf",
+      "sha256": "fa4d655c6b9d0786ed2b9852fa7536a01d946b5ffb6917063c583b80f3e4530c",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

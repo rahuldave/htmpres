@@ -1,0 +1,46 @@
+{
+  "case": "darkly-reading/light/reading/panel",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    640,
+    640
+  ],
+  "placedWidthCssPx": 640.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "f43f1c7780d69792278f04b136c934a0298fc66f2e974bac13dd2e53adc52bde",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "02e8f4be57ddc47cb7882c41b60216b6085b1ceaf717514be2b88fa15396238d",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/darkly-reading-light-reading-panel.png",
+      "sha256": "660ae85af478b8879e891499448ef198a6deb1625bc418668bef6013de215fb1",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/darkly-reading-light-reading-panel.svg",
+      "sha256": "d2966cab7cde4d770dce01451d873bd626606aa0f38daa8539cce9be8ec5bbba",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/darkly-reading-light-reading-panel.pdf",
+      "sha256": "e3c868136a20d163e414f3f430dff8cef9df71844784d68911fb91fbdee64609",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

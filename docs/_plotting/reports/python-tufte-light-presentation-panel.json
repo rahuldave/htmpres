@@ -1,0 +1,46 @@
+{
+  "case": "tufte/light/presentation/panel",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    1152,
+    1152
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/tufte-light-presentation-panel.png",
+      "sha256": "c7f44574d81f8ea9f25c69c7060726bfb4c1b17b0bd91e969dd7330e9c3f0e98",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/tufte-light-presentation-panel.svg",
+      "sha256": "32856ce97d6844be5aff0a6793e034f0144fab47d7c3cdda635398034a6f6f5f",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/tufte-light-presentation-panel.pdf",
+      "sha256": "7b03297cbce3742e907c187a411c74214423dc908bd471263d9a6ce8c651c28c",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

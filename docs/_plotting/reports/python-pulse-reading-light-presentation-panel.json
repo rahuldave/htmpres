@@ -1,0 +1,46 @@
+{
+  "case": "pulse-reading/light/presentation/panel",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    1152,
+    1152
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+      "weight": 700
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/pulse-reading-light-presentation-panel.png",
+      "sha256": "0bcb854cbfb6fa1cf00161e5748d6ff9b6fc1427ec1a73fdb3f8821642f73043",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/pulse-reading-light-presentation-panel.svg",
+      "sha256": "497158a4ec685bcf97ce4b89ccfb6ca68acd49ea42344d551ffbb8ad4fe351bf",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/pulse-reading-light-presentation-panel.pdf",
+      "sha256": "8a20ae0303f0ecf61d1c0a78c9b21539234254aa5ec2e8ea0d50ab921d2bfe5e",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

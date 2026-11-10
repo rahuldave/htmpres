@@ -16,6 +16,10 @@ project:
     - packaging.md
     - deckset-feature-status.md
     - contributing.md
+    - plotting-packages.md
+    - plotting-python.qmd
+    - plotting-r.qmd
+    - plotting-gallery.qmd
   resources:
     - _generated/**
     - assets/**
@@ -33,6 +37,8 @@ website:
         text: Example
       - href: compare.qmd
         text: Compare themes
+      - href: plotting-packages.md
+        text: Plotting
     tools:
       - icon: github
         href: https://github.com/rahuldave/htmpres
@@ -51,6 +57,12 @@ website:
           - themes.md
           - quarto-class-map.md
           - semantic-authoring.md
+      - section: Standalone plotting
+        contents:
+          - plotting-packages.md
+          - plotting-python.qmd
+          - plotting-r.qmd
+          - plotting-gallery.qmd
       - section: Understand & extend
         contents:
           - build-a-deck-from-markdown.md

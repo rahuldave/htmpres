@@ -1,0 +1,46 @@
+{
+  "case": "simplex-reading/dark/presentation/paper",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    1152,
+    1152
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "47ed1cfaa7ffca04a04ab850b2938fd52c09d1b44cfa3e2980878e166b0cbd87",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "733eb93b167e6d45de09aa768f6c0355647c2c26f5416dbc7407a08ed41e81c6",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/simplex-reading-dark-presentation-paper.png",
+      "sha256": "7b29ed63180c147a412b1461007f703410f797c6712c8a11f28a22e2100f07a5",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/simplex-reading-dark-presentation-paper.svg",
+      "sha256": "e5c75115ebbd40cd366e93a591d02912a8d53b2d963e32f0c5cbd30b7acf71b1",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/simplex-reading-dark-presentation-paper.pdf",
+      "sha256": "efcd567e2cd21cb6da3744bfc282657707309293fb412b3834f52d6df8797aee",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

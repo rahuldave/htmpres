@@ -68,4 +68,4 @@ The [Python reference](python/README.md) now includes native APIs and font/data
 bundling. The R reference is implemented separately; other native adapters and public releases belong to later
 user-selected pieces of the [ecosystem plan](../docs/plans/plotting-ecosystem.md).
 
-The R reference (`packages/r`, development version `0.0.0.9001`) now bundles the same immutable contract and supports native ggplot2/base helpers with explicit outlined-vector export. It is unreleased. Python/R website guides follow in the separately selected documentation slice; JavaScript remains a scaffold.
+The R reference (`packages/r`, development version `0.0.0.9001`) now bundles the same immutable contract and supports native ggplot2/base helpers with explicit outlined-vector export. It is unreleased. Python/R [website guides and galleries](../docs/plotting-packages.md) are implemented in the dedicated documentation slice; JavaScript remains a scaffold.

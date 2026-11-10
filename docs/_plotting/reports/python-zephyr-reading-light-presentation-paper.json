@@ -1,0 +1,46 @@
+{
+  "case": "zephyr-reading/light/presentation/paper",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    1152,
+    1152
+  ],
+  "placedWidthCssPx": 1152.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "e7a1aaf7eda9f2fad4131725fa556265ec75ca7b2d756260173a040363e8d4f7",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/zephyr-reading-light-presentation-paper.png",
+      "sha256": "04ce344b178c5d3c4e65eea3fab5f92fef623ba1a343cd8c4ad2ff1401044329",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/zephyr-reading-light-presentation-paper.svg",
+      "sha256": "df1c85814c8189d02855ab573c840790752b1e283b6ee5b09cd3421e66b50730",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/zephyr-reading-light-presentation-paper.pdf",
+      "sha256": "d1a91012e398add667f53e3b79d4d1e71bc3db8c028c406310f93c30e6c8bdb5",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

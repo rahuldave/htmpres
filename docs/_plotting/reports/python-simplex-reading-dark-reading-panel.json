@@ -1,0 +1,46 @@
+{
+  "case": "simplex-reading/dark/reading/panel",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    640,
+    640
+  ],
+  "placedWidthCssPx": 640.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "47ed1cfaa7ffca04a04ab850b2938fd52c09d1b44cfa3e2980878e166b0cbd87",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "733eb93b167e6d45de09aa768f6c0355647c2c26f5416dbc7407a08ed41e81c6",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/simplex-reading-dark-reading-panel.png",
+      "sha256": "a14629421a4e8d607f0f69301450f18b00b904788667b496cde87dd0515b88bf",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/simplex-reading-dark-reading-panel.svg",
+      "sha256": "30fcc5a35b510e5ad48c7e8ed5956a5a59c50ea345e93f672e59b67bd1999c97",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/simplex-reading-dark-reading-panel.pdf",
+      "sha256": "5cc7cdddff4f2002ff1a3904bd4501c6aae7388bd86ba2b6af48dab09be0d1f3",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

@@ -1,0 +1,46 @@
+{
+  "case": "atelier/dark/reading/paper",
+  "interface": "python",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    8.0
+  ],
+  "canvasPixels": [
+    640,
+    640
+  ],
+  "placedWidthCssPx": 640.0,
+  "tightCrop": false,
+  "devices": {
+    "Matplotlib": "3.11.2"
+  },
+  "fonts": {
+    "ui": {
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "weight": 400
+    },
+    "heading": {
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "weight": 600
+    }
+  },
+  "files": {
+    "png": {
+      "url": "exports/python/atelier-dark-reading-paper.png",
+      "sha256": "f71a1719866ef855cc6f2a231908e01f2d55f4d0e42ee05ad5dcdba62a17fc03",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "url": "exports/python/atelier-dark-reading-paper.svg",
+      "sha256": "42e2eb2fd02120d3c2953f5f79d46ff62b3dec83eed2691e74e94a99503e010b",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "url": "exports/python/atelier-dark-reading-paper.pdf",
+      "sha256": "00ea87a19f99abeea022da3fb713bc6845a19998c9aeecb5014bcae71c7fdeeb",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  },
+  "verification": "Reviewed native exports; not a universal font, accessibility or dense-layout guarantee."
+}

@@ -7,6 +7,15 @@ public example and customization reference decks, reusable renderer code, and a 
 Read the [documentation](https://rahuldave.com/htmpres/) and
 [compare presentation themes](https://rahuldave.com/htmpres/compare.html).
 
+## Independent plotting
+
+Plotfoundry's unreleased [Python guide](docs/plotting-python.qmd),
+[R guide](docs/plotting-r.qmd) and [scientific gallery](docs/plotting-gallery.qmd)
+are published on the documentation website with this documentation checkpoint.
+The native packages work without installing htmpres or a document engine; use
+pinned reviewed source/local artifacts, not a claimed PyPI/CRAN release.
+[Public overview](https://rahuldave.com/htmpres/plotting-packages.html).
+
 Included:
 
 - `_extensions/htmpres/`: installable Quarto utility extension and runtime.

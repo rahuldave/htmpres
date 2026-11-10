@@ -395,3 +395,21 @@ R 4.1.1 and exact tested optional-device versions are recorded in
 `packages/r/tools/tested-dependencies.json`. These optional checks do not install
 into user-global R libraries and do not add R to the slide runtime. The maintainer
 snapshot importer is build-only; native R consumers need no Python/Node/htmpres.
+
+### Python/R plotting website publication
+
+`just docs` runs theme-gallery first (which clears `docs/_generated`), then the
+stdlib-only plotting safety/API tests and `plotting-docs-stage`, before strict
+SmallDocs rendering. The committed `docs/_plotting` tree is an explicit reviewed
+static allowlist; `docs/_plotting-evidence.json` binds reviewed export hashes.
+Never copy whole `.build`, research or private source trees into the website.
+`just plotting-docs-validate` checks hashes, full closure, canonical sources/notices,
+source/example/spec fingerprints and closed public metadata. `just docs-check`
+also checks exact staged/site bytes and the existing full slide showcase crawl.
+CI needs no R or Matplotlib/Seaborn runtime. The optional `just plotting-gallery-test`
+uses Node for selector/failure-state units; `just plotting-guide-examples` executes
+actual guide snippets with locally provisioned native plotting dependencies.
+The rerunnable actual-browser flow is `integration_tests/plotting-docs-browser.mjs`;
+check desktop/mobile, all interfaces, URL reload/back, intended width and failed
+report/manifest loading. Build-only promotion is explicit; stale evidence never
+silently rerenders scientific plots during a website build.

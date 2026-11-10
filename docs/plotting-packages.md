@@ -1,25 +1,92 @@
-# Plotfoundry package boundaries
+# Standalone scientific plotting
 
-**Unreleased Python/R references and scientific contract.** Plotfoundry is an independent Python/R/JavaScript
-package family hosted in this monorepo. Python now implements the [Matplotlib reference](../packages/python/README.md);
-R provides the native ggplot2/base reference; JavaScript still exposes an installed identity record only. The separate [scientific contract](../packages/spec/README.md) now
-ships approved data, exact fonts/notices and conformance fixtures; the Python adapter bundles it for offline use, exact fonts and supported plotting
-helpers. Other language adapters remain deferred.
-No PyPI, CRAN/r-universe, npm or CDN availability is advertised.
+**Plotfoundry is an unreleased Python and R reference**, usable with ordinary
+scripts, notebooks or document engines. You do not install htmpres, Quarto or
+SmallDocs to use it. This website hosts documentation; the packages execute in
+their own native runtimes. Nothing is advertised on PyPI, CRAN, r-universe or npm.
 
-Use the [package development guide](../packages/README.md) for local artifact
-builds, clean installs and native examples. The Python, R and browser/Node packages
-require no htmpres installation, import, renderer or name dependency. Quarto and
-SmallDocs integrations are not implemented; ordinary installed identity calls
-also require neither of those tools.
+[Start with Python](plotting-python.qmd) · [Start with R](plotting-r.qmd) ·
+[Explore all nine families](plotting-gallery.qmd)
 
-The [next-phase plan](plans/plotting-ecosystem.md) records the completed shared-contract piece and
-separates future native adapter, integration and release pieces. The agreed scientific choices are
-promoted into a standalone versioned data artifact, without native rendering APIs. Each next piece needs its
-own Sol implementation, distinct Sol review and user selection.
+## Choose your workflow
 
-This developer guide is not yet added to the public website page allowlist; the
-later public adapter guides and galleries will document actual supported APIs
-rather than imply plotting functionality from these identity examples.
+| Workflow | What it provides | Boundary |
+| --- | --- | --- |
+| Matplotlib | Scoped furniture, exact scales, treated lines/scatter/heatmaps, bound fonts and export reports | Explicit supported helpers; not a universal artist wrapper |
+| Seaborn / pandas | Ordinary native plots with furniture, plus supported helpers using dataframe columns | A native automatic color cycle is theme-only |
+| ggplot2 | Native theme/scales and supported layered geometries, facets and explicit export | Linear Cartesian coordinates; native scale transforms supported |
+| Base R | Scoped graphics furniture, physical line/point geometry and heatmaps | Explicit device/export path; caller device is preserved |
 
-The independently installable [R reference](../packages/r/README.md) now provides ggplot2/base helpers, exact scales and explicitly selected font/devices. It remains an unpublished development source package. Dedicated Python/R website guides and galleries are the next authorized documentation slice; no npm/CRAN/PyPI/CDN availability is implied.
+All routes consume the same versioned scientific contract: nine families,
+light/dark, reading/presentation and paper/panel, giving **72 configurations**.
+The [gallery](plotting-gallery.qmd) shows 72 Python, 72 ggplot2 and 72 base R views.
+A plot theme changes furniture; a compliant helper also supplies the required
+mark treatment. Those are different promises.
+
+## Scientific choices
+
+Ordinary labels use primary ink. Brand accents, semantic states and scientific
+data colors have separate jobs. The palette is not automatically generated from
+the theme's brand color. Serif reading identities remain intact; chart UI and
+headings use their approved resolved faces.
+
+- **Qualitative:** the recommended three slots use blue, vermillion and pink,
+  with stable shapes/dashes, opaque 2.5 CSS-pixel foreground, 5.5 ink under-stroke,
+  edged 7-pixel nominal markers and direct labels. Conditional five slots are an
+  explicit alternative with a different slot mapping; do not silently expand
+  three into five. Five is conditional because its frozen simulated separation is lower and denser marks increase occlusion/identification risk; keep every required cue and review the actual chart. Three remains the recommendation. Both widths share one foreground-scaled dash geometry.
+- **Sequential:** cividis by default; viridis, mako and rocket are approved
+  alternatives. Values require explicit finite limits.
+- **Diverging:** BrBG by default, with a meaningful explicit center and separately
+  normalized arms. RdBu/coolwarm are alternatives. Limits need not be symmetric.
+- **Missing:** NA/NaN/null remain missing, never zero or center. Line paths break;
+  heatmaps use muted fill and an explicit crossed cue. Under/over values clip to
+  endpoints and remain distinct from missing.
+
+The exact gamma-sRGB LUT floats are shared. Sample locations `i/(N-1)` are not
+lookup bins: lookup uses `floor(u*N)`, capped at the last entry. BrBG has 257
+entries and center index 128 (zero based). There is no automatic reversal or
+interpolation substitute. R converts exact lookup values to native hex, then a
+device may quantize further; this is not a pixel-identity claim across languages.
+
+## Placement, fonts and exports
+
+Reading chart labels are 16 CSS pixels, headings 30 and metadata 14. Reading body
+annotations are 20 for Folio, Nocturne, Tufte and Litera, 18 otherwise.
+Presentation labels/metadata are 24, headings 36 and deliberate body annotations
+30. A deck's 48-pixel display title is not a chart heading.
+
+Native point size follows:
+
+`points = CSS pixels × 72 × figure width inches / placed width CSS pixels`
+
+A declared 640/1152-pixel reading/presentation placement matters. DPI changes
+raster resolution, not placed typography. A website fit preview shrinks the whole
+image; it is not evidence that the original labels were smaller. Canvases are
+explicit and exports do not silently crop them.
+
+Exact bundled fonts, weights, notices and ET Book conversion provenance travel
+with each independent package. No installed runtime looks in this repository or
+research directories. Font setup/export differs by device: Python SVG uses
+outlines and PDF requests verified TrueType subsets; R SVG/PDF use outlines.
+There is no universal editable-text, embedding, plotmath or missing-glyph promise.
+See the language guides for actual tested versions and limits.
+
+## Provenance and downloads
+
+Current installation recipes pin reviewed source revision
+[`7b1bff1`](https://github.com/rahuldave/htmpres/tree/7b1bff11284ad2960f984f0f8ed772fa09c06d8c/packages).
+The repository is a monorepo; selecting `packages/python` or `packages/r` installs
+that independent package, not the slide tool. Build tools are setup requirements,
+not installed plotting runtime dependencies. No registry upload is implied.
+
+The gallery publishes exact reviewed image bytes and sanitized reports with case,
+canvas, placement, device versions, font hashes/weights and checksums. Reports
+omit host paths and developer-library locations. Checksums bind reviewed inputs;
+they are not signatures or a universal accessibility/projector guarantee.
+
+[Static download index](_generated/plotting/index.html) ·
+[Font and code notices](_generated/plotting/index.html#notices)
+
+Other language adapters and full ecosystem documentation remain separate pieces.
+These guides do not announce a JavaScript plotting implementation.

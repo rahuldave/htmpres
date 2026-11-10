@@ -5,3 +5,5 @@ research/theme-audit/runs/foundations-2026-11-09/placements/*.svg whitespace=-bl
 research/theme-audit/runs/foundations-2026-11-09/fonts/DejaVu-LICENSE whitespace=-blank-at-eol
 # Preserve the exact approved notice bytes in the standalone data artifact.
 packages/spec/data/notices/DejaVu-LICENSE whitespace=-blank-at-eol
+# Preserve the same approved notice in the independent Python resource bundle.
+packages/python/src/plotfoundry/_resources/data/notices/DejaVu-LICENSE whitespace=-blank-at-eol

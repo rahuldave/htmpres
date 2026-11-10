@@ -1,4 +1,4 @@
-# Plotfoundry independent packages — unreleased packages and scientific contract
+# Plotfoundry independent packages — unreleased Python reference and scientific contract
 
 Plotfoundry is the selected neutral umbrella; all three native identities are
 `plotfoundry`. The Python import is also `plotfoundry`. The dated
@@ -10,13 +10,13 @@ CDN artifact, registry account or r-universe repository is published by this wor
 | Boundary | Version source | Current API | Build |
 | --- | --- | --- | --- |
 | [Specification](spec/README.md) | `specVersion`: `0.1.0`; schema major 1 | Approved data/conformance reference; no plotting adapter | `just spec-build` |
-| [Python](python/README.md) | `pyproject.toml`: `0.1.0.dev0` | `package_info()` | `uv build` |
+| [Python](python/README.md) | `pyproject.toml`: `0.1.0.dev1` | Data/Matplotlib reference; `package_info()` | `uv build` |
 | [R](r/README.md) | `DESCRIPTION`: `0.0.0.9000` | `package_info()` | `R CMD build` |
 | [JavaScript](javascript/README.md) | `package.json`: `0.1.0-dev.0` | `packageInfo()` | `npm pack` |
 
-Each version is independent. A native artifact contains all the code needed for
-its identity API, with no runtime package dependencies beyond its native standard
-library. The packages do not import or install htmpres, research files, sibling
+Each version is independent. Python now has a dependency-free scientific core and
+an optional Matplotlib extra; R/JS remain identity-only with native standard-library
+runtimes. The packages do not import or install htmpres, research files, sibling
 packages, document engines or a different language runtime. The root private npm
 project remains separate. Installed identity calls perform no downloads or
 subprocess calls.
@@ -26,8 +26,7 @@ their original notices. The [scientific specification](spec/README.md) now bundl
 nine exact pinned upstream manifests, approved sampled maps, categorical treatments,
 72 resolved cases and twelve resolved font faces. The nine upstream repositories
 remain authoritative. Promotion is reproducible and build-time only; installed
-consumers do not read research files or fetch a central manifest. Native packages
-still expose identity APIs only and do not yet bundle or consume this contract.
+consumers do not read research files or fetch a central manifest. Python now bundles and consumes this contract; R/JS still expose identity APIs only.
 
 ## Development commands
 
@@ -50,7 +49,7 @@ Python/Node identity execution uses an empty PATH; runtime installation uses loc
 artifacts and disables package-index access. Build-only Hatchling is downloaded
 or cached by uv. The test does not claim operating-system network isolation.
 
-The build/test coordinator needs developer Python 3.11+, uv, R/Rscript and npm/Node.
+The build/test coordinator needs developer Python 3.12+, uv, R/Rscript and npm/Node.
 These are not requirements of each installed package: Python users need Python,
 R users need R, and browser users need neither Python nor Node. Building directly
 from one package directory likewise does not invoke a sibling language toolchain.
@@ -66,6 +65,6 @@ directory when finished. R package validation can additionally run
 `LANG=C LC_ALL=C R CMD check --no-manual <built-source-archive>` in a scratch directory. The coordinator sets this portable locale for R to avoid
 host-specific unsupported locale settings; it does not change the system locale.
 
-The native package API docs and examples are deliberately minimal. Native theme/
-palette/font APIs, adapter bundling and public releases belong to later
+The [Python reference](python/README.md) now includes native APIs and font/data
+bundling. Other native adapters and public releases belong to later
 user-selected pieces of the [ecosystem plan](../docs/plans/plotting-ecosystem.md).

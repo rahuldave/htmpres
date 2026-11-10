@@ -1,10 +1,10 @@
 # Plotfoundry package boundaries
 
 **Unreleased native scaffolds and scientific contract.** Plotfoundry is an independent Python/R/JavaScript
-package family hosted in this monorepo. Native packages currently expose installed identity
-records only. The separate [scientific contract](../packages/spec/README.md) now
-ships approved data, exact fonts/notices and conformance fixtures; no native
-plotting adapter consumes it yet. Native APIs cannot yet style plots or register fonts.
+package family hosted in this monorepo. Python now implements the [Matplotlib reference](../packages/python/README.md);
+R/JS still expose installed identity records only. The separate [scientific contract](../packages/spec/README.md) now
+ships approved data, exact fonts/notices and conformance fixtures; the Python adapter bundles it for offline use, exact fonts and supported plotting
+helpers. Other language adapters remain deferred.
 No PyPI, CRAN/r-universe, npm or CDN availability is advertised.
 
 Use the [package development guide](../packages/README.md) for local artifact

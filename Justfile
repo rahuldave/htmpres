@@ -134,3 +134,24 @@ spec-build:
   uv run --project packages/spec --locked python -B packages/spec/tools/promote.py build
 
 spec-check: spec-validate spec-test spec-build diff-check
+
+# Optional Python plotting reference; no R/JS runtime is involved.
+python-snapshot-check:
+  uv run --project packages/spec --locked python -B scripts/promote-python-spec.py
+
+python-test:
+  uv run --project packages/python --python 3.12 --locked --group verification python -B -m unittest tests/test_python_plotting.py
+
+python-build:
+  uv build --project packages/python --out-dir .build/packages/python
+
+python-gallery:
+  uv run --project packages/python --python 3.12 --locked --group verification python -B packages/python/examples/gallery.py --output .build/packages/python-gallery
+
+python-install-test: python-build
+  uv run --project packages/python --python 3.12 --locked --group verification python -B integration_tests/python-plotting-installed.py
+
+python-gallery-check: python-gallery
+  uv run --project packages/python --python 3.12 --locked --group verification python -B -m unittest tests/test_python_gallery.py
+
+python-check: python-snapshot-check python-test python-install-test diff-check

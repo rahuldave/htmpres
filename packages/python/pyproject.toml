@@ -4,16 +4,25 @@ build-backend = "hatchling.build"
 
 [project]
 name = "plotfoundry"
-version = "0.1.0.dev0"
-description = "Independent plotting-package boundary scaffold; plotting APIs are not implemented"
+version = "0.1.0.dev1"
+description = "Standalone scientific plotting contract and Matplotlib reference"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 license = "MIT"
 authors = [{ name = "Rahul Dave" }]
 dependencies = []
+
+[project.optional-dependencies]
+matplotlib = ["matplotlib>=3.11.2,<3.12", "numpy>=2.5.4,<2.6"]
+
+[dependency-groups]
+verification = ["matplotlib==3.11.2", "numpy==2.5.4", "pandas==3.1.1", "seaborn==0.13.2", "pillow==12.0.0", "pypdf==6.1.3", "jsonschema==4.26.0"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/plotfoundry"]
 
 [tool.hatch.build.targets.sdist]
-include = ["/src", "/examples", "/README.md", "/LICENSE", "/pyproject.toml"]
+include = ["/src", "/examples", "/README.md", "/LICENSE", "/pyproject.toml", "/uv.lock"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"examples" = "plotfoundry/examples"

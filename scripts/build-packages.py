@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build each independent identity scaffold using its own native package tooling."""
+"""Build independent native packages using their own package tooling."""
 
 import argparse
 import os
@@ -56,7 +56,7 @@ def main():
         cwd=ROOT / "packages/javascript",
         check=True,
     )
-    print(f"Built local, unpublished identity scaffolds: {output}")
+    print(f"Built local, unpublished native packages: {output}")
 
 
 if __name__ == "__main__":

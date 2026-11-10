@@ -1,0 +1,4547 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:plotfoundry:spec:1",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "specVersion": {
+      "const": "0.1.0"
+    },
+    "status": {
+      "const": "approved-contract-no-adapters"
+    },
+    "themes": {
+      "type": "object",
+      "properties": {
+        "folio": {
+          "type": "object",
+          "properties": {
+            "voice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "modes": {
+              "type": "object",
+              "properties": {
+                "light": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                },
+                "dark": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "light",
+                "dark"
+              ],
+              "additionalProperties": false
+            },
+            "profiles": {
+              "type": "object",
+              "properties": {
+                "reading": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                },
+                "presentation": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "reading",
+                "presentation"
+              ],
+              "additionalProperties": false
+            },
+            "fontRoles": {
+              "type": "object",
+              "properties": {
+                "ui": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                },
+                "heading": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "ui",
+                "heading"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "voice",
+            "modes",
+            "profiles",
+            "fontRoles"
+          ],
+          "additionalProperties": false
+        },
+        "atelier": {
+          "type": "object",
+          "properties": {
+            "voice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "modes": {
+              "type": "object",
+              "properties": {
+                "light": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                },
+                "dark": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "light",
+                "dark"
+              ],
+              "additionalProperties": false
+            },
+            "profiles": {
+              "type": "object",
+              "properties": {
+                "reading": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                },
+                "presentation": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "reading",
+                "presentation"
+              ],
+              "additionalProperties": false
+            },
+            "fontRoles": {
+              "type": "object",
+              "properties": {
+                "ui": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                },
+                "heading": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "ui",
+                "heading"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "voice",
+            "modes",
+            "profiles",
+            "fontRoles"
+          ],
+          "additionalProperties": false
+        },
+        "nocturne": {
+          "type": "object",
+          "properties": {
+            "voice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "modes": {
+              "type": "object",
+              "properties": {
+                "light": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                },
+                "dark": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "light",
+                "dark"
+              ],
+              "additionalProperties": false
+            },
+            "profiles": {
+              "type": "object",
+              "properties": {
+                "reading": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                },
+                "presentation": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "reading",
+                "presentation"
+              ],
+              "additionalProperties": false
+            },
+            "fontRoles": {
+              "type": "object",
+              "properties": {
+                "ui": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                },
+                "heading": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "ui",
+                "heading"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "voice",
+            "modes",
+            "profiles",
+            "fontRoles"
+          ],
+          "additionalProperties": false
+        },
+        "tufte": {
+          "type": "object",
+          "properties": {
+            "voice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "modes": {
+              "type": "object",
+              "properties": {
+                "light": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                },
+                "dark": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "light",
+                "dark"
+              ],
+              "additionalProperties": false
+            },
+            "profiles": {
+              "type": "object",
+              "properties": {
+                "reading": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                },
+                "presentation": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "reading",
+                "presentation"
+              ],
+              "additionalProperties": false
+            },
+            "fontRoles": {
+              "type": "object",
+              "properties": {
+                "ui": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                },
+                "heading": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "ui",
+                "heading"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "voice",
+            "modes",
+            "profiles",
+            "fontRoles"
+          ],
+          "additionalProperties": false
+        },
+        "zephyr-reading": {
+          "type": "object",
+          "properties": {
+            "voice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "modes": {
+              "type": "object",
+              "properties": {
+                "light": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                },
+                "dark": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "light",
+                "dark"
+              ],
+              "additionalProperties": false
+            },
+            "profiles": {
+              "type": "object",
+              "properties": {
+                "reading": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                },
+                "presentation": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "reading",
+                "presentation"
+              ],
+              "additionalProperties": false
+            },
+            "fontRoles": {
+              "type": "object",
+              "properties": {
+                "ui": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                },
+                "heading": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "ui",
+                "heading"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "voice",
+            "modes",
+            "profiles",
+            "fontRoles"
+          ],
+          "additionalProperties": false
+        },
+        "simplex-reading": {
+          "type": "object",
+          "properties": {
+            "voice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "modes": {
+              "type": "object",
+              "properties": {
+                "light": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                },
+                "dark": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "light",
+                "dark"
+              ],
+              "additionalProperties": false
+            },
+            "profiles": {
+              "type": "object",
+              "properties": {
+                "reading": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                },
+                "presentation": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "reading",
+                "presentation"
+              ],
+              "additionalProperties": false
+            },
+            "fontRoles": {
+              "type": "object",
+              "properties": {
+                "ui": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                },
+                "heading": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "ui",
+                "heading"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "voice",
+            "modes",
+            "profiles",
+            "fontRoles"
+          ],
+          "additionalProperties": false
+        },
+        "pulse-reading": {
+          "type": "object",
+          "properties": {
+            "voice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "modes": {
+              "type": "object",
+              "properties": {
+                "light": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                },
+                "dark": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "light",
+                "dark"
+              ],
+              "additionalProperties": false
+            },
+            "profiles": {
+              "type": "object",
+              "properties": {
+                "reading": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                },
+                "presentation": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "reading",
+                "presentation"
+              ],
+              "additionalProperties": false
+            },
+            "fontRoles": {
+              "type": "object",
+              "properties": {
+                "ui": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                },
+                "heading": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "ui",
+                "heading"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "voice",
+            "modes",
+            "profiles",
+            "fontRoles"
+          ],
+          "additionalProperties": false
+        },
+        "litera-reading": {
+          "type": "object",
+          "properties": {
+            "voice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "modes": {
+              "type": "object",
+              "properties": {
+                "light": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                },
+                "dark": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "light",
+                "dark"
+              ],
+              "additionalProperties": false
+            },
+            "profiles": {
+              "type": "object",
+              "properties": {
+                "reading": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                },
+                "presentation": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "reading",
+                "presentation"
+              ],
+              "additionalProperties": false
+            },
+            "fontRoles": {
+              "type": "object",
+              "properties": {
+                "ui": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                },
+                "heading": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "ui",
+                "heading"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "voice",
+            "modes",
+            "profiles",
+            "fontRoles"
+          ],
+          "additionalProperties": false
+        },
+        "darkly-reading": {
+          "type": "object",
+          "properties": {
+            "voice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "modes": {
+              "type": "object",
+              "properties": {
+                "light": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                },
+                "dark": {
+                  "type": "object",
+                  "properties": {
+                    "paper": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "panel": {
+                      "type": "object",
+                      "properties": {
+                        "ink": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "muted": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "accent-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "secondary-text": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "control-boundary": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        },
+                        "background": {
+                          "type": "string",
+                          "pattern": "^#[0-9a-f]{6}$"
+                        }
+                      },
+                      "required": [
+                        "ink",
+                        "muted",
+                        "accent-text",
+                        "secondary-text",
+                        "control-boundary",
+                        "background"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "paper",
+                    "panel"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "light",
+                "dark"
+              ],
+              "additionalProperties": false
+            },
+            "profiles": {
+              "type": "object",
+              "properties": {
+                "reading": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                },
+                "presentation": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "heading": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "metadata": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "body_annotation": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "heading",
+                    "metadata",
+                    "body_annotation"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "reading",
+                "presentation"
+              ],
+              "additionalProperties": false
+            },
+            "fontRoles": {
+              "type": "object",
+              "properties": {
+                "ui": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                },
+                "heading": {
+                  "type": "object",
+                  "properties": {
+                    "font": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "requestedFamily": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fallback": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "glyphPolicy": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "font",
+                    "requestedFamily",
+                    "fallback",
+                    "reason",
+                    "glyphPolicy"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "ui",
+                "heading"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "voice",
+            "modes",
+            "profiles",
+            "fontRoles"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "folio",
+        "atelier",
+        "nocturne",
+        "tufte",
+        "zephyr-reading",
+        "simplex-reading",
+        "pulse-reading",
+        "litera-reading",
+        "darkly-reading"
+      ],
+      "additionalProperties": false
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "theme": {
+            "enum": [
+              "folio",
+              "atelier",
+              "nocturne",
+              "tufte",
+              "zephyr-reading",
+              "simplex-reading",
+              "pulse-reading",
+              "litera-reading",
+              "darkly-reading"
+            ]
+          },
+          "mode": {
+            "enum": [
+              "light",
+              "dark"
+            ]
+          },
+          "profile": {
+            "enum": [
+              "reading",
+              "presentation"
+            ]
+          },
+          "surface": {
+            "enum": [
+              "paper",
+              "panel"
+            ]
+          },
+          "roles": {
+            "type": "object",
+            "properties": {
+              "ink": {
+                "type": "string",
+                "pattern": "^#[0-9a-f]{6}$"
+              },
+              "muted": {
+                "type": "string",
+                "pattern": "^#[0-9a-f]{6}$"
+              },
+              "accent-text": {
+                "type": "string",
+                "pattern": "^#[0-9a-f]{6}$"
+              },
+              "secondary-text": {
+                "type": "string",
+                "pattern": "^#[0-9a-f]{6}$"
+              },
+              "control-boundary": {
+                "type": "string",
+                "pattern": "^#[0-9a-f]{6}$"
+              },
+              "background": {
+                "type": "string",
+                "pattern": "^#[0-9a-f]{6}$"
+              }
+            },
+            "required": [
+              "ink",
+              "muted",
+              "accent-text",
+              "secondary-text",
+              "control-boundary",
+              "background"
+            ],
+            "additionalProperties": false
+          },
+          "typography": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "heading": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "metadata": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "body_annotation": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            },
+            "required": [
+              "label",
+              "heading",
+              "metadata",
+              "body_annotation"
+            ],
+            "additionalProperties": false
+          },
+          "fonts": {
+            "type": "object",
+            "properties": {
+              "ui": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "heading": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "required": [
+              "ui",
+              "heading"
+            ],
+            "additionalProperties": false
+          },
+          "placement": {
+            "type": "object",
+            "properties": {
+              "figureWidthInches": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "placedWidthCssPx": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            },
+            "required": [
+              "figureWidthInches",
+              "placedWidthCssPx"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "theme",
+          "mode",
+          "profile",
+          "surface",
+          "roles",
+          "typography",
+          "fonts",
+          "placement"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 72,
+      "maxItems": 72
+    },
+    "maps": {
+      "type": "object",
+      "properties": {
+        "cividis": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "sequential"
+            },
+            "samples": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 256,
+              "maxItems": 256
+            },
+            "centerIndex": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "samples",
+            "centerIndex"
+          ],
+          "additionalProperties": false
+        },
+        "viridis": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "sequential"
+            },
+            "samples": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 256,
+              "maxItems": 256
+            },
+            "centerIndex": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "samples",
+            "centerIndex"
+          ],
+          "additionalProperties": false
+        },
+        "mako": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "sequential"
+            },
+            "samples": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 256,
+              "maxItems": 256
+            },
+            "centerIndex": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "samples",
+            "centerIndex"
+          ],
+          "additionalProperties": false
+        },
+        "rocket": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "sequential"
+            },
+            "samples": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 256,
+              "maxItems": 256
+            },
+            "centerIndex": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "samples",
+            "centerIndex"
+          ],
+          "additionalProperties": false
+        },
+        "BrBG": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "diverging"
+            },
+            "samples": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 257,
+              "maxItems": 257
+            },
+            "centerIndex": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "samples",
+            "centerIndex"
+          ],
+          "additionalProperties": false
+        },
+        "RdBu": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "diverging"
+            },
+            "samples": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 257,
+              "maxItems": 257
+            },
+            "centerIndex": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "samples",
+            "centerIndex"
+          ],
+          "additionalProperties": false
+        },
+        "coolwarm": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "diverging"
+            },
+            "samples": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 257,
+              "maxItems": 257
+            },
+            "centerIndex": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "samples",
+            "centerIndex"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "cividis",
+        "viridis",
+        "mako",
+        "rocket",
+        "BrBG",
+        "RdBu",
+        "coolwarm"
+      ],
+      "additionalProperties": false
+    },
+    "categories": {
+      "type": "object",
+      "properties": {
+        "default": {
+          "const": "colorblind-subset-3"
+        },
+        "extended": {
+          "const": "colorblind-subset-5"
+        },
+        "bareCycleSupported": {
+          "const": false
+        },
+        "domainRequired": {
+          "const": true
+        },
+        "identityScope": {
+          "const": "variant-and-explicit-domain-slot"
+        },
+        "automaticExpansion": {
+          "const": false
+        },
+        "treatment": {
+          "const": {
+            "foreground_css_px": 2.5,
+            "understroke_css_px": 5.5,
+            "understroke_role": "ink",
+            "marker_css_px": 7,
+            "marker_edge_css_px": 1.5,
+            "marker_edge_role": "ink",
+            "markers": [
+              "o",
+              "s",
+              "^"
+            ],
+            "dashes": [
+              "solid",
+              "dashed",
+              "dotted"
+            ],
+            "labels": "Explicit category ID at endpoint; no overlapping legend"
+          }
+        },
+        "dashCueProvenance": {
+          "const": {
+            "source": "Matplotlib 3.11.2 matplotlibrc and lines.py; foreground Line2D graphics context retained by patheffects.Stroke",
+            "sourceVersion": "3.11.2",
+            "unit": "foreground-linewidth-multiple",
+            "offset": 0,
+            "sharedBetweenLayers": true,
+            "namedPatterns": {
+              "solid": [],
+              "dashed": [
+                3.7,
+                1.6
+              ],
+              "dotted": [
+                1,
+                1.65
+              ],
+              "dashdot": [
+                6.4,
+                1.6,
+                1,
+                1.6
+              ]
+            },
+            "dashCap": "butt",
+            "solidCap": "projecting"
+          }
+        },
+        "variants": {
+          "type": "object",
+          "properties": {
+            "colorblind-subset-3": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "enum": [
+                    "recommended",
+                    "explicit-conditional"
+                  ]
+                },
+                "capacity": {
+                  "enum": [
+                    3,
+                    5
+                  ]
+                },
+                "slots": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "enum": [
+                          "A",
+                          "B",
+                          "C",
+                          "D",
+                          "E"
+                        ]
+                      },
+                      "color": {
+                        "type": "string",
+                        "pattern": "^#[0-9a-f]{6}$"
+                      },
+                      "shape": {
+                        "enum": [
+                          "circle",
+                          "square",
+                          "triangle-up",
+                          "diamond",
+                          "triangle-down"
+                        ]
+                      },
+                      "sourceMarker": {
+                        "enum": [
+                          "o",
+                          "s",
+                          "^",
+                          "D",
+                          "v"
+                        ]
+                      },
+                      "sourceDash": {
+                        "oneOf": [
+                          {
+                            "enum": [
+                              "solid",
+                              "dashed",
+                              "dotted",
+                              "dashdot"
+                            ]
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "number",
+                              "exclusiveMinimum": 0
+                            },
+                            "minItems": 2
+                          }
+                        ]
+                      },
+                      "dash": {
+                        "type": "object",
+                        "properties": {
+                          "offset": {
+                            "const": 0
+                          },
+                          "multipliers": {
+                            "type": "array",
+                            "items": {
+                              "type": "number",
+                              "exclusiveMinimum": 0
+                            }
+                          },
+                          "unit": {
+                            "const": "foreground-linewidth-multiple"
+                          },
+                          "sharedBetweenLayers": {
+                            "const": true
+                          },
+                          "cap": {
+                            "enum": [
+                              "butt",
+                              "projecting"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "offset",
+                          "multipliers",
+                          "unit",
+                          "sharedBetweenLayers",
+                          "cap"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "color",
+                      "shape",
+                      "sourceMarker",
+                      "sourceDash",
+                      "dash"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 3,
+                  "maxItems": 5
+                },
+                "limitations": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "status",
+                "capacity",
+                "slots",
+                "limitations"
+              ],
+              "additionalProperties": false
+            },
+            "colorblind-subset-5": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "enum": [
+                    "recommended",
+                    "explicit-conditional"
+                  ]
+                },
+                "capacity": {
+                  "enum": [
+                    3,
+                    5
+                  ]
+                },
+                "slots": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "enum": [
+                          "A",
+                          "B",
+                          "C",
+                          "D",
+                          "E"
+                        ]
+                      },
+                      "color": {
+                        "type": "string",
+                        "pattern": "^#[0-9a-f]{6}$"
+                      },
+                      "shape": {
+                        "enum": [
+                          "circle",
+                          "square",
+                          "triangle-up",
+                          "diamond",
+                          "triangle-down"
+                        ]
+                      },
+                      "sourceMarker": {
+                        "enum": [
+                          "o",
+                          "s",
+                          "^",
+                          "D",
+                          "v"
+                        ]
+                      },
+                      "sourceDash": {
+                        "oneOf": [
+                          {
+                            "enum": [
+                              "solid",
+                              "dashed",
+                              "dotted",
+                              "dashdot"
+                            ]
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "number",
+                              "exclusiveMinimum": 0
+                            },
+                            "minItems": 2
+                          }
+                        ]
+                      },
+                      "dash": {
+                        "type": "object",
+                        "properties": {
+                          "offset": {
+                            "const": 0
+                          },
+                          "multipliers": {
+                            "type": "array",
+                            "items": {
+                              "type": "number",
+                              "exclusiveMinimum": 0
+                            }
+                          },
+                          "unit": {
+                            "const": "foreground-linewidth-multiple"
+                          },
+                          "sharedBetweenLayers": {
+                            "const": true
+                          },
+                          "cap": {
+                            "enum": [
+                              "butt",
+                              "projecting"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "offset",
+                          "multipliers",
+                          "unit",
+                          "sharedBetweenLayers",
+                          "cap"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "color",
+                      "shape",
+                      "sourceMarker",
+                      "sourceDash",
+                      "dash"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 3,
+                  "maxItems": 5
+                },
+                "limitations": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "status",
+                "capacity",
+                "slots",
+                "limitations"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "colorblind-subset-3",
+            "colorblind-subset-5"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "default",
+        "extended",
+        "bareCycleSupported",
+        "domainRequired",
+        "identityScope",
+        "automaticExpansion",
+        "treatment",
+        "dashCueProvenance",
+        "variants"
+      ],
+      "additionalProperties": false
+    },
+    "normalization": {
+      "type": "object",
+      "properties": {
+        "sequential": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "linear"
+            },
+            "parameters": {
+              "const": [
+                "vmin",
+                "vmax"
+              ]
+            },
+            "validOrder": {
+              "const": "vmin < vmax"
+            },
+            "limitsRequired": {
+              "const": true
+            }
+          },
+          "required": [
+            "type",
+            "parameters",
+            "validOrder",
+            "limitsRequired"
+          ],
+          "additionalProperties": false
+        },
+        "diverging": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "piecewise-linear"
+            },
+            "parameters": {
+              "const": [
+                "vmin",
+                "center",
+                "vmax"
+              ]
+            },
+            "validOrder": {
+              "const": "vmin < center < vmax"
+            },
+            "centerOutput": {
+              "const": 0.5
+            },
+            "limitsRequired": {
+              "const": true
+            },
+            "automaticSymmetry": {
+              "const": false
+            }
+          },
+          "required": [
+            "type",
+            "parameters",
+            "validOrder",
+            "centerOutput",
+            "limitsRequired",
+            "automaticSymmetry"
+          ],
+          "additionalProperties": false
+        },
+        "lookup": {
+          "type": "object",
+          "properties": {
+            "samplePositions": {
+              "const": "i/(N-1)"
+            },
+            "binIndex": {
+              "const": "min(N-1,floor(clamp(u,0,1)*N))"
+            },
+            "binIntervals": {
+              "const": "[i/N,(i+1)/N), last includes 1"
+            },
+            "interpolate": {
+              "const": false
+            },
+            "automaticModeReversal": {
+              "const": false
+            },
+            "normalizedValuesAreFloats": {
+              "const": true
+            }
+          },
+          "required": [
+            "samplePositions",
+            "binIndex",
+            "binIntervals",
+            "interpolate",
+            "automaticModeReversal",
+            "normalizedValuesAreFloats"
+          ],
+          "additionalProperties": false
+        },
+        "specialValues": {
+          "const": {
+            "bad": {
+              "fill_role": "muted",
+              "ink_role": "background",
+              "hatch": "x"
+            },
+            "under": "endpoint",
+            "over": "endpoint",
+            "clip": true
+          }
+        },
+        "missingLine": {
+          "const": "gap; no imputation"
+        },
+        "nonfiniteLimits": {
+          "const": "reject"
+        },
+        "infiniteData": {
+          "const": "reject; null/NaN are missing"
+        }
+      },
+      "required": [
+        "sequential",
+        "diverging",
+        "lookup",
+        "specialValues",
+        "missingLine",
+        "nonfiniteLimits",
+        "infiniteData"
+      ],
+      "additionalProperties": false
+    },
+    "placement": {
+      "type": "object",
+      "properties": {
+        "roleUnit": {
+          "const": "css-px"
+        },
+        "pointsFormula": {
+          "const": "css_px * 72 * figure_width_inches / placed_width_css_px"
+        },
+        "millimetersFormula": {
+          "const": "points * 25.4 / 72"
+        },
+        "markerAreaConvention": {
+          "const": "diameter_points squared; native symbol geometry remains explicit"
+        },
+        "dpiPolicy": {
+          "const": "raster resolution only; not placed typography"
+        },
+        "tightCropDefault": {
+          "const": false
+        },
+        "defaultFigureWidthInches": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "defaultPlacedWidths": {
+          "type": "object",
+          "properties": {
+            "reading": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "presentation": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "reading",
+            "presentation"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "roleUnit",
+        "pointsFormula",
+        "millimetersFormula",
+        "markerAreaConvention",
+        "dpiPolicy",
+        "tightCropDefault",
+        "defaultFigureWidthInches",
+        "defaultPlacedWidths"
+      ],
+      "additionalProperties": false
+    },
+    "fontRoleMapping": {
+      "const": {
+        "label": "ui",
+        "heading": "heading",
+        "metadata": "ui",
+        "body_annotation": "ui"
+      }
+    },
+    "fonts": {
+      "type": "object",
+      "minProperties": 12,
+      "maxProperties": 12,
+      "patternProperties": {
+        "^[a-f0-9]{64}$": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9_][a-zA-Z0-9_./-]*$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "internalFamily": {
+              "type": "string",
+              "minLength": 1
+            },
+            "weight": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "embeddingFlags": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "noticePaths": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9_][a-zA-Z0-9_./-]*$"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "sourceFile": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9_][a-zA-Z0-9_./-]*$"
+            },
+            "packageSource": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "conversion": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "path",
+            "sha256",
+            "internalFamily",
+            "weight",
+            "embeddingFlags",
+            "noticePaths",
+            "sourceFile",
+            "packageSource"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "run": {
+          "type": "string",
+          "minLength": 1
+        },
+        "researchRepository": {
+          "type": "string",
+          "minLength": 1
+        },
+        "researchCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "evidenceManifestSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sourceFiles": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "upstream": {
+          "type": "object",
+          "properties": {
+            "folio": {
+              "type": "object",
+              "properties": {
+                "repository": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{40}$"
+                },
+                "file": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9_][a-zA-Z0-9_./-]*$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "repository",
+                "commit",
+                "file",
+                "sha256"
+              ],
+              "additionalProperties": false
+            },
+            "atelier": {
+              "type": "object",
+              "properties": {
+                "repository": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{40}$"
+                },
+                "file": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9_][a-zA-Z0-9_./-]*$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "repository",
+                "commit",
+                "file",
+                "sha256"
+              ],
+              "additionalProperties": false
+            },
+            "nocturne": {
+              "type": "object",
+              "properties": {
+                "repository": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{40}$"
+                },
+                "file": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9_][a-zA-Z0-9_./-]*$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "repository",
+                "commit",
+                "file",
+                "sha256"
+              ],
+              "additionalProperties": false
+            },
+            "tufte": {
+              "type": "object",
+              "properties": {
+                "repository": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{40}$"
+                },
+                "file": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9_][a-zA-Z0-9_./-]*$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "repository",
+                "commit",
+                "file",
+                "sha256"
+              ],
+              "additionalProperties": false
+            },
+            "zephyr-reading": {
+              "type": "object",
+              "properties": {
+                "repository": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{40}$"
+                },
+                "file": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9_][a-zA-Z0-9_./-]*$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "repository",
+                "commit",
+                "file",
+                "sha256"
+              ],
+              "additionalProperties": false
+            },
+            "simplex-reading": {
+              "type": "object",
+              "properties": {
+                "repository": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{40}$"
+                },
+                "file": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9_][a-zA-Z0-9_./-]*$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "repository",
+                "commit",
+                "file",
+                "sha256"
+              ],
+              "additionalProperties": false
+            },
+            "pulse-reading": {
+              "type": "object",
+              "properties": {
+                "repository": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{40}$"
+                },
+                "file": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9_][a-zA-Z0-9_./-]*$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "repository",
+                "commit",
+                "file",
+                "sha256"
+              ],
+              "additionalProperties": false
+            },
+            "litera-reading": {
+              "type": "object",
+              "properties": {
+                "repository": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{40}$"
+                },
+                "file": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9_][a-zA-Z0-9_./-]*$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "repository",
+                "commit",
+                "file",
+                "sha256"
+              ],
+              "additionalProperties": false
+            },
+            "darkly-reading": {
+              "type": "object",
+              "properties": {
+                "repository": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{40}$"
+                },
+                "file": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9_][a-zA-Z0-9_./-]*$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "repository",
+                "commit",
+                "file",
+                "sha256"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "folio",
+            "atelier",
+            "nocturne",
+            "tufte",
+            "zephyr-reading",
+            "simplex-reading",
+            "pulse-reading",
+            "litera-reading",
+            "darkly-reading"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "run",
+        "researchRepository",
+        "researchCommit",
+        "evidenceManifestSha256",
+        "sourceFiles",
+        "upstream"
+      ],
+      "additionalProperties": false
+    },
+    "capabilities": {
+      "const": {
+        "nativeAdaptersImplemented": false,
+        "contractFamilies": [
+          "categorical-line",
+          "categorical-scatter",
+          "continuous-heatmap",
+          "continuous-scatter",
+          "explicit-missing-cells"
+        ],
+        "notUniversallySupported": [
+          "bars",
+          "filled-areas",
+          "maps",
+          "3d",
+          "rasterized-aggregation",
+          "arbitrary-third-party-marks",
+          "automatic-label-overlap-resolution"
+        ],
+        "tiers": {
+          "core-planned": [
+            "Matplotlib",
+            "Seaborn",
+            "pandas",
+            "ggplot2",
+            "base-R-helpers",
+            "Observable-Plot",
+            "Vega-Lite",
+            "Altair",
+            "Plotly-JS",
+            "Plotly-Python",
+            "Plotly-R-separately-tested"
+          ],
+          "early-compatibility": [
+            "plotnine"
+          ],
+          "limited-export": [
+            "full-Vega-config-and-scales"
+          ],
+          "later": [
+            "hvPlot-through-Bokeh",
+            "HoloViews-through-Bokeh",
+            "direct-Bokeh"
+          ],
+          "demand-led": [
+            "ECharts",
+            "Chart.js"
+          ],
+          "utilities": [
+            "D3"
+          ]
+        },
+        "requiresNativeAcceptance": true
+      }
+    },
+    "limitations": {
+      "const": [
+        "3:1 is a thin-mark engineering risk screen, not a universal perception threshold",
+        "CAM02-UCS distances and CVs are comparative model evidence",
+        "CVD severity100/clipping does not certify universal access",
+        "Linear-light white veil is illustrative; no physical projector/print trial",
+        "Asset presence does not certify actual rendered font selection or embedding.",
+        "Changing categorical variant can recolor slots; no automatic expansion or common-prefix guarantee."
+      ]
+    },
+    "mapSelection": {
+      "const": {
+        "sequential": {
+          "default": "cividis",
+          "alternatives": [
+            "viridis",
+            "mako",
+            "rocket"
+          ],
+          "normalization": "Explicit vmin/vmax; no automatic mode reversal"
+        },
+        "diverging": {
+          "default": "BrBG",
+          "alternatives": [
+            "RdBu",
+            "coolwarm"
+          ],
+          "normalization": "Explicit vmin, meaningful center, vmax; disclose asymmetric limits",
+          "missing": "Opaque contextual neutral fill plus cross/hatch; not the center color"
+        }
+      }
+    },
+    "lut": {
+      "const": {
+        "color_space": "gamma-encoded sRGB float0..1",
+        "positions": "uniform0..1",
+        "interpretation": "ListedColormap; no automatic reversal",
+        "diverging": "257 samples: componentwise linear interpolation of source256 in encoded sRGB, shared exact middle sample",
+        "approved_ids": [
+          "cividis",
+          "viridis",
+          "mako",
+          "rocket",
+          "BrBG",
+          "RdBu",
+          "coolwarm",
+          "colorblind-subset-3",
+          "colorblind-subset-5"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "specVersion",
+    "status",
+    "themes",
+    "cases",
+    "maps",
+    "categories",
+    "normalization",
+    "placement",
+    "fontRoleMapping",
+    "fonts",
+    "provenance",
+    "capabilities",
+    "limitations",
+    "mapSelection",
+    "lut"
+  ],
+  "additionalProperties": false
+}

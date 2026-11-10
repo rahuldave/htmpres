@@ -7,3 +7,4 @@ research/theme-audit/runs/foundations-2026-11-09/fonts/DejaVu-LICENSE whitespace
 packages/spec/data/notices/DejaVu-LICENSE whitespace=-blank-at-eol
 # Preserve the same approved notice in the independent Python resource bundle.
 packages/python/src/plotfoundry/_resources/data/notices/DejaVu-LICENSE whitespace=-blank-at-eol
+packages/r/inst/spec/data/notices/DejaVu-LICENSE whitespace=-blank-at-eol

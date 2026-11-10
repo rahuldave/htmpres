@@ -1,10 +1,14 @@
 Package: plotfoundry
 Type: Package
-Title: Independent Plotting Package Boundary Scaffold
-Version: 0.0.0.9000
+Title: Standalone Scientific Plotting Reference
+Version: 0.0.0.9001
 Authors@R: person("Rahul", "Dave", role = c("aut", "cre"), email = "rahuldave@gmail.com")
-Description: An identity-only scaffold for independently installed plotting
-    packages. No plotting themes, palettes, fonts or adapters are implemented.
+Description: Independent scientific plotting data, exact color scales, native
+    ggplot2 and base graphics helpers with explicit placement and font devices.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Depends: R (>= 4.1.0)
+Imports: jsonlite, digest, grid, graphics, grDevices, stats, utils
+Suggests: ggplot2 (>= 4.0.3), scales (>= 1.4.0), showtext (>= 0.9.8),
+    sysfonts (>= 0.8.9), systemfonts (>= 1.3.2), ragg (>= 1.5.2),
+    svglite (>= 2.2.2)

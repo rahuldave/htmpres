@@ -383,3 +383,15 @@ plotting dependencies; `just python-check` composes focused verification. These
 optional commands use Python 3.12 and the locked verification group; they do not
 require R/JavaScript or alter the root htmpres identity. Shared spec edits remain
 separately reviewed work. Native R/JS adapters and public releases remain gated.
+
+### Standalone R reference
+
+Use `just r-setup` to provision an explicit task-local `.build/packages/r-library`
+(source compilation prerequisites may be required), then `just r-check` for pinned
+resource closure, native callable tests, outside-checkout source-archive install
+and R CMD check. `just r-gallery` writes both native routes for 72 cases;
+`just r-gallery-check` verifies the final manifest, geometry guards and files.
+R 4.1.1 and exact tested optional-device versions are recorded in
+`packages/r/tools/tested-dependencies.json`. These optional checks do not install
+into user-global R libraries and do not add R to the slide runtime. The maintainer
+snapshot importer is build-only; native R consumers need no Python/Node/htmpres.

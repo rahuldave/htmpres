@@ -113,15 +113,23 @@ def main():
 
     library = clean / "r-library"
     library.mkdir()
+    # Native core dependencies are copied into this isolated consumer library;
+    # no plotting stack or sibling-language runtime is needed for data loading.
+    r_dependencies = Path(
+        os.environ.get("PLOTFOUNDRY_R_LIBRARY", ROOT / ".build/packages/r-library")
+    )
+    for dependency in ("jsonlite", "digest"):
+        shutil.copytree(r_dependencies / dependency, library / dependency)
+    env["R_LIBS_USER"] = str(library)
     run(["R", "CMD", "INSTALL", "--library=" + str(library), r_archive], clean, env)
     r_check = (
         f".libPaths(c({json.dumps(str(library))}, .Library)); "
         "info <- plotfoundry::package_info(); "
-        'stopifnot(info$name == "plotfoundry", info$status == "scaffold"); '
+        'stopifnot(info$name == "plotfoundry", info$status == "r-reference"); '
         'stopifnot(info$version == as.character(utils::packageVersion("plotfoundry"))); '
         'info$name <- "changed"; stopifnot(plotfoundry::package_info()$name == "plotfoundry"); '
         'stopifnot(!any(c("htmpres", "reticulate", "V8") %in% loadedNamespaces())); '
-        "print(info)"
+        "stopifnot(length(plotfoundry::pf_spec()$cases)==72L); print(info)"
     )
     run(["Rscript", "--vanilla", "-e", r_check], clean, env)
     r_example = clean / "hello.R"

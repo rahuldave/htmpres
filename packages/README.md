@@ -1,4 +1,4 @@
-# Plotfoundry independent packages — unreleased Python reference and scientific contract
+# Plotfoundry independent packages — unreleased Python/R references and scientific contract
 
 Plotfoundry is the selected neutral umbrella; all three native identities are
 `plotfoundry`. The Python import is also `plotfoundry`. The dated
@@ -11,12 +11,11 @@ CDN artifact, registry account or r-universe repository is published by this wor
 | --- | --- | --- | --- |
 | [Specification](spec/README.md) | `specVersion`: `0.1.0`; schema major 1 | Approved data/conformance reference; no plotting adapter | `just spec-build` |
 | [Python](python/README.md) | `pyproject.toml`: `0.1.0.dev1` | Data/Matplotlib reference; `package_info()` | `uv build` |
-| [R](r/README.md) | `DESCRIPTION`: `0.0.0.9000` | `package_info()` | `R CMD build` |
+| [R](r/README.md) | `DESCRIPTION`: `0.0.0.9001` | Native ggplot2/base reference | `R CMD build` |
 | [JavaScript](javascript/README.md) | `package.json`: `0.1.0-dev.0` | `packageInfo()` | `npm pack` |
 
 Each version is independent. Python now has a dependency-free scientific core and
-an optional Matplotlib extra; R/JS remain identity-only with native standard-library
-runtimes. The packages do not import or install htmpres, research files, sibling
+an optional Matplotlib extra. R has native data dependencies and optional plotting/devices; JavaScript remains identity-only. The packages do not import or install htmpres, research files, sibling
 packages, document engines or a different language runtime. The root private npm
 project remains separate. Installed identity calls perform no downloads or
 subprocess calls.
@@ -26,7 +25,7 @@ their original notices. The [scientific specification](spec/README.md) now bundl
 nine exact pinned upstream manifests, approved sampled maps, categorical treatments,
 72 resolved cases and twelve resolved font faces. The nine upstream repositories
 remain authoritative. Promotion is reproducible and build-time only; installed
-consumers do not read research files or fetch a central manifest. Python now bundles and consumes this contract; R/JS still expose identity APIs only.
+consumers do not read research files or fetch a central manifest. Python and R bundle and consume this contract; JavaScript still exposes identity APIs only.
 
 ## Development commands
 
@@ -66,5 +65,7 @@ directory when finished. R package validation can additionally run
 host-specific unsupported locale settings; it does not change the system locale.
 
 The [Python reference](python/README.md) now includes native APIs and font/data
-bundling. Other native adapters and public releases belong to later
+bundling. The R reference is implemented separately; other native adapters and public releases belong to later
 user-selected pieces of the [ecosystem plan](../docs/plans/plotting-ecosystem.md).
+
+The R reference (`packages/r`, development version `0.0.0.9001`) now bundles the same immutable contract and supports native ggplot2/base helpers with explicit outlined-vector export. It is unreleased. Python/R website guides follow in the separately selected documentation slice; JavaScript remains a scaffold.

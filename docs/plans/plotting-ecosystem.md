@@ -1,6 +1,6 @@
 # Standalone plotting ecosystem: next-phase plan
 
-**Status: identity scaffolds (piece 1) and the standalone approved scientific contract (piece 2) are implemented; the Python reference (piece 3) is implemented; other adapters and integrations are not implemented.** This document plans phase 6, tracked by parent task `vxltssko`. Delivery is organized in iteration `wkssvzoo`; the planning leaf is `rlpsynzs` and identity-scaffold leaf is `ruzntmky`. The agreed Doc 3 recommendations are the scientific baseline. This plan does not begin implementation or publish anything. After each independently reviewed piece, the parent presents the result and the user selects the next piece; only genuinely unresolved or changed decisions return for design review.
+**Status: identity scaffolds (piece 1) and the standalone approved scientific contract (piece 2) are implemented; the Python reference (piece 3) and R reference (piece 4) are implemented; other adapters and integrations are not implemented.** This document plans phase 6, tracked by parent task `vxltssko`. Delivery is organized in iteration `wkssvzoo`; the planning leaf is `rlpsynzs` and identity-scaffold leaf is `ruzntmky`. The agreed Doc 3 recommendations are the scientific baseline. This plan does not begin implementation or publish anything. After each independently reviewed piece, the parent presents the result and the user selects the next piece; only genuinely unresolved or changed decisions return for design review.
 
 The repository will be a monorepo containing independent plotting pieces. They must work with plain Python, R and JavaScript, and in Quarto or SmallDocs, **without installing, importing, running or naming htmpres as a package dependency**. The htmpres website hosts their documentation. Hosting and repository location do not create a runtime dependency.
 
@@ -16,7 +16,7 @@ The repository will be a monorepo containing independent plotting pieces. They m
 
 ## Boundaries and layout
 
-Piece 1 selected **Plotfoundry** as the neutral umbrella and `plotfoundry` as the Python distribution/import, R package and npm identity. The dated [registry observations](../../packages/name-availability.json) show observed absence, not reservation, ownership or trademark clearance. Minimal independent identity scaffolds exist; nothing is published. Directory labels below remain structural labels; the scientific schema/data artifact and Python reference are implemented; other adapters/integrations remain unimplemented. No neutral plotting package imports `_extensions/htmpres`, relies on its catalog loader, or requires its CLI. The existing private root npm project and `_extensions/htmpres` path remain intact.
+Piece 1 selected **Plotfoundry** as the neutral umbrella and `plotfoundry` as the Python distribution/import, R package and npm identity. The dated [registry observations](../../packages/name-availability.json) show observed absence, not reservation, ownership or trademark clearance. Minimal independent identity scaffolds exist; nothing is published. Directory labels below remain structural labels; the scientific schema/data artifact and Python/R references are implemented; other adapters/integrations remain unimplemented. No neutral plotting package imports `_extensions/htmpres`, relies on its catalog loader, or requires its CLI. The existing private root npm project and `_extensions/htmpres` path remain intact.
 
 ```text
 packages/
@@ -136,7 +136,7 @@ Altair is a Python authoring interface for Vega-Lite. Observable Plot is a disti
 
 ### Delivery task and dependency map
 
-Parent `vxltssko`, iteration `wkssvzoo`, planning leaf `rlpsynzs`. The iteration contains the planning gate plus 18 delivery leaves in 19 phases. The table records current native `blocked-by` prerequisites from the parent's final task snapshot; row order is the selected presentation order. “After” is an execution/review dependency, **not runtime package coupling**. The current graph hard-blocks piece 9 on all adapter leaves listed in its row and consequently blocks downstream release work on them. A smaller release subset is possible only through an explicit user-selected re-scoping and parent dependency review/update before execution; the current graph does not already permit skipping prerequisites. Retain genuine contract dependencies when updating the selected execution order. After that explicit update, a reviewed subset need not wait for adapters excluded from its scope.
+Parent `vxltssko`, iteration `wkssvzoo`, planning leaf `rlpsynzs`. The iteration contains the planning gate plus 19 delivery leaves in 20 phases. The table records current native `blocked-by` prerequisites from the parent's final task snapshot; row order is the selected presentation order. “After” is an execution/review dependency, **not runtime package coupling**. The current graph hard-blocks piece 9 on all adapter leaves listed in its row and consequently blocks downstream release work on them. A smaller release subset is possible only through an explicit user-selected re-scoping and parent dependency review/update before execution; the current graph does not already permit skipping prerequisites. Retain genuine contract dependencies when updating the selected execution order. After that explicit update, a reviewed subset need not wait for adapters excluded from its scope.
 
 | Piece | Gest task | Output | Selected after |
 | --- | --- | --- | --- |
@@ -144,7 +144,8 @@ Parent `vxltssko`, iteration `wkssvzoo`, planning leaf `rlpsynzs`. The iteration
 | 2 | `zyxwokzz` | Shared contract and fixtures | 1 |
 | 3 | `nmtpqkkx` | Python reference | 2 |
 | 4 | `tsmttwvv` | R reference | 2, 3 |
-| 5 | `zzqspzmp` | JS / Observable Plot | 2, 3, 4 |
+| 4a | `mlzqvvmv` | Python/R website docs and galleries | 3, 4 |
+| 5 | `zzqspzmp` | JS / Observable Plot | 2, 3, 4, 4a |
 | 6a | `xztkkvxk` | Vega-Lite | 2, 5 |
 | 6b | `xyrzryyt` | Altair | 3, 6a |
 | 6c | `mxpztosn` | Limited full Vega exporter | 6a, 6b |
@@ -183,6 +184,12 @@ Parent `vxltssko`, iteration `wkssvzoo`, planning leaf `rlpsynzs`. The iteration
 **Prerequisites:** shared contract and reference expectations from piece 3. **Outputs:** independent R source package; native theme/manual scales/continuous scales, supported layered geoms, exact-font/device setup and base R named palette/scales/scoped furniture helpers. Explicit categories rather than implicit session-wide palette mutation.
 
 **Review gate:** installed archive in a clean R library; numerical normalization and size parity, native theme/scale precedence, 36 configurations on both paper and panel backgrounds (72 cases), fonts/notices and chosen raster/vector device exports. Test global state restoration where helpers change it. Local R/Quarto are available; package use itself requires neither Quarto nor Python. **Docs/examples:** ggplot2 and base R quickstarts, unit differences, font devices and downloadable native source.
+
+### 4a. Publish Python/R website guides and galleries — `mlzqvvmv`
+
+**Prerequisites:** reviewed R reference and the existing user authorization to publish Python/R documentation immediately afterward. **Outputs:** publish installation, native API, font/device/export/offline guides and reproducible galleries for the completed Python/R references on the htmpres website. Reuse installed examples and verified specimens; clearly distinguish unreleased source artifacts from registry availability. No new adapter implementation.
+
+**Review/acceptance gate:** distinct Sol writer/reviewer, strict website build/link/asset allowlist checks, actual browser review and deployed-page verification after integration. This user-authorized immediate documentation slice precedes JavaScript; piece 11a remains later full-ecosystem consolidation. No automatic advancement.
 
 ### 5. Browser JavaScript reference: Observable Plot — `zzqspzmp`
 

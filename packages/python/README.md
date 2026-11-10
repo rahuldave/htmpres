@@ -153,7 +153,7 @@ checks use cached dependencies with `uv --offline`; no OS-level network sandbox
 is implied. Run `just python-test`, `just python-gallery`, `just python-install-test`
 `just python-gallery-check` and `just python-check` from the monorepo. The last includes stale-snapshot,
 focused, actual artifact installation and diff checks. The shared scientific spec
-is immutable in this piece; native R/JS adapters and publication remain deferred.
+is immutable in this piece; the native R reference is implemented separately; JavaScript adapters and publication remain deferred.
 
 New code/docs are MIT licensed; all imported font/manifest notices retain their
 original licenses. Actual SVG outlines/PDF subsets are renderer outputs, not a

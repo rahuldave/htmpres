@@ -27,12 +27,13 @@ class PackageBoundaryTests(unittest.TestCase):
         self.assertNotIn("process.", source)
         self.assertNotIn("require(", source)
 
-    def test_r_has_no_added_runtime_packages(self):
+    def test_r_uses_only_native_runtime_packages(self):
         source = (ROOT / "packages/r/DESCRIPTION").read_text()
         self.assertIn("Package: plotfoundry\n", source)
-        self.assertNotIn("Imports:", source)
+        self.assertIn("Imports: jsonlite, digest", source)
+        self.assertNotIn("reticulate", source)
         self.assertNotIn("LinkingTo:", source)
-        self.assertNotIn("Suggests:", source)
+        self.assertIn("Suggests: ggplot2", source)
         self.assertTrue((ROOT / "packages/r/man/package_info.Rd").is_file())
 
     def test_promoted_spec_stays_independent_of_native_scaffolds(self):
@@ -41,7 +42,7 @@ class PackageBoundaryTests(unittest.TestCase):
         self.assertEqual(spec["runtimeDependencies"], [])
         self.assertTrue(spec["scientificContractPromoted"])
         self.assertEqual(spec["specVersion"], "0.1.0")
-        for directory in ("r", "javascript"):
+        for directory in ("javascript",):
             path = ROOT / "packages" / directory
             self.assertTrue((path / "README.md").is_file())
             for suffix in ("*.ttf", "*.woff", "*palette*.json", "*foundations*.json"):

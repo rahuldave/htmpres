@@ -1,0 +1,911 @@
+{
+  "lockVersion": 1,
+  "run": "foundations-2026-11-09",
+  "researchRepository": "https://github.com/rahuldave/htmpres",
+  "researchCommit": "e5f4a06e8cedcb4e2b99dc8c9d16ae3903a90c61",
+  "evidenceManifestSha256": "60bd12ee50c78a94e28cd37cdccf67604be5352f4407450f99008e3654d68bb5",
+  "files": {
+    "decision-registry.json": "f4882ccf5e2a287797ace47b01a78881c596483df61c96ee49d025dfe5f0ba18",
+    "fonts/DejaVu-LICENSE": "d75938dec098f06f0ac3c00853065d94f020be1c3c62ef1dc2975ba15b4d9b0e",
+    "fonts/dejavu-sans-400.ttf": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+    "fonts/dejavu-sans-700.ttf": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+    "fonts/et-book-bold-line-figures.ttf": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb",
+    "fonts/et-book-roman-line-figures.ttf": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500",
+    "inputs/fonts/dm-sans-400-normal.ttf": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+    "inputs/fonts/dm-sans-600-normal.ttf": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+    "inputs/fonts/et-book-bold-line-figures.woff": "ea6efd96090dc2d0be0a826d1f2b79b07ca9af21f6483f2f96694b761d669ddc",
+    "inputs/fonts/et-book-roman-line-figures.woff": "be0f2c061cd8c57b38b5edd8c03dac72ca7d87fb5c3f7f5c32ed72dede39a601",
+    "inputs/fonts/inter-400-normal.ttf": "1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba",
+    "inputs/fonts/inter-600-normal.ttf": "e7a1aaf7eda9f2fad4131725fa556265ec75ca7b2d756260173a040363e8d4f7",
+    "inputs/fonts/lato-400-normal.ttf": "f43f1c7780d69792278f04b136c934a0298fc66f2e974bac13dd2e53adc52bde",
+    "inputs/fonts/lato-700-normal.ttf": "02e8f4be57ddc47cb7882c41b60216b6085b1ceaf717514be2b88fa15396238d",
+    "inputs/fonts/open-sans-400-normal.ttf": "47ed1cfaa7ffca04a04ab850b2938fd52c09d1b44cfa3e2980878e166b0cbd87",
+    "inputs/fonts/open-sans-600-normal.ttf": "733eb93b167e6d45de09aa768f6c0355647c2c26f5416dbc7407a08ed41e81c6",
+    "inputs/foundations-contract.schema.json": "de7aeac4bcf3839b48e34515547b26d6c4b7ce2f3c2ea3de41b4abed272cb80c",
+    "inputs/foundations/atelier.json": "3ec385d97407a81a0c0296742f1e96a6ef4ffa58d23ca5327059389614e6a44c",
+    "inputs/foundations/darkly-reading.json": "b084c63f7487aeb8e93f690258cd7ab0384529ea6007a30656c4c2423124823d",
+    "inputs/foundations/folio.json": "55d01ee2b4df07fc32bb058833ff4c267b511854fa1ee338fe2f226fa784ee33",
+    "inputs/foundations/litera-reading.json": "eddd68b2ae7ebfb4b2f98be61da0f53e1cfe7bb0be8b9acb55a1d54ac139de0d",
+    "inputs/foundations/nocturne.json": "02381470c683f1002f88f0ef82b07543d3b168bb8dff5f3d7e7557f39cffb5b2",
+    "inputs/foundations/pulse-reading.json": "272ef2054d08336592d526087db1ae6be86beda2d68d27c3ad2c5e9428ec092d",
+    "inputs/foundations/simplex-reading.json": "e7b79329b789a89a06183b9de58e03ce2ce76d1fd368403f3bb777aa6206e09b",
+    "inputs/foundations/tufte.json": "b0cb548a3a28a689450693806eec82f09632610e72828991bd1d74aee68aea85",
+    "inputs/foundations/zephyr-reading.json": "e426bbf820b70b1a36646df17c5d3e626644b2f17c93601fd68e5dd24a74ccbf",
+    "inputs/licenses/atelier-LICENSE": "2f32e9058e5d102b484b05a8fefa046b61602aa7c6bf549846a495bf794ea0a7",
+    "inputs/licenses/atelier-dmsans-OFL.txt": "7ec15e79c59bc14b86436a17e5eb7926b46cbcaeb08e1a7e6c110b415e6eb2a2",
+    "inputs/licenses/darkly-reading-LICENSE": "046dc06f2aad319757fba6a3747da64c73d30745b22a0d4972a21660d9626d46",
+    "inputs/licenses/darkly-reading-lato-OFL.txt": "19e7e97ffc31e58fa0e54919b8189b2ddcc6fd75539f387e2822b107b6a51423",
+    "inputs/licenses/folio-LICENSE": "2f32e9058e5d102b484b05a8fefa046b61602aa7c6bf549846a495bf794ea0a7",
+    "inputs/licenses/folio-dmsans-OFL.txt": "7ec15e79c59bc14b86436a17e5eb7926b46cbcaeb08e1a7e6c110b415e6eb2a2",
+    "inputs/licenses/litera-reading-LICENSE": "6b56df744c53c8c74b901efc790e416f158577a77c911c6c99ab887b7c468418",
+    "inputs/licenses/nocturne-LICENSE": "2f32e9058e5d102b484b05a8fefa046b61602aa7c6bf549846a495bf794ea0a7",
+    "inputs/licenses/nocturne-dmsans-OFL.txt": "7ec15e79c59bc14b86436a17e5eb7926b46cbcaeb08e1a7e6c110b415e6eb2a2",
+    "inputs/licenses/pulse-reading-LICENSE": "edbb3e836c1f58537d2419bbc4a9eba003c7f37fe6a54eaa95bd8949177bcd74",
+    "inputs/licenses/simplex-reading-LICENSE": "e7046a4da350799e60a47cbf9954383900a118c4be66b45d0802f54dd1ba92e2",
+    "inputs/licenses/simplex-reading-open-sans-OFL.txt": "fbbbcfef55318de350562559b671360de6d597112ecc5c73881b05092db89602",
+    "inputs/licenses/tufte-LICENSE": "46ee34d6a00a975a506db5b0faa0cc99acd3154cd52a09d0309a224979898d02",
+    "inputs/licenses/zephyr-reading-LICENSE": "7e5570620fafd604efd27ef20a976acd96fd3b3bea5c4c2334a32dc85100aed8",
+    "inputs/licenses/zephyr-reading-inter-OFL.txt": "5dd548d31a85f756e01d63e00d7faf1e324103ed3e9102fcbbabf2cc2db6dd39",
+    "inputs/provenance.json": "f6462348dd65fd2c0e32882d103d843789b0c6e08a3176356e200489622f7d67",
+    "results/font-resolution.json": "49fcdf01cd18de5f8fcc2ea5bbf776b3ff7e1865c3e1b2ba93758a5e8402c629",
+    "results/palette-samples.json": "b5a6bc7a25c0ec7e65be16a9236f689a3d9ef0fb0ff9208bb6fc7df09192ba4f"
+  },
+  "upstream": {
+    "folio": {
+      "repository": "https://github.com/rahuldave/smalldocs-folio",
+      "commit": "e33e059ff40fd49aad28a8b7449cf77449e66898",
+      "file": "_extensions/folio/foundations.json",
+      "sha256": "55d01ee2b4df07fc32bb058833ff4c267b511854fa1ee338fe2f226fa784ee33"
+    },
+    "atelier": {
+      "repository": "https://github.com/rahuldave/smalldocs-atelier",
+      "commit": "b285e162eed9521114745e34ce3b3d3af5474177",
+      "file": "_extensions/atelier/foundations.json",
+      "sha256": "3ec385d97407a81a0c0296742f1e96a6ef4ffa58d23ca5327059389614e6a44c"
+    },
+    "nocturne": {
+      "repository": "https://github.com/rahuldave/smalldocs-nocturne",
+      "commit": "061dce7006116f5e86e666baa3f40b6e70029303",
+      "file": "_extensions/nocturne/foundations.json",
+      "sha256": "02381470c683f1002f88f0ef82b07543d3b168bb8dff5f3d7e7557f39cffb5b2"
+    },
+    "tufte": {
+      "repository": "https://github.com/rahuldave/smalldocs-tufte",
+      "commit": "70a75da3a3dbc5e87f404fc350723799beca38b5",
+      "file": "_extensions/tufte/foundations.json",
+      "sha256": "b0cb548a3a28a689450693806eec82f09632610e72828991bd1d74aee68aea85"
+    },
+    "zephyr-reading": {
+      "repository": "https://github.com/rahuldave/smalldocs-zephyr-reading",
+      "commit": "f809045ba0dd3420c1cfda74a9046f4d7b85b79c",
+      "file": "_extensions/zephyr-reading/foundations.json",
+      "sha256": "e426bbf820b70b1a36646df17c5d3e626644b2f17c93601fd68e5dd24a74ccbf"
+    },
+    "simplex-reading": {
+      "repository": "https://github.com/rahuldave/smalldocs-simplex-reading",
+      "commit": "4d2b2560a51708c470c28e62a4578074651bace6",
+      "file": "_extensions/simplex-reading/foundations.json",
+      "sha256": "e7b79329b789a89a06183b9de58e03ce2ce76d1fd368403f3bb777aa6206e09b"
+    },
+    "pulse-reading": {
+      "repository": "https://github.com/rahuldave/smalldocs-pulse-reading",
+      "commit": "e02631d0efe6da4fb8bb36095c0c2f0b0a468146",
+      "file": "_extensions/pulse-reading/foundations.json",
+      "sha256": "272ef2054d08336592d526087db1ae6be86beda2d68d27c3ad2c5e9428ec092d"
+    },
+    "litera-reading": {
+      "repository": "https://github.com/rahuldave/smalldocs-litera-reading",
+      "commit": "714bb3cf198ef1d4be7fe0f954061e5352d8a407",
+      "file": "_extensions/litera-reading/foundations.json",
+      "sha256": "eddd68b2ae7ebfb4b2f98be61da0f53e1cfe7bb0be8b9acb55a1d54ac139de0d"
+    },
+    "darkly-reading": {
+      "repository": "https://github.com/rahuldave/smalldocs-darkly-reading",
+      "commit": "5a3024001d402ce854b26e1e69b17dea7f1fe4d9",
+      "file": "_extensions/darkly-reading/foundations.json",
+      "sha256": "b084c63f7487aeb8e93f690258cd7ab0384529ea6007a30656c4c2423124823d"
+    }
+  },
+  "expected": {
+    "registryEncoding": {
+      "qualitative": {
+        "default": "colorblind-subset-3",
+        "extended": "colorblind-subset-5",
+        "alternatives": [],
+        "assignment": "Caller supplies stable ordered category IDs; preserve across mode and figures; use direct labels/markers/dashes",
+        "eight_color_policy": "Comparison only; no universal eight-color recommendation",
+        "variants": {
+          "colorblind-subset-3": {
+            "status": "recommended",
+            "max_categories": 3,
+            "stable_slots": [
+              "A",
+              "B",
+              "C"
+            ],
+            "markers": [
+              "o",
+              "s",
+              "^"
+            ],
+            "dashes": [
+              "solid",
+              "dashed",
+              "dotted"
+            ]
+          },
+          "colorblind-subset-5": {
+            "status": "explicit-conditional",
+            "max_categories": 5,
+            "stable_slots": [
+              "A",
+              "B",
+              "C",
+              "D",
+              "E"
+            ],
+            "markers": [
+              "o",
+              "s",
+              "^",
+              "D",
+              "v"
+            ],
+            "dashes": [
+              "solid",
+              "dashed",
+              "dotted",
+              "dashdot",
+              [
+                5,
+                1,
+                1,
+                1
+              ]
+            ],
+            "limitations": "Worst simulated CAM02 separation is lower than3-category option; small count does not certify identification. Required ink under-stroke/edged markers and direct labels apply; review density and occlusion."
+          }
+        },
+        "bare_cycle_supported": false,
+        "max_categories": 3,
+        "status": "supported-with-required-ink-understroke",
+        "stable_slots": [
+          "A",
+          "B",
+          "C"
+        ],
+        "required_treatment": {
+          "foreground_css_px": 2.5,
+          "understroke_css_px": 5.5,
+          "understroke_role": "ink",
+          "marker_css_px": 7,
+          "marker_edge_css_px": 1.5,
+          "marker_edge_role": "ink",
+          "markers": [
+            "o",
+            "s",
+            "^"
+          ],
+          "dashes": [
+            "solid",
+            "dashed",
+            "dotted"
+          ],
+          "labels": "Explicit category ID at endpoint; no overlapping legend"
+        },
+        "diagnostic_only": [
+          "okabe-ito-subset-3",
+          "okabe-ito-subset-5",
+          "Dark2-visibility-3"
+        ]
+      },
+      "sequential": {
+        "default": "cividis",
+        "alternatives": [
+          "viridis",
+          "mako",
+          "rocket"
+        ],
+        "normalization": "Explicit vmin/vmax; no automatic mode reversal"
+      },
+      "diverging": {
+        "default": "BrBG",
+        "alternatives": [
+          "RdBu",
+          "coolwarm"
+        ],
+        "normalization": "Explicit vmin, meaningful center, vmax; disclose asymmetric limits",
+        "missing": "Opaque contextual neutral fill plus cross/hatch; not the center color"
+      },
+      "special_values": {
+        "bad": {
+          "fill_role": "muted",
+          "ink_role": "background",
+          "hatch": "x"
+        },
+        "under": "endpoint",
+        "over": "endpoint",
+        "clip": true
+      }
+    },
+    "lut": {
+      "color_space": "gamma-encoded sRGB float0..1",
+      "positions": "uniform0..1",
+      "interpretation": "ListedColormap; no automatic reversal",
+      "diverging": "257 samples: componentwise linear interpolation of source256 in encoded sRGB, shared exact middle sample",
+      "approved_ids": [
+        "cividis",
+        "viridis",
+        "mako",
+        "rocket",
+        "BrBG",
+        "RdBu",
+        "coolwarm",
+        "colorblind-subset-3",
+        "colorblind-subset-5"
+      ]
+    },
+    "placement": {
+      "mapping": "Ticks/category labels/legends: UI16 reading, label24 presentation. Plot headings:30 reading/36 presentation. Metadata:14 reading/24 presentation. Body annotations30 only deliberately; deck/display48 is not a plot default.",
+      "equation": "placed_css_px = points * placed_width_px / (72 * figure_width_inches)",
+      "figure_width_inches": 8,
+      "placed_width_px": {
+        "reading": 640,
+        "presentation": 1152
+      },
+      "profiles": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 18
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      }
+    },
+    "themeProfiles": {
+      "folio": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 20
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "atelier": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 18
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "nocturne": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 20
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "tufte": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 20
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "zephyr-reading": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 18
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "simplex-reading": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 18
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "pulse-reading": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 18
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "litera-reading": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 20
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      },
+      "darkly-reading": {
+        "reading": {
+          "label": 16,
+          "heading": 30,
+          "metadata": 14,
+          "body_annotation": 18
+        },
+        "presentation": {
+          "label": 24,
+          "heading": 36,
+          "metadata": 24,
+          "body_annotation": 30
+        }
+      }
+    },
+    "maps": {
+      "cividis": {
+        "kind": "sequential",
+        "count": 256,
+        "samplesSha256": "322513717a67a2f84307874a3e2a76b715f69364c6e90d40573ee3f919999cb4"
+      },
+      "viridis": {
+        "kind": "sequential",
+        "count": 256,
+        "samplesSha256": "7c3d75c98bc3fd26f8adbe0a82d600f04bab92d34aa69ed80e3abb28efdf3c8c"
+      },
+      "mako": {
+        "kind": "sequential",
+        "count": 256,
+        "samplesSha256": "19db538cc59a33583a04b7c29783c219d6b89e3ebd405afa5a18ec7c26685935"
+      },
+      "rocket": {
+        "kind": "sequential",
+        "count": 256,
+        "samplesSha256": "644fdf6e2da5f083b05aba00f982a6cffe9d379b4fc6abc805ab0cec044bad8e"
+      },
+      "BrBG": {
+        "kind": "diverging",
+        "count": 257,
+        "samplesSha256": "a58e835e45adc3ebd054f6e96c88cabf1e2fa3bc34236182cb6a694b6d0d1a14"
+      },
+      "RdBu": {
+        "kind": "diverging",
+        "count": 257,
+        "samplesSha256": "c40c8d522767d9f651e5eda83d3b410e1c99aaa9f2d8d2a61404a664e4d8d8cd"
+      },
+      "coolwarm": {
+        "kind": "diverging",
+        "count": 257,
+        "samplesSha256": "09fff012a07d3d43ef301b05784868c7fc8dc8499d37e1693b2dc22a96560b66"
+      }
+    },
+    "categories": {
+      "colorblind-subset-3": {
+        "definition": {
+          "source": "colorblind",
+          "indices": [
+            0,
+            3,
+            6
+          ],
+          "colors": [
+            "#0173b2",
+            "#d55e00",
+            "#fbafe4"
+          ],
+          "selection": "Finite global maximin CAM02-UCS distance across normal and three severity100 simulations; lexicographic tie break. Visibility assessed separately.",
+          "selection_score": 29.63897406798257
+        },
+        "variant": {
+          "status": "recommended",
+          "max_categories": 3,
+          "stable_slots": [
+            "A",
+            "B",
+            "C"
+          ],
+          "markers": [
+            "o",
+            "s",
+            "^"
+          ],
+          "dashes": [
+            "solid",
+            "dashed",
+            "dotted"
+          ]
+        }
+      },
+      "colorblind-subset-5": {
+        "definition": {
+          "source": "colorblind",
+          "indices": [
+            0,
+            3,
+            5,
+            6,
+            7
+          ],
+          "colors": [
+            "#0173b2",
+            "#d55e00",
+            "#ca9161",
+            "#fbafe4",
+            "#949494"
+          ],
+          "selection": "Finite global maximin CAM02-UCS distance across normal and three severity100 simulations; lexicographic tie break. Visibility assessed separately.",
+          "selection_score": 13.636886169066875
+        },
+        "variant": {
+          "status": "explicit-conditional",
+          "max_categories": 5,
+          "stable_slots": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "markers": [
+            "o",
+            "s",
+            "^",
+            "D",
+            "v"
+          ],
+          "dashes": [
+            "solid",
+            "dashed",
+            "dotted",
+            "dashdot",
+            [
+              5,
+              1,
+              1,
+              1
+            ]
+          ],
+          "limitations": "Worst simulated CAM02 separation is lower than3-category option; small count does not certify identification. Required ink under-stroke/edged markers and direct labels apply; review density and occlusion."
+        }
+      }
+    },
+    "fonts": {
+      "folio": {
+        "ui": {
+          "file": "inputs/fonts/dm-sans-400-normal.ttf",
+          "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+          "internal_family": "DM Sans",
+          "weight": 400,
+          "requested_family": "DM Sans",
+          "notice_paths": [
+            "inputs/licenses/folio-dmsans-OFL.txt"
+          ],
+          "package_source": null,
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": false,
+          "reason": "Owned licensed chart UI face; independent from prose font"
+        },
+        "heading": {
+          "file": "inputs/fonts/dm-sans-600-normal.ttf",
+          "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+          "internal_family": "DM Sans SemiBold",
+          "weight": 600,
+          "requested_family": "DM Sans SemiBold",
+          "notice_paths": [
+            "inputs/licenses/folio-dmsans-OFL.txt"
+          ],
+          "package_source": null,
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": false,
+          "reason": "Owned licensed chart UI face; independent from prose font"
+        }
+      },
+      "atelier": {
+        "ui": {
+          "file": "inputs/fonts/dm-sans-400-normal.ttf",
+          "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+          "internal_family": "DM Sans",
+          "weight": 400,
+          "requested_family": "DM Sans",
+          "notice_paths": [
+            "inputs/licenses/atelier-dmsans-OFL.txt"
+          ],
+          "package_source": null,
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": false,
+          "reason": "Owned licensed chart UI face; independent from prose font"
+        },
+        "heading": {
+          "file": "inputs/fonts/dm-sans-600-normal.ttf",
+          "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+          "internal_family": "DM Sans SemiBold",
+          "weight": 600,
+          "requested_family": "DM Sans SemiBold",
+          "notice_paths": [
+            "inputs/licenses/atelier-dmsans-OFL.txt"
+          ],
+          "package_source": null,
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": false,
+          "reason": "Owned licensed chart UI face; independent from prose font"
+        }
+      },
+      "nocturne": {
+        "ui": {
+          "file": "inputs/fonts/dm-sans-400-normal.ttf",
+          "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+          "internal_family": "DM Sans",
+          "weight": 400,
+          "requested_family": "DM Sans",
+          "notice_paths": [
+            "inputs/licenses/nocturne-dmsans-OFL.txt"
+          ],
+          "package_source": null,
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": false,
+          "reason": "Owned licensed chart UI face; independent from prose font"
+        },
+        "heading": {
+          "file": "inputs/fonts/dm-sans-600-normal.ttf",
+          "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+          "internal_family": "DM Sans SemiBold",
+          "weight": 600,
+          "requested_family": "DM Sans SemiBold",
+          "notice_paths": [
+            "inputs/licenses/nocturne-dmsans-OFL.txt"
+          ],
+          "package_source": null,
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": false,
+          "reason": "Owned licensed chart UI face; independent from prose font"
+        }
+      },
+      "tufte": {
+        "ui": {
+          "file": "fonts/et-book-roman-line-figures.ttf",
+          "sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500",
+          "internal_family": "ETBembo",
+          "weight": 400,
+          "requested_family": "ETBembo",
+          "notice_paths": [
+            "inputs/licenses/tufte-LICENSE"
+          ],
+          "package_source": null,
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": false,
+          "reason": "Owned licensed chart UI face; independent from prose font",
+          "conversion": {
+            "source": "inputs/fonts/et-book-roman-line-figures.woff",
+            "source_sha256": "be0f2c061cd8c57b38b5edd8c03dac72ca7d87fb5c3f7f5c32ed72dede39a601",
+            "family": "ETBembo",
+            "weight": 400,
+            "embedding_flags": 4,
+            "tool": "fontTools 4.68.0",
+            "operation": "Decode WOFF to sfnt; retain outlines/names/flags/timestamps",
+            "license": "inputs/licenses/tufte-LICENSE",
+            "output": "fonts/et-book-roman-line-figures.ttf",
+            "output_sha256": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500"
+          }
+        },
+        "heading": {
+          "file": "fonts/et-book-bold-line-figures.ttf",
+          "sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb",
+          "internal_family": "ETBembo",
+          "weight": 700,
+          "requested_family": "ETBembo",
+          "notice_paths": [
+            "inputs/licenses/tufte-LICENSE"
+          ],
+          "package_source": null,
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": false,
+          "reason": "Owned licensed chart UI face; independent from prose font",
+          "conversion": {
+            "source": "inputs/fonts/et-book-bold-line-figures.woff",
+            "source_sha256": "ea6efd96090dc2d0be0a826d1f2b79b07ca9af21f6483f2f96694b761d669ddc",
+            "family": "ETBembo",
+            "weight": 700,
+            "embedding_flags": 4,
+            "tool": "fontTools 4.68.0",
+            "operation": "Decode WOFF to sfnt; retain outlines/names/flags/timestamps",
+            "license": "inputs/licenses/tufte-LICENSE",
+            "output": "fonts/et-book-bold-line-figures.ttf",
+            "output_sha256": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb"
+          }
+        }
+      },
+      "zephyr-reading": {
+        "ui": {
+          "file": "inputs/fonts/inter-400-normal.ttf",
+          "sha256": "1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba",
+          "internal_family": "Inter",
+          "weight": 400,
+          "requested_family": "Inter",
+          "notice_paths": [
+            "inputs/licenses/zephyr-reading-inter-OFL.txt"
+          ],
+          "package_source": null,
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": false,
+          "reason": "Owned licensed chart UI face; independent from prose font"
+        },
+        "heading": {
+          "file": "inputs/fonts/inter-600-normal.ttf",
+          "sha256": "e7a1aaf7eda9f2fad4131725fa556265ec75ca7b2d756260173a040363e8d4f7",
+          "internal_family": "Inter SemiBold",
+          "weight": 600,
+          "requested_family": "Inter SemiBold",
+          "notice_paths": [
+            "inputs/licenses/zephyr-reading-inter-OFL.txt"
+          ],
+          "package_source": null,
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": false,
+          "reason": "Owned licensed chart UI face; independent from prose font"
+        }
+      },
+      "simplex-reading": {
+        "ui": {
+          "file": "inputs/fonts/open-sans-400-normal.ttf",
+          "sha256": "47ed1cfaa7ffca04a04ab850b2938fd52c09d1b44cfa3e2980878e166b0cbd87",
+          "internal_family": "Open Sans",
+          "weight": 400,
+          "requested_family": "Open Sans",
+          "notice_paths": [
+            "inputs/licenses/simplex-reading-open-sans-OFL.txt"
+          ],
+          "package_source": null,
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": false,
+          "reason": "Owned licensed chart UI face; independent from prose font"
+        },
+        "heading": {
+          "file": "inputs/fonts/open-sans-600-normal.ttf",
+          "sha256": "733eb93b167e6d45de09aa768f6c0355647c2c26f5416dbc7407a08ed41e81c6",
+          "internal_family": "Open Sans SemiBold",
+          "weight": 600,
+          "requested_family": "Open Sans SemiBold",
+          "notice_paths": [
+            "inputs/licenses/simplex-reading-open-sans-OFL.txt"
+          ],
+          "package_source": null,
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": false,
+          "reason": "Owned licensed chart UI face; independent from prose font"
+        }
+      },
+      "pulse-reading": {
+        "ui": {
+          "file": "fonts/dejavu-sans-400.ttf",
+          "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+          "internal_family": "DejaVu Sans",
+          "weight": 400,
+          "requested_family": "platform UI sans",
+          "notice_paths": [
+            "fonts/DejaVu-LICENSE"
+          ],
+          "package_source": "Matplotlib 3.11.2 mpl-data/fonts/ttf/DejaVuSans.ttf",
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": true,
+          "reason": "Pinned portable fallback for platform UI stack"
+        },
+        "heading": {
+          "file": "fonts/dejavu-sans-700.ttf",
+          "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+          "internal_family": "DejaVu Sans",
+          "weight": 700,
+          "requested_family": "platform UI sans",
+          "notice_paths": [
+            "fonts/DejaVu-LICENSE"
+          ],
+          "package_source": "Matplotlib 3.11.2 mpl-data/fonts/ttf/DejaVuSans-Bold.ttf",
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": true,
+          "reason": "Pinned portable fallback for platform UI stack"
+        }
+      },
+      "litera-reading": {
+        "ui": {
+          "file": "fonts/dejavu-sans-400.ttf",
+          "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+          "internal_family": "DejaVu Sans",
+          "weight": 400,
+          "requested_family": "platform UI sans",
+          "notice_paths": [
+            "fonts/DejaVu-LICENSE"
+          ],
+          "package_source": "Matplotlib 3.11.2 mpl-data/fonts/ttf/DejaVuSans.ttf",
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": true,
+          "reason": "Pinned portable fallback for platform UI stack"
+        },
+        "heading": {
+          "file": "fonts/dejavu-sans-700.ttf",
+          "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+          "internal_family": "DejaVu Sans",
+          "weight": 700,
+          "requested_family": "platform UI sans",
+          "notice_paths": [
+            "fonts/DejaVu-LICENSE"
+          ],
+          "package_source": "Matplotlib 3.11.2 mpl-data/fonts/ttf/DejaVuSans-Bold.ttf",
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": true,
+          "reason": "Pinned portable fallback for platform UI stack"
+        }
+      },
+      "darkly-reading": {
+        "ui": {
+          "file": "inputs/fonts/lato-400-normal.ttf",
+          "sha256": "f43f1c7780d69792278f04b136c934a0298fc66f2e974bac13dd2e53adc52bde",
+          "internal_family": "Lato",
+          "weight": 400,
+          "requested_family": "Lato",
+          "notice_paths": [
+            "inputs/licenses/darkly-reading-lato-OFL.txt"
+          ],
+          "package_source": null,
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": false,
+          "reason": "Owned licensed chart UI face; independent from prose font"
+        },
+        "heading": {
+          "file": "inputs/fonts/lato-700-normal.ttf",
+          "sha256": "02e8f4be57ddc47cb7882c41b60216b6085b1ceaf717514be2b88fa15396238d",
+          "internal_family": "Lato",
+          "weight": 700,
+          "requested_family": "Lato",
+          "notice_paths": [
+            "inputs/licenses/darkly-reading-lato-OFL.txt"
+          ],
+          "package_source": null,
+          "glyph_policy": "ASCII minus for numeric ticks; all actual displayed glyphs must exist",
+          "fallback": false,
+          "reason": "Owned licensed chart UI face; independent from prose font"
+        }
+      }
+    },
+    "fontMetadata": {
+      "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9": {
+        "internalFamily": "DM Sans",
+        "weight": 400,
+        "embeddingFlags": 0
+      },
+      "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a": {
+        "internalFamily": "DM Sans SemiBold",
+        "weight": 600,
+        "embeddingFlags": 0
+      },
+      "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500": {
+        "internalFamily": "ETBembo",
+        "weight": 400,
+        "embeddingFlags": 4
+      },
+      "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb": {
+        "internalFamily": "ETBembo",
+        "weight": 700,
+        "embeddingFlags": 4
+      },
+      "1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba": {
+        "internalFamily": "Inter",
+        "weight": 400,
+        "embeddingFlags": 0
+      },
+      "e7a1aaf7eda9f2fad4131725fa556265ec75ca7b2d756260173a040363e8d4f7": {
+        "internalFamily": "Inter SemiBold",
+        "weight": 600,
+        "embeddingFlags": 0
+      },
+      "47ed1cfaa7ffca04a04ab850b2938fd52c09d1b44cfa3e2980878e166b0cbd87": {
+        "internalFamily": "Open Sans",
+        "weight": 400,
+        "embeddingFlags": 0
+      },
+      "733eb93b167e6d45de09aa768f6c0355647c2c26f5416dbc7407a08ed41e81c6": {
+        "internalFamily": "Open Sans SemiBold",
+        "weight": 600,
+        "embeddingFlags": 0
+      },
+      "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22": {
+        "internalFamily": "DejaVu Sans",
+        "weight": 400,
+        "embeddingFlags": 0
+      },
+      "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167": {
+        "internalFamily": "DejaVu Sans",
+        "weight": 700,
+        "embeddingFlags": 0
+      },
+      "f43f1c7780d69792278f04b136c934a0298fc66f2e974bac13dd2e53adc52bde": {
+        "internalFamily": "Lato",
+        "weight": 400,
+        "embeddingFlags": 0
+      },
+      "02e8f4be57ddc47cb7882c41b60216b6085b1ceaf717514be2b88fa15396238d": {
+        "internalFamily": "Lato",
+        "weight": 700,
+        "embeddingFlags": 0
+      }
+    }
+  },
+  "dashCueProvenance": {
+    "source": "Matplotlib 3.11.2 matplotlibrc and lines.py; foreground Line2D graphics context retained by patheffects.Stroke",
+    "sourceVersion": "3.11.2",
+    "unit": "foreground-linewidth-multiple",
+    "offset": 0,
+    "sharedBetweenLayers": true,
+    "namedPatterns": {
+      "solid": [],
+      "dashed": [
+        3.7,
+        1.6
+      ],
+      "dotted": [
+        1,
+        1.65
+      ],
+      "dashdot": [
+        6.4,
+        1.6,
+        1,
+        1.6
+      ]
+    },
+    "dashCap": "butt",
+    "solidCap": "projecting"
+  }
+}

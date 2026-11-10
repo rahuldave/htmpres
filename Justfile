@@ -155,3 +155,30 @@ python-gallery-check: python-gallery
   uv run --project packages/python --python 3.12 --locked --group verification python -B -m unittest tests/test_python_gallery.py
 
 python-check: python-snapshot-check python-test python-install-test diff-check
+
+# Native R reference: local dependencies, never user-global package installation.
+r-setup library=".build/packages/r-library":
+  Rscript packages/r/tools/install-dependencies.R "{{library}}"
+
+r-promotion-test:
+  uv run --project packages/spec --locked python -B -m unittest tests/test_r_promotion.py
+
+r-snapshot-check:
+  uv run --project packages/spec --locked python -B scripts/promote-r-spec.py
+
+r-test:
+  LANG=C LC_ALL=C R_LIBS_USER="$PWD/.build/packages/r-library" R CMD INSTALL --library="$PWD/.build/packages/r-library" packages/r
+  LANG=C LC_ALL=C R_LIBS_USER="$PWD/.build/packages/r-library" Rscript packages/r/tests/core.R
+  LANG=C LC_ALL=C R_LIBS_USER="$PWD/.build/packages/r-library" Rscript packages/r/tests/resources.R
+  LANG=C LC_ALL=C R_LIBS_USER="$PWD/.build/packages/r-library" Rscript packages/r/tests/graphics.R
+
+r-install-test:
+  python3 -B integration_tests/r-reference-installed.py
+
+r-gallery:
+  LANG=C LC_ALL=C R_LIBS_USER="$PWD/.build/packages/r-library" Rscript packages/r/inst/examples/gallery.R .build/packages/r-gallery
+
+r-gallery-check:
+  python3 -B integration_tests/check-r-gallery.py .build/packages/r-gallery
+
+r-check: r-snapshot-check r-promotion-test r-test r-install-test diff-check

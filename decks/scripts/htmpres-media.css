@@ -1,0 +1,110 @@
+/* Media roles preserve geometry; theme values provide steady text contrast. */
+.slide :is(.ds-full,.ds-left,.ds-right):is(.ds-readable,.ds-vignette) {
+  position: absolute;
+}
+.slide .ds-full > :is(p,figure) { min-height: 0; grid-template-rows: minmax(0,1fr); }
+.slide .ds-full figcaption { display: none; }
+
+/* One picture gets the remaining height, including its caption and credit lane. */
+.slide.active.htmpres-picture-slide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--htmpres-group-gap, 24px);
+}
+.slide.htmpres-picture-slide,
+.slide.htmpres-split-media {
+  padding-bottom: 82px;
+}
+.slide:is(.htmpres-picture-slide,.htmpres-split-media).htmpres-has-credits {
+  padding-bottom: calc(var(--htmpres-credit-base-padding,82px) + var(--htmpres-credit-reserve,0px));
+}
+.slide.htmpres-picture-slide > h2 { flex: none; }
+.slide.htmpres-picture-slide > :is(figure,p,.ds-media) {
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+  margin: 0;
+}
+.slide.htmpres-picture-slide > :is(figure,p),
+.slide.htmpres-picture-slide > .ds-media > :is(figure,p),
+.slide.htmpres-split-media > .ds-media > :is(figure,p) {
+  display: grid;
+  grid-template-rows: minmax(0,1fr) auto;
+  gap: .5em;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+}
+.slide:is(.htmpres-picture-slide,.htmpres-split-media) :is(figure,p) > :is(img,a:has(>img)),
+.slide:is(.htmpres-picture-slide,.htmpres-split-media) :is(figure,p) > a > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  object-fit: contain;
+}
+.slide:is(.htmpres-picture-slide,.htmpres-split-media) :is(img.ds-fill,.ds-fill img) { object-fit: cover; }
+.slide.htmpres-split-media :is(ul,ol) { padding-inline-start: 1.1em; }
+.slide:is(.htmpres-picture-slide,.htmpres-split-media) figcaption {
+  position: relative;
+  z-index: 2;
+  background: var(--paper);
+  color: var(--htmpres-media-label-ink,var(--ink));
+  margin: 0;
+  line-height: 1.3;
+}
+.slide.active.htmpres-split-media {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  grid-template-rows: auto minmax(0,1fr);
+  gap: var(--htmpres-group-gap,24px) var(--htmpres-column-gap,28px);
+}
+.slide.htmpres-split-media > h2 { grid-column: 1 / -1; }
+.slide.htmpres-split-media > :is(.ds-left,.ds-right) {
+  position: relative;
+  inset: auto;
+  width: auto;
+  height: 100%;
+  min-height: 0;
+  grid-row: 2;
+  padding: 0;
+}
+.slide.htmpres-split-media > :not(h2):not(.ds-left):not(.ds-right):not(.slide-credits) {
+  grid-row: 2;
+  grid-column: 2;
+  min-width: 0;
+  min-height: 0;
+}
+.slide.htmpres-split-media:has(> .ds-right.ds-media) > :not(h2):not(.ds-left):not(.ds-right):not(.slide-credits) { grid-column: 1; }
+.slide.htmpres-split-media > .ds-left { grid-column: 1; }
+.slide.htmpres-split-media > .ds-right { grid-column: 2; }
+
+/* Opaque theme panels work on dark, light and mixed photographs alike. */
+.slide .ds-layer,
+.slide.htmpres-full-media > :is(h2,p,ul,ol,blockquote) {
+  background: var(--htmpres-media-text-bg, var(--paper));
+  color: var(--htmpres-media-text-ink, var(--ink));
+  padding: var(--htmpres-media-text-padding, .45em .65em);
+  width: fit-content;
+  max-width: 100%;
+}
+.slide .ds-layer :is(.key,.aside,.statement),
+.slide.htmpres-full-media > :is(h2,p,ul,ol,blockquote) :is(.key,.aside,.statement),
+.slide .ds-layer :is(p,li,h2,h3,a) {
+  color: inherit;
+}
+.slide:is(.htmpres-full-media,.htmpres-picture-slide,.htmpres-split-media)::after {
+  z-index: 3;
+  pointer-events: none;
+  background: var(--htmpres-media-label-bg, var(--paper));
+  color: var(--htmpres-media-label-ink, var(--ink));
+  padding: .25em .5em;
+}
+@media (max-width: 980px) {
+  .slide.htmpres-picture-slide,
+  .slide.htmpres-split-media {
+    padding-bottom: var(--htmpres-mobile-slide-bottom-clearance,120px);
+  }
+}

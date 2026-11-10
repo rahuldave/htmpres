@@ -6,7 +6,7 @@ import path from "node:path";
 import { colorModeControl, colorModeScript, resolveTheme, themeAssets, themeAttributes, themeStyles } from "../_extensions/htmpres/themes/themes.mjs";
 import { matchThemeStyles } from "../_extensions/htmpres/themes/matches.mjs";
 
-import { arrangeSlideCredits, assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds } from "../_extensions/htmpres/lib/render.mjs";
+import { slideMediaClasses, arrangeSlideCredits, assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds } from "../_extensions/htmpres/lib/render.mjs";
 import { deckCounter, extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, splitFrontMatter as splitSourceFrontMatter } from "../_extensions/htmpres/lib/source.mjs";
 
 const themeDirectory = new URL("../_extensions/htmpres/themes/", import.meta.url);
@@ -117,6 +117,7 @@ function renderSlide(slide, index, globalBackground) {
   } catch (error) { throw new Error(`Slide ${index + 1} (${title}): ${error.message}`); }
   bodyHtml = arrangeSlideCredits(matches.html);
   const backgroundHtml = renderBackgroundLayer(attrs, globalBackground);
+  classes.push(...slideMediaClasses(bodyHtml, Boolean(backgroundHtml)));
   const dataAttrs = { ...attrs.keyValues, id: slide.id || attrs.keyValues.id || `slide-${index + 1}` };
   if (matches.groups.length) dataAttrs["data-match-groups"] = matches.groups.join("|");
   if (!dataAttrs["data-title"]) dataAttrs["data-title"] = renderedTitle.plainText || `Slide ${index + 1}`;
@@ -260,6 +261,7 @@ ${css}
 ${runtimeCss()}
 .counter[hidden] { display: none !important; }
 ${readRuntimeFile("htmpres-semantic.css")}
+${readRuntimeFile("htmpres-media.css")}
 ${readRuntimeFile("htmpres-steps.css")}
   </style>
 </head>

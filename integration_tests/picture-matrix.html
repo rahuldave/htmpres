@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><title>Picture-slide browser regression matrix</title>
+<style>body{font:16px system-ui;margin:20px;background:#f4f4f4;color:#20242a}button{font:inherit;padding:.6em}iframe{display:block;width:1280px;height:720px;border:1px solid #aaa;margin-top:16px}#status{min-height:2em}#failures{white-space:pre-wrap}summary{cursor:pointer}</style>
+<h1>Picture-slide browser regressions</h1>
+<p>Each theme runs at 1280 × 720 in both output views. Optional width/height query parameters exercise a compact Nocturne subset. The checks use the real renderer, fonts, images, controls and layout engine.</p>
+<button id="run">Run all picture checks</button>
+<p id="status" role="status">Ready</p><pre id="failures"></pre>
+<details><summary>Structured results</summary><pre id="results"></pre></details>
+<iframe id="deck" title="Current picture-slide case" width="1280" height="720"></iframe>
+<script type="module">
+import {pictureSnapshot,pictureFailures,pictureSlideLabels} from './picture-slides-browser.mjs';
+const frame=document.querySelector('#deck'),button=document.querySelector('#run'),status=document.querySelector('#status'),results=document.querySelector('#results');
+const settle=async win=>new Promise(resolve=>win.requestAnimationFrame(()=>win.requestAnimationFrame(resolve)));
+button.addEventListener('click',async()=>{
+ button.disabled=true;const output=[];let failed=0;
+ try{
+  const response=await fetch('manifest.json');if(!response.ok)throw Error('Cannot load matrix manifest');let cases=await response.json();
+  const query=new URLSearchParams(location.search);if(query.has('width')){const width=Number(query.get('width')),height=Number(query.get('height')||900);if(!Number.isInteger(width)||!Number.isInteger(height)||width<320||width>2560||height<320||height>1600)throw Error('Invalid test viewport');frame.style.width=`${width}px`;frame.style.height=`${height}px`;cases=cases.filter(c=>c.theme==='nocturne');}
+  for(const [i,c]of cases.entries()){
+   status.textContent=`Checking ${i+1}/${cases.length}: ${c.theme} ${c.mode} ${c.view}`;
+   await new Promise((resolve,reject)=>{frame.onload=resolve;frame.onerror=reject;frame.src=c.path;});
+   const doc=frame.contentDocument,win=frame.contentWindow;await doc.fonts.ready;
+   await Promise.all([...doc.images].map(img=>img.decode().catch(()=>{})));await settle(win);
+   const failures=[];
+   for(let n=0;n<pictureSlideLabels.length;n++){
+    if(n){doc.querySelector('#nextBtn').click();await settle(win);}
+    const state=pictureSnapshot(doc,{width:win.innerWidth,height:win.innerHeight}),errors=pictureFailures(state,n+1);
+    if(state.title!==pictureSlideLabels[n])errors.push('Next reaches expected slide');
+    if(errors.length)failures.push({slide:n+1,errors,state});
+   }
+   const actualMode=doc.documentElement.dataset.colorMode;
+   if(actualMode&&actualMode!==c.mode)failures.push({errors:[`Actual mode ${actualMode} differs from ${c.mode}`]});
+   output.push({...c,failures});if(failures.length)failed++;
+   results.textContent=JSON.stringify(output,null,2);
+   document.querySelector('#failures').textContent=failed?`${failed} cases failed; see structured results.`:'';
+  }
+  status.textContent=`Complete: ${output.length} cases, ${output.length*pictureSlideLabels.length} slide checks, ${failed} failed cases`;
+ }catch(error){status.textContent=`Error: ${error.message}`;}finally{button.disabled=false;}
+});
+</script></html>

@@ -89,6 +89,49 @@ function mapTags(html, transform) {
   return output + html.slice(previous);
 }
 
+/** Classify canonical picture layouts without interpreting code examples as media. */
+export function slideMediaClasses(html, hasBackground = false) {
+  const top = [], stack = [];
+  let full = hasBackground;
+  for (const tag of htmlTags(html)) {
+    if (tag.skip) continue;
+    if (tag.closing) {
+      const index = stack.map(node => node.name).lastIndexOf(tag.name);
+      if (index < 0) continue;
+      const node = stack[index];
+      node.end = tag.end;
+      stack.length = index;
+      continue;
+    }
+    const classes = tag.attributes.find(attr => attr.name === 'class')?.value.split(/\s+/) || [];
+    const node = { name: tag.name, classes, start: tag.start, end: tag.end, images: tag.name === 'img' ? 1 : 0, children: [] };
+    const inCode = stack.some(parent => /^(pre|code)$/.test(parent.name));
+    if (!inCode) {
+      if (classes.includes('ds-full')) full = true;
+      if (node.images) stack.forEach(parent => { parent.images++; });
+    }
+    if (!stack.length) top.push(node);
+    else stack.at(-1).children.push(node);
+    if (!/^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/.test(tag.name)) stack.push(node);
+  }
+  if (full) return ['htmpres-full-media'];
+  const content = top.filter(node => !node.classes.includes('slide-credits'));
+  function picture(node) {
+    if (node.images !== 1) return false;
+    if (node.name === 'img') return true;
+    if (node.name === 'figure') return node.children.every(child => ['img','a','figcaption'].includes(child.name));
+    if (node.classes.includes('ds-media')) return node.children.length === 1 && picture(node.children[0]);
+    if (node.name !== 'p') return false;
+    const source = html.slice(node.start,node.end);
+    let cursor = 0, text = '';
+    for (const tag of htmlTags(source)) { text += source.slice(cursor,tag.start); cursor = tag.end; }
+    return !(text + source.slice(cursor)).trim();
+  }
+  if (content.length === 2 && content.reduce((count,node) => count + node.images,0) === 1 && content.some(node => picture(node) && node.classes.some(role => ['ds-left','ds-right'].includes(role)))) return ['htmpres-split-media'];
+  if (content.length === 1 && picture(content[0]) && content[0].name !== 'img') return ['htmpres-picture-slide'];
+  return [];
+}
+
 /** Collect picture attribution in a single slide lane; preserve source lines and code examples. */
 export function arrangeSlideCredits(html) {
   const stack = [], credits = [];

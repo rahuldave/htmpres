@@ -232,10 +232,10 @@ npm run verify
 
 ### Independent package scaffold commands
 
-`packages/` contains standalone Plotfoundry identity scaffolds, not plotting APIs.
+`packages/` contains the standalone Plotfoundry Python reference and R/JS identity scaffolds.
 Keep root `package.json` private and `_extensions/htmpres` unchanged in identity.
 `just packages-build` builds the Python wheel/sdist, R source archive and npm
-package into ignored `.build/packages/`. It requires developer Python 3.11+, uv,
+package into ignored `.build/packages/`. It requires developer Python 3.12+, uv,
 R/Rscript, and npm/Node; these are build/test orchestration tools, not cross-language
 runtime dependencies. The individual packages document native builds.
 `just packages-test` runs focused boundary tests; `just packages-install-test`
@@ -372,3 +372,14 @@ response and do not imply the interaction was checked.
 Browser spot checks are exploratory implementation checks. Browser integration
 tests are durable rerunnable checks; put repeated browser-agent flows under the
 project's integration test location.
+
+Python reference commands: `just python-snapshot-check` rejects stale bundled spec
+resources; `just python-test` runs callable/behavior regressions; `just python-build`
+builds independent wheel/sdist; `just python-gallery` writes specimens for 72 cases PNG/SVG/PDF
+specimens to ignored `.build/packages/python-gallery/`; `just python-gallery-check`
+checks actual raster/vector dimensions, fonts, fills and 72-case coverage; `just python-install-test`
+installs wheel and sdist-rebuilt wheel outside this checkout with cached pinned
+plotting dependencies; `just python-check` composes focused verification. These
+optional commands use Python 3.12 and the locked verification group; they do not
+require R/JavaScript or alter the root htmpres identity. Shared spec edits remain
+separately reviewed work. Native R/JS adapters and public releases remain gated.

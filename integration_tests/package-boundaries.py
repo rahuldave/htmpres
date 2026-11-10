@@ -77,11 +77,12 @@ def main():
         "p=Path(plotfoundry.__file__).resolve(); "
         "assert 'site-packages' in p.parts; "
         "assert not any(x in str(p) for x in ['research', '_extensions']); "
-        "assert not metadata('plotfoundry').get_all('Requires-Dist'); "
+        "assert all('extra ==' in r for r in metadata('plotfoundry').get_all('Requires-Dist', [])); "
         "info=plotfoundry.package_info(); "
-        "assert info['name']=='plotfoundry' and info['status']=='scaffold'; "
+        "assert info['name']=='plotfoundry' and info['status']=='python-reference'; "
         "assert info['version']==metadata('plotfoundry')['Version']; "
         "info['name']='changed'; assert plotfoundry.package_info()['name']=='plotfoundry'; "
+        "assert len(plotfoundry.load_spec()['cases'])==72; "
         "print(json.dumps(plotfoundry.package_info(),sort_keys=True))"
     )
     for name, artifact in (("wheel", wheel), ("rebuilt", None)):

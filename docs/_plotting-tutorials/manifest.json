@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "inputs": {
+    "examples/plotting-tutorials/python-electricity-presentation.py": "4dfce66b3a2d17eaa1f7f61a20db2a39ed6833ace119e74e7d49a9a41bb5c5d8",
+    "examples/plotting-tutorials/python-electricity.py": "f3e8d53abfc0b885b763ee41af2dbbe46b9ae632d47b112b9a95d66a73170d46",
+    "examples/plotting-tutorials/python-occupancy.py": "bddeee83041f7116929814cad5536952161bf3b791b13496a1cb8fbdba2fe22d",
+    "examples/plotting-tutorials/python-reservoir.py": "11d0b8b10964672f486682c908302a1d4c0f2debbedb5a115206ba6243d5098c",
+    "examples/plotting-tutorials/python-temperature.py": "dc8bd594992e2fe1f7480d558598a0dd317e0900a09c16aefeaf3a8fe4880b38",
+    "examples/plotting-tutorials/r-base-yield.R": "edfd447b6a8412bcc15a65e775cb879255012f6e731d986660b84590e0746799",
+    "examples/plotting-tutorials/r-nitrate.R": "f53ba36ac4c8ea65764e55fda49ddbe725a5667a226152468590c75390c6d51e",
+    "examples/plotting-tutorials/r-temperature.R": "eb089abe66aef1106ce2b39f2214cbfafb46ea8746bddf4a69f25d23544ff38b",
+    "examples/plotting-tutorials/r-yield-presentation.R": "76c835febc0a780d4a5ffd2f77ba289db9a88b95d483d6c26cc9f778024cb219",
+    "examples/plotting-tutorials/r-yield.R": "66c83ca4a969fdb413b397d72498a8888e888b0d9b63c33dcdd4901551ed6861",
+    "packages/python/src/plotfoundry/__init__.py": "9ac6793e18932c2faa99c87e4471ece390fbeb1174e83f6f8a4faf5aa7272b39",
+    "packages/python/src/plotfoundry/_resources/_contract.py": "49e7a4f8431484ee2ed7bf61c26749746cc8052f8902899e50c66338af5c873e",
+    "packages/python/src/plotfoundry/_resources/_reference.py": "2ad49cfb285f9179676e264acfdddb2b4564695aa90c3d5eb8c71712bbb34e95",
+    "packages/python/src/plotfoundry/_resources/_validation.py": "314ffa2c151c6ef10007bc2b550296a512de97364634f78fd25f899e1f5aac44",
+    "packages/python/src/plotfoundry/_resources/conformance.json": "b8882cc494dc904dcbbe180b37f1689495e68f8e937edb9d12d91604b5692d80",
+    "packages/python/src/plotfoundry/_resources/data/conversion-sources/et-book-bold-line-figures.woff": "ea6efd96090dc2d0be0a826d1f2b79b07ca9af21f6483f2f96694b761d669ddc",
+    "packages/python/src/plotfoundry/_resources/data/conversion-sources/et-book-roman-line-figures.woff": "be0f2c061cd8c57b38b5edd8c03dac72ca7d87fb5c3f7f5c32ed72dede39a601",
+    "packages/python/src/plotfoundry/_resources/data/fonts/dejavu-sans-400.ttf": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+    "packages/python/src/plotfoundry/_resources/data/fonts/dejavu-sans-700.ttf": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+    "packages/python/src/plotfoundry/_resources/data/fonts/dm-sans-400-normal.ttf": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+    "packages/python/src/plotfoundry/_resources/data/fonts/dm-sans-600-normal.ttf": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+    "packages/python/src/plotfoundry/_resources/data/fonts/et-book-bold-line-figures.ttf": "65817d6a614f76c596e04851004332d3462d082cdd9d431a1f3f80001ba3b8bb",
+    "packages/python/src/plotfoundry/_resources/data/fonts/et-book-roman-line-figures.ttf": "59035112d7e2bc6ad884f3b8850b17679e7617e8620e4d0811effbb3516dc500",
+    "packages/python/src/plotfoundry/_resources/data/fonts/inter-400-normal.ttf": "1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba",
+    "packages/python/src/plotfoundry/_resources/data/fonts/inter-600-normal.ttf": "e7a1aaf7eda9f2fad4131725fa556265ec75ca7b2d756260173a040363e8d4f7",
+    "packages/python/src/plotfoundry/_resources/data/fonts/lato-400-normal.ttf": "f43f1c7780d69792278f04b136c934a0298fc66f2e974bac13dd2e53adc52bde",
+    "packages/python/src/plotfoundry/_resources/data/fonts/lato-700-normal.ttf": "02e8f4be57ddc47cb7882c41b60216b6085b1ceaf717514be2b88fa15396238d",
+    "packages/python/src/plotfoundry/_resources/data/fonts/open-sans-400-normal.ttf": "47ed1cfaa7ffca04a04ab850b2938fd52c09d1b44cfa3e2980878e166b0cbd87",
+    "packages/python/src/plotfoundry/_resources/data/fonts/open-sans-600-normal.ttf": "733eb93b167e6d45de09aa768f6c0355647c2c26f5416dbc7407a08ed41e81c6",
+    "packages/python/src/plotfoundry/_resources/data/foundations/atelier.json": "3ec385d97407a81a0c0296742f1e96a6ef4ffa58d23ca5327059389614e6a44c",
+    "packages/python/src/plotfoundry/_resources/data/foundations/darkly-reading.json": "b084c63f7487aeb8e93f690258cd7ab0384529ea6007a30656c4c2423124823d",
+    "packages/python/src/plotfoundry/_resources/data/foundations/folio.json": "55d01ee2b4df07fc32bb058833ff4c267b511854fa1ee338fe2f226fa784ee33",
+    "packages/python/src/plotfoundry/_resources/data/foundations/litera-reading.json": "eddd68b2ae7ebfb4b2f98be61da0f53e1cfe7bb0be8b9acb55a1d54ac139de0d",
+    "packages/python/src/plotfoundry/_resources/data/foundations/nocturne.json": "02381470c683f1002f88f0ef82b07543d3b168bb8dff5f3d7e7557f39cffb5b2",
+    "packages/python/src/plotfoundry/_resources/data/foundations/pulse-reading.json": "272ef2054d08336592d526087db1ae6be86beda2d68d27c3ad2c5e9428ec092d",
+    "packages/python/src/plotfoundry/_resources/data/foundations/simplex-reading.json": "e7b79329b789a89a06183b9de58e03ce2ce76d1fd368403f3bb777aa6206e09b",
+    "packages/python/src/plotfoundry/_resources/data/foundations/tufte.json": "b0cb548a3a28a689450693806eec82f09632610e72828991bd1d74aee68aea85",
+    "packages/python/src/plotfoundry/_resources/data/foundations/zephyr-reading.json": "e426bbf820b70b1a36646df17c5d3e626644b2f17c93601fd68e5dd24a74ccbf",
+    "packages/python/src/plotfoundry/_resources/data/manifest.json": "dadaef86eb04ef059a932f61a2af55c8011209176cab1325f1b97205d4e0aa51",
+    "packages/python/src/plotfoundry/_resources/data/notices/DejaVu-LICENSE": "d75938dec098f06f0ac3c00853065d94f020be1c3c62ef1dc2975ba15b4d9b0e",
+    "packages/python/src/plotfoundry/_resources/data/notices/atelier-LICENSE": "2f32e9058e5d102b484b05a8fefa046b61602aa7c6bf549846a495bf794ea0a7",
+    "packages/python/src/plotfoundry/_resources/data/notices/atelier-dmsans-OFL.txt": "7ec15e79c59bc14b86436a17e5eb7926b46cbcaeb08e1a7e6c110b415e6eb2a2",
+    "packages/python/src/plotfoundry/_resources/data/notices/darkly-reading-LICENSE": "046dc06f2aad319757fba6a3747da64c73d30745b22a0d4972a21660d9626d46",
+    "packages/python/src/plotfoundry/_resources/data/notices/darkly-reading-lato-OFL.txt": "19e7e97ffc31e58fa0e54919b8189b2ddcc6fd75539f387e2822b107b6a51423",
+    "packages/python/src/plotfoundry/_resources/data/notices/folio-LICENSE": "2f32e9058e5d102b484b05a8fefa046b61602aa7c6bf549846a495bf794ea0a7",
+    "packages/python/src/plotfoundry/_resources/data/notices/folio-dmsans-OFL.txt": "7ec15e79c59bc14b86436a17e5eb7926b46cbcaeb08e1a7e6c110b415e6eb2a2",
+    "packages/python/src/plotfoundry/_resources/data/notices/litera-reading-LICENSE": "6b56df744c53c8c74b901efc790e416f158577a77c911c6c99ab887b7c468418",
+    "packages/python/src/plotfoundry/_resources/data/notices/nocturne-LICENSE": "2f32e9058e5d102b484b05a8fefa046b61602aa7c6bf549846a495bf794ea0a7",
+    "packages/python/src/plotfoundry/_resources/data/notices/nocturne-dmsans-OFL.txt": "7ec15e79c59bc14b86436a17e5eb7926b46cbcaeb08e1a7e6c110b415e6eb2a2",
+    "packages/python/src/plotfoundry/_resources/data/notices/pulse-reading-LICENSE": "edbb3e836c1f58537d2419bbc4a9eba003c7f37fe6a54eaa95bd8949177bcd74",
+    "packages/python/src/plotfoundry/_resources/data/notices/simplex-reading-LICENSE": "e7046a4da350799e60a47cbf9954383900a118c4be66b45d0802f54dd1ba92e2",
+    "packages/python/src/plotfoundry/_resources/data/notices/simplex-reading-open-sans-OFL.txt": "fbbbcfef55318de350562559b671360de6d597112ecc5c73881b05092db89602",
+    "packages/python/src/plotfoundry/_resources/data/notices/tufte-LICENSE": "46ee34d6a00a975a506db5b0faa0cc99acd3154cd52a09d0309a224979898d02",
+    "packages/python/src/plotfoundry/_resources/data/notices/zephyr-reading-LICENSE": "7e5570620fafd604efd27ef20a976acd96fd3b3bea5c4c2334a32dc85100aed8",
+    "packages/python/src/plotfoundry/_resources/data/notices/zephyr-reading-inter-OFL.txt": "5dd548d31a85f756e01d63e00d7faf1e324103ed3e9102fcbbabf2cc2db6dd39",
+    "packages/python/src/plotfoundry/_resources/data/spec.json": "e45ddacfaddf07f7de593c844fe75c42be5e3b528ba4592e9b7db4d37441ef29",
+    "packages/python/src/plotfoundry/_resources/foundations.schema.json": "de7aeac4bcf3839b48e34515547b26d6c4b7ce2f3c2ea3de41b4abed272cb80c",
+    "packages/python/src/plotfoundry/_resources/schema.json": "42e3d9ca2fac21473eafd53ced3c5334bc21cd6f83b1ce8f3856a06980eceda9",
+    "packages/python/src/plotfoundry/_resources/source-lock.json": "c0a573183fb00a3bed3a693c53320136f94003af84f226846b3fd57710f80488",
+    "packages/python/src/plotfoundry/core.py": "d075570d590b5327f6fcb2c190f323fa90e61634d3f76e95222672e6368ab334",
+    "packages/python/src/plotfoundry/matplotlib.py": "864c6fb164aba55b92a8fa21a1c7f46d98d5b90803ad56e24d677f35c8c855cf",
+    "packages/r/R/aaa-pins.R": "f4a3334f507d263a2d253492ad247275d72ab9c28e76ef49023af4c5951ee16e",
+    "packages/r/R/base.R": "7caa246b49a04039cd776e35abee705ccd2ceadd2f507d0279dbc0a3c2c1d407",
+    "packages/r/R/core.R": "a6b9952aacd3f65ba979f580bddd5afd404642a698dbe6192898a6e5a6d1f42a",
+    "packages/r/R/devices.R": "cf91cb906d9555461cc02cd061be5bbe69a9eb2f50b3f3857b76148e015958f2",
+    "packages/r/R/geometry.R": "83647bceaa5af68037fdc8d0f9c306578ab8c78b91aea1e24050bb8eb648ccc0",
+    "packages/r/R/ggplot.R": "6def448ca94d18b6a0407fe38134c0a41b06bda0da011af672d8809a73af0f36",
+    "packages/r/R/package_info.R": "ecaca53cb3b7a4b79e5290ddf64886400bc879f39ba716a0abaaef695aacd0ec",
+    "packages/spec/data/manifest.json": "dadaef86eb04ef059a932f61a2af55c8011209176cab1325f1b97205d4e0aa51"
+  },
+  "artifacts": {
+    "python": "566990dc2d89d62942acfe87c44915534d3b7d73857a8ebd7554f35e7283a0a7",
+    "r": "8bb20ff067283e11be5fabc5d6039daf111d987d50312f1c4221e375a3926955"
+  },
+  "cases": [
+    {
+      "id": "python-electricity",
+      "themeCase": "folio/light/reading/paper",
+      "placedWidthCssPx": 640,
+      "canvasPixels": [
+        640,
+        384
+      ]
+    },
+    {
+      "id": "python-reservoir",
+      "themeCase": "atelier/light/reading/paper",
+      "placedWidthCssPx": 640,
+      "canvasPixels": [
+        640,
+        384
+      ]
+    },
+    {
+      "id": "python-occupancy",
+      "themeCase": "nocturne/dark/reading/paper",
+      "placedWidthCssPx": 640,
+      "canvasPixels": [
+        640,
+        400
+      ]
+    },
+    {
+      "id": "python-temperature",
+      "themeCase": "litera-reading/light/reading/paper",
+      "placedWidthCssPx": 640,
+      "canvasPixels": [
+        640,
+        384
+      ]
+    },
+    {
+      "id": "r-yield",
+      "themeCase": "folio/light/reading/paper",
+      "placedWidthCssPx": 640,
+      "canvasPixels": [
+        640,
+        384
+      ]
+    },
+    {
+      "id": "r-nitrate",
+      "themeCase": "atelier/light/reading/paper",
+      "placedWidthCssPx": 640,
+      "canvasPixels": [
+        640,
+        400
+      ]
+    },
+    {
+      "id": "r-temperature",
+      "themeCase": "litera-reading/light/reading/paper",
+      "placedWidthCssPx": 640,
+      "canvasPixels": [
+        640,
+        384
+      ]
+    },
+    {
+      "id": "r-base-yield",
+      "themeCase": "tufte/light/reading/paper",
+      "placedWidthCssPx": 640,
+      "canvasPixels": [
+        640,
+        384
+      ]
+    },
+    {
+      "id": "python-electricity-presentation",
+      "themeCase": "folio/light/presentation/paper",
+      "placedWidthCssPx": 1152,
+      "canvasPixels": [
+        1152,
+        691
+      ]
+    },
+    {
+      "id": "r-yield-presentation",
+      "themeCase": "folio/light/presentation/paper",
+      "placedWidthCssPx": 1152,
+      "canvasPixels": [
+        1152,
+        691
+      ]
+    }
+  ],
+  "files": {
+    "python-electricity-presentation.pdf": "a3443a2b8b1ceb9ee6d40beabc0f388ee7f76ae74d9d67a987d6c26d19ae27d6",
+    "python-electricity-presentation.png": "d4b800089282fe3f9cb12bb84ff3b850b15ca608073ba2c32ce1c255e0d6ebd1",
+    "python-electricity-presentation.py": "4dfce66b3a2d17eaa1f7f61a20db2a39ed6833ace119e74e7d49a9a41bb5c5d8",
+    "python-electricity-presentation.report.json": "f6818bf9018511ab5ad8302dc08209adbca347bbae884ab1140e3a60dad6112a",
+    "python-electricity-presentation.svg": "8e5074b5cfb2655e7d5d03a9893c06383fa5e150f9667c9250f79ed9603dc8d2",
+    "python-electricity.pdf": "928d6fcc45a93d4f691f67a83ffad11c29f60c8a7a8d98889a6206372e3c503a",
+    "python-electricity.png": "b77be665faf934de03b0ff9a15d43406881ef5c6c9cb98de2b9e6b49e85925cd",
+    "python-electricity.py": "f3e8d53abfc0b885b763ee41af2dbbe46b9ae632d47b112b9a95d66a73170d46",
+    "python-electricity.report.json": "50161e53c5a9f849b53276069004f61a3a8febaf59c5ff3dd79c46cc6b813bda",
+    "python-electricity.svg": "295f2b84623fc78ce13bd41c0b2712a7e91a2ea07bc8361ea1030176644a9d33",
+    "python-occupancy.pdf": "a51a45e83599504e5bacf3177d688fe9737d7a6ba8f25b742add775fcf3ac766",
+    "python-occupancy.png": "3702b19a06afd6fe4ee382d844ce74279e85d2dc1dc0bb472a22f198c81ed4a3",
+    "python-occupancy.py": "bddeee83041f7116929814cad5536952161bf3b791b13496a1cb8fbdba2fe22d",
+    "python-occupancy.report.json": "876ac2cef4dc3b83cf8a52e1797a38dda0c829ba87b2b8e700150e70f81c970d",
+    "python-occupancy.svg": "ea0003514f55a0b396698b5c73bf753401830932a9e26cf1034c395cd7047c71",
+    "python-reservoir.pdf": "519af94c71d75858c4797b66ee758037ccd1cd4c65bd288faefbb32cdbe2e845",
+    "python-reservoir.png": "806ab8135d763c76b206ad4f640f41ca32cc879866aadd0aeb48af92dda71764",
+    "python-reservoir.py": "11d0b8b10964672f486682c908302a1d4c0f2debbedb5a115206ba6243d5098c",
+    "python-reservoir.report.json": "03a9fbe5ee8746f0b6022fa0362c7b94e572336e0958a7c4d0b48efe2fbdc442",
+    "python-reservoir.svg": "f7512cce583727ca6291503182b760152d83628c7d90a7b5c54be7fd07922a17",
+    "python-temperature.pdf": "55a2ef741938b3c0063b1775b3572db2aec63093d2ce57a48e5559abe2bfdcae",
+    "python-temperature.png": "f56d031760e1a28e7cf43f83f5993209e08491c9e2243d405bf7a3c419ee8195",
+    "python-temperature.py": "dc8bd594992e2fe1f7480d558598a0dd317e0900a09c16aefeaf3a8fe4880b38",
+    "python-temperature.report.json": "30b5c973bf9a69033348d853f80db9db99379fec0e87d5fcfb2eefbc1fb9f44c",
+    "python-temperature.svg": "0ed3e455b6028225e407a765c5b3ef6a8c4928a25941a261550a2581e2e201db",
+    "r-base-yield.R": "edfd447b6a8412bcc15a65e775cb879255012f6e731d986660b84590e0746799",
+    "r-base-yield.pdf": "3173346387d6e99344a7f6b853f3e5396da29015bceecf2290c37b294902110f",
+    "r-base-yield.png": "510a238f7e9d6b5198937f99c782741c8b58373a2dc4f5863dac791f969c6b4d",
+    "r-base-yield.report.json": "854c65113beaf5a2859516d8666e1557b58e43cf830b6496c165ea942f675acc",
+    "r-base-yield.svg": "fb4baefa1ee9d1ceafa33807908991591143b7347691d2cf8e35661aa110d816",
+    "r-nitrate.R": "f53ba36ac4c8ea65764e55fda49ddbe725a5667a226152468590c75390c6d51e",
+    "r-nitrate.pdf": "b9b413484e191a4719a192309f75e578b48811de7ade38e896b38c57b9ea2dee",
+    "r-nitrate.png": "54b626429b9cc0700b86897dfe4ec3c366e20e1343ebc1900551519de1aa3b03",
+    "r-nitrate.report.json": "85060bb8e26cf40f95d75650ee9592b3dcde8c042a6ce3d7d624501bec3e9f7f",
+    "r-nitrate.svg": "982f8fb8146d47f52978f70dea483df2477f68f0cab0d480fe771c1231d3a606",
+    "r-temperature.R": "eb089abe66aef1106ce2b39f2214cbfafb46ea8746bddf4a69f25d23544ff38b",
+    "r-temperature.pdf": "06bdcb1a3f4c7d39f3884bad737844f7c94833c356092a30f66af23a67cc8c50",
+    "r-temperature.png": "79b6efec6b83bd51cb0873e4ebf8fcd13ef1895048a2769342f6103b3f8252be",
+    "r-temperature.report.json": "a1df9a022db0b4c9755bed945cee2a1e4d6892e2e3762e1f6d80b79ca11699cb",
+    "r-temperature.svg": "31a1240e4352d06ca0414001b7dc3d8095a5190db0c1774d3d973eea1bd9452c",
+    "r-yield-presentation.R": "76c835febc0a780d4a5ffd2f77ba289db9a88b95d483d6c26cc9f778024cb219",
+    "r-yield-presentation.pdf": "2ca0934a304f9f483b277bfaab8a8bf5d0ac68388046a69b4a10dbd6c4342851",
+    "r-yield-presentation.png": "61ab8892ae7c1a229916ed9ce5e44ca02d90b8bc9be790f4c98c6853c66cfdc5",
+    "r-yield-presentation.report.json": "4aa90c7378946e536db4d154e4af3a197f8888df7a7de5471e3fc1c2794f9348",
+    "r-yield-presentation.svg": "4fca26e5c6de2c87e9279d7e71108e47697cd93ae23a4e37b37fdd6d3c4cec6c",
+    "r-yield.R": "66c83ca4a969fdb413b397d72498a8888e888b0d9b63c33dcdd4901551ed6861",
+    "r-yield.pdf": "1c948231194f61dd78c1645947a622e1f604e4772e970c3c17faf6cf827f7afe",
+    "r-yield.png": "f4b34215d83f1a41df253ed46939ca6a10a0e2f10688086a393d24b30213a7b2",
+    "r-yield.report.json": "271e7004f8865cb0de42f0fe09ec0f2dd04646120a81028cbe37cfeea13bb0eb",
+    "r-yield.svg": "4cd6758b90203d3d2942ba52cbd0e8babeb52804eaca351d716b7166570cf5c3"
+  }
+}

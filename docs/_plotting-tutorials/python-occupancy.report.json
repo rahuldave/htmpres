@@ -1,0 +1,48 @@
+{
+  "case": "nocturne/dark/reading/paper",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    5.0
+  ],
+  "canvasPixels": [
+    640,
+    400
+  ],
+  "placedWidthCssPx": 640.0,
+  "tightCrop": false,
+  "fonts": [
+    {
+      "role": "ui",
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "file": "fonts/dm-sans-400-normal.ttf",
+      "weight": 400
+    },
+    {
+      "role": "heading",
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "file": "fonts/dm-sans-600-normal.ttf",
+      "weight": 600
+    }
+  ],
+  "devices": {
+    "matplotlib": "3.11.2"
+  },
+  "files": {
+    "png": {
+      "path": "python-occupancy.png",
+      "sha256": "3702b19a06afd6fe4ee382d844ce74279e85d2dc1dc0bb472a22f198c81ed4a3",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "path": "python-occupancy.svg",
+      "sha256": "ea0003514f55a0b396698b5c73bf753401830932a9e26cf1034c395cd7047c71",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "path": "python-occupancy.pdf",
+      "sha256": "a51a45e83599504e5bacf3177d688fe9737d7a6ba8f25b742add775fcf3ac766",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  }
+}

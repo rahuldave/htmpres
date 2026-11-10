@@ -1,139 +1,114 @@
-# Plotfoundry for R — unreleased reference
+# Plotfoundry for R
 
-Native R scientific plotting, independently installable without Python,
-JavaScript, Quarto, SmallDocs, htmpres or this checkout. Version `0.0.0.9001`
-is an unpublished development version, independent of the other packages.
-No CRAN/r-universe availability is claimed.
+Compare crop yield, inspect stream samples with native ggplot2 facets, and draw
+with base graphics. The [R tutorial](https://rahuldave.com/htmpres/plotting-r.html)
+pairs complete scripts with visible results, downloads and all three export
+formats. All tutorial measurements are illustrative.
 
-Install the built source archive with `R CMD INSTALL plotfoundry_0.0.0.9001.tar.gz`.
-Core loading needs `jsonlite` and `digest`; plotting additionally needs ggplot2,
-scales, showtext, sysfonts and systemfonts. PNG uses ragg, SVG uses svglite and
-PDF uses R's native PDF device. Install optional plotting dependencies explicitly:
+## Install and draw your first chart
+
+Version `0.0.0.9001` is an unreleased reference. There is no CRAN or r-universe
+release. Install the local source archive with
+`R CMD INSTALL plotfoundry_0.0.0.9001.tar.gz`.
+The website tutorial gives a pinned source-install recipe if you have no archive.
+
+Install dependencies into your chosen R library during setup:
 
 ```r
 install.packages(c("jsonlite", "digest", "ggplot2", "scales", "showtext",
                    "sysfonts", "systemfonts", "ragg", "svglite"))
+```
+
+Some dependencies need native compilation and system libraries. Installed use
+needs no Python, Node, htmpres, document engine or network access.
+This complete script compares crop yield and preserves a missing year as a gap:
+
+```r
+# Illustrative trial yields, not observations from a real farming experiment.
 library(plotfoundry)
-s <- pf_theme("folio", mode="dark", profile="reading", surface="paper")
-d <- data.frame(x=rep(1:3, 3), y=c(1,2,1,3,4,3,5,6,5),
-                category=rep(c("A","B","C"), each=3))
-p <- ggplot2::ggplot() +
-  pf_line(d, "x", "y", "category", s, domain=c("A","B","C")) +
-  pf_theme_gg(s) + ggplot2::labs(title="Observations", x="Time", y="Value")
-pf_export(s, "observations", plot=p, height_inches=4)
+library(ggplot2)
+trial <- data.frame(
+  year = rep(2021:2025, 3),
+  yield_t_ha = c(3.2, 3.4, 3.3, 3.6, 3.7,
+                 4.0, 4.1, NA, 4.3, 4.5,
+                 4.4, 4.6, 4.5, 4.8, 4.9),
+  irrigation = rep(c("Rainfed", "Drip", "Sprinkler"), each = 5)
+)
+s <- pf_theme("folio", mode = "light", profile = "reading")
+p <- ggplot() +
+  pf_line(trial, "year", "yield_t_ha", "irrigation", s,
+          domain = c("Rainfed", "Drip", "Sprinkler")) +
+  pf_theme_gg(s) +
+  scale_x_continuous(breaks = 2021:2025, limits = c(2020.8, 2026.2)) +
+  scale_y_continuous(limits = c(2.5, 5.5)) +
+  labs(title = "Irrigation and crop yield",
+       x = "Year", y = "Yield (tonnes/ha)")
+pf_export(s, "r-yield", plot = p, height_inches = 4.8, dpi = 80)
 ```
 
-`pf_spec()` verifies the complete immutable resource inventory and hashes before
-parsing. It returns fresh native data, including all 72 family/mode/profile/surface
-cases, exact float LUTs, source revisions, font files and notices. The installed
-code/pins are the trust root; hashes detect drift, not hostile package replacement.
-No network or developer tooling is used at runtime. The 45-resource snapshot is
-promoted only after full shared-contract validation; it is not inferred from CSS.
+Run `Rscript r-yield.R`, or source the script in R. It writes PNG, SVG, PDF and
+an export report into the working directory. Replace the yield values, keep
+rows in time order, and keep an explicit domain after filtering categories.
+The invented data cannot support a causal claim about irrigation.
 
-## Native API and scientific boundaries
+## Choose a native workflow
 
-`pf_theme()` selects one explicit case and actual placement. `pf_points()` and
-`pf_mm()` convert CSS lengths using `CSS px * 72 * figure width inches / placed
-width CSS px`; resolution does not change placed typography. Defaults are 8-inch
-canvas width and 640/1152 CSS-pixel reading/presentation placement. Chart labels
-are 16/24 CSS px; headings 30/36. Reading body annotations are 20 for serif
-families and 18 otherwise. Supply explicit annotation sizes when drawing them.
+The tutorial also shows native ggplot2 facets with a sequential nitrate scale,
+a diverging room-temperature heatmap, and the yield comparison drawn with base R.
+`pf_theme_gg` changes fonts, backgrounds and axes. Native layers retain ordinary
+ggplot2 addition order and do not automatically gain category cues.
 
-`pf_categories()` requires an ordered, unique character domain. Observed factors
-are matched by labels; unused levels do not change slots. The recommended
-three-category and conditional five-category variants have independent identities;
-switching variants can recolor slots. No expansion, recycling or inference occurs.
-`pf_line()`/`pf_scatter()` retain original facet columns and row/path order. Their
-opaque foreground, ink under-stroke, edged marker polygons, stable dashes and
-direct labels implement the approved treatment. Physical dash segments are shared
-by both widths; solid caps project, dashed caps are butt. Markers use a 7 CSS-pixel
-bounding box, not a claim of pixel-identical Matplotlib polygon geometry.
+`pf_scale_continuous` supplies explicit finite limits and exact sampled colors.
+Diverging scales also need a meaningful center. `pf_heatmap` returns layers that
+you add to a ggplot before export. Missing cells receive a cross; missing native
+point rows need an explicit omission policy.
 
-Supported coordinates are linear Cartesian, including native scale transforms
-such as log scales. Polar/nonlinear coordinate systems fail explicitly. Missing
-line positions break paths and restart dash phase. Category rows need at least
-one finite endpoint for direct labels. Dense overlap, occlusion and clipping
-remain caller layout responsibilities; allow room for labels. Segmentation has
-an explicit resolution/work budget instead of unbounded loops.
+`pf_line` and `pf_base_lines` share category shapes, dashes, edges and direct labels.
+The default has three slots. Five is an explicit conditional variant with its
+own mapping. Keep all cues and inspect the result when using five categories.
 
-`pf_theme_gg()` and `pf_scales_manual()` are ordinary native furniture/scales;
-a bare color cycle is **not** the complete categorical treatment. Native ggplot
-addition order applies: later authored themes/scales/guides replace earlier ones.
-`pf_scale_continuous()` requires finite explicit limits, and diverging scales also
-require a meaningful center. `pf_normalize()` uses independently normalized arms,
-clips under/over values to endpoints, and keeps NA/NaN missing. `pf_lookup()`
-returns exact gamma-sRGB floats using `floor(u*N)` capped at `N-1`; LUT sample
-positions `i/(N-1)` are not bin edges. BrBG's 257 entries place center at index128
-(zero based). No interpolation, implicit reversal or automatic symmetric limits.
-`pf_heatmap()`/`pf_base_heatmap()` use muted missing fill plus two background-ink
-cross diagonals. Row one is at the top. Missing scatter observations are omitted;
-no claim of a separate missing-point symbol is made.
+For base graphics, draw inside `pf_export` using `pf_base_plot` and
+`pf_base_lines`. The tutorial gives the complete callback and data.
+`pf_base_context` scopes state on an existing device. Establish layouts before
+entering an inner context, and do not close the caller's device inside it.
 
-Native R hex conversion follows exact float lookup (maximum channel rounding
-about 0.5/255); selected devices can quantize further, including native PDF's
-three-decimal stroke RGB. Float parity does not mean byte-identical rendered colors.
+## Placement, fonts and export
 
-## Base R and graphics state
+Reading declares 640 CSS-pixel placement with 16-pixel labels. Presentation
+declares 1152 with 24-pixel labels. Keep the declared eight-inch width aligned
+with the actual canvas. DPI changes raster resolution, not placed typography.
+The tutorial includes full-size profile comparisons.
 
-```r
-pf_export(s, "base-observations", draw=function(style) {
-  pf_base_plot(style, c(0,4), c(0,7), "Time", "Value", "Observations")
-  pf_base_lines(d$x, d$y, d$category, style, c("A","B","C"))
-})
-```
+Export binds supported UI and heading text to real bundled font files and weights.
+Native annotation sizes remain authored sizes. Hash-named aliases are registered
+explicitly by the font/export path and persist; caller family names are untouched.
+Namespace loading does not register fonts or open devices.
 
-`pf_base_context()` scopes `par`, options and palette on an already open device,
-including nested/error paths. Establish `mfrow` before an inner context because R
-layout changes reset text scale. Device switches restore the captured caller
-state; unrelated devices are never closed. Closing the original device prevents
-restoration and warns. Export owns and closes only its own device, and restores
-showtext options. Namespace load/attach does not register fonts or open devices.
+Use plain text. Plotmath and absent glyphs fail rather than silently substitute.
+Complex shaping, arbitrary grobs and Cairo devices are outside the verified path.
 
-## Fonts, devices and export
+PNG uses ragg with showtext. SVG uses svglite and PDF uses R's native device;
+both vector formats contain outlined glyphs, not editable or embedded-font text.
+Inspect actual output for clipping and crowding. Export keeps the full canvas.
 
-`pf_fonts()` explicitly registers exact bundled real faces using reserved
-`plotfoundry-<file SHA256>` aliases. Those reserved aliases persist and may be
-rebound; other caller family names are untouched. There is no registry rollback
-promise. Export rebinds native ggplot text (including guides, legend, ticks and
-annotations) to exact UI/heading faces while preserving authored size/color.
-Only the plot title uses the heading face; guide titles use UI. Base helpers
-select the corresponding aliases explicitly. Host same-family font collisions
-therefore cannot choose another file on the tested devices.
+Exact lookup precedes eight-bit hex conversion. Devices can quantize further,
+so matching numeric scales do not imply pixel-identical Python and R output.
+The supported helper coordinates are linear Cartesian, including axis transforms.
 
-Plain text only: plotmath, TeX and missing glyphs fail before a successful report.
-Arbitrary callbacks/third-party grobs are not universally certified. Fonts retain
-all source notices, ET Book conversion provenance and its fsType4 metadata.
-PNG uses showtext rasterized glyphs with matching device DPI; SVG/PDF use actual
-glyph outlines, not editable or embedded font text. Cairo/XQuartz devices were
-unavailable in the tested environment and are not advertised.
+## Offline use and maintainer reference
 
-`pf_export()` takes an explicit width/height canvas, no implicit cropping, and
-writes file hashes, actual PNG dimensions, device/font provenance and limitations
-to `.report.json`. A ggplot list uses explicit columns and reserved title/footer
-lanes; this is a small fixture composition facility, not a universal layout engine.
-Inspect exported files: an evidence report is not proof of every future rendering.
+`pf_spec` verifies the complete bundled resource closure before parsing.
+The installed code and pins detect drift; hashes are not authenticity signatures.
+For an offline machine, provision Plotfoundry and all selected dependency packages
+on a compatible system. No development lock or Python runtime is needed.
 
-## Installed examples and verification
+Tested versions are R 4.1.1, ggplot2 4.0.3, scales 1.4.0, showtext 0.9.8,
+sysfonts 0.8.9, systemfonts 1.3.2, ragg 1.5.2 and svglite 2.2.2 on macOS arm64.
+Other platforms and versions need their own checks.
 
-```r
-source(system.file("examples", "quickstart.R", package="plotfoundry"))
-# Shell: Rscript /installed/library/plotfoundry/examples/gallery.R OUTPUT [CASE_ID]
-```
+Maintainers use the R tests, installed-package and gallery targets in `Justfile`.
+Explicit resource promotion remains separate from ordinary builds.
+The shipped gallery is an appearance and regression reference, not the tutorial.
 
-`examples/quickstart.qmd` is a Quarto-ready source; executing the same R code needs
-no document engine. `examples/gallery.R` renders both native routes for all 72
-cases with PNG/SVG/PDF outputs. Website guides and reviewed static galleries accompany the separate documentation checkpoint.
-
-Tested: R 4.1.1, ggplot2 4.0.3, scales 1.4.0, showtext 0.9.8, sysfonts 0.8.9,
-systemfonts 1.3.2, ragg 1.5.2 and svglite 2.2.2 on macOS arm64. DESCRIPTION minima
-are compatibility boundaries, not evidence for untested versions/platforms.
-`tools/tested-dependencies.json` records the complete development dependency set;
-`tools/install-dependencies.R` provisions an explicit local library from CRAN
-source archives. Native compilation prerequisites may be needed. These tools and
-Python-based maintainer promotion are not installed runtime dependencies.
-
-The new implementation is MIT licensed. `LICENSE` contains R metadata,
-`LICENSE.md` the full notice, and installed `spec/data/notices` preserves all
-third-party notices. Package resources are self-contained and usable offline.
-
-Website documentation: [native guide](https://rahuldave.com/htmpres/plotting-r.html) and [all-nine-family gallery](https://rahuldave.com/htmpres/plotting-gallery.html), deployed with the Python/R documentation checkpoint. This does not announce a registry release.
+The code is MIT licensed. Imported fonts and foundations keep their own notices.
+See `LICENSE.md` and the installed `spec/data/notices` directory.

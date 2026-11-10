@@ -1,162 +1,110 @@
-# Plotfoundry for Python — unreleased reference
+# Plotfoundry for Python
 
-Python `0.1.0.dev1` implements the approved standalone scientific contract with an
-optional Matplotlib reference. It needs no htmpres, Quarto, SmallDocs, R,
-JavaScript, sibling package, research checkout or network at installed use.
-Nothing has been published to PyPI/CDN. Build a local wheel/sdist with `uv build`;
-the sdist contains all resources and rebuilds without this monorepo.
+Compare electricity use across buildings with Matplotlib, then adapt native
+pandas and Seaborn plots. The [Python tutorial](https://rahuldave.com/htmpres/plotting-python.html)
+pairs complete scripts with visible results, source downloads and all three
+export formats. All tutorial measurements are illustrative.
 
-The stdlib-only core requires Python 3.12+. `load_spec()`, `theme(...)` and
-`package_info()` do not import NumPy/Matplotlib, choose a backend, register fonts,
-modify rcParams or download files. Plotting is an explicit optional import:
+## Install and draw your first chart
+
+Version `0.1.0.dev1` is an unreleased reference. There is no PyPI release.
+Use Python 3.12 or later and install a locally built wheel with its optional
+Matplotlib dependencies:
 
 ```sh
-# Use the locally built artifact; install dependencies during setup.
 python -m pip install 'path/to/plotfoundry-0.1.0.dev1-py3-none-any.whl[matplotlib]'
 ```
 
-The adapter declares compatible Matplotlib `>=3.11.2,<3.12` and NumPy
-`>=2.5.4,<2.6`. Actual reference evidence uses Python 3.12.10, Matplotlib 3.11.2,
-NumPy 2.5.4, pandas 3.1.1 and Seaborn 0.13.2 from the included development lock.
-This is not proof for every Python/platform/backend or future patch release.
-The lock's verification group is build/test tooling, not an installed runtime
-requirement; pandas/Seaborn remain optional unless you use their examples.
-
-## Quickstart
+The website tutorial gives a pinned source-install recipe if you have no wheel.
+Installed plots need no htmpres, document engine, R, Node or network access.
+The following script compares six weeks of electricity use and preserves a
+missing observation as a gap:
 
 ```python
+"""Illustrative weekly electricity readings; no external data download."""
 import matplotlib.pyplot as plt
 from plotfoundry import theme
 from plotfoundry.matplotlib import context, line, style_axes, export
 
-style = theme("folio", mode="dark", profile="presentation", surface="paper",
-              figure_width_inches=8, placed_width_css_px=1152)
-with context(style):
-    fig, ax = plt.subplots(figsize=(8, 4))
-    line(ax, [0, 1, 2], [1, None, 3], style,
-         domain=["Observed"], category="Observed")
-    ax.set(title="Results", xlabel="Time", ylabel="Value")
-    style_axes(ax, style)
-    report = export(fig, style, "results", formats=["png", "svg", "pdf"], dpi=144)
+weeks = [1, 2, 3, 4, 5, 6]
+readings = {
+    "Library": [420, 400, 390, 350, 330, 320],
+    "Office": [510, 500, None, 470, 460, 450],
+    "Workshop": [610, 630, 620, 600, 590, 580],
+}
+config = theme("folio", mode="light", profile="reading")
+with context(config):
+    fig, ax = plt.subplots(figsize=(8, 4.8))
+    fig.subplots_adjust(left=.14, right=.80, bottom=.19, top=.82)
+    for building, kwh in readings.items():
+        line(ax, weeks, kwh, config, domain=list(readings), category=building)
+    ax.set(title="Weekly electricity use", xlabel="Week", ylabel="Electricity (kWh)",
+           xlim=(.8, 7), ylim=(250, 700), xticks=weeks)
+    style_axes(ax, config)
+    export(fig, config, "python-electricity", dpi=80)
     plt.close(fig)
 ```
 
-Choose any of the nine exact family IDs (`folio`, `atelier`, `nocturne`, `tufte`,
-`zephyr-reading`, `simplex-reading`, `pulse-reading`, `litera-reading`,
-`darkly-reading`), `light`/`dark`, `reading`/`presentation`, and `paper`/`panel`.
-All 72 combinations are resolved in shipped resources. The imported upstream
-manifests remain byte-exact and authoritative; the installed package never infers
-colors from CSS or fetches upstream data. `load_spec()` returns a fresh dictionary
-and checks exact approved snapshot pins/closure and scientific semantics. The trust
-root is the installed package/code, not an attacker-authentication/signature scheme.
-Pins are generated only after the full approved source validator/font gate;
-coherently rehashing a modified data/inventory cannot redefine this contract. Maintainers run
-`just python-snapshot-check` to reject stale copies; only explicit
-`--write` promotes reviewed source bytes. Native builds never run that importer.
+Run the script from your working directory. It writes `python-electricity.png`,
+SVG, PDF and an export report there. The Library uses less electricity each week;
+the Office has no reading in week three. Replace the values and units, while
+keeping an explicit domain so category identities remain stable after filtering.
 
-## API and supported treatments
+## Choose a native workflow
 
-- `theme(...)` selects explicit furniture/profile/placement. `style.points(px)`
-  uses the shared contract's exact arithmetic. Reading chart labels are 16 CSS px,
-  headings 30 and metadata 14; body annotations are 20 for Folio/Nocturne/Tufte/
-  Litera, 18 otherwise. Presentation labels/metadata are 24, headings 36, body 30.
-- `rc(style)` returns a fresh native theme-only mapping. `context(style,
-  overrides={...})` scopes it and restores state through nesting and exceptions.
-  Overrides win inside the context, but can weaken approved defaults. A theme-only
-  plot, native `axes.prop_cycle`, Seaborn or pandas color cycle is **not** the
-  compliant categorical treatment.
-- `line(ax, x, y, style, domain=[...], category=...)` uses the recommended three
-  slots by default. `scatter(..., domain=[...], categories=[...])` groups observations
-  with the same explicit domain. Both supply opaque foreground, ink under-stroke
-  (lines), real shapes, ink marker edges and endpoint labels. Unknown/duplicate/
-  over-capacity domains fail before adding marks. Null/NaN line coordinates remain
-  gaps; missing scatter points are omitted. Empty/no-finite series cannot provide
-  endpoint labels and are rejected. This is not an explicit-missing-point glyph API.
-- `variant="colorblind-subset-5"` explicitly opts into the conditional five slots.
-  Slot identity includes the variant; switching from three to five can recolor C.
-  No automatic expansion, recycling, inferred domain or common-prefix guarantee.
-- Line dashes use foreground-width multiples, translated once to placed points.
-  The 5.5 CSS px ink under-stroke shares the 2.5 px foreground's dash geometry.
-  Markers are 7 px with 1.5 px edges. Later changing linewidth/dashes/alpha or
-  native marks may invalidate this operational treatment. Direct labels do not
-  solve dense overlap; caller positions/limits need visual review.
-- `colorscale(style, vmin=..., vmax=..., kind="sequential")` returns an exact
-  `ListedColormap` and `ExplicitNorm`. Diverging requires `kind="diverging"` and
-  a meaningful `center=...`; limits may be asymmetric. cividis/BrBG are defaults;
-  `name=` selects an approved same-kind alternative. No interpolation or dark-mode
-  reversal: sample positions `i/(N-1)` differ from bins `floor(u*N)` capped at N-1.
-  The 257-sample diverging center is index 128. Limits are finite and explicit;
-  under/over clip to endpoints, null/NaN/masked data remain missing, infinities and
-  boolean/string numeric coercions are rejected.
-- `heatmap(...)` supports 2D cells with an opaque muted missing fill and contextual
-  background-ink cross/hatch. `scatter_values(...)` supports continuous points and
-  omits missing coordinates/values. Both return native mappables; create colorbars
-  explicitly. Neither promises arbitrary filled areas, bars, maps or aggregation.
-- `style_axes(ax, style)` applies furniture and exact-file text to existing axes,
-  titles, ticks, offsets, native annotations and legends. It deliberately applies
-  approved ink/sizes. Call it on colorbar axes too. Add explicit local overrides
-  **after** styling. `annotate(..., role="body_annotation")` distinguishes prose
-  annotations from labels/metadata. Export rebinds fonts for late artists while
-  preserving their authored sizes/colors; it does not silently normalize layouts.
+The tutorial also shows a reservoir drawn by `DataFrame.plot`, a Seaborn scatter
+with an explicit sequential color scale, and a diverging temperature heatmap.
+Ordinary pandas or Seaborn calls receive fonts, backgrounds and axes from the
+theme. They do not automatically gain category shapes, dashes or direct labels.
 
-## Fonts, placement and export
+`colorscale` returns an exact `ListedColormap` and explicit normalization.
+Use finite limits for sequential values and a meaningful center for diverging
+values. The line helper preserves null or NaN gaps. The heatmap helper draws
+crossed missing cells, while missing scatter points are omitted.
 
-All twelve approved resolved faces and notices are inside wheel and sdist.
-Every supported text artist gets `FontProperties(fname=...)` referencing its exact
-bundled face/real weight, even when the host registers another same-family font.
-There is no global font registration. Pulse/Litera DejaVu is an explicit bundled
-fallback; ET Book source WOFF, reproduced TTF and fsType/license records are kept.
+The three-category variant is the default. Five is an explicit conditional
+choice with a different mapping. Keep the required cues and inspect the result.
+A plain color cycle does not apply the complete line treatment.
 
-**Strict plain-text scope:** supported glyphs must exist in the selected face.
-TeX/mathtext (including default logarithmic math formatters) and absent glyphs
-raise before a success report. For log ticks, explicitly choose plain numeric
-`ScalarFormatter`/`FuncFormatter`; math/Unicode fallback is not silently certified.
-Literal dollar text needs `Text.set_parse_math(False)`. Arbitrary renderer math
-fonts and complex shaping are outside this reference.
+## Placement, fonts and export
 
-Placement is `points = css_px * 72 * figure_width_inches / placed_width_css_px`.
-The declared width must match the actual Figure. DPI affects raster pixels, not
-physical type/marker size. `export` keeps the explicit canvas and never uses tight
-cropping. It produces PNG rasterized glyphs, SVG glyph outlines (not editable
-embedded-font text), and PDF TrueType subsets. Reports include actual file hashes,
-canvas/placement, resolved font IDs and policy checks. `canvasPixels` comes from
-the actual PNG header (null for vector-only exports); `requestedRasterPixels`
-records the requested inch×DPI product, which can differ at fractional DPI. Font-file/glyph checks and
-FontFile2 presence are evidence, not a universal PDF/accessibility certification.
-After local edits, visually check clipping/overlap and intended physical placement.
+The reading profile declares 640 CSS-pixel placement with 16-pixel labels.
+Presentation declares 1152 with 24-pixel labels. Keep the declared figure width
+consistent with the actual Matplotlib Figure. DPI changes raster resolution,
+not placed typography. The tutorial includes full-size profile comparisons.
 
-## Ordinary pandas/Seaborn and offline examples
+`style_axes` applies chart roles after native artists exist. `annotate` selects
+label, metadata or body text deliberately. Export binds supported text to exact
+bundled files and real weights while preserving authored sizes and colors.
+No global font registration is needed.
 
-`examples/dataframes.py` uses plain pandas plus ordinary Seaborn and DataFrame.plot axes next to
-supported treated lines from dataframe columns. Native lines/styles alone remain
-theme-only. Call `style_axes` after Seaborn creates its legend; export binds late
-legend/colorbar text to files but cannot retrofit arbitrary marks into compliant
-strokes/shapes/direct labels. No monkeypatching or automatic global registration.
+Use plain text. TeX, mathtext, absent glyphs and default logarithmic math
+formatters fail rather than silently substitute another face. Complex shaping
+and arbitrary native artists are outside the verified path.
 
-Wheel-only users can invoke the shipped examples directly, without uv or the lock:
+PNG rasterizes glyphs, SVG outlines them, and PDF requests TrueType subsets.
+Reports check file structure and font coverage, not universal PDF conformance.
+Export keeps the full canvas without tight cropping. Check clipping and overlap
+in the actual output. Preserve all bundled font notices when distributing files.
 
-```sh
-# Optional dataframe-example dependencies, installed during setup:
-python -m pip install pandas==3.1.1 seaborn==0.13.2
-python -m plotfoundry.examples.dataframes
-python -m plotfoundry.examples.gallery --case folio/light/reading/paper --output gallery
-# Omit --case for all72. Pillow arrives with the Matplotlib extra.
-```
+## Offline use and maintainer reference
 
-`examples/gallery.py` generates PNG/SVG/PDF for all 72 cases, both categorical
-variants, both continuous defaults, missing cells, late legends/colorbars and
-placed typography. Examples ship in the wheel under `plotfoundry/examples/` and
-in the source archive. They run without this checkout.
+The dependency-free core exposes `load_spec`, `theme` and `package_info` without
+loading NumPy, Matplotlib or the DOM. The plotting adapter is an explicit import.
+Resources include the scientific spec, exact fonts, source manifests and notices.
+The installed code and pins detect drift; hashes are not authenticity signatures.
 
-After dependencies are provisioned, use installed wheels offline. Maintainer
-checks use cached dependencies with `uv --offline`; no OS-level network sandbox
-is implied. Run `just python-test`, `just python-gallery`, `just python-install-test`
-`just python-gallery-check` and `just python-check` from the monorepo. The last includes stale-snapshot,
-focused, actual artifact installation and diff checks. The shared scientific spec
-is immutable in this piece; the native R reference is implemented separately; JavaScript adapters and publication remain deferred.
+For an offline target, provision the wheel and all selected dependency wheels on
+a compatible machine. pandas and Seaborn are optional dependencies of their tasks.
+The package development lock is not required at installed use.
 
-New code/docs are MIT licensed; all imported font/manifest notices retain their
-original licenses. Actual SVG outlines/PDF subsets are renderer outputs, not a
-relicensing of those assets.
+Tested versions are Python 3.12.10, Matplotlib 3.11.2, NumPy 2.5.4,
+pandas 3.1.1 and Seaborn 0.13.2. Other platforms and versions need their own checks.
 
-Website documentation: [native guide](https://rahuldave.com/htmpres/plotting-python.html) and [all-nine-family gallery](https://rahuldave.com/htmpres/plotting-gallery.html), deployed with the Python/R documentation checkpoint. This does not announce a registry release.
+Maintainers use `just python-test`, `just python-gallery-check` and
+`just python-install-test` from the repository. The snapshot check rejects stale
+approved inputs. Explicit promotion is separate from ordinary builds.
+The shipped gallery is an appearance and regression reference, not the tutorial.
+
+The code is MIT licensed. Imported fonts and foundations keep their own notices.
+See `LICENSE` and the installed `_resources` notice directories.

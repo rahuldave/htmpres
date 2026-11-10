@@ -1,0 +1,53 @@
+{
+  "case": "litera-reading/light/reading/paper",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8,
+    4.8
+  ],
+  "canvasPixels": [
+    640,
+    384
+  ],
+  "placedWidthCssPx": 640,
+  "tightCrop": false,
+  "fonts": [
+    {
+      "role": "ui",
+      "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+      "file": "fonts/dejavu-sans-400.ttf",
+      "weight": 400
+    },
+    {
+      "role": "heading",
+      "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+      "file": "fonts/dejavu-sans-700.ttf",
+      "weight": 700
+    }
+  ],
+  "devices": {
+    "R": "4.1.1",
+    "showtext": "0.9.8",
+    "ragg": "1.5.2",
+    "svglite": "2.2.2",
+    "pdf": "grDevices::pdf 4.1.1",
+    "ggplot2": "4.0.3"
+  },
+  "files": {
+    "png": {
+      "path": "r-temperature.png",
+      "sha256": "79b6efec6b83bd51cb0873e4ebf8fcd13ef1895048a2769342f6103b3f8252be",
+      "fontPolicy": "showtext rasterized glyphs"
+    },
+    "svg": {
+      "path": "r-temperature.svg",
+      "sha256": "31a1240e4352d06ca0414001b7dc3d8095a5190db0c1774d3d973eea1bd9452c",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    },
+    "pdf": {
+      "path": "r-temperature.pdf",
+      "sha256": "06bdcb1a3f4c7d39f3884bad737844f7c94833c356092a30f66af23a67cc8c50",
+      "fontPolicy": "showtext glyph outlines; no font embedding claim"
+    }
+  }
+}

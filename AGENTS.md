@@ -282,6 +282,24 @@ staged from the existing licensed theme bundle. Generated docs, variants and
 staged fonts remain ignored. `just docs-serve` watches documentation sources;
 rerun `just docs` after changing the deck source or comparison generator.
 
+Practical Python/R tutorials use a separate reviewed static bundle, leaving the
+historical comparison gallery unchanged. `just plotting-tutorials-test` validates
+exact inline/download source pairing, source/runtime pins, closed public reports
+and publication rollback. `just plotting-tutorials-stage` validates and copies
+only the committed bundle to `docs/_generated/plotting-tutorials/`.
+Both run before SmallDocs in `just docs`, after the showcase generator that
+replaces `_generated`. Website CI needs no native plotting runtimes for this path.
+
+`just plotting-tutorials-examples` is an optional maintainer gate. It executes the
+ten complete tutorial programs from a fresh directory outside checkout, using
+separately installed native artifacts recorded by the Python/R installed-package
+gates. It needs their prepared Python environment and R dependency libraries;
+it is not a dependency of `docs`, `pages-build` or normal Website CI.
+`just plotting-guide-examples` retains the same installed tutorial gate.
+Use `scripts/plotting_tutorials.py promote --outputs <executed-directory>
+--python-artifact <wheel> --r-artifact <tarball>` only for explicit reviewed capture.
+Normal validation/staging never regenerates plots or rewrites evidence hashes.
+
 Website deployment: `.github/workflows/pages.yml` builds with `just pages-build`
 on pull requests and pushes to `main`, and deploys only the verified
 `docs/_site/` artifact on `main`. The Pages source is GitHub Actions. The live

@@ -1,0 +1,48 @@
+{
+  "case": "litera-reading/light/reading/paper",
+  "specVersion": "0.1.0",
+  "canvasInches": [
+    8.0,
+    4.8
+  ],
+  "canvasPixels": [
+    640,
+    384
+  ],
+  "placedWidthCssPx": 640.0,
+  "tightCrop": false,
+  "fonts": [
+    {
+      "role": "ui",
+      "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+      "file": "fonts/dejavu-sans-400.ttf",
+      "weight": 400
+    },
+    {
+      "role": "heading",
+      "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167",
+      "file": "fonts/dejavu-sans-700.ttf",
+      "weight": 700
+    }
+  ],
+  "devices": {
+    "matplotlib": "3.11.2"
+  },
+  "files": {
+    "png": {
+      "path": "python-temperature.png",
+      "sha256": "f56d031760e1a28e7cf43f83f5993209e08491c9e2243d405bf7a3c419ee8195",
+      "fontPolicy": "rasterized glyphs; no font embedding"
+    },
+    "svg": {
+      "path": "python-temperature.svg",
+      "sha256": "0ed3e455b6028225e407a765c5b3ef6a8c4928a25941a261550a2581e2e201db",
+      "fontPolicy": "glyph outlines; fonts not embedded as editable text"
+    },
+    "pdf": {
+      "path": "python-temperature.pdf",
+      "sha256": "55a2ef741938b3c0063b1775b3572db2aec63093d2ce57a48e5559abe2bfdcae",
+      "fontPolicy": "TrueType subset requested; FontFile2 present, not full PDF conformance certification"
+    }
+  }
+}

@@ -8,7 +8,7 @@ deck:
 ## {data-title="Fault 1: readable" data-section="Pictures"}
 
 ::: {.ds-full .ds-media .ds-fill .ds-no-pad .ds-readable}
-![](assets/photo.svg)
+![A long line of students waits before one database](assets/photo.svg)
 :::
 
 ::: {.ds-layer}
@@ -18,7 +18,7 @@ deck:
 ## {data-title="Fault 2: layer ink" data-section="Pictures"}
 
 ::: {.ds-full .ds-media .ds-no-pad}
-![](assets/photo.svg){.ds-fill}
+![A long line of students waits before one database](assets/photo.svg){.ds-fill}
 :::
 
 ::: {.ds-layer}

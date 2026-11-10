@@ -280,6 +280,10 @@ semantic; appearance and CSS variables belong in the stylesheet.
 ## Pictures
 
 Use descriptive Markdown image text: `![Description](assets/photo.svg){.ds-fit}`.
+An empty description is an `image-description` lint/render/verify error.
+For purely decorative content only, write `![](assets/texture.svg){.decorative}`;
+it renders `alt=""`. The diagnostic names the slide and points to its heading.
+Code examples/comments are exempt; images in notes are checked.
 A titled slide with one picture automatically fits its image and caption below
 the heading, including `.credit` attribution. Wide and tall pictures use the
 same structure. A `.ds-media` wrapper is optional in this common case.

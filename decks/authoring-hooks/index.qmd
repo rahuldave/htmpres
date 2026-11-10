@@ -35,7 +35,7 @@ Source: a demonstration of semantic roles, not research evidence.
 ## A picture with attribution {#picture data-section="A picture, with a source"}
 
 ::: {.ds-full .ds-media .ds-fill .ds-no-pad}
-![](assets/two-views.svg){.ds-fill}
+![A source document branches into audience slides and presenter notes.](assets/two-views.svg){.ds-fill}
 :::
 
 ::: {.ds-layer .card}

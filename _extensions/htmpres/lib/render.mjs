@@ -89,6 +89,47 @@ function mapTags(html, transform) {
   return output + html.slice(previous);
 }
 
+/** Ensure every real image has an alt attribute; decoration is explicit. */
+export function normalizeImageAlts(html) {
+  return mapTags(html, tag => {
+    if (tag.name !== 'img') return tag.raw;
+    const alt = tag.attributes.find(attr => attr.name === 'alt');
+    const decorative = tag.attributes.find(attr => attr.name === 'class')?.value.split(/\s+/).includes('decorative');
+    if (decorative && alt?.value) {
+      const quoted = ['\"', "'"].includes(tag.raw[alt.start - 1]);
+      return tag.raw.slice(0, alt.start) + (quoted ? '' : '""') + tag.raw.slice(alt.end);
+    }
+    if (alt) return tag.raw;
+    return tag.raw.replace(/\s*\/?>$/, ending => ` alt=""${ending}`);
+  });
+}
+
+/** Verify exported DOM, including raw HTML; generated backgrounds are hidden. */
+export function imageAltFailures(html) {
+  const stack = [], failures = [];
+  for (const tag of htmlTags(html)) {
+    if (tag.skip) continue;
+    if (tag.closing) {
+      const index = stack.map(node => node.name).lastIndexOf(tag.name);
+      if (index >= 0) stack.length = index;
+      continue;
+    }
+    const attr = name => tag.attributes.find(attr => attr.name === name)?.value;
+    const hidden = attr('aria-hidden') === 'true' || stack.some(node => node.hidden);
+    if (tag.name === 'img') {
+      const alt = attr('alt');
+      if (alt === undefined) failures.push('Image is missing its alt attribute; render the source again.');
+      else if (!alt.replace(/&#(x[0-9a-f]+|[0-9]+);?|&(nbsp|Tab|NewLine);/gi, (raw, numeric, named) => {
+        if (named) return {nbsp:' ',Tab:'\t',NewLine:'\n'}[named] ?? raw;
+        const value = numeric[0].toLowerCase() === 'x' ? parseInt(numeric.slice(1),16) : Number(numeric);
+        return value > 0 && value <= 0x10ffff ? String.fromCodePoint(value) : '\ufffd';
+      }).trim() && !hidden && !attr('class')?.split(/\s+/).includes('decorative')) failures.push('Image has an empty description without {.decorative}.');
+    }
+    if (!/^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/.test(tag.name)) stack.push({name: tag.name, hidden});
+  }
+  return failures;
+}
+
 /** Classify canonical picture layouts without interpreting code examples as media. */
 export function slideMediaClasses(html, hasBackground = false) {
   const top = [], stack = [];

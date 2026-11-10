@@ -1,3 +1,4 @@
+import "./image-accessibility.test.mjs";
 import "./picture-command.test.mjs";
 import "./picture-slides.test.mjs";
 import "./picture-renderer.test.mjs";

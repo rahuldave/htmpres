@@ -318,7 +318,7 @@ Full-slide media:
 ## Full-Slide Media {.title-hidden data-section="Media" data-title="Full-Slide Media"}
 
 ::: {.ds-full .ds-media .ds-no-pad .ds-readable}
-![](assets/photo.svg){.ds-fill .zoomable}
+![Describe the photograph](assets/photo.svg){.ds-fill .zoomable}
 :::
 
 ::: {.ds-layer}
@@ -330,7 +330,7 @@ Half-slide media:
 
 ```markdown
 ::: {.ds-left .ds-media .ds-no-pad}
-![](assets/photo.svg){.ds-fill .zoomable}
+![Describe the photograph](assets/photo.svg){.ds-fill .zoomable}
 :::
 
 ::: {.ds-right .ds-pane}
@@ -347,7 +347,7 @@ Split content in normal slide flow:
 :::
 
 ::: {.ds-pane .ds-media .ds-frame}
-![](assets/detail.svg){.ds-fit .zoomable}
+![Describe the detail](assets/detail.svg){.ds-fit .zoomable}
 :::
 ::::
 ```
@@ -358,15 +358,15 @@ the group, while each media element keeps its own fit/fill/filter behavior.
 ```markdown
 :::: {.ds-grid}
 ::: {.ds-media}
-![](assets/photo-1.svg){.ds-fill .ds-bn}
+![Describe picture 1](assets/photo-1.svg){.ds-fill .ds-bn}
 :::
 
 ::: {.ds-media}
-![](assets/photo-2.svg){.ds-fill .ds-theme-filter}
+![Describe picture 2](assets/photo-2.svg){.ds-fill .ds-theme-filter}
 :::
 
 ::: {.ds-media .ds-vignette}
-![](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen}
+![Describe picture 3](assets/photo-3.svg){.ds-fill .ds-filter .ds-sharpen}
 :::
 ::::
 ```

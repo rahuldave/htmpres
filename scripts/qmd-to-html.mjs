@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { lintDeckSource } from '../_extensions/htmpres/lib/images.mjs';
 import { upgradeOwnedCss } from "../_extensions/htmpres/themes/foundations.mjs";
 import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
@@ -6,8 +7,8 @@ import path from "node:path";
 import { colorModeControl, colorModeScript, resolveTheme, themeAssets, themeAttributes, themeStyles } from "../_extensions/htmpres/themes/themes.mjs";
 import { matchThemeStyles } from "../_extensions/htmpres/themes/matches.mjs";
 
-import { slideMediaClasses, arrangeSlideCredits, assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds } from "../_extensions/htmpres/lib/render.mjs";
-import { deckCounter, extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, splitFrontMatter as splitSourceFrontMatter } from "../_extensions/htmpres/lib/source.mjs";
+import { normalizeImageAlts, slideMediaClasses, arrangeSlideCredits, assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds } from "../_extensions/htmpres/lib/render.mjs";
+import { deckCounter, extractNotes as extractSourceNotes, maskCodeAndMetadata, parseSlides as parseSourceSlides, splitFrontMatter as splitSourceFrontMatter } from "../_extensions/htmpres/lib/source.mjs";
 
 const themeDirectory = new URL("../_extensions/htmpres/themes/", import.meta.url);
 const bundledThemes = JSON.parse(readFileSync(new URL("catalog.json", themeDirectory), "utf8"));
@@ -16,22 +17,22 @@ const root = process.cwd();
 const decksDir = path.join(root, "decks");
 
 const explicit = process.argv.slice(2);
-if (explicit[0] === "lint") { lintCommand(explicit.slice(1)); process.exit(); }
+if (explicit[0] === "lint") { await lintCommand(explicit.slice(1)); process.exit(); }
 const qmdFiles = explicit.length
   ? explicit
   : findFiles(decksDir, (file) => file.endsWith("index.qmd")).map((file) => path.relative(root, file));
 
 for (const file of qmdFiles.sort()) {
-  renderDeck(file);
+  await renderDeck(file);
 }
 
-function renderDeck(file) {
+async function renderDeck(file) {
   const qmdPath = path.resolve(root, file);
   const deckDir = path.dirname(qmdPath);
   const qmd = readFileSync(qmdPath, "utf8");
   const { yaml, body } = splitFrontMatter(qmd);
   const meta = parseSimpleYaml(yaml);
-  const diagnostics = lintSource(qmd, file);
+  const diagnostics = await lintDeckSource(qmd, file, markdownToAst);
   if (diagnostics.length) throw new Error(diagnostics.map(formatDiagnostic).join("\n"));
   const slides = assignSlideIds(parseSlides(body), parsePandocAttrs);
   if (!slides.length) {
@@ -1295,7 +1296,7 @@ function markdownToHtml(markdown) {
   if (result.status !== 0) {
     throw new Error(`quarto pandoc failed while rendering slide markdown:\n${result.stderr || result.stdout}`);
   }
-  return result.stdout || result.stderr;
+  return normalizeImageAlts(result.stdout || result.stderr);
 }
 
 function extractNotes(markdown) {
@@ -1462,16 +1463,22 @@ function formatDiagnostic(diagnostic) {
   return `${diagnostic.file}:${diagnostic.line}:${diagnostic.column}: ${diagnostic.code}: ${diagnostic.message}`;
 }
 
-function lintCommand(args) {
+async function lintCommand(args) {
   const files = args.filter(arg => arg !== "--json");
-  const diagnostics = files.flatMap(file => {
-    try { return lintSource(readFileSync(path.resolve(root, file), "utf8"), file); }
+  const diagnostics = (await Promise.all(files.map(async file => {
+    try { return await lintDeckSource(readFileSync(path.resolve(root, file), "utf8"), file, markdownToAst); }
     catch (error) { return [{ file, line: 1, column: 1, code: "source-read", severity: "error", message: String(error) }]; }
-  });
+  }))).flat();
   if (!files.length) diagnostics.push({ file: "", line: 1, column: 1, code: "usage", severity: "error", message: "lint requires at least one QMD source file." });
   const report = { version: 1, ok: diagnostics.length === 0, diagnostics };
   if (args.includes("--json")) console.log(JSON.stringify(report, null, 2));
   else if (report.ok) console.log(`Source lint passed (${files.length} files).`);
   else for (const diagnostic of diagnostics) console.error(formatDiagnostic(diagnostic));
   if (!report.ok) process.exit(1);
+}
+
+function markdownToAst(markdown) {
+  const result = spawnSync("quarto", ["pandoc", "-f", "markdown+native_divs+native_spans+fenced_divs+pipe_tables+raw_html+yaml_metadata_block", "-t", "json"], {input:markdown, encoding:"utf8", maxBuffer:256 * 1024 * 1024});
+  if (result.error || result.status !== 0) throw new Error(`quarto pandoc failed while checking images: ${result.error || result.stderr}`);
+  return JSON.parse(result.stdout);
 }

@@ -1,10 +1,11 @@
+import { lintDeckSource } from './lib/images.mjs';
 import { upgradeOwnedCss } from "./themes/foundations.mjs";
 import { readPreviewHtml, queueRenders, shouldWatchPath } from "./lib/preview.mjs";
 import { colorModeControl, colorModeScript, legacyThemes, resolveTheme, themeAssets, themeAttributes, themeStyles, validateThemeName } from "./themes/themes.mjs";
 import { matchThemeStyles } from "./themes/matches.mjs";
 
-import { counterPolicyFailures, slideMediaClasses, arrangeSlideCredits, assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds, unnamespacedPandocIds } from "./lib/render.mjs";
-import { deckCounter, extractNotes as extractSourceNotes, lintSource, maskCodeAndMetadata, parseSlides as parseSourceSlides, slideSegments, splitFrontMatter as splitSourceFrontMatter } from "./lib/source.mjs";
+import { imageAltFailures, normalizeImageAlts, counterPolicyFailures, slideMediaClasses, arrangeSlideCredits, assignSlideIds, compileMatchSummary, maximumMatchGroups, renderTitle, namespacePandocIds, unnamespacedPandocIds } from "./lib/render.mjs";
+import { deckCounter, extractNotes as extractSourceNotes, maskCodeAndMetadata, parseSlides as parseSourceSlides, slideSegments, splitFrontMatter as splitSourceFrontMatter } from "./lib/source.mjs";
 
 type DeckSource = {
   source: string;
@@ -203,7 +204,7 @@ async function main() {
       case "all":
         await convertCommand([]);
         await renderCommand([]);
-        verifyCommand();
+        await verifyCommand();
         break;
       case "deck":
         await deckCommand(args);
@@ -225,10 +226,10 @@ async function main() {
         await themeCommand(args);
         break;
       case "lint":
-        lintCommand(args);
+        await lintCommand(args);
         break;
       case "verify":
-        verifyCommand(args);
+        await verifyCommand(args);
         break;
       case "workspace":
         workspaceCommand(args);
@@ -271,7 +272,7 @@ Commands:
   convert   Convert HTML decks in source_presentations/ to decks/*/index.qmd.
   render    Render QMD decks to index.html and presenter.html.
   serve     Render and serve one deck folder; --watch rebuilds and reloads the browser.
-  lint      Check slide boundaries (--- or ##) and report empty slides.
+  lint      Check slide boundaries, counter settings and picture descriptions.
   verify    Compare copied source decks, QMD, and rendered HTML outputs.
   all       Run convert, render, and verify.
 
@@ -1006,15 +1007,15 @@ Replace with copy.
 
 :::: {.ds-grid style="--ds-columns: 3; --ds-gap: 14px;"}
 ::: {.ds-media}
-![](assets/image-1.svg){.ds-fill .ds-theme-filter}
+![Describe the picture](assets/image-1.svg){.ds-fill .ds-theme-filter}
 :::
 
 ::: {.ds-media}
-![](assets/image-2.svg){.ds-fill .ds-bn}
+![Describe the picture](assets/image-2.svg){.ds-fill .ds-bn}
 :::
 
 ::: {.ds-media}
-![](assets/image-3.svg){.ds-fill .ds-vivid}
+![Describe the picture](assets/image-3.svg){.ds-fill .ds-vivid}
 :::
 ::::`;
     case "code":
@@ -1647,7 +1648,7 @@ async function renderDeck(file: string) {
   const qmd = Deno.readTextFileSync(qmdPath);
   const { yaml, body } = splitFrontMatter(qmd);
   const meta = parseSimpleYaml(yaml);
-  const diagnostics = lintSource(qmd, file);
+  const diagnostics = await lintDeckSource(qmd, file, markdownToAst);
   if (diagnostics.length) throw new Error(diagnostics.map(formatDiagnostic).join("\n"));
   const slides = assignSlideIds(parseSlides(body), parsePandocAttrs);
   if (!slides.length) {
@@ -3183,7 +3184,13 @@ async function markdownToHtml(markdown: string) {
   if (result.code !== 0) {
     throw new Error(`quarto pandoc failed while rendering slide markdown:\n${result.stderr || result.stdout}`);
   }
-  return result.stdout || result.stderr;
+  return normalizeImageAlts(result.stdout || result.stderr);
+}
+
+async function markdownToAst(markdown: string) {
+  const result = await runProcess(["quarto", "pandoc", "-f", "markdown+native_divs+native_spans+fenced_divs+pipe_tables+raw_html+yaml_metadata_block", "-t", "json"], markdown);
+  if (result.code !== 0) throw new Error(`quarto pandoc failed while checking images: ${result.stderr}`);
+  return JSON.parse(result.stdout);
 }
 
 function extractNotes(markdown: string) {
@@ -3252,15 +3259,15 @@ function formatDiagnostic(diagnostic: { file: string; line: number; column: numb
   return `${diagnostic.file}:${diagnostic.line}:${diagnostic.column}: ${diagnostic.code}: ${diagnostic.message}`;
 }
 
-function lintCommand(args: string[]) {
+async function lintCommand(args: string[]) {
   const files = args.filter((arg) => arg !== "--json");
-  const diagnostics = files.flatMap((file) => {
+  const diagnostics = (await Promise.all(files.map(async (file) => {
     try {
-      return lintSource(Deno.readTextFileSync(resolvePath(root, file)), file);
+      return await lintDeckSource(Deno.readTextFileSync(resolvePath(root, file)), file, markdownToAst);
     } catch (error) {
       return [{ file, line: 1, column: 1, code: "source-read", severity: "error", message: String(error) }];
     }
-  });
+  }))).flat();
   if (!files.length) diagnostics.push({ file: "", line: 1, column: 1, code: "usage", severity: "error", message: "lint requires at least one QMD source file." });
   const report = { version: 1, ok: diagnostics.length === 0, diagnostics };
   if (args.includes("--json")) console.log(JSON.stringify(report, null, 2));
@@ -3269,7 +3276,7 @@ function lintCommand(args: string[]) {
   if (!report.ok) Deno.exit(1);
 }
 
-function verifyCommand(args: string[] = []) {
+async function verifyCommand(args: string[] = []) {
   const failures: string[] = [];
   const selected = args.length ? unique(args.map((file) => resolvePath(root, file))).sort() : discoverQmdDecks();
   const sourceSlugs = new Set<string>();
@@ -3287,7 +3294,7 @@ function verifyCommand(args: string[] = []) {
     const audience = readRequired(audiencePath, failures);
     const presenter = readRequired(presenterPath, failures);
     const notes = extractDeckNotes(presenter);
-    verifyQmdVerbatimBlocks(slug, qmd, qmdPath, failures);
+    await verifyQmdVerbatimBlocks(slug, qmd, qmdPath, failures);
     verifyGeneratedHtml(slug, qmd, audience, audiencePath, "audience", failures);
     verifyGeneratedHtml(slug, qmd, presenter, presenterPath, "presenter", failures);
     const row: Record<string, number | string | boolean> = {
@@ -3345,7 +3352,7 @@ function verifyCommand(args: string[] = []) {
     const audience = readRequired(audiencePath, failures);
     const presenter = readRequired(presenterPath, failures);
     const notes = extractDeckNotes(presenter);
-    verifyQmdVerbatimBlocks(slug, qmd, qmdPath, failures);
+    await verifyQmdVerbatimBlocks(slug, qmd, qmdPath, failures);
     verifyGeneratedHtml(slug, qmd, audience, audiencePath, "audience", failures);
     verifyGeneratedHtml(slug, qmd, presenter, presenterPath, "presenter", failures);
     const row: Record<string, number | string | boolean> = {
@@ -3414,8 +3421,8 @@ function readRequired(file: string, failures: string[], kind = "generated file")
   return Deno.readTextFileSync(file);
 }
 
-function verifyQmdVerbatimBlocks(slug: string, qmd: string, file: string, failures: string[]) {
-  for (const diagnostic of lintSource(qmd, relativePath(root, file))) failures.push(formatDiagnostic(diagnostic));
+async function verifyQmdVerbatimBlocks(slug: string, qmd: string, file: string, failures: string[]) {
+  for (const diagnostic of await lintDeckSource(qmd, relativePath(root, file), markdownToAst)) failures.push(formatDiagnostic(diagnostic));
   const blocks = extractExpectedPreBlocks(qmd);
   blocks.forEach((block, index) => {
     if (!block.trim()) {
@@ -3438,6 +3445,7 @@ function verifyGeneratedHtml(
 ) {
   const expected = extractExpectedPreBlocks(qmd);
   const actual = extractHtmlPreBlocks(html);
+  for (const message of [...imageAltFailures(html), ...extractDeckNotes(html).flatMap(note => imageAltFailures(note))]) fail(slug, file, message, failures);
   for (const message of counterPolicyFailures(qmd, html, mode)) fail(slug, file, message, failures);
 
   if (actual.length !== expected.length) {

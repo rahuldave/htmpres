@@ -9,11 +9,17 @@ Approved 9 November 2026, after joint review of Doc 1 (design language) and Doc 
 | 3: upstream verification | `rroytwov` | Passed | Numerical, asset/font, build and browser checks before slide imports |
 | 4: slide consumer adoption | `pvttvwwo` | Complete | Import authoritative manifests from merged upstream revisions; audience-scale and browser QA |
 | 5: rerun scientific experiments | `xrtvkvpx` | Complete — review checkpoint | Reading/presentation comparisons and role separation |
-| 6: plotting API/package | `vxltssko` | Awaiting user palette review | Verified upstream and slide contracts plus experiment evidence |
+| 6: standalone plotting ecosystem | `vxltssko` | Next-phase plan proposed; implementation not started | Agreed Doc 3 baseline; distinct Sol reviews and user-selected small native-package/integration pieces |
 
 Upstream adoption used nine independent physical worktrees managed by three owners/workstreams: custom three, Reading five, and Tufte. Shared build patterns do not create a central runtime dependency. Later phases wait for preceding gates.
 
-The [upstream verification record](upstream-verification.md) pins all nine merged source revisions, published manifest hashes and rerunnable browser helpers. The upstream gate passed; slide consumer adoption passed at verified commit `04cef45c3374a018d3b32b9c53a2e4e43e7c88ec`. The scientific run and rewritten Doc3 form a verified review checkpoint. Its palette choices are recommendations awaiting user review; phase6 package implementation is on hold until that decision.
+The [upstream verification record](upstream-verification.md) pins all nine merged source revisions, published manifest hashes and rerunnable browser helpers. The upstream gate passed; slide consumer adoption passed at verified commit `04cef45c3374a018d3b32b9c53a2e4e43e7c88ec`. The scientific run and rewritten Doc3 form a verified review checkpoint. The agreed Doc 3 recommendations are the phase 6 baseline; package implementation remains unstarted pending user selection of the next reviewed-plan piece.
+
+## Phase 6 planning checkpoint
+
+The [standalone plotting ecosystem plan](../../docs/plans/plotting-ecosystem.md) proposes independent Python, R and JavaScript packages in this monorepo, with documentation on the htmpres website. Plain native use and ordinary Quarto/SmallDocs use require no htmpres installation, runtime, import or package-name dependency. Existing nine upstream theme repositories remain authoritative and independently distributed; plotting artifacts consume pinned published manifests and approved plotting decisions at build time.
+
+The plan separates theme configuration, scales, operational categorical helpers, exact fonts, placement and exports. It defines small sequential pieces with a review gate after each, native/offline artifact tests and staged adapter coverage. Package names, registry publication and implementation are not established by this plan. Doc 3 and its frozen run remain unchanged. Delivery tasks are mapped in iteration `wkssvzoo` under `vxltssko`; the current planning leaf is `rlpsynzs`. Each piece has a distinct Sol 6.1 writer and reviewer; the parent integrates the review and presents the result, and the user selects the next piece. Publication is a separate explicit gate.
 
 ## Frozen v1 source and publication contract
 

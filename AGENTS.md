@@ -217,9 +217,31 @@ just node-check
 just compat-check
 just diff-check
 just check
+just packages-build
+just packages-test
+just packages-install-test
+just packages-check
 npm run render -- decks/tutorial/index.qmd
 npm run verify
 ```
+
+### Independent package scaffold commands
+
+`packages/` contains standalone Plotfoundry identity scaffolds, not plotting APIs.
+Keep root `package.json` private and `_extensions/htmpres` unchanged in identity.
+`just packages-build` builds the Python wheel/sdist, R source archive and npm
+package into ignored `.build/packages/`. It requires developer Python 3.11+, uv,
+R/Rscript, and npm/Node; these are build/test orchestration tools, not cross-language
+runtime dependencies. The individual packages document native builds.
+`just packages-test` runs focused boundary tests; `just packages-install-test`
+first builds, then installs local artifacts in clean temporary consumers outside
+the checkout and prints the JS browser-fixture root. `just packages-check`
+composes focused tests, installed-artifact checks and diff hygiene. These optional
+multi-language checks remain separate from the existing Quarto/Deno `just check`.
+After `packages-install-test`, serve its reported `browser_root` with a local HTTP
+server and inspect the installed `browser_path` using
+`integration_tests/package-boundaries-browser.mjs`; the server path must be the
+clean consumer, not a source-tree example. No package is published by these targets.
 
 The statement/credit/quote/counter demo is `decks/authoring-hooks/index.qmd`;
 `just authoring-hooks` renders it. Its rerunnable CUA checks are

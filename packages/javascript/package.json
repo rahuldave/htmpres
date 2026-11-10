@@ -1,0 +1,17 @@
+{
+  "name": "plotfoundry",
+  "version": "0.1.0-dev.0",
+  "description": "Independent identity-only scaffold; plotting APIs are not implemented",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src",
+    "examples",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false
+}

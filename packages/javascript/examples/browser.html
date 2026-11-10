@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>Plotfoundry installed browser ESM scaffold</title>
+<h1>Plotfoundry scaffold</h1>
+<p>This installed package exposes identity only. Plotting is not implemented.</p>
+<pre id="identity" aria-live="polite">Loading installed browser ESM…</pre>
+<script type="module">
+import {packageInfo} from "../src/index.js";
+document.querySelector("#identity").textContent = JSON.stringify(packageInfo());
+</script>
+</html>

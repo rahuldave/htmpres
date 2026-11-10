@@ -106,3 +106,16 @@ node-check: node-render node-verify
 # Run the core Deno checks plus optional Node fallback parity checks.
 compat-check: tutorial example semantic authoring-hooks slide-breaks verify node-render node-verify diff-check
   node --test tests/semantic-renderer.test.mjs tests/runtime-steps.test.mjs tests/runtime-navigation.test.mjs
+
+# Independent Plotfoundry scaffolds only; optional R/Node toolchains stay separate.
+packages-build:
+  python3 -B scripts/build-packages.py
+
+packages-test:
+  python3 -B -m unittest tests/test_package_boundaries.py
+
+# Consumers are installed outside the checkout, using only local built artifacts.
+packages-install-test: packages-build
+  python3 -B integration_tests/package-boundaries.py
+
+packages-check: packages-test packages-install-test diff-check

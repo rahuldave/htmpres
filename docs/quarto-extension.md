@@ -1,139 +1,64 @@
-# Quarto Extension Packaging
+# Install the Quarto extension
 
-`htmpres` can now be packaged as an installable Quarto utility extension. It is
-not yet a native Quarto output format.
+htmpres is an installable Quarto utility extension. Quarto runs its TypeScript
+build script, and Pandoc converts Markdown fragments. htmpres writes the HTML
+slide shell and supplies navigation, reveals, zoom and presenter notes.
 
-## Current Shape
+## Install in a project
 
-The installable unit is:
-
-```text
-_extensions/
-  htmpres/
-    _extension.yml
-    htmpres.ts
-    templates/
-      source.css
-    runtime/
-      htmpres-custom-deck.js
-      htmpres-interactions.html
-```
-
-The root `scripts/htmpres.ts` file is only a convenience shim for this repo:
+Run these commands from your presentation project:
 
 ```sh
-just render-all
+quarto add rahuldave/htmpres
+quarto run _extensions/htmpres/htmpres.ts workspace init presentations
+quarto run _extensions/htmpres/htmpres.ts deck new presentations/demo --theme nocturne
+quarto run _extensions/htmpres/htmpres.ts render presentations/demo/index.qmd
+quarto run _extensions/htmpres/htmpres.ts verify presentations/demo/index.qmd
 ```
 
-An installed project should call the extension path:
+Quarto installs the extension under `_extensions/htmpres/`. Keep that folder in
+version control so collaborators use the same renderer. `workspace init` copies
+the extension into the presentation workspace and gives it a human-facing
+Justfile. If a different Justfile already exists, it writes `htmpres.just`.
+
+For a local checkout or archive, replace the first command with one of these:
 
 ```sh
-quarto run _extensions/htmpres/htmpres.ts render decks/my-deck/index.qmd
-quarto run _extensions/htmpres/htmpres.ts verify
-```
-
-## Installing In An Existing Project
-
-For a published GitHub repo:
-
-```sh
-quarto add your-org/htmpres
-```
-
-For an internal archive or local checkout:
-
-```sh
-quarto add https://example.org/htmpres.zip
 quarto add /path/to/htmpres
+quarto add https://example.org/htmpres.zip
 ```
 
-After installation, check `_extensions/htmpres/` into version control with the
-deck project. Quarto treats installed extensions as local source code.
+See [Start a deck](quickstart.qmd) for a complete first talk, or
+[Authoring CLI](authoring-cli.md) for workspace and agent commands.
 
-For authoring work, initialize a presentation subfolder rather than modifying a
-host application's root build files:
+## Files in the extension
+
+`_extensions/htmpres/htmpres.ts` owns the CLI. Its `lib/` folder holds source and
+rendering helpers, `templates/` holds starter material, and `runtime/` supplies
+the browser controls and styles. `themes/` and `vendor/katex/` contain the local
+theme and math assets. The root `scripts/htmpres.ts` is a repository convenience
+shim; installed projects call the extension path directly.
+
+## Optional agent skills
+
+Agent instructions are a separate installation. They do not replace the extension:
 
 ```sh
-mkdir -p presentations
-cd presentations
-quarto add your-org/htmpres
-quarto run _extensions/htmpres/htmpres.ts workspace init .
-quarto run _extensions/htmpres/htmpres.ts deck new demo --title "Demo Deck" --theme sage
+npx skills add rahuldave/htmpres -a codex --skill htmpres-installer --skill htmpres-authoring
 ```
 
-`workspace init` writes a generated `Justfile` in the presentation workspace.
-If a non-htmpres `Justfile` already exists, it writes `htmpres.just` instead.
-The long `quarto run _extensions/htmpres/htmpres.ts ...` commands remain the
-canonical agent interface.
+Use `htmpres-installer` to set up a presentation project. Use `htmpres-authoring`
+to inspect, edit, render and verify a deck after the extension exists.
 
-## Agent Skills
+## Output format boundary
 
-The agent skills are installed separately from the Quarto extension:
+Use `quarto run ... render`, as shown above. A native `quarto render --to htmpres-html`
+format and a `quarto use template` starter are not shipped. A native format
+would need a Quarto/Pandoc template and filters that preserve the current HTML,
+notes and interactions. It remains a separate proposal.
 
-```sh
-npx skills add your-org/htmpres -a codex --skill htmpres-installer --skill htmpres-authoring
-```
+## Tool documentation
 
-Use `htmpres-installer` to install or initialize the extension in a project.
-Use `htmpres-authoring` to inspect, insert, replace, theme, render, and verify
-slides after `_extensions/htmpres/htmpres.ts` exists.
-
-## Starter Template
-
-For a new deck project, the friendliest distribution should be a template repo:
-
-```text
-template.qmd
-source.css
-assets/
-_extensions/
-  htmpres/
-    ...
-```
-
-Users would create a new project with:
-
-```sh
-quarto use template your-org/htmpres
-```
-
-The template should include one small working deck, `source.css`, and the
-installed `_extensions/htmpres` folder. If this full workspace is published as a
-template, add a `.quartoignore` so imported decks and source snapshots are not
-copied into every new project.
-
-## Why This Is Not `--to htmpres-html` Yet
-
-Quarto custom formats are invoked as formats, for example:
-
-```sh
-quarto render deck.qmd --to htmpres-html
-```
-
-That path requires the renderer to live inside Quarto's normal Pandoc format
-pipeline. Our renderer intentionally owns the whole HTML shell: slide sections,
-navigation, overview, zoom, presenter notes, and legacy interactions. It uses
-`quarto pandoc` only for markdown fragments.
-
-To become a native format later, we would need to:
-
-1. Move the HTML shell into a Quarto/Pandoc template.
-2. Replace the TypeScript slide parser with a Lua filter.
-3. Extract `.notes` into presenter-only metadata during the Pandoc pass.
-4. Bundle runtime CSS/JS as format resources.
-5. Prove output parity against the current `htmpres.ts verify` checks.
-
-## Official Docs Used
-
-- Quarto project scripts: `quarto run` can run TypeScript on Quarto's embedded
-  Deno, so TypeScript scripts can avoid a Node dependency.
-  <https://quarto.org/docs/projects/scripts.html>
-- Quarto extension distribution: install from GitHub, archives, local files, or
-  local directories with `quarto add`.
-  <https://quarto.org/docs/extensions/distributing.html>
-- Quarto custom formats and templates: use `quarto add` for an existing project
-  and `quarto use template` for a starter project.
-  <https://quarto.org/docs/extensions/formats.html>
-- Quarto project types: possible later if we want a fuller project scaffold,
-  but still not necessary for the current utility runner.
-  <https://quarto.org/docs/extensions/project-types>
+The [Quarto scripts guide](https://quarto.org/docs/projects/scripts.html) explains
+the bundled Deno runtime. The [extension distribution guide](https://quarto.org/docs/extensions/distributing.html)
+describes installation from GitHub, local files and archives.

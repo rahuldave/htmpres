@@ -1,0 +1,121 @@
+---
+title: Pictures and slide patterns
+toc: false
+sidebar: false
+page-layout: full
+---
+
+Choose a pattern, inspect its slide, and copy the Markdown below it. These
+examples use the supplied Nocturne theme. Choose light or dark mode, or switch
+to the presenter view to see its notes. No stylesheet edits are needed.
+
+```{=html}
+<section id="deck-example" data-manifest="_generated/patterns-manifest.json" aria-label="Interactive Markdown example">
+  <div class="example-toolbar">
+    <label>Example slide <select id="example-slide"></select></label>
+    <label>View <select id="example-view"><option value="audience">Audience slides</option><option value="presenter">Presenter with notes</option></select></label>
+    <label>Nocturne mode <select id="example-mode"><option value="light">Light</option><option value="dark">Dark</option></select></label>
+  </div>
+  <div class="example-step-controls" aria-label="Example steps">
+    <button type="button" class="btn btn-outline-primary" data-step-action="previous" disabled>Previous step</button>
+    <button type="button" class="btn btn-primary" data-step-action="next" disabled>Next step</button>
+    <button type="button" class="btn btn-outline-primary" data-step-action="restart" disabled>Restart steps</button>
+    <span id="example-step-status" role="status" aria-live="polite">Loading example…</span>
+  </div>
+  <p class="example-key-hint">Use <kbd>→</kbd> or <kbd>Space</kbd> to advance, <kbd>←</kbd> to go back, and <kbd>Home</kbd> to restart. The controls stay on the selected slide. Choose another slide from the menu.</p>
+  <div class="example-workspace">
+  <div class="example-output">
+      <div class="example-preview-heading"><h2>Slide preview</h2><a id="example-open" target="_blank" rel="noopener">Open full deck ↗</a></div>
+  <div class="example-preview"><iframe title="Interactive slide example" loading="eager"></iframe></div>
+
+  </div>
+  <section class="example-source" aria-labelledby="example-source-title">
+    <div class="example-source-heading">
+      <h2 id="example-source-title">Markdown</h2>
+      <span id="example-source-location"></span>
+      <button type="button" class="btn btn-outline-primary" id="example-copy">Copy slide Markdown</button>
+      <span id="example-copy-status" role="status"></span>
+    </div>
+    <pre tabindex="0"><code id="example-markdown" class="language-markdown">Loading Markdown…</code></pre>
+  </section>
+  </div>
+  <details><summary>Theme declaration used by this preview</summary><pre id="example-theme"></pre><p>Choose a bundled theme by name in your deck's front matter. You can use it without editing CSS.</p></details>
+</section>
+<noscript><p>Enable JavaScript for the interactive example, or <a href="_generated/source/patterns.qmd.txt">read the complete Markdown source</a> and <a href="_generated/patterns/nocturne/light/index.html">open the audience deck</a>.</p></noscript>
+<script type="module" src="assets/deck-example.mjs"></script>
+```
+
+## Use a pattern in your talk
+
+1. Download the [complete Markdown](_generated/source/patterns.qmd.txt).
+2. Save the [diagram](_generated/source/two-views.svg) and
+   [texture](_generated/source/texture.svg) in your deck's `assets/` folder.
+3. Copy the selected slide into your talk and replace its words and picture path.
+4. Keep a useful description inside `![description]`. Use `.decorative` only
+   when an image adds no information.
+
+Picture credits link to `#sources`. When copying one slide, either copy and adapt
+the source-record appendix too, or replace the sample link with your own source
+URL. If you copy the appendix, update its return links to IDs in your talk.
+
+The examples use these deck settings. If your file already has YAML front matter,
+merge them into its existing `deck` section. For a new file, put the complete
+block at the start, before the first slide. `counter: presenter` keeps slide numbers in the presenter
+view and hides them from the audience. Open the full deck from the preview
+header to see the counter policy; the embedded lab hides deck navigation controls.
+
+```yaml
+---
+pagetitle: My talk
+deck:
+  theme: nocturne
+  color-mode: auto
+  counter: presenter
+  text-fit: true
+  overflow: fit-scroll
+---
+```
+
+Try the [statement](?slide=1), [quotation](?slide=2), and
+[presenter-only counter](?slide=10) examples as well.
+
+## Choose the picture layout
+
+| Goal | Pattern | What to change |
+| --- | --- | --- |
+| Keep the whole image, with a caption | [Contained picture](?slide=3) | Replace the described `.ds-fit` image. |
+| Cover the slide with a picture | [Full-slide picture](?slide=4) | Use `.ds-full` and `.ds-fill`; fill may crop edges. |
+| Put readable text over a picture | [Picture and text](?slide=5) | Put the explanation in `.ds-layer`. |
+| Add a decorative background | [Background](?slide=6) | Set `data-background-image` on the heading. |
+| Explain a picture in steps | [Picture left](?slide=7) | Keep the picture in `.ds-left`, the explanation in `.ds-right`. |
+| Put the explanation first | [Picture right](?slide=8) | Swap the `.ds-left` and `.ds-right` roles. |
+| Place several pictures | [Picture grid](?slide=9) | Put a `.ds-media` block for each image in `.ds-grid`. |
+
+`.ds-fit` retains the whole image. `.ds-fill` covers its box and can crop it.
+A normal image's description also becomes a caption. Full-slide images keep
+the description for screen readers and hide that caption. Decorative backgrounds
+have no accessible image description; put any essential meaning in the slide text.
+
+Use `.credit` for a short attribution and link it to a longer source record in
+the appendix. The theme reserves space for the credit, caption and section label.
+For an important single claim, use `.statement`; for a quotation, use `.quote`
+on the slide and `.source` on the attribution.
+
+## More authoring patterns
+
+The [interactive feature tour](example.qmd) covers synchronized code and equations,
+matched colors, dimmed reveals, footnotes and appendix links.
+[Semantic slides](semantic-authoring.md) gives the complete syntax for these roles.
+[Layout and class reference](quarto-class-map.md) also covers cards, grids,
+video/audio controls, filters, transitions and small interactions.
+
+To put the same decorative image behind every slide, set `background-image`
+under `deck` in front matter. Use `.no-background` on a slide that should omit it.
+See the [background settings](build-a-deck-from-markdown.md)
+for fit, opacity and filter options. Add these entries to your existing `deck`
+section to use the supplied texture throughout the talk:
+
+```yaml
+deck:
+  background-image: assets/texture.svg
+```

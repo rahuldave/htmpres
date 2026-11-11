@@ -1,10 +1,10 @@
-# Deckset-Inspired Feature Status
+# Supported features and Deckset comparison
 
 This project maps Deckset ideas onto QMD, Quarto fenced divs, CSS classes, and
 the custom htmpres runtime. The goal is not exact Deckset syntax parity when
 Quarto containers are more general.
 
-## Easy Features
+## Layout, media and reveals
 
 | Feature | Status | Notes |
 | --- | --- | --- |
@@ -26,7 +26,7 @@ Quarto containers are more general.
 | Generic fragment transitions | Done | Add `.fragment`, optional `data-fragment-index`, and optional `data-fragment-effect`. |
 | Slide transitions | Done | Use `.transition-fade`, `.transition-slide`, `.transition-zoom`, `.transition-none`, or `data-transition`. |
 
-## Medium Features
+## Steps, import and export
 
 | Feature | Status | Notes |
 | --- | --- | --- |
@@ -37,15 +37,14 @@ Quarto containers are more general.
 | Mixed fragments, bullets, code and equation steps | Done | A shared step graph supports explicit synchronized frames and implicit source order. Ordinary explanations remain visible. |
 | Matched final summaries | Done | `data-step-summary="match"` adds one final frame pairing source parts and explanations by semantic name. Theme colors can be overridden per span, per slide or in CSS; see [matched summaries](semantic-authoring.md#finish-with-matched-colors). |
 | Source-order interleaving of code and text fragments | Done | Use `data-step-indices` to map snapshots to shared `data-fragment-index` values; unmapped mixed events follow source order. See [Semantic slides](semantic-authoring.md). |
-| Core Image-style filter matching | Done by browser approximation | `noir`, `chrome`, `fade`, `vivid`, exposure, and `sharpen` now use stable CSS/SVG mappings and compose in a single filter chain. |
+| Core Image-style filter matching | Done by browser approximation | `noir`, `chrome`, `fade`, `vivid`, exposure, and `sharpen` use stable CSS/SVG mappings and compose in a single filter chain. |
 | Pixel-exact Apple Core Image output | Open | Browser CSS/SVG filters do not expose Apple's private photo-effect lookup tables, so exact pixel parity would need a heavier preprocessing/export path. |
 | Broader export/print parity | Open | Print shows all fragments, but deeper PDF/export transition parity is not implemented. |
 
 ## Semantic Authoring
 
-Importance (`.key` / `.aside`), local classed KaTeX math, title emphasis,
+Importance (`.statement`, `.key` and `.aside`), local classed KaTeX math, title emphasis,
 unique footnote anchors, live named slide links and appendix boundaries are
 implemented. Top-level `---` and `##` start slides; `lint ... --json` supplies
-machine-readable diagnostics. Credits/conclusion templates and Deckset
-shorthand are deliberately deferred; the former was information only in this
-workstream. See [Semantic slides](semantic-authoring.md) for exact syntax.
+machine-readable diagnostics. Picture attributions use `.credit`. Ready-made
+`credits`/`conclusion` slide templates and Deckset shorthand are not implemented. See [Semantic slides](semantic-authoring.md) for exact syntax.

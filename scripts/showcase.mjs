@@ -67,7 +67,9 @@ function isolateComparison() {
     style.textContent = `
       body .deck-shell { grid-template-columns: minmax(0, 1fr) !important; grid-template-rows: minmax(0, 1fr) !important; }
       body .toc, body .footer-controls { display: none !important; }
-      body .stage-wrap { grid-column: 1 !important; grid-row: 1 !important; }
+      body .stage-wrap { grid-column: 1 !important; grid-row: 1 !important; padding: 0 !important; }
+      body .slides { max-height: none !important; border-radius: 0; }
+      body .deck-shell { column-gap: 0 !important; }
       body.presenter-mode .deck-shell { grid-template-columns: minmax(0, 1fr) !important; grid-template-rows: minmax(0, 1fr) 210px !important; }
       body.presenter-mode .stage-wrap { grid-column: 1 !important; grid-row: 1 !important; }
       body.presenter-mode .presenter-notes { grid-column: 1 !important; grid-row: 2 !important; border-left: 0; border-top: 1px solid var(--line); }

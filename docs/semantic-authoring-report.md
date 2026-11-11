@@ -1,8 +1,9 @@
 # Semantic authoring implementation report
 
-Verified on 2026-11-06. This is the exact authoring contract for the downstream
-presentation skill. The plan stays in `plan.md`; the hand-editable deck can be
-named `slides.qmd`. htmpres does not read the planning worksheet.
+This report records dated releases and their verification, beginning on
+2026-11-06. Use [Semantic slides](semantic-authoring.md) for the current authoring
+contract. Historical fixture sizes and test counts below describe each release.
+The separate planning worksheet in `plan.md` is not read by htmpres.
 
 ## Picture descriptions and fitted space (2026-11-10)
 
@@ -36,7 +37,7 @@ description empty:
 ![](assets/texture.svg){.decorative .ds-fit}
 ```
 
-This produces `alt=""` and passes lint. `data-background-image` remains the
+The decorative image produces `alt=""` and passes lint. `data-background-image` remains the
 decorative background form. All actual output images have an `alt` attribute;
 the verifiers also inspect serialized presenter notes and reject stale output
 where an attribute is removed. Meaningful full pictures keep their description
@@ -44,14 +45,16 @@ and use `.ds-full` to suppress the visible caption, without erasing the alt.
 
 **Fitted space.** The picture uses the remaining space below the title. The
 runtime reserves the actual credit and section-label boxes, with the theme's
-gaps, instead of adding a fixed empty band. A missing caption allocates no
+gaps, instead of adding a fixed empty band.
+
+A missing caption allocates no
 caption row. Captions are centered under centered pictures. `.ds-fit` keeps
 shape and scales past natural size; `.ds-fill` still deliberately crops.
 No author color, size or style attributes were added.
 
 The supplied Atelier/light case was measured in a real 1280 × 720 browser.
 The slide ran from y=14 to y=581 in both captures. The viewBox-only SVG had
-browser intrinsic dimensions 267 × 150. These are **drawn** sizes, calculated
+browser intrinsic dimensions 267 × 150. The table gives **drawn** sizes, calculated
 from intrinsic dimensions, the image content box and `object-fit: contain`:
 
 | Supplied slide | Before | After |
@@ -66,10 +69,12 @@ The fixtures use the same aspect ratios as the supplied drawings; pixel
 rounding follows the browser's viewBox intrinsic size.
 
 **Browser verification.** The regression fixture now has 55 slides. The catalog
-matrix passed all 146 theme/mode/view cases: 35 paired themes in light and dark,
+matrix passed all 146 theme/mode/view cases. It covers 35 paired themes in light and dark,
 audience and presenter, plus three legacy seeds in their supported mode and
-both views. That is **8,030 passing slide checks**. Compact Nocturne at
-520 × 900 added **220 passing checks**, both modes and views. Checks assert
+both views. The matrix totals **8,030 passing slide checks**. Compact Nocturne at
+520 × 900 added **220 passing checks**, both modes and views.
+
+Checks assert
 `hasAttribute('alt')`, decoded descriptions/explicit decoration, real drawn
 size against independently derived available space, captions and footer
 clearance, and the earlier full-picture geometry/contrast contracts. Actual
@@ -93,7 +98,7 @@ Implementation: [`7d544ac`](https://github.com/rahuldave/htmpres/commit/7d544ac)
 
 The five reported faults were all reproduced against `f3930fb` in an actual
 1280 × 720 browser, using the supplied Atelier/light examples. The slide ended
-at y=581. These were renderer/layout faults, not mistakes in the supplied QMD.
+at y=581. The supplied QMD was valid; the faults were in rendering and layout.
 
 | Report | Independent observation before the fix | Result |
 | --- | --- | --- |
@@ -158,9 +163,11 @@ The final syntax is shown below and in [Semantic slides](semantic-authoring.md#p
 `data-section` works in all four forms; no extra picture-label syntax is needed.
 Background layers are decorative. Use the described full-picture form for an
 image that needs its own screen-reader name. Standard Markdown descriptions
-now suffice for full pictures: no Quarto-specific `fig-alt` workaround is
+now suffice for full pictures. No Quarto-specific `fig-alt` workaround is
 needed or newly introduced. `.ds-readable` without `.ds-full` also remains
-supported. No old form gains a lint rejection, and no author syntax is renamed.
+supported.
+
+No old form gains a lint rejection, and no author syntax is renamed.
 
 Themes own `--htmpres-media-text-bg`, `--htmpres-media-text-ink`,
 `--htmpres-media-label-bg` and `--htmpres-media-label-ink`. The default opaque
@@ -184,7 +191,7 @@ it does not publish test pages. Both the harness and CUA spot checks use
 
 The complete catalog matrix checks all 35 paired themes in both modes and both
 views, plus sage, mono-grid and blank in their one supported mode and both
-views: 146 cases. Legacy seeds have no bundled dark pair. Deno/Node integration
+views, for 146 cases. Legacy seeds have no bundled dark pair. Deno/Node integration
 checks use real Nocturne, Flatly and Sage renders in both output views; the full
 catalog matrix substitutes theme CSS on unchanged canonical slide bodies.
 
@@ -344,7 +351,7 @@ third explanation is:
 On the third advance, the denominator is emphasized and the earlier two terms
 are dimmed. The fourth advance restores all three colored terms to full
 strength; it is an extra frame on the same slide. The former unpaired
-“Connect the total to the mean” sentence is removed. See the complete
+"Connect the total to the mean" sentence is removed. See the complete
 [copyable equation slide](semantic-authoring.md#equation-reuse-the-name-on-the-term)
 and [interactive example](example.qmd?slide=6).
 
@@ -355,7 +362,7 @@ inside the scrollport and can be scrolled through to its end. No new author
 syntax or smaller theme size is introduced.
 
 **Browser test:** both failures were reproduced on the previous published
-output. The corrected audience/presenter decks pass in light/dark modes:
+output. The corrected audience/presenter decks pass in light/dark modes. The checks cover
 three term/explanation color pairs, two dimmed terms before the overview,
 all three restored afterward, Back/reset, short-statement centering and real
 scrolling from the first to last line at minimum fit. The interactive
@@ -372,7 +379,7 @@ navigation/hook tests pass. Browser flows use the visible presenter list or
 audience overview and measure centering within the theme's content area,
 respecting space reserved for controls.
 
-Stepped display math also has a semantic size default: twice the surrounding
+Stepped display math also has a semantic size default of twice the surrounding
 fitted body text, controlled by theme CSS `--htmpres-equation-scale`.
 The QMD syntax stays unchanged. A browser regression reproduced a 15 px
 equation in the compact presenter pane; the corrected default renders it at
@@ -382,7 +389,7 @@ example inherits this default instead of carrying a separate math-size rule.
 These integration corrections are tracked in
 [PR #19](https://github.com/rahuldave/htmpres/pull/19).
 
-**Original hook release verification (`b8fee29`):** `just check`, `just compat-check`, final 70 Node tests,
+**Original hook release verification.** At `b8fee29`, `just check`, `just compat-check`, final 70 Node tests,
 `just semantic-test`, `just docs-check` (164 HTML pages), actual Deno/Node hook
 HTML parity, and packaged-skill validation/lint/scratch installation passed.
 The downstream look-talks/nossaifd-talks repositories were not edited. No
@@ -440,7 +447,7 @@ The estimate is less certain for smaller groups.
 ```
 
 All 35 paired themes map these roles in both modes, and the three legacy seeds
-have defaults. The theme token scale has levels 0–4, each with
+have defaults. The theme token scale has levels 0 to 4, each with
 `--htmpres-importance-N-scale`, `-weight` and `-ink`. Normal text is level 2;
 `.aside` uses 1 and `.key` uses 3. The current additions above expose level 4
 through `.statement` and level 0 through attribution marks;
@@ -450,7 +457,7 @@ also works inside fitted cards and callouts.
 
 ## 2. Math and named terms
 
-**Browser test:** [slide 6](compare.qmd?slide=6) and the semantic demo: real
+**Browser test:** [slide 6](compare.qmd?slide=6) and the semantic demo. real
 KaTeX HTML and MathML render without parse errors; named terms are present in
 the DOM, and math in presenter cues renders. Generated script, stylesheet and
 font URLs are local. Asset hashes and font completeness are checked separately;
@@ -480,7 +487,7 @@ colors, and define any custom term styling in the theme.
 ## 3. Shared text, code and equation steps
 
 **Browser test:** [code slide 5](compare.qmd?slide=5) and
-[equation slide 6](compare.qmd?slide=6): each of three Next presses reaches
+[equation slide 6](compare.qmd?slide=6). Each of three Next presses reaches
 frames 1, 3, 7 and changes the matching code line or equation term together
 with the explanation. Earlier explanations retain opacity 1, future ones stay
 hidden, and Previous restores both lanes. Both embedded comparison panes and
@@ -620,14 +627,15 @@ The detailed evidence belongs here.
 The main counter, Next, End and media autoadvance stop at the main-talk
 boundary. The last main slide's steps remain available before Next stops. Links and the slide
 list can enter the appendix, which has a separate `Appendix N / M` counter.
+
 Return links and browser Back return to the main slide. Same-slide footnote
 links preserve the reveal frame. Numeric `#/N` URLs remain supported.
 Slides without an explicit ID receive a collision-safe `slide-N` ID. Duplicate
 explicit slide IDs are an error.
 
-## 6. Opening and closing slide kinds — no change requested
+## 6. Opening and closing slide kinds , no change requested
 
-The request explicitly marked this item **FOR YOUR INFO ONLY: nothing to do**.
+The request marked this item as information only, so it required no implementation.
 No `credits` or `conclusion` insert kinds/templates were added. An author can
 write an ordinary semantic closing slide today:
 
@@ -639,7 +647,7 @@ write an ordinary semantic closing slide today:
 Questions?
 ```
 
-This is ordinary slide content, not a new kind. Browser verification is the
+The example uses ordinary slide content, without a new kind. Browser verification is the
 ordinary main closing slide in the tour; there is no implementation commit for
 new kinds because they were excluded.
 
@@ -675,7 +683,7 @@ to other slides are preserved. Literal code samples are not rewritten.
 
 ## 8. Emphasis in titles
 
-**Browser test:** [slide 1](compare.qmd?slide=1): “source” is an `em` element;
+**Browser test:** [slide 1](compare.qmd?slide=1): "source" is an `em` element;
 the outline and comparison selector show plain text without literal asterisks.
 The semantic demo and renderer tests also cover strong text, links and title
 footnotes.
@@ -696,7 +704,7 @@ The original PR #11 blanket rejection of body `---` has been superseded.
 Standalone top-level `---` and `##` both start slides; a separator followed by
 an empty or titled heading (with only blank lines between) makes one slide.
 Untitled slides use `Slide N` or `data-title` in navigation and omit the heading.
-Rules inside code, comments and fenced divs—including notes—do not split slides.
+Rules inside code, comments and fenced divs,including notes,do not split slides.
 The lint JSON schema stays at version 1; `empty-slide` replaces the former
 `slide-break` prohibition. Both renderers, both verifiers and slide editing
 commands share this contract.
@@ -723,7 +731,9 @@ quarto run _extensions/htmpres/htmpres.ts serve slides.qmd --watch --port 8767
 Open `http://127.0.0.1:8767/` for the audience or
 `http://127.0.0.1:8767/presenter.html` for cues. Save QMD, CSS or local assets;
 the server rebuilds both outputs and the browser reloads after a successful
-build. The current view and slide hash stay in place; reveal steps restart.
+build.
+
+The current view and slide hash stay in place; reveal steps restart.
 An invalid save keeps the last good deck visible. Fix and save to recover.
 The preview client is injected by the local server; exported HTML has no
 polling connection. The canonical tour is served the same way.
@@ -748,7 +758,7 @@ no-cache responses, and absence of the reload client from saved HTML.
 - The comparison page now links directly to the feature slides. The main
   tour has ten talk slides, two appendix slides and twelve presenter cues.
 
-The downstream nossaifd-talks skill was not edited: this report is its input.
+The downstream nossaifd-talks skill was not edited. Its authors can use this report as input.
 No Deckset `[.column]` / `^` translation was added. No new visual utility
 language or design system was introduced. Importance has default theme tokens;
 content uses semantic classes and attributes. Browser auto-refresh and the

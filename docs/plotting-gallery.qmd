@@ -2,10 +2,11 @@
 title: Explore standalone plotting
 ---
 
-These are **72 scientific configurations and 216 interface views**: nine families,
+The gallery has **72 scientific configurations and 216 interface views** across nine families,
 two modes, two profiles and two surfaces, shown with Python/Matplotlib,
 R/ggplot2 and base R. They are reviewed static exports; no plotting engine runs
-in this website. [Installation and scientific choices](plotting-packages.md).
+in this website. JavaScript has a [separate interactive example](plotting-javascript.qmd);
+it is not part of these 216 static views. [Installation and scientific choices](plotting-packages.md).
 
 ```{=html}
 <section id="plotting-gallery" aria-label="Plotfoundry gallery" aria-busy="true">
@@ -28,6 +29,9 @@ in this website. [Installation and scientific choices](plotting-packages.md).
 <script type="module" src="assets/plotting-gallery.mjs"></script>
 ```
 
+**Profile** selects reading or presentation text and mark sizes. **Surface**
+selects a paper or panel background.
+
 ## View and download without JavaScript
 
 [Open the complete static download index](_generated/plotting/index.html).
@@ -39,6 +43,6 @@ exact availability, never an unexplained disabled download.
 Python canvases are 8 × 8 inches; R canvases are 8 × 9. Comparing them does not
 claim pixel-identical native marker geometry or device quantization. Fit previews
 change apparent text size. Use **intended** width (640 reading / 1152 presentation
-CSS pixels) to inspect the declared placement; narrow screens scroll without
-cropping or inverting the image. [Python details](plotting-python.qmd) ·
+CSS pixels) to inspect the declared placement. Narrow screens scroll without
+cropping or inverting the image. [Python details](plotting-python.qmd) and
 [R details](plotting-r.qmd).

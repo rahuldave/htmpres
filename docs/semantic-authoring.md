@@ -1,13 +1,13 @@
 # Semantic slides
 
-See the [implementation and browser-test report](semantic-authoring-report.md)
-for the downstream skill contract and feature commits.
-
 Write the argument in QMD; let the theme choose fonts and colors. The complete
 [example source](_generated/source/semantic.qmd.txt) contains no inline styles
 or color values. Open the [audience deck](_generated/semantic/index.html) or
 [presenter deck](_generated/semantic/presenter.html). Both use the custom HTML
 renderer; Quarto supplies Pandoc for Markdown parsing.
+
+For release history and verification, read the
+[implementation report](semantic-authoring-report.md).
 
 Render and check it with:
 
@@ -17,7 +17,7 @@ quarto run _extensions/htmpres/htmpres.ts render slides.qmd
 quarto run _extensions/htmpres/htmpres.ts verify slides.qmd
 ```
 
-## 1. Importance
+## Importance
 
 Use `.statement` for the dominant claim, `.key` for a key point and `.aside` for a minor qualification.
 These roles work on native spans and fenced blocks:
@@ -33,19 +33,21 @@ The estimate is less certain for smaller groups.
 ```
 
 All 35 paired themes map these roles in both modes, and the three legacy seeds
-have defaults. The theme token scale has levels 0–4, each with
+have defaults. The theme token scale has levels 0 to 4, each with
 `--htmpres-importance-N-scale`, `-weight` and `-ink`. Normal text is level 2;
 `.aside` uses 1, `.key` uses 3 and `.statement` uses 4. Purpose-specific
-`.credit` and `.source` labels use level 0. There are no numbered author classes.
-There is no generic level-0 mark: that size is for attribution, not another
-way to shrink the argument. Theme
+`.credit` and `.source` labels use level 0.
+
+There are no numbered author classes.
+Level 0 is reserved for attribution through `.credit` and `.source`.
+There is no generic class for shrinking the argument. Theme
 authors may change tokens in CSS without changing slide source. Role sizing
 also works inside fitted cards and callouts.
 
 ### A statement slide
 
-Jonathan Schwabish, *Better Presentations* (2017), pp. 70–72, recommends making
-the most important point dominant; pp. 139–140 show spare section/header slides.
+Jonathan Schwabish, *Better Presentations* (2017), pp. 70 to 72, recommends making
+the most important point dominant; pp. 139 to 140 show spare section/header slides.
 Use a statement block on an untitled slide for that purpose:
 
 ```markdown
@@ -66,7 +68,7 @@ vertically centered.
 
 ## Picture credits
 
-Following Jonathan Schwabish, *Better Presentations* (2017), pp. 128–129, put a
+Following Jonathan Schwabish, *Better Presentations* (2017), pp. 128 to 129, put a
 short picture credit at the lower right and move lengthy source records to an
 endnote/appendix slide. A native span or fenced `.credit` block is sufficient:
 
@@ -92,7 +94,9 @@ lower-right lane, including credits authored inside a media block. The theme's
 opaque paper/ink backing keeps them readable over bright or dark images.
 Attribution ink targets 4.8:1 contrast against that paper. If a stock palette's
 normal or muted ink is too faint, the theme adapter shifts that ink toward black
-or white; already-readable ink keeps its semantic token alias. On a mid-tone
+or white; already-readable ink keeps its semantic token alias.
+
+On a mid-tone
 paper where even black or white cannot reach 4.8:1, it uses the strongest
 neutral endpoint, still above the 4.5:1 normal-text minimum. The
 layout reserves space for the lane and puts the section label above it;
@@ -102,17 +106,16 @@ not a general caption/overlay layout tool.
 
 ### Pictures that fit, with accessible descriptions
 
-Jonathan Schwabish, *Better Presentations* (2017), pp. 118–124, recommends
+Jonathan Schwabish, *Better Presentations* (2017), pp. 118 to 124, recommends
 letting a strong picture fill the slide. Adam Wathan and Steve Schoger,
-*Refactoring UI*, “Text needs consistent contrast,” pp. 202–204, explain why
-picture overlays need a dependable ground. These patterns keep those choices
-semantic: the theme supplies all ink, grounds and typography.
+*Refactoring UI*, "Text needs consistent contrast," pp. 202 to 204, explain why
+picture overlays need a dependable ground. The patterns use semantic roles. The theme supplies ink, backgrounds and typography.
 
 Every meaningful picture needs a description between `![` and `]`. The
 `lint`, `render` and `verify` commands reject an empty or missing description
 with an `image-description` **error**, including pictures in presenter notes,
 reference images and raw HTML. Diagnostics identify the slide and point to its
-starting line. For example, slide 3 titled “A titled picture, empty description”
+starting line. For example, slide 3 titled "A titled picture, empty description"
 produces this exact message:
 
 ```text
@@ -134,7 +137,7 @@ empty description with `.decorative` on the **image**:
 ![](assets/texture.svg){.decorative .ds-fit}
 ```
 
-This renders `alt=""` and lint accepts it. Raw HTML may use
+The decorative image renders `alt=""` and lint accepts it. Raw HTML may use
 `<img src="assets/texture.svg" class="decorative" alt="">`. Do not mark an
 informative picture decorative to remove a caption; the described `.ds-full`
 form below already hides its visible caption. `data-background-image` remains
@@ -154,8 +157,9 @@ For a titled slide containing one picture and an optional credit, write:
 The description becomes both the image's screen-reader `alt` and its visible
 caption. The picture, caption and credit fit below the title, without cropping
 the picture. It grows to a limiting edge of the space below the title,
-reserving the actual caption, credit and section-label boxes plus the theme’s
+reserving the actual caption, credit and section-label boxes plus the theme's
 gaps. It can scale beyond its intrinsic size, including viewBox-only SVGs.
+
 Captions are centered under centered pictures. Wide, tall and 16:9 images use the same syntax. `.ds-fit` is
 optional for this one-picture layout. Wrapping the image in `::: {.ds-media}`
 also works; a linked image keeps its native Markdown caption behavior.
@@ -198,7 +202,7 @@ For text over the picture, add a semantic layer:
 `.ds-readable` adds a gradient without changing the full-slide geometry; it
 also works on a contained `.ds-media` picture. `.ds-layer` has an opaque,
 theme-controlled text panel. Its nested `.key` uses that panel's ink while
-retaining semantic emphasis. This keeps text readable on dark, bright and
+retaining semantic emphasis. The panel keeps text readable on dark, bright and
 mixed pictures; a transparent gradient alone cannot guarantee that contrast.
 
 A decorative background can carry a visible title and body text directly:
@@ -224,12 +228,11 @@ complex multi-picture compositions retain their authored container layout.
 Themes can override `--htmpres-media-text-bg`, `--htmpres-media-text-ink`,
 `--htmpres-media-label-bg` and `--htmpres-media-label-ink`. Defaults use theme
 paper and an ink targeting 4.8:1 contrast, following the attribution policy.
-Authors need no CSS, colors, sizes or new Markdown attributes. Existing forms
-remain valid; no new lint rejection is introduced.
+Authors can use these patterns without CSS, colors or sizes.
 
 ## Quotations and their source
 
-Jonathan Schwabish, *Better Presentations* (2017), pp. 72–73, illustrates a
+Jonathan Schwabish, *Better Presentations* (2017), pp. 72 to 73, illustrates a
 quotation with its important passage emphasized and its source attached. Use
 ordinary Markdown quotation syntax, the slide class `.quote`, and `.source`:
 
@@ -241,7 +244,7 @@ ordinary Markdown quotation syntax, the slide class `.quote`, and `.source`:
 > [Example quotation written for this demonstration.]{.source}
 ```
 
-This is original example copy, not a quotation from Schwabish. `.key` keeps its
+The quotation is original example copy, rather than words from Schwabish. `.key` keeps its
 usual emphasis inside the quotation. A fenced `.source` block also works; it
 uses the same attribution role. The theme sets quotation spacing/size and the
 smaller source line. Source text stays with the quote; only `.credit` is moved
@@ -249,7 +252,7 @@ to the picture-credit lane.
 
 ## Audience counter
 
-Jonathan Schwabish, *Better Presentations* (2017), pp. 69–70, recommends omitting
+Jonathan Schwabish, *Better Presentations* (2017), pp. 69 to 70, recommends omitting
 slide numbers from a spoken talk. Put this setting in the **initial deck front
 matter** to retain the counter for the speaker:
 
@@ -282,8 +285,8 @@ The detailed evidence.
 
 The setting applies throughout the main talk and appendix. Hidden counters
 continue tracking navigation, but take no layout space and are absent from the
-accessibility tree. Main/appendix numbering and End still use their existing
-boundaries. Unknown or empty values produce a `deck-counter` source error in
+accessibility tree. Main slides count to the last slide before the appendix. End stops there;
+appendix slides have their own count. Unknown or empty values produce a `deck-counter` source error in
 `lint --json`; render and verify reject it. After changing the policy, rerender
 both outputs; verify detects stale policy or visibility.
 
@@ -292,13 +295,8 @@ Run `just authoring-hooks` for a complete local example. Inspect the
 [presenter deck](_generated/authoring-hooks/presenter.html) and
 [editable source](_generated/source/authoring-hooks.qmd.txt).
 
-The nine-foundation slide adoption must retain these same hooks. They consume
-shared importance levels, body size, paper/ink and available font weights;
-foundation adopters should run the authoring-hook fixture and browser checks
-alongside their audience-scale QA. No second author syntax or foundation schema
-field is required.
 
-## 2. Math and named terms
+## Math and named terms
 
 Use dollar delimiters. Give a term a semantic class with `\htmlClass`:
 
@@ -319,13 +317,13 @@ visual equation. Only KaTeX's `\htmlClass` extension is trusted; URL, inline
 style and HTML-ID extensions are disabled. Use descriptive class names, not
 colors, and define any custom term styling in the theme.
 
-Display math inside `.equation-steps` is focal content: its default size is
-twice the surrounding fitted body text. Themes can set the unitless CSS
+Display math inside `.equation-steps` uses twice the surrounding fitted body
+text size by default. Themes can set the unitless CSS
 variable `--htmpres-equation-scale` to change that ratio. No size attribute is
 needed in QMD. Ordinary inline math and presenter-note math keep their normal
 text sizing; authored math CSS can still override the default.
 
-## 3. Shared text, code and equation steps
+## Shared text, code and equation steps
 
 `data-fragment-index` is a shared frame number. Map code snapshots to those
 numbers with `data-step-indices`. This complete slide changes code and reveals
@@ -402,15 +400,16 @@ color as its explanation is revealed, starting with the first teaching step.
 Code line numbers or equation terms share the explanation's color. Earlier
 revealed groups retain their colors; future explanations stay hidden.
 Teaching highlights/dimming continue to identify the current source part.
-After the last teaching step, **one more advance** shows the complete overview:
-the highlight and dimming clear, and all revealed explanations remain readable.
+
+After the last teaching step, **one more advance** shows the complete overview.
+The highlight and dimming clear, and all revealed explanations remain readable.
 Previous restores the last teaching frame and its colors; further backward
 steps remove colors from groups no longer revealed. Restart restores the initial
 slide.
 
 You choose this behavior in the QMD before rendering. Without the attribute,
-the slide keeps its existing final highlight. The extra step is calculated
-from the shared step graph: adding a reveal or changing sparse indices needs
+the slide keeps its existing final highlight. The shared step graph determines
+the extra step. Adding a reveal or changing sparse indices needs
 no manually numbered summary step. A valid opted-in slide with no reveals has
 one summary step.
 
@@ -447,8 +446,10 @@ the same name for related spans or blocks. A name is local to its slide.
 `data-line-matches` maps source line positions to those names. Separate entries
 with `|`; use `2-4:total` for a range or `1,3:observations` for separate lines.
 Selections must be positive, in bounds and non-overlapping. Every mapped name
-needs a `data-match` explanation. These mappings are independent of
-`data-steps`: repeated or cumulative highlights do not change a group's color.
+needs a `data-match` explanation.
+
+The mappings are independent of
+`data-steps`. Repeated or cumulative highlights do not change a group's color.
 Matched slides display line numbers throughout teaching and the summary, including code without
 `.numberLines`; only mapped numbers receive a matching color. Code syntax
 colors remain intact.
@@ -481,7 +482,9 @@ $$
 the third. Each has its own matching explanation. On the third reveal, only
 the denominator is emphasized; the earlier terms remain colored but dimmed.
 The fourth advance removes that dimming so all three pairs are visible at
-full strength. This is an extra frame on the same slide. If the last teaching
+full strength. The overview is an extra frame on the same slide.
+
+If the last teaching
 snapshot already selects every term, the overview will have little visible
 change; keep the last snapshot focused on its own term when demonstrating
 the overview. Different groups must not overlap on the same source term or code line.
@@ -511,7 +514,9 @@ Those colors apply from the named group's reveal through the final summary.
 An enclosing fragment controls a nested matched span's onset. A repeated name
 keeps one color, but later occurrences stay hidden until their own reveal.
 Static labels with teaching frames join the first frame; a slide without
-teaching reveals waits for its single summary advance. Explicit index-0
+teaching reveals waits for its single summary advance.
+
+Explicit index-0
 fragments are visible and colored at the baseline. Back/Restart restores these
 visibility and color states. For a term **inside** a larger
 display equation, keep `\htmlClass{mean}{...}` and set the shared color on its
@@ -557,7 +562,7 @@ html[data-color-mode="dark"] .slide {
 You can use a color directly, such as `rebeccapurple`, or a theme token such as
 `var(--teal)`. Semantic names remain the QMD contract. Specific slide/inline
 declarations override these ordinary deck-wide rules. Theme authors may also
-replace generated ordinal slots `--htmpres-match-1`, `--htmpres-match-2`, etc.;
+replace generated ordinal slots `--htmpres-match-1`, `--htmpres-match-2` and later slots;
 named variables are preferable when a concept should retain its color across
 slides.
 
@@ -579,18 +584,20 @@ code panels. A medium-tone theme such as Quartz dark instead gets an opaque,
 theme-related backing behind the matched text and terms; its palette is
 checked against that actual backing.
 
-These are background-contrast checks, not a guarantee that every pair of hues
+The checks measure contrast against the background. They do not guarantee that every pair of hues
 is distinguishable with every form of color vision. Keep descriptive wording
 and line numbers; do not make color the sole explanation. With many groups,
 consider splitting the slide. Direct colors and CSS overrides are preserved
-exactly and are **not** contrast-adjusted. Check both modes after overriding,
+exactly and are **not** contrast-adjusted.
+
+Check both modes after overriding,
 especially on custom backgrounds or images. A custom theme can supply the
 same named variables and the `--htmpres-summary-surface` /
 `--htmpres-summary-number-bg` background tokens. Bundled themes and the three
 legacy seeds have generated palettes; a custom theme without named colors or
 ordinal slots falls back to its ordinary foreground color.
 
-## 4. Layering without reading ahead
+## Layering without reading ahead
 
 The `dim` effect hides future points, shows the current point normally, and
 dims past points. It is inherited by fragment spans and list items inside
@@ -616,7 +623,7 @@ Explicit fragment effects override a container effect. Ordinary fragments do
 not dim. A dimmed text lane keeps its latest text point current while only
 code or equations advance. No mode previews future text in grey.
 
-## 5. Appendix navigation
+## Appendix navigation
 
 Give slides explicit IDs for stable links. The first `data-kind="appendix"`
 starts a trailing appendix, including every later slide:
@@ -636,12 +643,13 @@ The detailed evidence belongs here.
 The main counter, Next, End and media autoadvance stop at the main-talk
 boundary. The last main slide's steps remain available before Next stops. Links and the slide
 list can enter the appendix, which has a separate `Appendix N / M` counter.
+
 Return links and browser Back return to the main slide. Same-slide footnote
 links preserve the reveal frame. Numeric `#/N` URLs remain supported.
 Slides without an explicit ID receive a collision-safe `slide-N` ID. Duplicate
 explicit slide IDs are an error.
 
-## 7. Footnotes
+## Footnotes
 
 Use standard Pandoc footnotes, and reuse labels on different slides:
 
@@ -663,7 +671,7 @@ Footnote IDs, references and backlinks are unique per slide and presenter cue.
 Code IDs and body-heading IDs are also namespaced. Authored slide IDs and links
 to other slides are preserved. Literal code samples are not rewritten.
 
-## 8. Emphasis in titles
+## Emphasis in titles
 
 Titles accept inline Markdown; navigation uses their plain text:
 
@@ -673,12 +681,14 @@ Titles accept inline Markdown; navigation uses their plain text:
 [Story before styling.]{.key}
 ```
 
-## 9. Slide boundaries and lint
+## Slide boundaries and lint
 
 Start a slide with a standalone `---` or a level-two heading (`## Title`).
 Both are accepted at the top level, with zero to three leading spaces and
 optional trailing spaces or tabs. Four-space/tab-indented code is exempt.
-Only exactly three hyphens count: `----`, `***`, and `___` are not slide
+Only exactly three hyphens count.
+
+`----`, `***`, and `___` are not slide
 boundaries. A `---` followed by `##` with only blank lines between makes
 **one slide**. Content before the first boundary forms an untitled opening slide;
 leading HTML comments do not create slides. Heading-only decks keep working.
@@ -687,8 +697,7 @@ An untitled slide has no displayed heading. Navigation, overview, and presenter
 navigation use `Slide N`, where N is its one-based position in the whole file.
 Use `data-title="Backup data"` to choose a navigation label without adding a
 visible title. The CLI's JSON slide list keeps `title: ""` and exposes the
-fallback or override in `dataTitle`; its text list shows that label. Counters
-work as usual: main slides show `1 / N`, while a trailing appendix has its own
+fallback or override in `dataTitle`; its text list shows that label. Main slides show `1 / N`, while a trailing appendix has its own
 `Appendix 1 / N` counter.
 
 Use an **empty heading** for settings on an untitled slide:
@@ -701,11 +710,11 @@ Use an **empty heading** for settings on an untitled slide:
 The data, without a displayed title.
 ```
 
-That is one slide. The empty heading can also start it without a preceding
+The separator and heading form one slide. The empty heading can also start it without a preceding
 `---`. IDs, classes and other slide attributes use the same heading syntax as
 titled slides; do not put attributes on the separator itself.
 
-The initial YAML front matter is unchanged: its opening `---` and closing
+In the initial YAML front matter, the opening `---` and closing
 `---` (or `...`) are metadata delimiters. Put an opening slide separator **after**
 the front matter. Without front matter, leave an initial blank line before an
 opening separator so a later `---` cannot be mistaken for the YAML closer.
@@ -722,8 +731,8 @@ with those notes. Quarto 1.8.26's Reveal output was checked for rule containment
 and empty attributed headings. htmpres intentionally keeps `##` inside a div
 local too, avoiding Quarto's nested slide sections inside notes/divs.
 
-This complete file makes **three slides**: the first from `---` alone, the
-second from `##` alone, and the third from `---` plus `##` together:
+The complete file makes **three slides**. The first uses `---` alone, the
+second uses `##` alone, and the third uses `---` plus `##` together:
 
 ```markdown
 ---
@@ -756,7 +765,7 @@ heading for the third slide, demonstrating appendix settings and notes on all
 three slides. Run `just slide-breaks` and open its `index.html` or
 `presenter.html`.
 
-The linter rejects **empty slides**: two consecutive separators, a trailing
+The linter rejects **empty slides**. Examples include two consecutive separators, a trailing
 separator, or an empty heading with no body. A heading with a title and no body
 is a valid title-only slide. A leading separator adds no preceding empty slide.
 An error points to the boundary that started the empty slide. Rendering and
@@ -769,9 +778,9 @@ success, or exit 1 on errors:
 {"version":1,"ok":false,"diagnostics":[{"file":"slides.qmd","line":12,"column":1,"code":"empty-slide","severity":"error","message":"..."}]}
 ```
 
-`slide-break` (the former blanket prohibition) is retired. Successful output is
-`{"version":1,"ok":true,"diagnostics":[]}`. `source-read` and `usage` errors
-retain their meanings. The checker in another repository can call
+Successful output is
+`{"version":1,"ok":true,"diagnostics":[]}`. `source-read` reports an unreadable source file, and `usage` reports invalid
+command arguments. The checker in another repository can call
 `quarto run _extensions/htmpres/htmpres.ts lint slides.qmd --json`; no Node
 runtime is required. In this repository use `just lint slides.qmd`.
 
@@ -782,14 +791,12 @@ verification and showcase labels all share the same slide boundaries.
 
 The boundary convention follows [Quarto presentations](https://quarto.org/docs/presentations/index.html).
 Quarto also recommends [empty headings for slide attributes](https://github.com/orgs/quarto-dev/discussions/603).
-This is compatibility for the requested `---`/`##` subset, not a full Pandoc or
+The renderer supports this `---`/`##` subset. It is not a full Pandoc or
 Deckset importer (for example, level-one section slides and Setext slide
 headings are not implemented).
 
-## Deliberately deferred
+## Unsupported syntax
 
-Item 6's credits/conclusion templates were information only. This change adds
-neither those templates nor Deckset shorthand (`[.column]`, `^` notes). The
-future visual language and Deckset translation layer remain separate work.
-The downstream planning skill in nossaifd-talks is not modified here; its
-authors can use the exact syntax above.
+Deckset shorthand such as `[.column]` and `^` notes is not parsed. Use fenced
+layout blocks and `::: notes` instead. The CLI has no `credits` or `conclusion`
+slide template; write those slides with the normal heading and semantic roles.

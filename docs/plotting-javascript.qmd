@@ -8,7 +8,8 @@ Observable Plot, a JavaScript library that draws charts from rows of data.
 
 ![North improves after week four; Central has no observation in week three.](assets/javascript/deliveries.png)
 
-Plotfoundry adds chart furniture, exact sampled colors, file-backed fonts,
+Plotfoundry styles chart axes, labels, grids and legends, called chart furniture.
+It adds exact sampled colors, file-backed fonts,
 and helpers with distinct shapes, dashes, direct labels and ink edges.
 The package is an unreleased reference. There is no npm or CDN publication.
 It runs independently in a browser or Quarto Observable JavaScript (OJS).
@@ -25,16 +26,16 @@ Start with the repository checkout that contains this guide. To get a checkout,
 use these commands, record its revision, and check the package version:
 
 ```sh
-git clone --depth 1 https://github.com/rahuldave/htmpres.git plotfoundry-source
+git clone --no-checkout https://github.com/rahuldave/htmpres.git plotfoundry-source
 cd plotfoundry-source
+git checkout 0787d97961c938aece8e6d58639ec1ed3ea79f87
 git rev-parse HEAD
 cd packages/javascript
 node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync("package.json")); if(p.version!=="0.1.0-dev.1") throw Error("Use the source revision for this guide"); console.log(p.version)'
 ```
 
-These instructions target version `0.1.0-dev.1`, not an npm release. The clone
-selects the current source branch; record the printed Git revision to pin your
-own copy. Stop if the version differs. Then build its local archive:
+These instructions target version `0.1.0-dev.1`, not an npm release. The checkout selects the reviewed Git revision. Record the printed revision
+with your work. Stop if the version differs. Then build its local archive:
 
 ```sh
 npm pack --ignore-scripts

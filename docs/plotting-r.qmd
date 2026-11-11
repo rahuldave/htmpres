@@ -221,6 +221,8 @@ arbitrary device callback has the same font behavior.
 
 ## Change the theme and save for a document
 
+A profile selects sizes for chart text and marks in a reading document or presentation.
+
 The examples use an eight-inch canvas at the reading profile's declared
 640 CSS-pixel placement. Their heights leave room for labels and legends.
 The PNG uses 80 DPI here, so it is 640 pixels wide. More DPI adds raster pixels;
@@ -236,7 +238,7 @@ and [download its complete source](_generated/plotting-tutorials/r-yield-present
 This version changes the profile and exports at 144 DPI. A reduced preview
 does not show the intended 24-pixel label size.
 
-Select another family, mode or surface in `pf_theme`, for example
+A surface selects a paper or panel background. Select another family, mode or surface in `pf_theme`, for example
 `pf_theme("nocturne", mode="dark", surface="panel")`. The
 [gallery](plotting-gallery.qmd?interface=r-ggplot) compares all nine families and
 both native R routes. It is an appearance reference, not a chart tutorial.

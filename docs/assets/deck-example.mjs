@@ -1,5 +1,9 @@
 import { selection, initialSlide } from './theme-comparison.mjs';
 
+export function exampleCanvas(view) {
+  return { width: 1280, height: view === 'presenter' ? 930 : 720 };
+}
+
 export function stepAction(cursor, total, action) {
   return Math.max(0, Math.min(total, action === 'restart' ? 0 : cursor + (action === 'next' ? 1 : action === 'previous' ? -1 : 0)));
 }
@@ -19,7 +23,12 @@ export function startExample(root, manifest) {
   const source = root.querySelector('#example-markdown');
   const status = root.querySelector('#example-step-status');
   const buttons = [...root.querySelectorAll('[data-step-action]')];
-  const resize = () => { frame.style.transform = `scale(${frame.parentElement.clientWidth / 1100})`; };
+  const resize = () => {
+    const canvas = exampleCanvas(view.value);
+    frame.style.width = `${canvas.width}px`; frame.style.height = `${canvas.height}px`;
+    frame.parentElement.style.aspectRatio = `${canvas.width} / ${canvas.height}`;
+    frame.style.transform = `scale(${frame.parentElement.clientWidth / canvas.width})`;
+  };
   new ResizeObserver(resize).observe(frame.parentElement); resize();
   let slide = initialSlide(location.search, manifest), cursor = 0, total = 0;
   let bridge = null, observer = null, childDocument = null, loadNumber = 0;
@@ -69,7 +78,7 @@ export function startExample(root, manifest) {
   function load() {
     observer?.disconnect();
     childDocument?.removeEventListener('keydown', keyboard, true);
-    bridge = null; refresh(); displaySource();
+    bridge = null; resize(); refresh(); displaySource();
     status.textContent = 'Loading example…';
     const links = selection('nocturne', mode.value, view.value, slide, manifest);
     frame.src = links.preview.replace('compare-slide=', 'example-slide=').replace('#', `&example-load=${++loadNumber}#`);
@@ -103,7 +112,7 @@ export function startExample(root, manifest) {
 
 if (typeof document !== 'undefined') {
   const root = document.querySelector('#deck-example');
-  if (root) fetch('_generated/manifest.json').then(response => {
+  if (root) fetch(root.dataset.manifest || '_generated/manifest.json').then(response => {
     if (!response.ok) throw new Error(`Example request failed (${response.status})`);
     return response.json();
   }).then(manifest => startExample(root, manifest)).catch(error => {

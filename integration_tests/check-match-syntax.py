@@ -11,7 +11,7 @@ parser.add_argument('--output', type=Path, help='Retain rendered cases for CUA b
 args = parser.parse_args()
 root = Path(__file__).resolve().parents[1]
 guide = (root / "docs/semantic-authoring.md").read_text()
-section = guide.split("## Finish with matched colors\n", 1)[1].split("## 4.", 1)[0]
+section = guide.split("## Finish with matched colors\n", 1)[1].split("## Layering without reading ahead\n", 1)[0]
 examples = re.findall(r"(?ms)^(`{3,})(markdown|css)\n(.*?)^\1[ \t]*$", section)
 assert len(examples) == 6, "Keep the executable syntax examples in sync"
 code, equation, inline_color, inline_math, heading, css = [body for _, _, body in examples]

@@ -7,7 +7,7 @@ export async function checkExampleBrowser(tab) {
     await tab.playwright.getByRole('heading',{name:'Learn from the Markdown',exact:true}).click(); await observe();
     await tab.pressKey(null,key); return observe();
   };
-  const preview = ax => ax.slice(ax.indexOf('AXWebArea htmpres'),ax.indexOf('link Description: Open full deck'));
+  const preview = ax => ax.slice(ax.indexOf('AXWebArea htmpres'),ax.indexOf('container Markdown', ax.indexOf('AXWebArea htmpres')));
   await tab.playwright.locator('#example-slide').selectOption('5'); await waitStep('Step 0 of 4 · before reveals');
   assert(!preview(await observe()).includes('Collect three observations.'),'Future explanation hidden in iframe, despite visible source');
   await bodyKey('ArrowRight');

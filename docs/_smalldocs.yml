@@ -5,6 +5,7 @@ project:
     - index.qmd
     - quickstart.qmd
     - example.qmd
+    - patterns.qmd
     - compare.qmd
     - authoring-cli.md
     - build-a-deck-from-markdown.md
@@ -51,6 +52,7 @@ website:
           - index.qmd
           - quickstart.qmd
           - example.qmd
+          - patterns.qmd
           - compare.qmd
       - section: Author
         contents:

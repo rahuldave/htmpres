@@ -5,7 +5,9 @@ export function selection(theme, mode, view, slide, manifest) {
       !Number.isInteger(slide) || slide < 1 || slide > manifest.slides.length) throw new Error("Invalid comparison selection");
   const file = view === "presenter" ? "presenter.html" : "index.html";
   // A changing query forces a document load: each choice starts the slide at its first frame.
-  const path = `_generated/decks/${theme}/${mode}/${file}`;
+  const deckSet = manifest.deckSet || 'decks';
+  if (!/^[a-z][a-z0-9-]*$/.test(deckSet)) throw new Error('Invalid generated deck set');
+  const path = `_generated/${deckSet}/${theme}/${mode}/${file}`;
   return { preview: `${path}?compare-slide=${slide}#/${slide}`, open: `${path}#/${slide}`,
     config: `deck:\n  theme: ${theme}${entry.family === "legacy" ? "" : `\n  color-mode: ${mode}`}` };
 }

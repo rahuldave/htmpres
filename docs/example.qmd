@@ -5,10 +5,9 @@ sidebar: false
 page-layout: full
 ---
 
-Choose a slide, try its steps, and read the **exact Markdown below the preview**.
-Switch to **Presenter with notes** to see what the speaker receives from that
-same source. This page teaches authoring; [Compare themes](compare.qmd) shows
-how the same content looks in different themes.
+Choose a slide and advance its steps. Read or copy the exact Markdown below the
+preview. Switch to **Presenter with notes** to see the speaker's view of the
+same source. Use [Compare themes](compare.qmd) to see that content in different themes.
 
 ```{=html}
 <section id="deck-example" aria-label="Interactive Markdown example">
@@ -46,7 +45,7 @@ how the same content looks in different themes.
 <script type="module" src="assets/deck-example.mjs"></script>
 ```
 
-## What to try
+## Try the example slides {#what-to-try}
 
 | Choose this slide | Try this |
 |---|---|
@@ -77,7 +76,7 @@ as `assets/two-views.svg`:
 <p class="download-links"><a href="_generated/source/index.qmd.txt" download="index.qmd">Download complete Markdown</a> · <a href="_generated/source/source.css.txt" download="source.css">Download example stylesheet</a> · <a href="_generated/source/two-views.svg" download="two-views.svg">Download SVG</a></p>
 ```
 
-The stylesheet supplies this example's spacing; your first deck can use the
+The stylesheet supplies this example's spacing. Your first deck can use the
 bundled theme directly. The source and presenter output include speaking cues;
 share the audience output when those cues should stay private. Audience and
 presenter windows navigate independently.

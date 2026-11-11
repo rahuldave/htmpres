@@ -1,12 +1,52 @@
 ---
-title: Explore standalone plotting
+title: Compare palettes across the nine themes
 ---
 
-The gallery has **72 scientific configurations and 216 interface views** across nine families,
-two modes, two profiles and two surfaces, shown with Python/Matplotlib,
-R/ggplot2 and base R. They are reviewed static exports; no plotting engine runs
-in this website. JavaScript has a [separate interactive example](plotting-javascript.qmd);
-it is not part of these 216 static views. [Installation and scientific choices](plotting-packages.md).
+Choose the chart configuration that matches your blog or slides, then download or
+reproduce it in your plotting language. Compare the Folio, Nocturne and Tufte specimens
+below. They use the same data and scientific palettes, while their fonts, backgrounds,
+axes, labels and ink edges match each theme.
+
+```{=html}
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:1.25rem">
+<figure style="margin:0">
+<a href="_generated/plotting/exports/python/folio-light-reading-paper.png"><img src="_generated/plotting/exports/python/folio-light-reading-paper.png" alt="Folio · light · reading · paper: categorical lines and markers above sequential cividis and diverging BrBG heatmaps; crossed cells are missing." width="640" loading="lazy" style="display:block;width:100%;height:auto"></a>
+<figcaption>Folio · light · reading · paper. Open the image at full size to inspect labels and edges.</figcaption>
+</figure>
+<figure style="margin:0">
+<a href="_generated/plotting/exports/python/nocturne-dark-reading-paper.png"><img src="_generated/plotting/exports/python/nocturne-dark-reading-paper.png" alt="Nocturne · dark · reading · paper: categorical lines and markers above sequential cividis and diverging BrBG heatmaps; crossed cells are missing." width="640" loading="lazy" style="display:block;width:100%;height:auto"></a>
+<figcaption>Nocturne · dark · reading · paper. Open the image at full size to inspect labels and edges.</figcaption>
+</figure>
+<figure style="margin:0">
+<a href="_generated/plotting/exports/python/tufte-light-reading-paper.png"><img src="_generated/plotting/exports/python/tufte-light-reading-paper.png" alt="Tufte · light · reading · paper: categorical lines and markers above sequential cividis and diverging BrBG heatmaps; crossed cells are missing." width="640" loading="lazy" style="display:block;width:100%;height:auto"></a>
+<figcaption>Tufte · light · reading · paper. Open the image at full size to inspect labels and edges.</figcaption>
+</figure>
+</div>
+```
+ Read the top row as a comparison of named categories. It shows categorical lines and an
+explicit five-slot marker option. The recommended variant has three slots. The bottom
+row uses sequential cividis for magnitude and diverging BrBG for change around a
+meaningful center.
+
+A crossed heatmap cell means missing. An uncrossed cell at the diverging center means a
+measured center value. Changing theme or dark mode never reverses or recolors the
+scientific maps to match a brand accent.
+
+## Compare your blog or slide configuration
+
+Choose the same **Family**, **Mode**, **Profile** and **Surface** as your target
+document, then choose your plotting interface. Start with
+[Folio for a light reading page](plotting-gallery.qmd?theme=folio&mode=light&profile=reading&surface=paper),
+[Nocturne for a dark presentation panel](plotting-gallery.qmd?theme=nocturne&mode=dark&profile=presentation&surface=panel),
+or [Tufte for a light reading page](plotting-gallery.qmd?theme=tufte&mode=light&profile=reading&surface=paper).
+Use **intended** preview size before judging label readability.
+
+The selector covers 72 configurations and 216 interface views. It combines nine
+families, two modes, two profiles and two surfaces with Python/Matplotlib,
+R/ggplot2 and base R. The website displays reviewed static exports without
+running a plotting engine. JavaScript uses the same scientific contract and has
+its [own interactive example and native configuration recipe](plotting-javascript.qmd).
+It is not part of the 216 static views.
 
 ```{=html}
 <section id="plotting-gallery" aria-label="Plotfoundry gallery" aria-busy="true">
@@ -28,19 +68,40 @@ it is not part of these 216 static views. [Installation and scientific choices](
 </section>
 <script type="module" src="assets/plotting-gallery.mjs"></script>
 ```
+ **Profile** selects reading or presentation text and mark sizes. **Surface** selects a
+paper or panel background. The image keeps its chosen mode and surface even when this
+website changes mode. Export the case that matches the destination. An embedded PNG or
+SVG does not change theme automatically.
 
-**Profile** selects reading or presentation text and mark sizes. **Surface**
-selects a paper or panel background.
+## Embed your chart
+
+Copy the gallery source for your interface and run the displayed command, or
+adapt the complete programs in the [Python](plotting-python.qmd),
+[R](plotting-r.qmd) or [JavaScript](plotting-javascript.qmd) guide.
+Use a qualitative palette for named categories, sequential for one ordered
+magnitude, and diverging for change around a meaningful center. Keep the same
+domain and limits when comparing charts across pages or slides.
+
+Embed a reading export at its declared width. If your publishing system accepts SVG, use
+it in place of PNG:
+
+```markdown
+![Category trends, magnitude and centered change](folio-light-reading-paper.png){width=640px}
+```
+
+A presentation case uses 1152 CSS pixels at its declared placement. Fit previews
+are useful for comparing appearance, but shrink all text along with the image.
+See [scientific choices and placement](plotting-packages.md) for the shared rules.
 
 ## View and download without JavaScript
 
 [Open the complete static download index](_generated/plotting/index.html).
 Every view has its PNG, sanitized report and runnable gallery source. Python
-vectors are available for every case; the larger R vector collection is represented
-by one configuration per family, for **both native R routes**. The selector shows
-exact availability, never an unexplained disabled download.
+vectors are available for every case. The larger R vector collection is
+represented by one configuration per family for both native R routes.
+The selector shows exact availability, never an unexplained disabled download.
 
-Python canvases are 8 × 8 inches; R canvases are 8 × 9. Comparing them does not
+Python canvases are 8 × 8 inches, and R canvases are 8 × 9. Comparing them does not
 claim pixel-identical native marker geometry or device quantization. Fit previews
 change apparent text size. Use **intended** width (640 reading / 1152 presentation
 CSS pixels) to inspect the declared placement. Narrow screens scroll without

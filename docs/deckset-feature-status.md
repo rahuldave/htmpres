@@ -1,5 +1,7 @@
 # Supported features and Deckset comparison
 
+For current authoring syntax and visible examples, use the [syntax reference](syntax-reference.md).
+
 This project maps Deckset ideas onto QMD, Quarto fenced divs, CSS classes, and
 the custom htmpres runtime. The goal is not exact Deckset syntax parity when
 Quarto containers are more general.

@@ -1,5 +1,5 @@
 ---
-pagetitle: "htmpres — one source, two views"
+pagetitle: "htmpres: audience slides and presenter notes"
 execute:
   enabled: false
 resources:
@@ -14,68 +14,77 @@ deck:
   overflow: fit-scroll
 ---
 
-## One *source*. Two views. {.hero-title .example-cover data-section="htmpres example"}
+## One *source* for slides and notes {.hero-title .example-cover data-section="htmpres example"}
 
 ::: hero-subtitle
-[Write the story in Markdown.]{.key}
+[Write the talk in Markdown.]{.key}
 
-[Give the audience the slides and yourself the cues.]{.aside}
+[Share the slides and keep your speaking cues.]{.aside}
 :::
 
 ::: example-byline
-An editable example of the htmpres HTML renderer
+An editable deck for the htmpres HTML renderer
 :::
 
 ::: notes
-Presenter cue 1. Open with the distinction between the audience page and this
-presenter page. Both come from the same QMD file. The audience never receives
-the notes below each slide.
+Presenter cue 1. Both views come from one Quarto Markdown (QMD) file. Open the
+audience and presenter pages to compare them. The audience page omits the notes
+below each slide.
 :::
 
-## Follow the idea from source to screen {data-section="The workflow"}
+## Write and render a deck {data-section="The workflow"}
 
 <div class="example-path" role="img" aria-label="QMD source becomes HTML slides, with separate audience and presenter views">
   <div><small>Write</small><strong>QMD source</strong><span>Content, layouts, and notes</span></div>
   <span class="example-arrow" aria-hidden="true">→</span>
-  <div><small>Render</small><strong>Custom HTML</strong><span>Quarto supplies Pandoc</span></div>
+  <div><small>Render</small><strong>HTML deck</strong><span>Render the Markdown source</span></div>
   <span class="example-arrow" aria-hidden="true">→</span>
-  <div><small>Present</small><strong>Two views</strong><span>Slides for them. Cues for you.</span></div>
+  <div><small>Present</small><strong>Two views</strong><span>Audience slides and presenter notes</span></div>
 </div>
 
 ::: example-caption
-The slide shell, navigation, and interactions belong to htmpres.
+Render the source, then open the view you need.
 :::
 
 ::: notes
-Presenter cue 2. This diagram is ordinary HTML inside the Markdown source.
-Quarto runs the script and converts Markdown fragments; htmpres owns the
-presentation layout and browser behavior.
+Presenter cue 2. Write slides and notes in the QMD file, then render it. Open
+`index.html` for the audience or `presenter.html` for your cues. The
+[quick-start guide](https://rahuldave.com/htmpres/quickstart.html) gives render
+and preview commands.
+
+The diagram is ordinary HTML in the Markdown source. Quarto supplies Pandoc,
+runs the script, and converts Markdown fragments. htmpres supplies the slide
+layout, navigation, interactions, and browser behavior.
 :::
 
-## Give each idea its importance {#importance data-section="Meaning and layout"}
+## Mark main points and qualifications {#importance data-section="Meaning and layout"}
 
-Ordinary body text sets the reference size. A theme interprets the semantic roles.
+Use `.key` for a main point and `.aside` for supporting text. The theme sets
+each role's appearance relative to ordinary body text.
 
-[The central claim.]{.key} [A minor qualification.]{.aside}
+[The main point.]{.key} [A minor qualification.]{.aside}
 
 :::: {.two-col}
 ::: {.key .card .example-principle}
-The main point can be a whole block.
+A main point can occupy a whole block.
 :::
 ::: {.aside .callout .example-principle}
-Supporting context stays secondary. Meaning is separate from appearance.[^1]
+Supporting context uses the secondary role. The role stays the same when its
+appearance changes.[^1]
 :::
 ::::
 
-[^1]: This slide owns its footnote, even when another slide reuses the label.
+[^1]: This slide's footnote stays separate when another slide reuses the label.
 
 ::: notes
-Presenter cue 3. Compare ordinary text, key and aside in both themes and modes.
-The source contains roles, not font sizes or color instructions. Follow the
-footnote and its return arrow; the appendix safely reuses the same label.
+Presenter cue 3. Compare ordinary text, key and aside in your chosen theme's
+light and dark modes.
+Choose roles in the source, then let the theme set sizes and colors. Follow the
+footnote and its return arrow. The appendix reuses the same label with its own
+footnote.
 :::
 
-## Reveal the argument one step at a time {#layering data-section="Progressive disclosure"}
+## Reveal points one at a time {#layering data-section="Progressive disclosure"}
 
 :::: {.two-col}
 ::: {.incremental data-fragment-effect="dim"}
@@ -90,16 +99,18 @@ footnote and its return arrow; the appendix safely reuses the same label.
 ::::
 
 ::: example-caption
-Advance four times. Future points stay hidden; only earlier points dim.
+Advance four times to reveal the points. Future points stay hidden, and only
+earlier points dim.
 :::
 
 ::: notes
-Presenter cue 4. The left column uses spans; the right uses list items. Next,
-Space or Right reveals one point. The dim effect comes from each incremental
-container. The audience cannot read future points ahead of the speaker.
+Presenter cue 4. The left column uses inline spans, the bracketed phrases in
+the source. The right column uses list items. Select Next, or press Space or
+Right, to reveal one point. Each incremental container sets the dim effect.
+Future points stay hidden until the speaker advances.
 :::
 
-## Code and explanation share one clock {#code-steps data-section="Synchronized code" data-step-summary="match"}
+## Reveal code with its explanation {#code-steps data-section="Synchronized code" data-step-summary="match"}
 
 :::: {.two-col}
 ::: {}
@@ -119,17 +130,21 @@ mean = total / len(observations)
 ::::
 
 ::: example-caption
-Each reveal colors its line number and explanation. One more advance shows every match together.
+Each reveal colors a line number and its explanation. Advance once more to
+show all matches together.
 :::
 
 ::: notes
-Presenter cue 5. Start with all explanations hidden. Each Next highlights one
-code line and reveals its matching explanation with their shared color. Prior explanations stay fully
-visible. Sparse frame labels 1, 3 and 7 still take just three clicks. Previous
-reverses both lanes together. A fourth click shows the theme-colored matching summary; Previous returns to the last teaching highlight.
+Presenter cue 5. Begin with all explanations hidden. Select Next to highlight
+one code line and reveal its explanation in the same color. Earlier explanations
+stay fully visible. Step labels 1, 3 and 7 take three clicks, despite the gaps.
+Previous reverses the code highlight and its explanation together.
+
+A fourth click shows all matches in theme colors. Previous returns to the last
+code highlight.
 :::
 
-## Equations use the same clock {#equation-steps data-section="Synchronized equations" data-step-summary="match"}
+## Reveal equation terms with their explanations {#equation-steps data-section="Synchronized equations" data-step-summary="match"}
 
 :::: {.two-col}
 ::: {.equation-steps .example-equation data-equation-steps="mean|total|count" data-step-indices="1|3|7"}
@@ -147,31 +162,36 @@ $$
 ::::
 
 ::: example-caption
-Each reveal colors its term and explanation. One more advance shows all three pairs at full strength.
+Each reveal colors a term and its explanation. Advance once more to show all
+three pairs at full strength.
 :::
 
 ::: notes
 Presenter cue 6. Advance three times to emphasize the mean, the numerator and
-the denominator. Each term gains its shared explanation color on its own reveal. At the third reveal only the denominator is emphasized. A fourth advance restores the mean and numerator to full strength alongside it, showing all three colored pairs. The operators remain unchanged. The same
-locally bundled math engine typesets this cue: $\bar{x}=4$.
+the denominator. Each term takes the color of its explanation when that pair
+appears. At the third reveal, only the denominator has full emphasis. A fourth
+advance restores the mean and numerator to full strength beside it. All three
+pairs then have full color, while the operators remain unchanged.
+
+Presenter notes use the same locally bundled math engine, as in $\bar{x}=4$.
 :::
 
-## Let a visual carry part of the explanation {data-section="Media"}
+## Add a zoomable diagram {data-section="Media"}
 
 ::: {.ds-media .ds-frame .example-media}
 ![A source document branches into audience slides and presenter notes.](assets/two-views.svg){.ds-fit .zoomable}
 :::
 
 ::: example-caption
-Click the diagram to zoom. The asset is a local, editable SVG.
+Select the diagram to zoom. It is a local SVG that you can edit.
 :::
 
 ::: notes
-Presenter cue 7. Open the diagram to demonstrate zoom, then close it with
-Escape. The image uses fit behavior, so its full content remains visible.
+Presenter cue 7. Select the diagram to open its enlarged view. Press Escape to
+close it. The image uses fit behavior, so its full content remains visible.
 :::
 
-## Keep your cues with the slide {data-section="Speaker notes"}
+## Add notes for the presenter {data-section="Speaker notes"}
 
 ````markdown
 ## A heading the audience sees
@@ -188,16 +208,16 @@ Notes stay in the QMD source and appear only in the presenter HTML.
 :::
 
 ::: notes
-Presenter cue 8. This actual note is separate from the literal Markdown example
-on screen. Show the presenter link in the documentation, then point out the
-notes panel beside or above the slide.
+Presenter cue 8. The Markdown on screen is a literal example, separate from
+this note. In the [interactive example](https://rahuldave.com/htmpres/example.html?slide=8),
+select Presenter with notes. Its notes panel appears beside or above the slide.
 :::
 
-## Change the theme, keep the story {data-section="Themes"}
+## Compare themes in light and dark modes {data-section="Themes"}
 
 :::: two-col
 ::: example-copy
-### Two choices in the source
+### Set the theme and color mode
 
 ```yaml
 deck:
@@ -206,37 +226,42 @@ deck:
 ```
 :::
 ::: example-copy
-### Compare before choosing
+### Compare the rendered deck
 
 Try the same deck in two themes. Compare headings, body text, code, and media
 in both light and dark modes.
 
-Then change the source declaration and render again.
+Choose a theme in the source declaration, then render again.
 :::
 ::::
 
 ::: notes
 Presenter cue 9. Nocturne is the default for this example. The documentation's
-comparison page starts with Nocturne and Simplex Reading. All imported themes
-have two presentation modes; three older seeds remain light-only.
+comparison page starts with Nocturne and Simplex Reading. The catalog has 35
+paired theme names, each with light and dark modes. The older names sage,
+mono-grid and blank are three fixed looks with no bundled dark pair.
 :::
 
-## Make the deck your own {#main-result .section-divider data-section="Your next deck"}
+## Adapt this deck {#main-result .section-divider data-section="Your next deck"}
 
 ::: lead
-Replace the claims. Keep your notes beside them. Render, compare, and present.
+Replace the claims and keep your cues in notes. Render the deck, compare the
+views, and present.
 :::
 
 ::: example-final-command
-`just example` · `just docs`
+Repository maintainers use `just example` to render this example and
+`just docs` to build the documentation.
 
-[The supporting data](#appendix-data) is here for questions.
+[Open the supporting data](#appendix-data) during questions.
 :::
 
 ::: notes
-Presenter cue 10. The example QMD, stylesheet, and diagram are all editable.
-End by opening the quick-start guide or downloading the source from the
-documentation site.
+Presenter cue 10. Edit the example QMD, stylesheet, and diagram. Download the
+[complete source and files](https://rahuldave.com/htmpres/example.html#edit-the-source),
+or follow [Start a deck](https://rahuldave.com/htmpres/quickstart.html) to create
+and render your own talk. The commands on this slide are for maintainers
+working in the repository.
 :::
 
 ## Supporting data {#appendix-data data-kind="appendix" data-section="Appendix"}
@@ -251,15 +276,16 @@ The mean is $\bar{x}=4$.[^1]
 
 [^1]: The appendix footnote has its own ID, separate from slide 3.
 
-[Back to the result](#main-result) · [More detail](#appendix-detail)
+[Back to the result](#main-result) or [More detail](#appendix-detail)
 
 ::: notes
-Presenter cue 11. The counter labels this as appendix 1 of 2. The main talk has
-ten slides; Next and End on the main result stop there. Use this link, its
-return link or browser Back to visit and return during questions.
+Presenter cue 11. The counter shows appendix 1 of 2. The main talk has ten
+slides. On the main result, Next and End stop without entering the appendix.
+Open the supporting-data link during questions. Use its return link or browser
+Back to return to the talk.
 :::
 
-## Additional detail {#appendix-detail data-section="Appendix"}
+## Calculate the mean in the appendix {#appendix-detail data-section="Appendix"}
 
 All slides after the first appendix slide belong to the appendix.
 
@@ -270,7 +296,7 @@ $$
 [Back to the result](#main-result)
 
 ::: notes
-Presenter cue 12. This slide inherits appendix status without another
-appendix attribute. The main counter remains separate. Return to the result
-when the audience has the detail it needs.
+Presenter cue 12. This slide inherits appendix status from the preceding slide.
+It needs no appendix attribute of its own. The main counter remains separate.
+Return to the result when the audience has the detail it needs.
 :::

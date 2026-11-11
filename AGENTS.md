@@ -202,6 +202,7 @@ just pictures
 just lint slides.qmd
 just example
 just patterns
+just syntax-examples
 just theme-gallery
 just docs
 just docs-check
@@ -463,3 +464,12 @@ actual geometry, including stacked preview/source boxes with matching widths, an
 `integration_tests/patterns-browser.mjs` checks its source and interactions.
 The public documentation review is recorded in `docs/documentation-audit.md`;
 it is a maintainer record outside the website page allowlist.
+
+The visual syntax lab source is `decks/syntax/index.qmd`; `just syntax-examples`
+renders its 35-slide examples. The website lab at `syntax-examples.html` has its
+own manifest and four Nocturne mode/view exports. It includes original local
+SVG, video, captions, audio and an embedded page, all staged through an explicit
+asset list. `integration_tests/syntax-examples-browser.mjs` checks exact source,
+half-background geometry, opacity, controls, filters, reveals and real fitting.
+The source preview pauses authored autoplay until Play is selected; full decks
+retain normal playback. The example's CSS download must stay byte-exact.

@@ -62,6 +62,13 @@ function isolateComparison() {
     if (footer) footer.style.gridTemplateColumns = "minmax(0, 1fr) repeat(4, auto)";
     if (!example) return;
     document.getElementById("slideFit")?.classList.add("no-tap-nav");
+    // Keep an example available for inspection until the reader selects Play.
+    // Full exported decks retain their authored autoplay behavior.
+    document.querySelectorAll('video.ds-autoplay, audio.ds-autoplay').forEach(media => {
+      media.autoplay = false;
+      media.pause();
+      media.classList.remove('ds-autoplay');
+    });
     // This bridge belongs to the website's example, not the exported deck UI.
     const style = document.createElement("style");
     style.textContent = `

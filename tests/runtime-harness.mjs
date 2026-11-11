@@ -4,7 +4,7 @@ import vm from 'node:vm';
 const runtime = readFileSync(new URL('../_extensions/htmpres/runtime/htmpres-custom-deck.js', import.meta.url), 'utf8');
 
 /** A small DOM boundary for runtime state tests; browser checks exercise layout. */
-export function runtimeHarness(kinds = [''], { notes = false, buttons = false } = {}) {
+export function runtimeHarness(kinds = [''], { notes = false, buttons = false, keyboard = false } = {}) {
   const warnings = [];
   const context = vm.createContext({ console: { warn: (...args) => warnings.push(args) }, URL });
   vm.runInContext(`
@@ -71,5 +71,9 @@ export function runtimeHarness(kinds = [''], { notes = false, buttons = false } 
   if (notes) vm.runInContext("document.nodes.set('presenterNotes', fakeElement()); document.nodes.set('notesBox', fakeElement());", context);
   if (buttons) vm.runInContext("document.nodes.set('prevBtn', fakeElement()); document.nodes.set('nextBtn', fakeElement());", context);
   vm.runInContext(runtime.slice(0, runtime.indexOf('prevBtn?.addEventListener')), context);
+  if (keyboard) {
+    const start = runtime.lastIndexOf('document.addEventListener("keydown", (event) => {');
+    vm.runInContext(runtime.slice(start, runtime.indexOf('\n\nupdateViewportHeight();', start)), context);
+  }
   return { context, warnings, run: code => vm.runInContext(code, context) };
 }

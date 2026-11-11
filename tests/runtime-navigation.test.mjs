@@ -206,3 +206,61 @@ test('Next stays available for final-slide frames, then disables at the main bou
   run('prevStepOrSlide()');
   assert.equal(run('nextBtn.disabled'), false);
 });
+
+
+test('focused controls retain Space and arrows without advancing the exported deck', () => {
+  const { run } = runtimeHarness(['', ''], { keyboard: true });
+  run(`
+    prepareStepGraphs(); goTo(0);
+    const control = fakeElement();
+    control.closest = selector => selector.includes('button') ? control : null;
+    let prevented = false;
+    documentEvents.get('keydown')({ key:' ', target:control, preventDefault(){prevented=true;} });
+  `);
+  assert.equal(run('current'), 0, 'Space belongs to the focused native control');
+  assert.equal(run('prevented'), false, 'Keep native keyboard activation');
+  run("documentEvents.get('keydown')({key:'ArrowRight',target:control,preventDefault(){prevented=true;}})");
+  assert.equal(run('current'), 0, 'Arrow keys in a control must not navigate');
+});
+
+test('handled and modified keys do not navigate but ordinary slide keys still do', () => {
+  const { run } = runtimeHarness(['', ''], { keyboard: true });
+  run(`
+    prepareStepGraphs(); goTo(0);
+    for (const flags of [{defaultPrevented:true},{ctrlKey:true},{metaKey:true},{altKey:true},{isComposing:true}]) {
+      documentEvents.get('keydown')({key:'ArrowRight',target:slides[0],preventDefault(){},...flags});
+    }
+  `);
+  assert.equal(run('current'), 0, 'Respect prior handlers, shortcuts and composing text');
+  run(`
+    const tapGuard = fakeElement();
+    tapGuard.closest = selector => selector.includes('.no-tap-nav') ? tapGuard : null;
+    documentEvents.get('keydown')({key:'ArrowRight',target:tapGuard,preventDefault(){}});
+  `);
+  assert.equal(run('current'), 1, 'Tap-only navigation guards retain deck keyboard shortcuts');
+});
+
+
+test('deck chrome keeps arrow navigation and Escape closes overlays from controls', () => {
+  const { run } = runtimeHarness(['', '', ''], { keyboard: true });
+  run(`
+    prepareStepGraphs(); goTo(0);
+    const chromeButton = fakeElement();
+    chromeButton.closest = selector => selector.includes('button') || selector.includes('.footer-controls') ? chromeButton : null;
+    chromeButton.matches = () => true;
+    documentEvents.get('keydown')({key:'ArrowRight',target:chromeButton,preventDefault(){}});
+  `);
+  assert.equal(run('current'), 1, 'Arrows still work after clicking a TOC or footer button');
+  run("documentEvents.get('keydown')({key:'PageDown',target:chromeButton,preventDefault(){}})");
+  assert.equal(run('current'), 2, 'PageDown still works from deck controls');
+  run(`
+    let closed = 0; closeOverlays = () => closed++;
+    documentEvents.get('keydown')({key:'Escape',target:chromeButton,preventDefault(){}});
+  `);
+  assert.equal(run('closed'), 1, 'Escape closes an overview opened by its focused button');
+  run(`
+    goTo(0);
+    documentEvents.get('keydown')({key:' ',target:chromeButton,preventDefault(){}});
+  `);
+  assert.equal(run('current'), 0, 'Chrome Space retains native activation without an extra advance');
+});

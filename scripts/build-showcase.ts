@@ -73,6 +73,25 @@ write("patterns-manifest.json", JSON.stringify({ version: 1, deckSet: "patterns"
 write("source/patterns.qmd.txt", patternSource);
 copy(new URL("decks/patterns/assets/texture.svg", root), new URL("source/texture.svg", output));
 
+// Missing reference examples have their own source, assets and mode/view variants.
+const syntaxSource = read("decks/syntax/index.qmd");
+const syntaxAudience = read("decks/syntax/index.html");
+const syntaxAssets = ["texture.svg", "two-views.svg", "transparent-rings.svg", "motion.mp4", "motion.vtt", "tone.wav", "embedded.html"];
+for (const mode of ["light", "dark"]) {
+  for (const view of ["audience", "presenter"]) {
+    const input = view === "audience" ? syntaxAudience : read("decks/syntax/presenter.html");
+    write(`syntax/nocturne/${mode}/${view === "audience" ? "index" : "presenter"}.html`,
+      themeVariant(input, { ...options, localCss: read("decks/syntax/source.css"), name: "nocturne", mode }));
+  }
+  for (const asset of syntaxAssets) copy(new URL(`decks/syntax/assets/${asset}`, root), new URL(`syntax/nocturne/${mode}/assets/${asset}`, output));
+}
+write("syntax-manifest.json", JSON.stringify({ version: 1, deckSet: "syntax",
+  themes: themes.filter(theme => theme.name === "nocturne"), slides: slideTitles(syntaxSource, syntaxAudience),
+  slideSources: slideSources(syntaxSource) }, null, 2) + "\n");
+write("source/syntax.qmd.txt", syntaxSource);
+write("source/syntax.css.txt", read("decks/syntax/source.css"));
+for (const asset of syntaxAssets) copy(new URL(`decks/syntax/assets/${asset}`, root), new URL(`source/syntax-assets/${asset}`, output));
+
 // Vendor site fonts from the same licensed bundle; do not depend on a sibling checkout.
 for (const asset of catalog.themes.nocturne.assets) {
   if (asset.startsWith("fonts/") || asset.startsWith("licenses/")) copy(new URL(`_extensions/htmpres/themes/${asset}`, root), new URL(`docs/_extensions/nocturne/${asset}`, root));

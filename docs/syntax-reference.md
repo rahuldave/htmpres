@@ -3,13 +3,14 @@
 Look up the settings, classes and attributes to use in your slide source. The
 reference covers deck settings, slide attributes, semantic roles, layouts,
 reveals, math, media and interactive controls. Each section has source you can
-copy, with links to rendered examples where available.
+copy. Open the linked examples to see their rendered output and exact source.
 
 On narrow screens, scroll tables sideways to read their other columns.
 
 For a first talk, follow [Start a deck](quickstart.qmd). To advance through a
 rendered example with its source below, open [Learn from the Markdown](example.qmd)
-or [Pictures and slide patterns](patterns.qmd).
+or [Pictures and slide patterns](patterns.qmd). The [visual syntax gallery](syntax-examples.qmd)
+shows transparency, half backgrounds, filters, layouts, media and buttons.
 
 ## Which syntax belongs to htmpres? {#ownership}
 
@@ -23,7 +24,7 @@ settings to apply.
 | Attributes | `[words]{.key}`, `## Title {#result}`, `::: {.two-col}` | Pandoc supplies the braces, classes, IDs and containers. |
 | htmpres behavior | `.fragment`, `data-step-indices`, `.equation-steps`, `data-kind="appendix"` | htmpres controls reveals, synchronization and navigation. |
 | htmpres appearance | `.statement`, `.credit`, `.ds-left`, `.ds-fit` | htmpres layouts and the chosen theme give these roles their appearance. |
-| Starter styles | `.two-col`, `.card`, `.pill` | The bundled starter stylesheet supplies these classes. |
+| Starter styles | `.two-col`, `.card`, `.pill` | Bundled themes include these classes; no extra stylesheet is needed. |
 | Your own class | `.my-diagram` | Your stylesheet must define it. A class name alone adds no behavior. |
 
 The `htmpres render` command writes its own audience and presenter HTML. It
@@ -32,6 +33,7 @@ and arbitrary Quarto format options are not part of this source contract.
 
 ## A complete first file {#first-file}
 
+[Install the htmpres extension](quarto-extension.md) in your project first.
 Save this as `slides.qmd`. The title in front matter labels the browser tab.
 Each `##` starts a visible slide.
 
@@ -79,21 +81,21 @@ after setting values. Do not add a second front matter block.
 
 | Setting | Values or example | Effect |
 |---|---|---|
-| `pagetitle` | `My talk` | Browser and navigation title; falls back to `title`, then the folder name. It does not create a slide. |
+| `pagetitle` | `My talk` | Browser and navigation title; falls back to `title`, then the folder name. It does not create a slide. [Open the full deck](_generated/syntax/nocturne/light/index.html#/34). |
 | `deck.theme` | `nocturne` | Select a bundled theme or a local CSS theme. [Names and previews](themes.md#available-names). |
 | `deck.theme.light`, `deck.theme.dark` | `litera-reading`, `darkly-reading` | Pair two named themes. Both names are required. [Example](themes.md#separate-light-and-dark-themes). |
-| `deck.color-mode` | `light`, `dark`, `auto` | Select a paired theme mode. Default is `auto`; unpaired legacy seeds have no mode switch. |
-| `deck.css` | `source.css` | Optional stylesheet, relative to the deck. Defaults to `source.css` if present. |
+| `deck.color-mode` | `light`, `dark`, `auto` | Select a paired theme mode. Default is `auto`; the fixed-look `sage`, `mono-grid` and `blank` themes have no mode switch. [Switch modes](syntax-examples.qmd?slide=3). |
+| `deck.css` | `source.css` | Optional stylesheet, relative to the deck. Defaults to `source.css` if present. [CSS example](syntax-examples.qmd?slide=5). |
 | `deck.counter` | `true`, `false`, `presenter` | Show both counters, hide both, or show only the presenter counter. Default is `true`. [See both views](patterns.qmd?slide=10). |
-| `deck.overflow` | `hidden`, `scroll`, `fit`, `fit-scroll` | Clip, scroll, fit, or fit then scroll remaining overflow. |
-| `deck.text-fit` | `true` or `false` | Fit slide text to the available area. Default is off; `fit` overflow modes also trigger fitting. |
-| `deck.text-fit-min` | `0.64` | Minimum fit scale; the theme supplies the default. |
-| `deck.background-image` | `assets/texture.svg` | Decorative background on each slide. [See a background](patterns.qmd?slide=6). |
-| `deck.background-fit` | `fit`, `fill` | Keep the whole background or fill its box. Default is `fill`. |
-| `deck.background-filter` | `theme sharpen` | Space/comma-separated image filters: `theme`, `bn`, `bw`, `vivid`, `noir`, `chrome`, `fade`, `filter`, `sharpen`, `alpha` or `zoom`. Default is `theme`; `none` disables filters. |
-| `deck.background-position` | `center`, `left top` | CSS object position of the background. Default is centered. |
-| `deck.background-opacity` | `0.08` | Background opacity from 0 to 1. |
-| `deck.background-class` | `ds-rounded` | Extra background image classes, separated by spaces. |
+| `deck.overflow` | `hidden`, `scroll`, `fit`, `fit-scroll` | Clip, scroll, fit, or fit then scroll remaining overflow. [Fit](syntax-examples.qmd?slide=24) and [scroll](syntax-examples.qmd?slide=26). |
+| `deck.text-fit` | `true` or `false` | Fit slide text to the available area. Default is off; `fit` overflow modes also trigger fitting. [Text fitting](syntax-examples.qmd?slide=24). |
+| `deck.text-fit-min` | `0.64` | Minimum fit scale; the theme supplies the default. [Minimum fit scale](syntax-examples.qmd?slide=24). |
+| `deck.background-image` | `assets/texture.svg` | Decorative background on each slide. [Deck background](syntax-examples.qmd?slide=27). |
+| `deck.background-fit` | `fit`, `fill` | Keep the whole background or fill its box. Default is `fill`. [Background](syntax-examples.qmd?slide=6). |
+| `deck.background-filter` | `theme sharpen` | Space/comma-separated image filters: `theme`, `bn`, `bw`, `vivid`, `noir`, `chrome`, `fade`, `filter`, `sharpen`, `alpha` or `zoom`. Default is `theme`; `none` disables filters. [Background](syntax-examples.qmd?slide=6). |
+| `deck.background-position` | `center`, `left top` | CSS object position of the background. Default is centered. [Position](syntax-examples.qmd?slide=6). |
+| `deck.background-opacity` | `0.08` | Background opacity from 0 to 1. [Opacity](syntax-examples.qmd?slide=6). |
+| `deck.background-class` | `ds-rounded` | Extra background image classes, separated by spaces. [Background settings](syntax-examples.qmd?slide=6). |
 
 The reader also accepts `theme` for `deck.theme`, top-level `background-*` keys,
 or nested `deck.background.image`, `.fit`, `.filter`, `.position`, `.opacity`,
@@ -107,8 +109,8 @@ Overflow accepts `deck.slide-overflow` or top-level `overflow`.
 work. Wrapper overlays such as `.ds-readable` belong on an authored container,
 not in `background-filter` or `background-class`.
 
-Use the names in the table for new files. `deck.renderer: custom` appears in
-older examples but does not select an alternative rendering engine.
+Use the names in the table for new files. For compatibility, the reader accepts
+`deck.renderer: custom`; the renderer always writes htmpres HTML.
 
 ## Slide boundaries and attributes {#slide-attributes}
 
@@ -137,14 +139,14 @@ This slide has a navigation label but no visible heading.
 | `.title-hidden` | Hide the visible heading but keep its navigation title. | [Full-slide image pattern](patterns.qmd?slide=4) |
 | `.hero-title`, `.section-divider` | Starter title and section styles. | [Title slide](example.qmd?slide=1) |
 | `.quote` | Style a Markdown blockquote as a quotation slide. | [Quotation](patterns.qmd?slide=2) |
-| `.autoscale`, `.no-autoscale` | Turn text fitting on or off for this slide. | [Fitted importance](example.qmd?slide=3) |
-| `data-text-fit="true"`, `data-text-fit="false"` | Attribute forms of the fitting choice; `data-autoscale` is an alias. | [Fitting details](quarto-class-map.md#global-backgrounds-and-text-fit) |
-| `data-text-fit-min="0.64"` | Minimum scale for this slide; `data-autoscale-min` is an alias. | [Fitting details](quarto-class-map.md#global-backgrounds-and-text-fit) |
-| `data-overflow="fit-scroll"` | Per-slide overflow policy, with the same values as `deck.overflow`. | [Fitting details](quarto-class-map.md#global-backgrounds-and-text-fit) |
-| `.no-background` | Omit a deck background on this slide. | [Background settings](#slide-backgrounds) |
-| `data-transition="fade"` | Slide-entry transition. | [Transition values](#transitions) |
+| `.autoscale`, `.no-autoscale` | Turn text fitting on or off for this slide. | [Fit text](syntax-examples.qmd?slide=24), [keep its size](syntax-examples.qmd?slide=26) |
+| `data-text-fit="true"`, `data-text-fit="false"` | Attribute forms of the fitting choice; `data-autoscale` is an alias. | [Fit text](syntax-examples.qmd?slide=24), [keep its size](syntax-examples.qmd?slide=26) |
+| `data-text-fit-min="0.64"` | Minimum scale for this slide; `data-autoscale-min` is an alias. | [Minimum fit scale](syntax-examples.qmd?slide=24) |
+| `data-overflow="fit-scroll"` | Per-slide overflow policy, with the same values as `deck.overflow`. | [Fit text](syntax-examples.qmd?slide=24), [scroll](syntax-examples.qmd?slide=26) |
+| `.no-background` | Omit a deck background on this slide. | [Omit the deck background](syntax-examples.qmd?slide=28) |
+| `data-transition="fade"` | Slide-entry transition. | [Fade entrance](syntax-examples.qmd?slide=34). |
 | `data-step-summary="match"` | Add a final color-matched overview after the teaching steps. | [Equation overview](example.qmd?slide=6) |
-| `data-match-colors`, `data-match-colors-dark` | Optional per-slide named palette. | [Color overrides](#matched-colors) |
+| `data-match-colors`, `data-match-colors-dark` | Optional per-slide named palette. | [Color overrides](syntax-examples.qmd?slide=29) |
 
 Slide fitting attributes also accept `1`, `yes`, `on` for true, and `0`, `no`,
 `off` for false. Prefer `true` and `false` in new source.
@@ -180,8 +182,7 @@ The estimate is less certain for smaller groups.
 | `.credit` | Picture attribution in a reserved lower-right lane; span or block. | [Picture credit](patterns.qmd?slide=3) |
 | `.source` | Attribution kept with a quotation; span or block. | [Quote and source](patterns.qmd?slide=2) |
 
-Themes set size, weight and ink (text color) for the named roles. There are no numbered
-author classes. Jonathan Schwabish's *Better Presentations* (2017) motivates
+Themes set size, weight and ink (text color) for the named roles. Jonathan Schwabish's *Better Presentations* (2017) motivates
 dominant claims (pp. 70 to 72) and spare statement slides (pp. 139 to 140).
 It also covers picture credits (pp. 128 to 129) and highlighted quotations
 with sources (pp. 72 to 73).
@@ -243,13 +244,16 @@ hides future ones so the audience cannot read ahead.
 | `.incremental` | Reveal direct list items in order, including lists inside columns. |
 | `data-fragment-index="2"` | Put fragments on shared frame 2. Repeated indices reveal together; 0 is visible at the baseline. |
 | `data-fragment-effect="rise"` | Effect for a fragment or inherited from its incremental container. |
-| Effect values | `rise` (also `slide`), `left`, `right`, `scale`, `blur`, `highlight`, `dim`, `none`. |
-| `.transition-fade`, `.transition-slide`, `.transition-zoom`, `.transition-none` | Animate a slide's entrance, or omit animation. |
-| `data-transition="fade"` | Heading attribute form; accepts `fade`, `slide`, `zoom`, `none`. |
+| Effect values | `rise` (also `slide`), `left`, `right`, `scale`, `blur`, `highlight`, `dim`, `none`. [Reveal effects](syntax-examples.qmd?slide=17). |
+| `.transition-fade`, `.transition-slide`, `.transition-zoom`, `.transition-none` | Animate a slide's entrance, or omit animation. [Slide entrance](syntax-examples.qmd?slide=34). |
+| `data-transition="fade"` | Heading attribute form; accepts `fade`, `slide`, `zoom`, `none`. [Slide entrance](syntax-examples.qmd?slide=34). |
 
 Automatic fragment numbers advance past earlier explicit indices. Sparse numbers
 do not add empty keypresses. Slide-entry transitions do not consume reveal steps.
-[Try dimmed spans and lists](example.qmd?slide=4).
+[Try dimmed spans and lists](example.qmd?slide=4),
+[compare reveal effects](syntax-examples.qmd?slide=17), or inspect the
+[slide](syntax-examples.qmd?slide=31), [zoom](syntax-examples.qmd?slide=32) and
+[unanimated](syntax-examples.qmd?slide=33) entrances.
 
 ## Code and synchronized explanations {#code-steps}
 
@@ -293,8 +297,8 @@ advances and a fourth matched overview. The gaps in `1|3|7` create no extra step
 
 Mappings need one positive safe integer per snapshot, strictly increasing in
 each code/equation block. Invalid mappings warn and fall back to implicit order.
-Without mappings, mixed text/code/equation events run in source order. Older
-unmapped code-only slides keep their first snapshot at the baseline.
+Without mappings, mixed text/code/equation events run in source order. Unmapped
+code-only slides show their first snapshot before the first advance.
 Multiple unmapped code blocks share their corresponding snapshots.
 
 ## Math and equation steps {#equation-steps}
@@ -365,6 +369,7 @@ are not parsed. `var(--token)` names one variable without a fallback value.
 Explicit overrides are not contrast-adjusted.
 [See the matched overview](example.qmd?slide=6) and
 [complete color/contrast rules](semantic-authoring.md#finish-with-matched-colors).
+[Try span, slide and named CSS overrides together](syntax-examples.qmd?slide=29).
 
 ## Pictures, captions and credits {#pictures}
 
@@ -394,6 +399,14 @@ an empty description and `.decorative` on the image.
 
 ## Picture layouts {#picture-layouts}
 
+For an edge-to-edge half background, nest `.ds-left` and `.ds-right` inside
+`.ds-full`. Put the image in one half and the text in the other. Compare the
+[background on the left](syntax-examples.qmd?slide=1) and
+[background on the right](syntax-examples.qmd?slide=2) examples with their source.
+Copy the example's `.half-background` rules from its
+[stylesheet](_generated/source/syntax.css.txt) to stretch the image across the
+whole half. The ordinary picture patterns below retain space for a heading and caption.
+
 These classes belong to htmpres. Put layout classes on the surrounding div,
 and fit/filter classes on the image or its media container.
 
@@ -404,14 +417,14 @@ and fit/filter classes on the image or its media container.
 | `.ds-media` | Contain an image, video or embedded media. | [Contained image](patterns.qmd?slide=3) |
 | `.ds-pane` | Text/content pane beside media. | [Picture and text](patterns.qmd?slide=7) |
 | `.ds-layer` | Text panel above media, with theme-controlled backing. | [Text overlay](patterns.qmd?slide=5) |
-| `.ds-split` | Flowing grid of panes, two columns by default. | [Split source](quarto-class-map.md#deckset-inspired-containers) |
+| `.ds-split` | Flowing grid of panes, two columns by default. | [Flowing panes](syntax-examples.qmd?slide=13) |
 | `.ds-grid` | Grid of media blocks, three columns by default. | [Picture grid](patterns.qmd?slide=9) |
-| `.ds-inline` | Small media arranged in a wrapping row. | [Media example below](#media-appearance) |
-| `.ds-frame`, `.ds-no-border` | Add a media frame, or remove border, radius and background. | [Framed media](example.qmd?slide=7) |
+| `.ds-inline` | Small media arranged in a wrapping row. | [Inline images](syntax-examples.qmd?slide=12) |
+| `.ds-frame`, `.ds-no-border` | Add a media frame, or remove border, radius and background. | [Framed media](example.qmd?slide=7), [borderless image](syntax-examples.qmd?slide=3) |
 | `.ds-no-pad` | Remove container padding. | [Full picture](patterns.qmd?slide=4) |
-| `.ds-center`, `.ds-top`, `.ds-bottom` | Center contents, or align them toward the top/bottom. | [Media example below](#media-appearance) |
-| `.ds-rounded` | Round media corners using the theme radius. | [Media example below](#media-appearance) |
-| `.ds-hide` | Hide an element visually and, for players, from screen readers. | [Playback source](#playback) |
+| `.ds-center`, `.ds-top`, `.ds-bottom` | Center contents, or align them toward the top/bottom. | [Pane alignment](syntax-examples.qmd?slide=30) |
+| `.ds-rounded` | Round media corners using the theme radius. | [Rounded image](syntax-examples.qmd?slide=12) |
+| `.ds-hide` | Hide an element visually and, for players, from screen readers. | [Hidden player source](syntax-examples.qmd?slide=19) |
 
 ```markdown
 ## Picture on the left
@@ -444,6 +457,40 @@ image when the picture itself carries information.
 `data-background-position`, `data-background-opacity` and
 `data-background-class`. They use the same values as their deck settings.
 `data-background-image="none"` or `.no-background` omits the background.
+Compare the [global default](syntax-examples.qmd?slide=27) and
+[opt-out](syntax-examples.qmd?slide=28), or use a
+[half background](syntax-examples.qmd?slide=1).
+
+## Transparency and opacity {#transparency}
+
+An image file can already contain transparent areas. SVG and PNG retain that
+transparency in a slide without an extra class. [Switch the transparent-rings
+example between light and dark](syntax-examples.qmd?slide=3) to see the theme
+surface through the image.
+
+To fade the whole picture, add `.ds-alpha` to the image. Its default opacity is
+0.6. The class changes media opacity while captions and nearby text stay opaque.
+[Compare the original and faded picture](syntax-examples.qmd?slide=4).
+
+```markdown
+![A geometric texture](assets/texture.svg){.ds-fit .ds-alpha}
+```
+
+For a chosen value, add a semantic class to the image and define it in your
+stylesheet. [The CSS example](syntax-examples.qmd?slide=5) uses:
+
+```markdown
+![A geometric texture](assets/texture.svg){.ds-fit .ds-alpha .faint-image}
+```
+
+```css
+.faint-image { --ds-opacity: .25; }
+```
+
+`.ds-original` removes filters and restores opacity to 1. Do not combine it
+with `.ds-alpha` when the image should fade. For a decorative background, set
+`data-background-opacity="0.18"` on the heading instead. [See the background
+opacity example](syntax-examples.qmd?slide=6).
 
 ## Media appearance and filters {#media-appearance}
 
@@ -461,22 +508,22 @@ image when the picture itself carries information.
 
 | Class | Meaning |
 |---|---|
-| `.ds-bn`, `.ds-bw` | Black and white. |
-| `.ds-vivid`, `.ds-noir`, `.ds-chrome`, `.ds-fade` | Named browser filter presets. |
-| `.ds-theme-filter` | Use the theme's filter preset. |
-| `.ds-sharpen` | Add the bundled SVG sharpen filter. |
-| `.ds-original` | Remove filters from this media item. |
-| `.ds-filter` | Apply custom filter variables from CSS. |
-| `.ds-alpha` | Use the stylesheet's opacity value. |
-| `.ds-zoom` | Scale media visually using the stylesheet's zoom value. |
-| `.ds-vignette` | Add a dark edge overlay on a container. Add `.ds-vignette-light` alongside it for a light overlay. |
-| `.ds-readable` | Add a readability gradient on the media container; preserves layout. |
+| `.ds-bn`, `.ds-bw` | Black and white. [Filter comparison](syntax-examples.qmd?slide=8). |
+| `.ds-vivid`, `.ds-noir`, `.ds-chrome`, `.ds-fade` | Named browser filter presets. [Filter comparison](syntax-examples.qmd?slide=8). |
+| `.ds-theme-filter` | Use the theme's filter preset. [Theme filter](syntax-examples.qmd?slide=9). |
+| `.ds-sharpen` | Add the bundled SVG sharpen filter. [Sharpen](syntax-examples.qmd?slide=9). |
+| `.ds-original` | Remove filters from this media item. [Original image](syntax-examples.qmd?slide=9). |
+| `.ds-filter` | Apply custom filter variables from CSS. [Custom filter](syntax-examples.qmd?slide=10). |
+| `.ds-alpha` | Use the stylesheet's opacity value. [Opacity comparison](syntax-examples.qmd?slide=4). |
+| `.ds-zoom` | Scale media visually using the stylesheet's zoom value. [Zoom](syntax-examples.qmd?slide=10). |
+| `.ds-vignette` | Add a dark edge overlay on a container. Add `.ds-vignette-light` alongside it for a light overlay. [Edge overlays](syntax-examples.qmd?slide=11). |
+| `.ds-readable` | Add a readability gradient on the media container; preserves layout. [Gradient overlay](syntax-examples.qmd?slide=11). |
 
 Put vignette/readability classes on the surrounding div because they draw an
-overlay. Presets approximate browser effects; they do not reproduce Apple Core
-Image exactly. [Readability overlay output](patterns.qmd?slide=5).
+overlay. The presets use browser filters. [Readability overlay output](patterns.qmd?slide=5).
 
-Theme CSS can set `--ds-grayscale`, `--ds-sepia`, `--ds-saturation`,
+[Copy the custom filter example](syntax-examples.qmd?slide=10) and its
+stylesheet to see how these variables are set. Theme CSS can set `--ds-grayscale`, `--ds-sepia`, `--ds-saturation`,
 `--ds-contrast`, `--ds-brightness`, `--ds-exposure`, `--ds-hue`, `--ds-blur`,
 `--ds-opacity`, `--ds-scale`, `--ds-vignette`, `--ds-vignette-size`,
 `--ds-vignette-color`, `--ds-readable-angle`, `--ds-readable-start` and
@@ -486,30 +533,33 @@ Theme CSS can set `--ds-grayscale`, `--ds-sepia`, `--ds-saturation`,
 
 ## Video, audio and embedded pages {#playback}
 
-Use HTML for players and embedded pages, as shown below. The public demo does
-not include sample audio or video files.
+Use HTML for players and embedded pages. The [video](syntax-examples.qmd?slide=18),
+[audio](syntax-examples.qmd?slide=19) and [local embedded page](syntax-examples.qmd?slide=21)
+examples include working files you can download. Select Play to start audio or video.
 
 ```html
-<video class="ds-fit ds-controls ds-muted" src="assets/demo.mp4"></video>
-<audio class="ds-controls" src="assets/narration.mp3"></audio>
-<iframe class="ds-fill" title="Video demonstration"
-        src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+<video class="ds-fit ds-controls ds-muted" src="assets/motion.mp4"></video>
+<audio class="ds-controls" src="assets/tone.wav"></audio>
+<iframe class="ds-fill" title="Local interactive observation counter"
+        src="assets/embedded.html"></iframe>
 ```
 
 | Player class | Effect |
 |---|---|
-| `.ds-controls` | Show native playback controls. |
-| `.ds-autoplay` | Request playback when its slide becomes active. Browser autoplay policy still applies. |
-| `.ds-loop` | Repeat playback. |
-| `.ds-muted` | Mute playback. |
-| `.ds-hide` | Hide the player visually and from screen readers. |
-| `.ds-autoadvance` | Advance the active slide when playback ends, respecting the main/appendix boundary. |
-| `.ds-keep-time` | Retain position when leaving the slide; otherwise playback resets. |
+| `.ds-controls` | Show native playback controls. [Video controls](syntax-examples.qmd?slide=18). |
+| `.ds-autoplay` | Request playback when its slide becomes active. Browser autoplay policy still applies. [Autoplay and advance](syntax-examples.qmd?slide=20). |
+| `.ds-loop` | Repeat playback. [Loop](syntax-examples.qmd?slide=18). |
+| `.ds-muted` | Mute playback. [Muted video](syntax-examples.qmd?slide=18). |
+| `.ds-hide` | Hide the player visually and from screen readers. [Hidden player source](syntax-examples.qmd?slide=19). |
+| `.ds-autoadvance` | Advance the active slide when playback ends, respecting the main/appendix boundary. [Media-end advance](syntax-examples.qmd?slide=20). |
+| `.ds-keep-time` | Retain position when leaving the slide; otherwise playback resets. [Audio controls](syntax-examples.qmd?slide=19). |
 
 ## Panel buttons and filters {#interactions}
 
 Raw HTML buttons can replace a panel's contents or filter items on the current
-slide. These complete source patterns need no author-written JavaScript.
+slide. [Try the panel buttons](syntax-examples.qmd?slide=15) and
+[item filters](syntax-examples.qmd?slide=16). These complete source patterns need
+no author-written JavaScript.
 
 ```markdown
 ## Compare the choices
@@ -528,14 +578,14 @@ Keep one source.
 
 | Attribute/class | Where | Meaning |
 |---|---|---|
-| `data-target="#detail"` | Control | Target panel; `data-update-target` is an alias. |
-| `data-title`, `data-text` | Control | Replace panel heading and paragraph as text. |
-| `data-html` | Control | Replace the panel with the authored HTML string instead. |
-| `.pill-row`, `data-choice-group` | Control group | Keep one `.active` control in the group. |
-| `data-filter="prototype"` | Control | Filter value; `data-item-filter` is an alias. |
-| `data-filter-target=".candidate"` | Control | Selector for items on the current slide. |
-| `data-tags="prototype stable"` | Item | Whitespace-separated values; `data-filter` is also accepted on items. |
-| `data-filter="all"` | Control | Show every selected item. |
+| `data-target="#detail"` | Control | Target panel; `data-update-target` is an alias. [Panel buttons](syntax-examples.qmd?slide=15). |
+| `data-title`, `data-text` | Control | Replace panel heading and paragraph as text. [Replace text](syntax-examples.qmd?slide=15). |
+| `data-html` | Control | Replace the panel with the authored HTML string instead. [Replace HTML](syntax-examples.qmd?slide=15). |
+| `.pill-row`, `data-choice-group` | Control group | Keep one `.active` control in the group. [Button group](syntax-examples.qmd?slide=15). |
+| `data-filter="prototype"` | Control | Filter value; `data-item-filter` is an alias. [Filter items](syntax-examples.qmd?slide=16). |
+| `data-filter-target=".candidate"` | Control | Selector for items on the current slide. [Filter items](syntax-examples.qmd?slide=16). |
+| `data-tags="prototype stable"` | Item | Whitespace-separated values; `data-filter` is also accepted on items. [Filter items](syntax-examples.qmd?slide=16). |
+| `data-filter="all"` | Control | Show every selected item. [Reset filter](syntax-examples.qmd?slide=16). |
 
 ```markdown
 ## Filter the candidates
@@ -567,13 +617,13 @@ You can also copy the styles into a custom deck's stylesheet.
 
 | Classes | Purpose | Example |
 |---|---|---|
-| `.two-col`, `.three-col` | Two or three flowing columns. | [Code beside text](example.qmd?slide=5) |
-| `.card`, `.metric-card`, `.callout` | Group content or frame a short point. | [Importance in blocks](_generated/semantic/index.html#importance) |
+| `.two-col`, `.three-col` | Two or three flowing columns. | [Code beside text](example.qmd?slide=5), [cards and columns](syntax-examples.qmd?slide=14) |
+| `.card`, `.metric-card`, `.callout` | Group content or frame a short point. | [Cards](syntax-examples.qmd?slide=14) |
 | `.hero-title`, `.hero-subtitle`, `.lead` | Title treatment, subtitle and opening copy. | [Opening slide](example.qmd?slide=1) |
-| `.section-divider` | Centered section opening. | [CLI section template](authoring-cli.md#human-commands) |
-| `.source-line`, `.eyebrow`, `.sample-label`, `.media-caption` | Supporting labels and captions. | [Picture caption](example.qmd?slide=7) |
-| `.diagram-frame`, `.code-card`, `.code-guide`, `.checklist`, `.focus-panel`, `.compact-panel` | Starter containers for diagrams, code, lists and panels. | [Container source](quarto-class-map.md#layout-blocks) |
-| `.pill-row`, `.pill`, `.control-chip`, `.action-button` | Control grouping and appearance. Behavior needs the attributes above. | [Panel source](#interactions) |
+| `.section-divider` | Centered section opening. | [Section divider](syntax-examples.qmd?slide=22) |
+| `.source-line`, `.eyebrow`, `.sample-label`, `.media-caption` | Supporting labels and captions. | [Labels and captions](syntax-examples.qmd?slide=30) |
+| `.diagram-frame`, `.code-card`, `.code-guide`, `.checklist`, `.focus-panel`, `.compact-panel` | Starter containers for diagrams, code, lists and panels. | [Code and instructions](syntax-examples.qmd?slide=23), [panel](syntax-examples.qmd?slide=15) |
+| `.pill-row`, `.pill`, `.control-chip`, `.action-button` | Control grouping and appearance. Behavior needs the attributes above. | [Panel buttons](syntax-examples.qmd?slide=15) |
 | `.theme-sample`, `.mono-theme-sample` | Theme specimens. | [Theme slide](example.qmd?slide=9) |
 
 The following starter selectors support only the bundled tutorial's specimens.
@@ -593,7 +643,7 @@ desktop layout API. Define those desktop layouts in CSS if you use them.
 
 ## Click, touch and keyboard navigation {#navigation}
 
-Click the left part of a slide to go back, or the rest to advance. Horizontal
+Click the leftmost 28% of a slide to go back, or the rest to advance. Horizontal
 swipes also navigate. Links, buttons, code and players keep their own click and
 touch actions.
 
@@ -601,6 +651,8 @@ Put `.no-tap-nav` or `.no-slide-nav` on a custom interactive
 region to stop click and touch navigation there. You can also add
 `data-no-tap-nav` or `data-no-slide-nav`. The attribute's presence is enough,
 even if its value is `false`. The deck's keyboard shortcuts remain active.
+[Open the example](syntax-examples.qmd?slide=25), then select **Open full deck**
+to try the guarded region.
 
 ```markdown
 ::: {.no-tap-nav}

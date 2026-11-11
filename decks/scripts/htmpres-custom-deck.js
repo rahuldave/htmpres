@@ -937,6 +937,15 @@ window.visualViewport?.addEventListener("scroll", scheduleViewportLayout);
 window.addEventListener("load", scheduleTextFit);
 document.fonts?.ready?.then(scheduleTextFit)?.catch(() => {});
 document.addEventListener("keydown", (event) => {
+  if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey || event.isComposing) return;
+  if (event.key === "Escape") { closeOverlays(); return; }
+  // Authored controls keep native keys; deck chrome keeps navigation shortcuts.
+  // Tap-only guards do not disable ordinary slide keyboard navigation.
+  const control = event.target instanceof Element && event.target.closest(
+    "a, button, input, select, textarea, summary, label, pre, code, video, audio, iframe, object, embed, [role='button'], [contenteditable]:not([contenteditable='false'])",
+  );
+  const chrome = control && control.closest(".toc, .footer-controls, #overview");
+  if (control && (!chrome || !control.matches("button, a, [role='button']") || event.key === " " || event.key === "Enter")) return;
   if (event.key === "ArrowRight" || event.key === " " || event.key === "PageDown") {
     event.preventDefault();
     nextStepOrSlide();
@@ -949,7 +958,6 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "End") goTo(lastMainSlide);
   if (event.key.toLowerCase() === "o") toggleOverview();
   if (event.key.toLowerCase() === "n") toggleNotes();
-  if (event.key === "Escape") closeOverlays();
   if (event.key.toLowerCase() === "f" && document.fullscreenEnabled) {
     if (!document.fullscreenElement) document.documentElement.requestFullscreen();
     else document.exitFullscreen();

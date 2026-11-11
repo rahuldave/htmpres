@@ -38,8 +38,12 @@ lint *decks:
 patterns:
   quarto run scripts/htmpres.ts render decks/patterns/index.qmd
 
+# Render the copyable visual syntax reference.
+syntax-examples:
+  quarto run scripts/htmpres.ts render decks/syntax/index.qmd
+
 # Generate every catalog palette from the canonical example render.
-theme-gallery: example semantic authoring-hooks patterns
+theme-gallery: example semantic authoring-hooks patterns syntax-examples
   quarto run scripts/build-showcase.ts
 
 # Build the SmallDocs site (requires uv; SmallDocs is pinned by the wrapper).
@@ -101,7 +105,7 @@ diff-check:
 
 # Run the normal local verification path for renderer/tutorial changes.
 # This path uses Quarto's bundled Deno runtime and does not require Node.
-check: tutorial example semantic authoring-hooks slide-breaks pictures patterns verify semantic-test authoring-smoke docs-check diff-check
+check: tutorial example semantic authoring-hooks slide-breaks pictures patterns syntax-examples verify semantic-test authoring-smoke docs-check diff-check
 
 # Prepare the private Sites preview app with both tutorial themes.
 # Saving and deploying still happens through the Sites connector.
@@ -112,7 +116,7 @@ publish theme_dir="/private/tmp/htmpres-theme-preview" site_dir="/private/tmp/ht
 node-check: node-render node-verify
 
 # Run the core Deno checks plus optional Node fallback parity checks.
-compat-check: tutorial example semantic authoring-hooks slide-breaks pictures patterns verify node-render node-verify diff-check
+compat-check: tutorial example semantic authoring-hooks slide-breaks pictures patterns syntax-examples verify node-render node-verify diff-check
   node --test tests/semantic-renderer.test.mjs tests/runtime-steps.test.mjs tests/runtime-navigation.test.mjs
 
 # Independent Plotfoundry scaffolds only; optional R/Node toolchains stay separate.

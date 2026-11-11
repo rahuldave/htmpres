@@ -4,12 +4,13 @@ Write your argument in Quarto Markdown (QMD), and use the theme's fonts and
 colors. The complete [example source](_generated/source/semantic.qmd.txt) contains
 no inline styles or color values. Open the [audience deck](_generated/semantic/index.html)
 or [presenter deck](_generated/semantic/presenter.html) to see the result. Both
-use the custom HTML renderer, with Quarto's Pandoc parser for Markdown.
+use the htmpres HTML renderer, with Quarto's Pandoc parser for Markdown.
 
 Use the [complete syntax reference](syntax-reference.md) to look up settings,
 classes and attributes. The links beside each section open its rendered
 pattern directly.
 
+[Install the extension](quarto-extension.md) in your project.
 To check and render your own `slides.qmd`, run:
 
 ```sh
@@ -17,6 +18,11 @@ quarto run _extensions/htmpres/htmpres.ts lint slides.qmd --json
 quarto run _extensions/htmpres/htmpres.ts render slides.qmd
 quarto run _extensions/htmpres/htmpres.ts verify slides.qmd
 ```
+
+See [the visual syntax gallery](syntax-examples.qmd) for transparent images, image
+opacity, half backgrounds, filters, playback and working panel/filter controls.
+Each preview has the authored Markdown below it. Download the stylesheet when
+an example uses custom classes.
 
 ## Importance
 
@@ -35,18 +41,24 @@ The estimate is less certain for smaller groups.
 :::
 ```
 
-All 35 paired themes map these roles in both modes, and the three legacy seeds
-have defaults. Themes use CSS variables, called tokens, for levels 0 to 4.
+All 35 themes with light and dark modes support these roles. The fixed-look
+`sage`, `mono-grid` and `blank` themes also supply defaults.
+
+<details>
+<summary>Importance variables for theme authors</summary>
+
+Themes use CSS variables, called tokens, for levels 0 to 4.
 Each level has
 `--htmpres-importance-N-scale`, `-weight` and `-ink`. Normal text is level 2;
 `.aside` uses 1, `.key` uses 3 and `.statement` uses 4. Purpose-specific
 `.credit` and `.source` labels use level 0.
 
-There are no numbered author classes.
 Level 0 is reserved for attribution through `.credit` and `.source`.
 There is no generic class for shrinking the argument. Theme
 authors may change tokens in CSS without changing slide source. Role sizing
 also works inside fitted cards and callouts.
+
+</details>
 
 ### A statement slide
 
@@ -70,7 +82,7 @@ emphasis weight and ink. Text fitting scales the block and its paragraphs
 together. Prefer one short claim. If long copy reaches the theme's minimum
 fit size, you may still need to split it.
 
-With `overflow: fit-scroll`, readers can scroll through all excess copy,
+With `deck.overflow: fit-scroll` in the initial front matter, readers can scroll through excess copy,
 including in the smaller presenter preview. Vertical centering applies only
 when the copy fits.
 
@@ -104,6 +116,10 @@ A block alternative is `::: {.credit}` followed by the credit text and a closing
 lower-right lane. It also collects credits from inside media blocks. The theme
 puts opaque paper behind the credit text so it stays readable over bright or
 dark images.
+
+<details>
+<summary>Contrast policy for theme authors</summary>
+
 Attribution ink targets 4.8:1 contrast against that paper. If a stock palette's
 normal or muted ink is too faint, the theme adapter shifts that ink toward black
 or white; already-readable ink keeps its semantic token alias.
@@ -111,6 +127,8 @@ or white; already-readable ink keeps its semantic token alias.
 On a paper tone where neither black nor white can reach 4.8:1, the adapter
 uses whichever gives the strongest contrast. That contrast remains above the
 4.5:1 minimum for normal text.
+
+</details>
 
 The layout reserves space for the lane and puts
 the section label above it. Credits do not shrink with body text fitting.
@@ -132,18 +150,26 @@ Every meaningful picture needs a description between `![` and `]`. The
 `lint`, `render` and `verify` commands fail with an `image-description` error
 when a description is empty or missing. The check covers pictures in presenter notes,
 reference images and raw HTML. Diagnostics name the slide and point to the
-line where it starts. For example, slide 3 titled "A titled picture, empty description"
+line where it starts. See [source validation](authoring-cli.md#lint-semantic-source)
+for the command and JSON output.
+
+<details>
+<summary>Picture diagnostic fields for automated checks</summary>
+
+For example, slide 3 titled "A titled picture, empty description"
 produces this exact message:
 
 ```text
 Slide 3 (A titled picture, empty description): describe this picture, or mark a purely decorative picture with {.decorative}.
 ```
 
-`lint --json` retains schema version 1 and includes `severity: "error"`,
+`lint --json` uses schema version 1 and includes `severity: "error"`,
 `code: "image-description"`, `slide`, `slideId`, `line` and `column`; it exits
 with status 1. Both verifiers also reject exported images with no `alt`
 attribute. They check the notes stored in presenter output too. All rendered
 images have an `alt` attribute. Code examples and comments are not pictures.
+
+</details>
 
 For a purely decorative picture that adds no information, explicitly write an
 empty description with `.decorative` on the **image**:
@@ -237,7 +263,7 @@ The title and body receive the same theme-controlled panels. Background layers
 are decorative (`aria-hidden`). When the picture itself needs an accessible
 description, use the described `.ds-full` image pattern above.
 
-In all four examples, `data-section` keeps a readable section label on its own
+In the picture layouts above, `data-section` keeps a readable section label on its own
 opaque theme ground. The credit lane remains separate. A left/right picture
 beside a list also starts below the title and leaves space for its caption and
 credit. Automatic fitting applies to the one-picture or two-pane structures.
@@ -412,8 +438,9 @@ $$
 
 Only named terms referenced by `data-equation-steps` participate in dimming.
 Other operators remain unchanged. List every selected class in a snapshot
-when several terms should be emphasized. Mapped code and equation blocks
-begin inactive and hold their latest snapshot until the next mapped frame.
+when several terms should be emphasized. Before the first mapped frame, code
+and equations are visible without a step highlight. Each block then holds its
+latest snapshot until its next mapped frame.
 Backward navigation restores the corresponding state of each block.
 
 Mapping entries must be decimal digits, positive safe integers, strictly
@@ -549,8 +576,9 @@ For an individual inline math term, Pandoc's bracket-and-brace syntax works:
 Those colors apply from the named group's reveal through the final summary.
 An enclosing fragment determines when a nested matched span first appears. A repeated name
 keeps one color, but later occurrences stay hidden until their own reveal.
-Static labels with teaching frames join the first frame; a slide without
-teaching reveals waits for its single summary advance.
+An ordinary `data-match` span outside a fragment is visible from the start.
+It gains its color on the first teaching frame. A slide without teaching
+reveals waits for its single summary advance.
 
 Explicit index-0
 fragments are visible and colored at the baseline. Back/Restart restores these
@@ -599,13 +627,22 @@ html[data-color-mode="dark"] .slide {
 ```
 
 You can use a color directly, such as `rebeccapurple`, or a theme token such as
-`var(--teal)`. Semantic names remain the QMD contract. Specific slide/inline
+`var(--teal)`. Use the same name as `data-match`, such as `mean` in
+`--htmpres-match-mean`. Specific slide/inline
 declarations override these ordinary deck-wide rules. Theme authors may also
 replace generated numbered slots `--htmpres-match-1`, `--htmpres-match-2` and
 later slots. Prefer named variables when a concept should retain its color
 across slides.
 
 ### Theme palettes and contrast {#how-the-theme-chooses-readable-colors}
+
+Bundled themes choose matching colors for their light and dark backgrounds.
+Keep descriptive wording and line numbers. Color alone may not distinguish
+every group for every viewer. Check custom colors in both modes, especially
+on pictures. Overrides keep the exact color you supply.
+
+<details>
+<summary>How themes generate the matching palette</summary>
 
 The renderer generates as many slots as the largest matching slide needs.
 Slots follow the first `data-match` explanations in source order. Highlight
@@ -636,6 +673,8 @@ same named variables and the `--htmpres-summary-surface` /
 legacy seeds have generated palettes; a custom theme without named colors or
 ordinal slots falls back to its ordinary foreground color.
 
+</details>
+
 ## Layering without reading ahead
 
 [Try dimmed spans and list items](example.qmd?slide=4). Future points stay hidden while earlier points dim.
@@ -661,8 +700,8 @@ columns:
 ```
 
 Explicit fragment effects override a container effect. Ordinary fragments do
-not dim. A dimmed text lane keeps its latest text point current while only
-code or equations advance. No mode previews future text in grey.
+not dim. Advancing only code or equations leaves the latest dim-effect text
+fragment emphasized. Future text stays hidden.
 
 ## Appendix navigation
 
@@ -713,9 +752,8 @@ The second result.[^1]
 [^1]: Second source.
 ```
 
-Footnote IDs, references and backlinks are unique per slide and presenter cue.
-Code IDs and body-heading IDs are also namespaced. Authored slide IDs and links
-to other slides are preserved. Literal code samples are not rewritten.
+Footnote links and return arrows work within their own slide, even when
+you reuse a label. Links to other slides keep their authored destination.
 
 ## Emphasis in titles
 
@@ -778,9 +816,7 @@ Speaker notes (`::: notes` or `::: {.notes}`) belong to their current slide.
 A `---` inside notes or another fenced div is a normal Markdown rule, not a
 slide boundary or a lint error. Leave blank lines around an intended rule to
 avoid Markdown's Setext-heading interpretation. Nested divs inside notes stay
-with those notes. Quarto 1.8.26's Reveal output was checked for rule containment
-and empty attributed headings. htmpres intentionally keeps `##` inside a div
-local too, avoiding Quarto's nested slide sections inside notes/divs.
+with those notes. A `##` inside a div also stays on the current slide.
 
 The complete file makes **three slides**. The first uses `---` alone, the
 second uses `##` alone, and the third uses `---` plus `##` together:
@@ -837,8 +873,7 @@ runtime is required. In this repository use `just lint slides.qmd`.
 
 Pass source paths to `verify slides.qmd`; without paths, `verify` discovers
 `decks/**/index.qmd`. Explicit paths support arbitrary names and fail if rendered
-HTML is missing. `slide list/show/insert/replace`, both rendering engines,
-verification and showcase labels all share the same slide boundaries.
+HTML is missing. The CLI, renderer and verifier use these same slide boundaries.
 
 The boundary convention follows [Quarto presentations](https://quarto.org/docs/presentations/index.html).
 Quarto also recommends [empty headings for slide attributes](https://github.com/orgs/quarto-dev/discussions/603).

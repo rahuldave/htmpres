@@ -1,0 +1,26 @@
+/* Appearance for this example only. Copy a rule with its semantic class. */
+.faint-image { --ds-opacity: .25; }
+.enhanced-image { --ds-saturation: 1.3; --ds-contrast: 1.15; --ds-exposure: .08; }
+.detail-image { --ds-scale: 1.35; }
+.example-grid { --ds-columns: 3; --ds-gap: 20px; }
+.example-grid figure { margin: 0; }
+.example-grid img { width: 100%; height: 150px; object-fit: cover; }
+.example-triptych { --ds-columns: 3; --ds-gap: 20px; --ds-height: 320px; }
+.example-triptych img { height: 260px; width: 100%; object-fit: cover; }
+.example-inline { --ds-inline-size: 220px; }
+.example-player { height: 320px; }
+.example-player video, .example-player iframe { width: 100%; height: 100%; }
+.example-embed { height: 340px; width: 100%; }
+.example-dark-edge { --ds-vignette: .55; }
+.example-light-edge { --ds-vignette: .55; }
+.example-split { --ds-gap: 24px; --ds-height: 380px; }
+.example-candidates { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; }
+.example-candidates .candidate[hidden] { display: none; }
+.example-scroll { max-height: 480px; overflow-y: auto; }
+
+.custom-matches { --htmpres-match-count: #713f85; }
+html[data-bs-theme="dark"] .custom-matches { --htmpres-match-count: #dcb6ed; }
+
+/* Stretch the image itself to cover an entire background half. */
+.half-background .ds-media > :is(figure,p) { position: absolute; inset: 0; margin: 0; }
+.half-background .ds-media img { display: block; width: 100%; height: 100%; object-fit: cover; }

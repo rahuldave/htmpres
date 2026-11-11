@@ -34,9 +34,8 @@ export async function checkExampleBrowser(tab) {
 
   await tab.playwright.locator('#example-slide').selectOption('6'); let ax=await waitStep('Step 0 of 4 · before reveals');
   assert(await tab.playwright.locator('#example-copy-status').textContent() === '', 'Changing slides clears stale copied status');
-  const heading = ax.split('\n').find(line=>/heading Equations use the same clock/.test(line));
-  const index=Number(/^\s*(\d+)/.exec(heading)[1]);
-  await tab.click(index); await observe(); await tab.pressKey(null,'ArrowRight');
+  await tab.playwright.frameLocator('iframe').locator('.slide.active h2').click();
+  await observe(); await tab.pressKey(null,'ArrowRight');
   assert(preview(await waitStep('Step 1 of 4')).includes('The mean is the quantity we want.'),'Right inside iframe advances shared lab controls exactly once');
   await bodyKey('Home'); await waitStep('Step 0 of 4 · before reveals');
   const source = await tab.playwright.locator('#example-markdown').textContent();
@@ -44,7 +43,7 @@ export async function checkExampleBrowser(tab) {
   assert(source.includes('\\htmlClass{count}{n}') && source.includes('data-match="count"'),'The third explanation maps to the denominator');
 
   await tab.playwright.locator('#example-slide').selectOption('10'); ax=await waitStep('This slide has no reveal steps');
-  const link = ax.split('\n').find(line=>/link Description: The supporting data/.test(line));
+  const link = ax.split('\n').find(line=>/link Description: Open the supporting data/.test(line));
   await tab.click(Number(/^\s*(\d+)/.exec(link)[1])); await observe();
   assert((await tab.playwright.locator('#example-markdown').textContent()).startsWith('## Supporting data'),'Appendix navigation updates Markdown and selected slide');
   return ['page and iframe keyboard','bounded Next/Previous/Restart','actual code/equation explaining text','view/mode preserve teaching and summary cursors','native control focus','raw equation source','appendix/source reconciliation'];

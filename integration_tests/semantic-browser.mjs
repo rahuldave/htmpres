@@ -30,7 +30,7 @@ export async function checkSemanticBrowser(tab) {
     };
   });
   await observe();
-  await choose('1. A semantic story');
+  await choose('1. Mark text by its importance');
   const initial = await tab.playwright.evaluate(() => {
     const ids = [...document.querySelectorAll('[id]')].map(el => el.id);
     return {
@@ -43,14 +43,14 @@ export async function checkSemanticBrowser(tab) {
         .some(el => /^https?:/.test(el.getAttribute('src') || el.getAttribute('href'))),
     };
   });
-  assert(initial.unique && initial.title === 'A <em>semantic</em> story', 'Unique DOM IDs and inline title');
+  assert(initial.unique && initial.title === 'Mark text by its <em>importance</em>', 'Unique DOM IDs and inline title');
   assert(initial.math >= 4 && initial.mathml >= 4 && !initial.errors && !initial.remote, 'Local accessible math');
   await tab.playwright.locator('#slide-1-fnref1').click(); await observe();
   assert((await state()).id === 'story', 'Footnote link stays on first slide');
   await tab.playwright.locator('#story a[href="#slide-1-fnref1"]').click(); await observe();
   passed.push('offline asset URLs, real KaTeX/MathML, inline title, unique IDs and footnote backlink');
 
-  await choose('2. Importance survives a theme change');
+  await choose('2. Keep importance when changing themes');
   for (const mode of ['light', 'dark']) {
     for (let attempt = 0; attempt < 3; attempt++) {
       const current = await tab.playwright.evaluate(() => document.documentElement.dataset.colorModeChoice);
@@ -67,7 +67,7 @@ export async function checkSemanticBrowser(tab) {
   }
   passed.push('key/aside spans and fitted blocks in light/dark');
 
-  await choose('3. Code and explanation share one clock');
+  await choose('3. Match code steps to explanations');
   assert((await state()).fragments.every(fragment => fragment.hidden), 'Mapped baseline hides explanations');
   for (const [offset, frame] of [1, 3, 7].entries()) {
     await next();
@@ -79,7 +79,7 @@ export async function checkSemanticBrowser(tab) {
   assert((await state()).frame === 3 && (await state()).fragments[2].hidden, 'Backward frame restores lanes');
   passed.push('code/text shared sparse frames 1→3→7, persistent highlights and backwards reset');
 
-  await choose('4. Equations use the same clock');
+  await choose('4. Match equation steps to explanations');
   for (const [offset, frame] of [1, 3, 7].entries()) {
     await next();
     const current = await state();
@@ -89,7 +89,7 @@ export async function checkSemanticBrowser(tab) {
   }
   passed.push('real classed KaTeX terms synchronize with ordinary text');
 
-  await choose('5. Reveal the story without reading ahead');
+  await choose('5. Reveal text one step at a time');
   for (let offset = 0; offset < 4; offset++) {
     await next();
     const current = await state();
@@ -100,15 +100,15 @@ export async function checkSemanticBrowser(tab) {
   await tab.pressKey(null, 'End'); await observe();
   let current = await state();
   assert(current.id === 'main-result' && current.counter === '6 / 6' && current.nextDisabled, 'End/main counter/Next stop before appendix');
-  await tab.playwright.getByRole('link', { name: 'The data', exact: true }).click(); await observe();
+  await tab.playwright.getByRole('link', { name: 'the data link', exact: true }).click(); await observe();
   current = await state();
   assert(current.id === 'appendix-data' && current.counter === 'Appendix 1 / 2', 'Named link enters appendix');
   await tab.back(); await observe();
   assert((await state()).id === 'main-result', 'Browser Back returns to main slide');
-  await tab.playwright.getByRole('link', { name: 'The data', exact: true }).click(); await observe();
+  await tab.playwright.getByRole('link', { name: 'the data link', exact: true }).click(); await observe();
   await tab.playwright.getByRole('link', { name: 'More detail', exact: true }).click(); await observe();
   assert((await state()).counter === 'Appendix 2 / 2', 'Unmarked following slide inherits appendix');
-  await tab.playwright.getByRole('link', { name: 'Back to the result', exact: true }).click(); await observe();
+  await tab.playwright.getByRole('link', { name: 'Back to the final main slide', exact: true }).click(); await observe();
   assert((await state()).id === 'main-result', 'Explicit return link');
   passed.push('main boundary, live appendix links, inherited appendix counter and browser history');
   passed.push(...await checkEquationReadabilityBrowser(tab));
@@ -124,10 +124,10 @@ export async function checkEquationReadabilityBrowser(tab) {
       if(await tab.playwright.evaluate(()=>document.documentElement.dataset.colorModeChoice)===mode)break;
       await tab.playwright.locator('#colorModeBtn').click();await tab.getAXState({emit:false});
     }
-    await chooseDeckSlide(tab,'1. A semantic story');
+    await chooseDeckSlide(tab,'1. Mark text by its importance');
     let size=await tab.playwright.evaluate(()=>{const math=document.querySelector('.slide.active .math.inline .katex');return {math:Number.parseFloat(getComputedStyle(math).fontSize),body:Number.parseFloat(getComputedStyle(math.closest('p')).fontSize)};});
     assert(size.math<1.5*size.body,`${mode}: inline math stays at body scale`);
-    await chooseDeckSlide(tab,'4. Equations use the same clock');
+    await chooseDeckSlide(tab,'4. Match equation steps to explanations');
     size=await tab.playwright.evaluate(()=>{const s=document.querySelector('.slide.active'),math=s.querySelector('.math.display'),katex=math.querySelector('.katex'),display=math.querySelector('.katex-display'),column=math.closest('.equation-steps').getBoundingClientRect(),parts=[...display.querySelectorAll('.katex-html > .katex-base')].map(el=>el.getBoundingClientRect());return {math:Number.parseFloat(getComputedStyle(math).fontSize),body:Number.parseFloat(getComputedStyle(math.closest('p')).fontSize),katex:Number.parseFloat(getComputedStyle(katex).fontSize),width:display.clientWidth,overflow:display.scrollWidth-display.clientWidth,inside:parts.length>0&&Math.min(...parts.map(r=>r.left))>=column.left-4&&Math.max(...parts.map(r=>r.right))<=column.right+4};});
     assert(size.math>=1.8*size.body && size.katex>=24,`${mode}: stepped display math is legible and larger than body text`);
     assert(size.width>0 && size.overflow<=4 && size.inside,`${mode}: rendered equation stays within its column`);
@@ -139,7 +139,7 @@ export async function checkEquationReadabilityBrowser(tab) {
 export async function checkSemanticPresenter(tab) {
   const assert = (value, message) => { if (!value) throw new Error(message); };
   await tab.getAXState({ emit: false });
-  await chooseDeckSlide(tab,'1. A semantic story');
+  await chooseDeckSlide(tab,'1. Mark text by its importance');
   let notes = await tab.playwright.evaluate(() => ({
     math: document.querySelectorAll('#presenterNotes .katex').length,
     firstNote: !!document.querySelector('#notes-1-fn1'),
@@ -147,10 +147,10 @@ export async function checkSemanticPresenter(tab) {
     unique: [...document.querySelectorAll('[id]')].length === new Set([...document.querySelectorAll('[id]')].map(el => el.id)).size,
   }));
   assert(notes.math === 1 && notes.firstNote && notes.bodyNote && notes.unique, 'Presenter math and distinct first cue/body footnotes');
-  await chooseDeckSlide(tab,'2. Importance survives a theme change');
+  await chooseDeckSlide(tab,'2. Keep importance when changing themes');
   notes = await tab.playwright.evaluate(() => ({ secondNote: !!document.querySelector('#notes-2-fn1'), firstNote: !!document.querySelector('#notes-1-fn1'), bodyNote: !!document.querySelector('#slide-2-fn1') }));
   assert(notes.secondNote && notes.bodyNote && !notes.firstNote, 'Presenter cue replaces independent namespace');
-  await chooseDeckSlide(tab,'4. Equations use the same clock');
+  await chooseDeckSlide(tab,'4. Match equation steps to explanations');
   const math = await tab.playwright.evaluate(() => ({ count: document.querySelectorAll('#presenterNotes .katex').length, errors: document.querySelectorAll('.katex-error').length }));
   assert(math.count === 1 && !math.errors, 'Dynamically inserted presenter math typesets');
   return { ok: true, passed: ['independent cue/body footnote IDs', 'unique live DOM IDs', 'dynamic note math on navigation'] };

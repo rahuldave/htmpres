@@ -1,0 +1,121 @@
+---
+title: See the syntax in slides
+toc: false
+sidebar: false
+page-layout: full
+---
+
+Choose an example and compare the picture or interaction with its exact source
+below. Try light and dark modes, then select the presenter view to read the notes.
+Use the [syntax reference](syntax-reference.md) to look up settings and syntax.
+
+```{=html}
+<section id="deck-example" data-manifest="_generated/syntax-manifest.json" aria-label="Interactive Markdown example">
+  <div class="example-toolbar">
+    <label>Example slide <select id="example-slide"></select></label>
+    <label>View <select id="example-view"><option value="audience">Audience slides</option><option value="presenter">Presenter with notes</option></select></label>
+    <label>Nocturne mode <select id="example-mode"><option value="light">Light</option><option value="dark">Dark</option></select></label>
+  </div>
+  <div class="example-step-controls" aria-label="Example steps">
+    <button type="button" class="btn btn-outline-primary" data-step-action="previous" disabled>Previous step</button>
+    <button type="button" class="btn btn-primary" data-step-action="next" disabled>Next step</button>
+    <button type="button" class="btn btn-outline-primary" data-step-action="restart" disabled>Restart steps</button>
+    <span id="example-step-status" role="status" aria-live="polite">Loading example…</span>
+  </div>
+  <p class="example-key-hint">Use <kbd>→</kbd> or <kbd>Space</kbd> to advance, <kbd>←</kbd> to go back, and <kbd>Home</kbd> to restart. The controls stay on the selected slide. Choose another slide from the menu.</p>
+  <div class="example-workspace">
+  <div class="example-output">
+      <div class="example-preview-heading"><h2>Slide preview</h2><a id="example-open" target="_blank" rel="noopener">Open full deck ↗</a></div>
+  <div class="example-preview"><iframe title="Interactive slide example" loading="eager"></iframe></div>
+
+  </div>
+  <section class="example-source" aria-labelledby="example-source-title">
+    <div class="example-source-heading">
+      <h2 id="example-source-title">Markdown</h2>
+      <span id="example-source-location"></span>
+      <button type="button" class="btn btn-outline-primary" id="example-copy">Copy slide Markdown</button>
+      <span id="example-copy-status" role="status"></span>
+    </div>
+    <pre tabindex="0"><code id="example-markdown" class="language-markdown">Loading Markdown…</code></pre>
+  </section>
+  </div>
+  <details><summary>Theme declaration used by this preview</summary><pre id="example-theme"></pre><p>Choose a bundled theme by name in your deck's front matter. You can use it without editing CSS.</p></details>
+</section>
+<noscript><p>Enable JavaScript for the interactive example, or <a href="_generated/source/syntax.qmd.txt">read the complete Markdown source</a> and <a href="_generated/syntax/nocturne/light/index.html">open the audience deck</a>.</p></noscript>
+<script type="module" src="assets/deck-example.mjs"></script>
+```
+
+## Find an example
+
+| Feature | Example |
+| --- | --- |
+| Half-slide backgrounds | [Left](?slide=1), [right](?slide=2) |
+| Transparent image files | [Transparency in the asset](?slide=3) |
+| Image opacity | [Default opacity](?slide=4), [a CSS value](?slide=5) |
+| Background opacity and position | [Faint background](?slide=6) |
+| Fit and fill | [Same image, different crop](?slide=7) |
+| Filters | [Presets](?slide=8), [theme and sharpen](?slide=9), [custom values and zoom](?slide=10) |
+| Container overlays | [Dark vignette, light vignette and gradient](?slide=11) |
+| Layout | [Inline images](?slide=12), [flowing split panes](?slide=13), [cards](?slide=14) |
+| Button interactions | [Replace a panel](?slide=15), [filter items](?slide=16) |
+| Reveal effects | [Advance through each effect](?slide=17) |
+| Local media | [Video](?slide=18), [audio](?slide=19), [autoplay and advance](?slide=20), [embedded page](?slide=21) |
+| Starter styles | [Section divider](?slide=22), [code and instructions](?slide=23) |
+| Deck backgrounds | [Global default](?slide=27), [opt-out](?slide=28) |
+| Named matching colors | [Span, slide and CSS values](?slide=29) |
+| Alignment and labels | [Top, center and bottom](?slide=30) |
+| Slide entrances | [Slide](?slide=31), [zoom](?slide=32), [none](?slide=33), [fade](?slide=34) |
+| Fitting and navigation | [Dense comparison](?slide=24), [tap guard](?slide=25), [scroll overflow](?slide=26), [links](?slide=34), [appendix](?slide=35) |
+
+The [feature tour](example.qmd) covers importance, synchronized code and math,
+matched colors, footnotes and notes. The [picture patterns](patterns.qmd) cover
+statements, quotations, credits, full-slide images and ordinary left/right pictures.
+
+## Use the example in your deck
+
+[Install the htmpres extension](quarto-extension.md) in a new project folder.
+Then save the complete example there:
+
+1. Save the [complete Markdown](_generated/source/syntax.qmd.txt) as `index.qmd`.
+2. Save the [example stylesheet](_generated/source/syntax.css.txt) as `source.css` beside it.
+3. Put the supplied assets in the deck's `assets/` folder.
+4. [Render and preview the deck](authoring-cli.md#human-commands).
+
+To copy one slide into an existing deck, keep its required assets and CSS rules.
+The custom classes and their rules are listed in the downloaded `source.css`;
+bundled classes start with `ds-` or appear in the [starter styles](syntax-reference.md#starter-styles).
+If the slide links to another slide, copy that destination or update the link.
+Replace sample content and descriptions before you present.
+
+The stylesheet defines the custom example classes that appear in the source.
+Bundled classes such as `.ds-alpha` work without those rules. For a different
+opacity, add a class to your image and define its value in CSS:
+
+```markdown
+![A geometric texture](assets/texture.svg){.ds-fit .ds-alpha .faint-image}
+```
+
+```css
+.faint-image { --ds-opacity: .25; }
+```
+
+Other example rules set the comparison grid's dimensions and the custom filter
+and zoom values. Download the stylesheet to copy every rule with its class.
+
+| Asset | Use |
+| --- | --- |
+| [Texture](_generated/source/syntax-assets/texture.svg) | Backgrounds, crops and filters |
+| [Diagram](_generated/source/syntax-assets/two-views.svg) | Fit/fill and split panes |
+| [Transparent rings](_generated/source/syntax-assets/transparent-rings.svg) | Intrinsic transparency |
+| [Video](_generated/source/syntax-assets/motion.mp4) and [captions](_generated/source/syntax-assets/motion.vtt) | Four-second playback example |
+| [Audio](_generated/source/syntax-assets/tone.wav) | Quiet one-second tone |
+| [Embedded page](_generated/source/syntax-assets/embedded.html) | Local interactive counter |
+
+All assets are original examples supplied by htmpres authors. They work offline.
+The video is silent. Audio starts only when you select Play.
+
+Open the full deck for ordinary navigation, counters, autoplay and automatic
+advance after playback. The embedded preview keeps keyboard navigation on the
+selected slide and pauses automatic playback while you inspect its Markdown.
+Select Play to start audio or video. Full decks retain the authored autoplay
+behavior, subject to browser policy.

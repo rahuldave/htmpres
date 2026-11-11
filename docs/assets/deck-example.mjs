@@ -65,7 +65,7 @@ export function startExample(root, manifest) {
     bridge.setState(slide, target); refresh();
   }
   function keyboard(event) {
-    const interactive = Boolean(event.target?.closest?.('input, select, textarea, button, a, pre, [contenteditable]:not([contenteditable="false"])'));
+    const interactive = Boolean(event.target?.closest?.('input, select, textarea, button, a, pre, video, audio, iframe, object, embed, summary, [contenteditable]:not([contenteditable="false"])'));
     // Keep native editing/activation, but block the deck's broad keyboard
     // listener from consuming keys aimed at an interactive element.
     if (interactive && event.currentTarget === childDocument && exampleKeyboardAction(event, false)) {

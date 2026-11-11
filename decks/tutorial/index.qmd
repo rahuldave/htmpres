@@ -19,63 +19,63 @@ deck:
 deck-note: "Advanced layout and theme customization reference."
 ---
 
-## Customize Layouts And Themes {.hero-title data-section="Customization reference" data-title="Customization Reference"}
+## Customize layouts and themes {.hero-title data-section="Customization reference" data-title="Customization reference"}
 
 [Advanced reference]{.eyebrow}
 
 ::: hero-subtitle
-Explore optional theme tokens, layout overrides, backgrounds and runtime settings. Start a first talk with the beginner tutorial in docs/quickstart.qmd.
+Use this reference to select a theme and change layouts, backgrounds and runtime settings. For your first talk, follow [Start a deck](https://rahuldave.com/htmpres/quickstart.html).
 :::
 
 ::: callout
-The source is plain Markdown plus Quarto fenced divs. The output keeps custom deck navigation, overview, zoom, presenter notes, and small interactions.
+Write content in Markdown and Quarto fenced divs. The generated deck includes custom navigation, overview, zoom, presenter notes and small interactions.
 :::
 
 ::: source-line
-Source: docs/build-a-deck-from-markdown.md
+Source: [Customization guide](https://rahuldave.com/htmpres/build-a-deck-from-markdown.html)
 :::
 
 ::: notes
-This opening slide is the orientation: QMD is the authoring layer, but the runtime and slide shell remain custom.
+Quarto converts the Markdown. htmpres supplies the slide shell and the browser runtime for navigation and interactions.
 :::
 
-## The Package Shape {.theme-runtime data-section="Packaging" data-title="Package Shape"}
+## Package components {.theme-runtime data-section="Packaging" data-title="Package components"}
 
-[Recommended packaging]{.eyebrow}
+[CLI, extension and starter]{.eyebrow}
 
 :::: three-col
 ::: {.card .metric-card style="--accent: var(--teal)"}
 **Quarto-run CLI**
 
-Commands import HTML, render QMD, and verify outputs through Quarto's bundled Deno runtime.
+Use the commands to import HTML, render QMD and verify output. They run through Quarto's bundled Deno runtime.
 :::
 
 ::: {.card .metric-card style="--accent: var(--amber)"}
 **Installable extension**
 
-`_extensions/htmpres` carries the runner and browser runtime into other projects.
+Copy `_extensions/htmpres` into another project to use the runner and browser runtime there.
 :::
 
 ::: {.card .metric-card style="--accent: var(--violet)"}
-**Starter template**
+**Generated starter**
 
-A small QMD deck gives authors a working first file instead of a blank page.
+Create the starter Quarto Markdown (QMD) file with the command in [Start a deck](https://rahuldave.com/htmpres/quickstart.html#create-your-talk).
 :::
 ::::
 
 ::: callout
-Quarto stays in the loop as the Pandoc markdown engine. It does not need to own the slide navigation.
+Quarto runs Pandoc to convert Markdown. htmpres handles slide navigation.
 :::
 
 ::: notes
-Make the distinction explicit: this is not a pure Quarto format yet. It is a package that uses Quarto for conversion and owns presentation runtime itself.
+htmpres is a utility command and extension, not a native Quarto output format. It uses Quarto for conversion and supplies its own presentation runtime.
 :::
 
-## Start With Front Matter {data-section="Authoring" data-title="Front Matter"}
+## Set deck options in front matter {data-section="Authoring" data-title="Front matter"}
 
 [Deck metadata]{.eyebrow}
 
-Use `pagetitle`, disable execution, point at local assets, and choose the CSS and theme for this deck.
+Set the page title with `pagetitle`. Disable execution, list local assets, and choose the CSS and theme for the deck.
 
 :::: code-card
 ```yaml
@@ -99,26 +99,26 @@ deck:
 ::::
 
 ::: callout
-The renderer reads `deck.css`, sets `deck.theme` on the generated HTML, inlines the stylesheet, and writes both `index.html` and `presenter.html`.
+The renderer reads `deck.css` and inlines the stylesheet. It sets `deck.theme` on the generated HTML and writes `index.html` and `presenter.html`.
 :::
 
-## Choose A Theme {data-section="Authoring" data-title="Themes"}
+## Choose a theme {data-section="Authoring" data-title="Themes"}
 
-[Theme tokens]{.eyebrow}
+[Theme selection]{.eyebrow}
 
-Themes are CSS variable sets selected by front matter. Keep layout classes structural, then let the theme own color, typography, code tokens, and media filter defaults.
+Choose a theme with `deck.theme` in front matter. The theme sets color, typography, code colors and media filters. For CSS variable overrides, see [theme customization](https://rahuldave.com/htmpres/themes.html#edit-or-clone-a-theme).
 
 :::: two-col
 ::: theme-sample
 **sage**
 
-The default warm tutorial palette uses proportional display type and gentle media filters.
+The default theme uses warm colors, proportional display type and gentle media filters.
 :::
 
 ::: {.theme-sample .mono-theme-sample}
 **mono-grid**
 
-This deck uses a sharper blue-gray palette, sans body text, monospaced headings, monospaced code, and a cooler media filter.
+This deck uses blue-gray colors, sans serif body text, monospaced headings and code, and a cooler media filter.
 :::
 ::::
 
@@ -131,11 +131,11 @@ deck:
 ```
 ::::
 
-## Set A Global Background {data-section="Authoring" data-title="Global Background"}
+## Set a global background {data-section="Authoring" data-title="Global background"}
 
 [Deck media defaults]{.eyebrow}
 
-Global backgrounds are front matter, not alt-text layout. The renderer adds a low layer to every slide; each slide can opt out or override it with data attributes.
+Set the global background in front matter, rather than image alt text. The renderer places it behind every slide. Use slide data attributes to remove or replace it.
 
 :::: code-card
 ```yaml
@@ -148,32 +148,32 @@ deck:
 ::::
 
 ::: callout
-Use `.no-background` on a slide or `data-background-image="none"` when an explicit full-slide media container should own the whole background.
+For a full-slide media container, remove the global background with `.no-background` or `data-background-image="none"` on the slide.
 :::
 
-## Let Dense Slides Fit {.autoscale data-section="Authoring" data-title="Text Fit"}
+## Fit dense text {.autoscale data-section="Authoring" data-title="Text fit"}
 
-[Theme-level text fitting]{.eyebrow}
+[Text fitting]{.eyebrow}
 
-The deck-level `text-fit` option lets the runtime scale theme typography down when a slide would overflow. Themes decide which text tokens respond.
+Set `deck.text-fit: true` to shrink text when a slide would overflow. Each theme controls which text sizes respond.
 
 :::: {.three-col .fit-demo}
 ::: card
-**Narrative**
+**Text**
 
-Dense slide copy can stay readable while avoiding clipped paragraphs, long callouts, and crowded headings.
+Text fitting reduces the size of paragraphs, callouts and headings to fit dense content on the slide.
 :::
 
 ::: card
 **Controls**
 
-Use `deck.text-fit: true` globally, `.autoscale` for one slide, `.no-autoscale` for an exception, and `data-text-fit-min` for a local floor.
+Use `deck.text-fit: true` for the deck or `.autoscale` for one slide. Use `.no-autoscale` to opt out and `data-text-fit-min` to set a local minimum.
 :::
 
 ::: card
 **Boundaries**
 
-The feature scales text tokens. Fixed-size media, custom absolute layouts, and intentionally clipped design elements remain authored by CSS.
+Text fitting changes text sizes. Use CSS to size fixed media, position absolute layouts and clip elements deliberately.
 :::
 ::::
 
@@ -185,7 +185,7 @@ Long paragraphs, cards, and lists can scale through theme tokens.
 ```
 ::::
 
-## Use Slide Headings And Div Classes {data-section="Authoring" data-title="Slide Structure"}
+## Start slides and group content {data-section="Authoring" data-title="Slide structure"}
 
 [Slide anatomy]{.eyebrow}
 
@@ -193,13 +193,13 @@ Long paragraphs, cards, and lists can scale through theme tokens.
 ::: card
 **Start with `##` or `---`**
 
-A heading supplies the title and slide attributes. A separator followed by a heading makes one slide. Use `## {#backup}` for untitled-slide settings.
+A heading supplies the title and slide attributes. A separator followed by a heading makes one slide. For an untitled slide, put settings on `## {#backup}`.
 :::
 
 ::: card
-**Layout uses fenced divs**
+**Group content in fenced divs**
 
-Use `::: class-name` or `::: {.class-one .class-two}` for blocks that CSS can target.
+Wrap a block in `::: class-name` or `::: {.class-one .class-two}` to apply CSS classes to it.
 :::
 ::::
 
@@ -215,11 +215,11 @@ The short version of the story goes here.
 ```
 ::::
 
-## Add Notes For Presenter Only {data-section="Authoring" data-title="Presenter Notes"}
+## Add presenter notes {data-section="Authoring" data-title="Presenter notes"}
 
 [Speaker notes]{.eyebrow}
 
-Notes are ordinary fenced divs in QMD:
+Put presenter notes in a `notes` fenced div:
 
 :::: code-card
 ```markdown
@@ -233,25 +233,25 @@ This appears only in presenter.html.
 ::: {.card .metric-card style="--accent: var(--teal)"}
 **Audience HTML**
 
-`index.html` has no note content in the slide DOM.
+`index.html` omits the notes from the audience slides.
 :::
 
 ::: {.card .metric-card style="--accent: var(--indigo)"}
 **Presenter HTML**
 
-`presenter.html` shows the notes in a right-side panel.
+`presenter.html` shows the notes in a panel on the right.
 :::
 ::::
 
 ::: notes
-This slide should prove the note split: it appears in presenter.html and is stripped from index.html.
+Read this note in presenter.html. It is absent from index.html.
 :::
 
-## Highlight Code By Line {data-section="Authoring" data-title="Code Highlighting"}
+## Highlight code lines {data-section="Authoring" data-title="Code highlighting"}
 
-[Syntax plus steps]{.eyebrow}
+[Syntax and line steps]{.eyebrow}
 
-Use Pandoc code attributes for syntax highlighting, line numbers, persistent highlights, and click-through line steps.
+Use Pandoc code attributes for syntax highlighting and line numbers. Add persistent highlights or line steps that advance during the talk.
 
 ::::: {.two-col .code-split}
 :::: {.code-card .code-demo}
@@ -275,10 +275,10 @@ def render_slide(slide):
 :::::
 
 ::: notes
-Advance through the code with Space or the Next button. The renderer lets Pandoc do token highlighting and the htmpres runtime applies the line-step state.
+Advance through the code with Space or the Next button. Pandoc highlights syntax, and the htmpres runtime highlights the lines for each step.
 :::
 
-## Reveal Bullets {.transition-fade data-section="Authoring" data-title="Bullet Transitions" data-transition="fade"}
+## Reveal bullets {.transition-fade data-section="Authoring" data-title="Bullet transitions" data-transition="fade"}
 
 [Incremental lists]{.eyebrow}
 
@@ -305,10 +305,10 @@ Advance through the code with Space or the Next button. The renderer lets Pandoc
 ::::
 
 ::: notes
-This slide should consume three navigation steps before moving forward. It uses a fade slide transition when entering from another slide.
+Advance three times to reveal the list before leaving the slide. The slide fades in when entered from another slide.
 :::
 
-## Reveal Any Block {.transition-slide data-section="Authoring" data-title="Fragment Transitions" data-transition="slide"}
+## Reveal a block {.transition-slide data-section="Authoring" data-title="Fragment transitions" data-transition="slide"}
 
 [Fragments]{.eyebrow}
 
@@ -316,19 +316,19 @@ This slide should consume three navigation steps before moving forward. It uses 
 ::: {.card .fragment data-fragment-index="1" data-fragment-effect="left"}
 **Text block**
 
-Any fenced div can become a fragment.
+Add `.fragment` to a fenced div to reveal it during navigation.
 :::
 
 ::: {.card .fragment data-fragment-index="2" data-fragment-effect="highlight"}
 **Controls**
 
-Buttons, chips, and panels can reveal together.
+Give buttons, chips and panels the same fragment index to reveal them together.
 :::
 
 ::: {.card .fragment data-fragment-index="2" data-fragment-effect="scale"}
 **Media**
 
-The same class works around image, video, or embed containers.
+Wrap an image, video or embed container in a `.fragment` block.
 :::
 ::::
 
@@ -344,9 +344,9 @@ The same class works around image, video, or embed containers.
 The first card reveals alone. The second and third share the same fragment index and reveal together.
 :::
 
-## Slide Transitions {.transition-zoom data-section="Authoring" data-title="Slide Transitions" data-transition="zoom"}
+## Slide transitions {.transition-zoom data-section="Authoring" data-title="Slide transitions" data-transition="zoom"}
 
-[Per-slide motion]{.eyebrow}
+[Slide motion]{.eyebrow}
 
 :::: {.transition-strip}
 ::: {.card .metric-card style="--accent: var(--teal)"}
@@ -379,26 +379,26 @@ Use `.transition-zoom` or `data-transition="zoom"`.
 ::::
 
 ::: callout
-Transitions are CSS-level choices on the slide. Fragment and code steps still consume navigation before the deck changes slides.
+Set the transition with a slide class or data attribute. Navigation advances through fragment and code steps before leaving the slide.
 :::
 
-## Mixed Step Order {data-section="Authoring" data-title="Mixed Step Order"}
+## Order text and code steps {data-section="Authoring" data-title="Order text and code steps"}
 
-[One step graph]{.eyebrow}
+[Text and code steps]{.eyebrow}
 
 :::: {.mixed-transition}
 ::: {.card .mixed-copy}
 **On one slide**
 
 ::: {.incremental data-fragment-effect="rise"}
-- List items reveal as generic fragments.
-- Explicit fragments share the same queue.
+- List items reveal as fragments.
+- Explicit fragments use the same sequence.
 :::
 
 ::: {.fragment .focus-panel .compact-panel data-fragment-effect="highlight"}
 ### Source order
 
-This example puts text before code. Explicit shared frame numbers can advance both columns together.
+This example reveals text before code. For shared frames, set `data-step-indices="1|..."` on the code block. Give text fragments matching `data-fragment-index` values.
 :::
 :::
 
@@ -414,18 +414,18 @@ return nextSlide();
 ::::
 
 ::: callout
-Mixed events follow source order unless explicit frame numbers synchronize them. Earlier ordinary text stays visible while code advances. Persistent `data-highlight` lines do not consume a step.
+Text and code steps follow source order unless explicit frame numbers synchronize them. Earlier ordinary text stays visible while code advances. Persistent `data-highlight` lines do not consume a step.
 :::
 
 ::: notes
-Test this with six Next presses: first list item, second list item, focus panel, code line 2, code line 3, all code lines. The next press leaves the slide.
+Advance six times to show the first list item, second list item, focus panel, code line 2, code line 3 and all code lines. The next press leaves the slide.
 :::
 
-## Add Images And Zoom {data-section="Media" data-title="Images And Zoom"}
+## Add images and zoom {data-section="Media" data-title="Images and zoom"}
 
 [Visual assets]{.eyebrow}
 
-Store images under the deck's `assets/` folder. Put layout classes on containers, and put fit/fill/filter/zoom classes on the media itself.
+Store images in the deck's `assets/` folder. Put layout classes on containers. Put fit, fill, filter and zoom classes on the media itself.
 
 ::: diagram-frame
 ![Markdown to custom deck flow](assets/tutorial-flow.svg){.ds-fit .zoomable}
@@ -440,10 +440,10 @@ Store images under the deck's `assets/` folder. Put layout classes on containers
 ::::
 
 ::: notes
-Clicking the diagram should open the custom zoom modal. This is a browser smoke-test target as well as a tutorial example.
+Click the diagram to open the zoom view.
 :::
 
-## Full-Slide Media {.title-hidden data-section="Media" data-title="Full-Slide Media"}
+## Full-slide media {.title-hidden data-section="Media" data-title="Full-slide media"}
 
 ::: {.ds-full .ds-media .ds-no-pad .ds-readable style="--ds-readable-start: 0.42; --ds-readable-end: 0.08;"}
 ![](assets/tutorial-landscape.svg){.decorative .ds-fill .zoomable}
@@ -454,14 +454,14 @@ Clicking the diagram should open the custom zoom modal. This is a browser smoke-
 
 ### Fill the whole slide
 
-The container owns placement. The image owns `ds-fill`, so it crops like a background while text and buttons can sit above it.
+Use the container to place the image. Add `ds-fill` to crop the image to the container, with text and buttons above it.
 :::
 
 ::: notes
-This is the Deckset full-background image idea translated to Quarto containers: the image fills a full-slide container, and visible text remains ordinary content.
+The image fills a full-slide container. Visible text remains ordinary content above it.
 :::
 
-## Half-Slide Left Media {.title-hidden data-section="Media" data-title="Half-Slide Left Media"}
+## Media on the left half {.title-hidden data-section="Media" data-title="Media on the left half"}
 
 ::: {.ds-left .ds-media .ds-no-pad}
 ![](assets/tutorial-landscape.svg){.decorative .ds-fill .zoomable}
@@ -470,33 +470,33 @@ This is the Deckset full-background image idea translated to Quarto containers: 
 ::: {.ds-right .ds-pane}
 [Left image]{.eyebrow}
 
-### Put anything on the other half
+### Add content on the right
 
-The right half is just another container. It can hold headings, body text, lists, cards, or buttons.
+Use the right container for headings, body text, lists, cards or buttons.
 
 - Use `.ds-left` or `.ds-right` for half-slide regions.
 - Use `.ds-fill` on the image when cropping is acceptable.
 - Use `.ds-fit` when the whole image must remain visible.
 :::
 
-## Half-Slide Right Media {.title-hidden data-section="Media" data-title="Half-Slide Right Media"}
+## Media on the right half {.title-hidden data-section="Media" data-title="Media on the right half"}
 
 :::: {.ds-left .ds-pane}
 [Right image]{.eyebrow}
 
-### The mirror layout is the same idea
+### Add media on the right
 
-This layout is useful for a product image, screenshot, diagram detail, video, or any other media that should occupy one half of the slide.
+Use this layout for media that should occupy half the slide. Examples include a product image, screenshot, diagram detail or video.
 
 ::: pill-row
-<button class="pill active" data-target="#halfPanel" data-title="Fit" data-text="Use ds-fit when the full image matters more than edge-to-edge coverage.">Fit</button>
-<button class="pill" data-target="#halfPanel" data-title="Fill" data-text="Use ds-fill when the media should cover the pane and can be cropped.">Fill</button>
+<button class="pill active" data-target="#halfPanel" data-title="Fit" data-text="Use ds-fit to keep the full image visible, even when it leaves space around the image.">Fit</button>
+<button class="pill" data-target="#halfPanel" data-title="Fill" data-text="Use ds-fill to cover the pane when cropping is acceptable.">Fill</button>
 :::
 
 ::: {#halfPanel .focus-panel .compact-panel}
 ### Fit
 
-Use ds-fit when the full image matters more than edge-to-edge coverage.
+Use ds-fit to keep the full image visible, even when it leaves space around the image.
 :::
 ::::
 
@@ -504,17 +504,15 @@ Use ds-fit when the full image matters more than edge-to-edge coverage.
 ![](assets/tutorial-detail.svg){.decorative .ds-fit .zoomable}
 :::
 
-## Split Containers {data-section="Media" data-title="Split Containers"}
+## Split containers {data-section="Media" data-title="Split containers"}
 
-[Composed layouts]{.eyebrow}
+[Split layouts]{.eyebrow}
 
 :::: {.ds-split .sample-split style="--ds-gap: 18px; --ds-height: 430px;"}
 ::: {.ds-pane .ds-frame style="--ds-bg: #fbfcfa;"}
 ### Text pane
 
-Use a split container when both sides should remain in normal slide flow.
-
-This is better than image-only syntax when the layout includes text, lists, tables, code, or controls.
+Use a split container to keep both panes in normal slide flow. Each pane can contain text, lists, tables, code or controls.
 :::
 
 ::: {.ds-pane .ds-media .ds-frame}
@@ -522,7 +520,7 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 :::
 ::::
 
-## Fit, Fill, And Filters {data-section="Media" data-title="Fit Fill Filters"}
+## Fit, fill and filters {data-section="Media" data-title="Fit, fill and filters"}
 
 [Media attributes]{.eyebrow}
 
@@ -561,9 +559,9 @@ This is better than image-only syntax when the layout includes text, lists, tabl
 ```
 ::::
 
-## Inline Grids And Filter Placement {data-section="Media" data-title="Filter Placement"}
+## Place media in a grid {data-section="Media" data-title="Grid and filter placement"}
 
-[Containers place; media filters]{.eyebrow}
+[Grid and filter classes]{.eyebrow}
 
 :::: {.ds-grid .sample-media-grid style="--ds-columns: 3; --ds-gap: 14px;"}
 ::: {.ds-media .ds-frame}
@@ -610,14 +608,14 @@ custom filter + sharpen
 ::::
 
 ::: callout
-Deckset puts layout words in image alt text. In `htmpres`, put layout on the fenced div and put fit, fill, zoom, and filter classes on the media. Use wrapper classes such as `.ds-vignette` or `.ds-readable` when the effect needs an overlay.
+Put layout classes on the fenced div and media classes on the image. Use `.ds-vignette` or `.ds-readable` on the wrapper for effects that need an overlay. For differences from Deckset, see [the compatibility notes](https://rahuldave.com/htmpres/deckset-feature-status.html).
 :::
 
-## Other Media {data-section="Media" data-title="Other Media"}
+## Add video, audio and embeds {data-section="Media" data-title="Add video, audio and embeds"}
 
 [Video, audio, embeds]{.eyebrow}
 
-Use the same containers for video, audio, or embedded media. CSS handles placement; native attributes or `ds-*` directive classes handle playback.
+Use the same containers for video, audio and embeds. Place media with CSS. Control playback with native attributes or `ds-*` directive classes.
 
 :::: code-card
 ```markdown
@@ -636,47 +634,47 @@ Use the same containers for video, audio, or embedded media. CSS handles placeme
 ::::
 
 ::: callout
-Use `.ds-hide` for audio that should play without a visible control, and `.ds-autoadvance` on the last video or audio element when the slide should advance after playback.
+Use `.ds-hide` to hide audio controls. To start playback, use `.ds-autoplay` or a separate control. To advance after playback, add `.ds-autoadvance` to the last video or audio element.
 :::
 
-## Add Small Interactions {data-section="Authoring" data-title="Small Interactions"}
+## Update a panel with buttons {data-section="Authoring" data-title="Panel buttons"}
 
 [Click to update]{.eyebrow}
 
-Use raw HTML buttons when a slide needs tiny controlled behavior.
+Use HTML buttons to replace the title and text in a panel on the current slide.
 
 ::: pill-row
-<button class="pill active" data-target="#tutorialPanel" data-title="QMD" data-text="QMD is the editable source: headings become slides, fenced divs become layout, and notes are split for presenter view.">QMD</button>
-<button class="pill" data-target="#tutorialPanel" data-title="CSS" data-text="CSS maps the markdown classes to the existing visual system. Keep new classes documented.">CSS</button>
-<button class="pill" data-target="#tutorialPanel" data-title="Renderer" data-text="The renderer calls Quarto Pandoc for fragments, then writes audience and presenter HTML with custom navigation.">Renderer</button>
+<button class="pill active" data-target="#tutorialPanel" data-title="QMD" data-text="Edit the deck in QMD. Headings start slides, fenced divs group layout blocks, and notes appear in presenter view.">QMD</button>
+<button class="pill" data-target="#tutorialPanel" data-title="CSS" data-text="Use CSS to style the Markdown classes. Document each new class.">CSS</button>
+<button class="pill" data-target="#tutorialPanel" data-title="Renderer" data-text="The renderer converts fragments with Quarto Pandoc, then writes audience and presenter HTML with custom navigation.">Renderer</button>
 :::
 
 ::: {#tutorialPanel .focus-panel}
 ### QMD
 
-QMD is the editable source: headings become slides, fenced divs become layout, and notes are split for presenter view.
+Edit the deck in QMD. Headings start slides, fenced divs group layout blocks, and notes appear in presenter view.
 :::
 
 ::: notes
-This is the smallest supported interactivity pattern. The helper scopes the update to the current slide.
+Click a button to replace the panel title and text. The update applies only to the current slide.
 :::
 
-## Button Patterns {data-section="Authoring" data-title="Button Patterns"}
+## Style panel buttons {data-section="Authoring" data-title="Style panel buttons"}
 
 [Controls]{.eyebrow}
 
-Buttons are just raw HTML, so they can be styled as pills, chips, or compact actions while using the same `data-target` update pattern.
+Style HTML buttons as pills, chips or compact actions. Each style uses `data-target` to identify the panel to update.
 
 ::: {.button-samples data-choice-group="tutorial-buttons"}
-<button class="pill active" data-target="#buttonPanel" data-title="Pill" data-text="Pills are best for a small set of peer choices.">Pill</button>
-<button class="control-chip" data-target="#buttonPanel" data-title="Chip" data-text="Chips work well when labels are short and scan like filters.">Chip</button>
-<button class="action-button" data-target="#buttonPanel" data-title="Action" data-text="Action buttons should represent a command or a meaningful state change.">Action</button>
+<button class="pill active" data-target="#buttonPanel" data-title="Pill" data-text="Pills work best for a small set of choices at the same level.">Pill</button>
+<button class="control-chip" data-target="#buttonPanel" data-title="Chip" data-text="Use chips for short labels that work as filters.">Chip</button>
+<button class="action-button" data-target="#buttonPanel" data-title="Action" data-text="Use action buttons for a command or a change of state.">Action</button>
 :::
 
 ::: {#buttonPanel .focus-panel}
 ### Pill
 
-Pills are best for a small set of peer choices.
+Pills work best for a small set of choices at the same level.
 :::
 
 :::: code-card
@@ -687,39 +685,39 @@ Pills are best for a small set of peer choices.
 ```
 ::::
 
-## Feature Status {data-section="Roadmap" data-title="Feature Status"}
+## Feature status {data-section="Roadmap" data-title="Feature status"}
 
-[Easy and medium]{.eyebrow}
+[Support and limits]{.eyebrow}
 
 :::: feature-status
 ::: status-card
-**Easy, done**
+**Supported**
 
-- Full, left, right, and split containers
-- Fit/fill, filters, zoomable images, media directives
-- Buttons, syntax highlighting, line highlights
-- Bullet, fragment, and slide transitions
+- Full, left, right and split containers
+- Fit/fill, filters, zoomable images and media directives
+- Buttons, syntax highlighting and line highlights
+- Code steps with line numbers
+- Bullet, fragment and slide transitions
+- Code and text fragments interleaved by source order
+- Image layouts authored with fenced divs
+- Imported fragment classes
 :::
 
 ::: status-card
-**Medium, partly done**
+**Browser effects**
 
-- Deckset image syntax mapped to Quarto containers
-- Step-through code examples with line numbers
-- Import preservation for fragment classes
-- Core Image-style filters as browser approximations
+- Filter presets use CSS and SVG browser effects.
 :::
 
 ::: status-card
-**Medium, open**
+**Limits**
 
-- Interleaving code and text fragments by source order
-- Pixel-exact Apple Core Image output
-- Export and print tuning beyond basic fragment visibility
+- For filter differences from Apple Core Image, see [the compatibility notes](https://rahuldave.com/htmpres/deckset-feature-status.html#steps-import-and-export).
+- For export and print limits, see [the compatibility notes](https://rahuldave.com/htmpres/deckset-feature-status.html#steps-import-and-export).
 :::
 ::::
 
-## Render And Verify {data-section="Workflow" data-title="Render And Verify"}
+## Render and verify {data-section="Workflow" data-title="Render and verify"}
 
 [Build commands]{.eyebrow}
 
@@ -733,7 +731,7 @@ just verify
 ::: checklist
 <div><strong>Audience</strong><p>Open <code>decks/tutorial/index.html</code>.</p></div>
 <div><strong>Presenter</strong><p>Open <code>decks/tutorial/presenter.html</code>.</p></div>
-<div><strong>Notes</strong><p>Confirm notes are absent from audience HTML and present in presenter HTML.</p></div>
+<div><strong>Notes</strong><p>Check that the audience HTML omits notes and the presenter HTML includes them.</p></div>
 <div><strong>Interactions</strong><p>Click pills and zoomable images in the rendered deck.</p></div>
 :::
 

@@ -46,3 +46,22 @@ extension or for viewing its generated HTML.
 
 A native format would need a Quarto/Pandoc template and filters that preserve
 the current HTML, notes and interactions. It remains a separate proposal.
+
+## Visual syntax gallery
+
+The public visual lab uses `decks/syntax/index.qmd`, its `source.css`, and seven
+explicitly staged original assets. It has a separate manifest and four Nocturne
+mode/view variants, preserving the historical comparison and picture slide IDs.
+The complete deck, CSS and assets are downloadable. Normal builds do not require
+media tools.
+
+The four-second silent test video was generated with FFmpeg's
+`testsrc2=size=320x180:rate=12:duration=4` source and H.264/yuv420p encoding. The
+one-second mono WAV is a quiet 440 Hz sine at 16 kHz, with short fades. Both
+files are original samples, not scientific evidence or external media.
+
+Keep source, manifest, routes, download bytes, explicit assets and crawl/browser
+assertions coupled. Run `just check`, `just docs-check`, and the CUA syntax flow
+after changes. In addition, check actual full-deck playback, media-end advance,
+scroll overflow, tap guards and the local iframe interaction. The preview pauses
+autoplay for source inspection; full exports retain it.

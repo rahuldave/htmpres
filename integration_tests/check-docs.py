@@ -155,6 +155,31 @@ def crawl(site):
             assert ('id="deckNotes"' in text) == (view == "presenter"), "Pattern notes isolation"
         for asset in ("two-views.svg", "texture.svg"):
             assert (generated / "patterns/nocturne" / mode / "assets" / asset).read_bytes() == (repo / "decks/patterns/assets" / asset).read_bytes()
+    syntax = json.loads((generated / "syntax-manifest.json").read_text())
+    assert syntax["deckSet"] == "syntax" and len(syntax["slides"]) == 35
+    syntax_source = (repo / "decks/syntax/index.qmd").read_bytes()
+    assert (generated / "source/syntax.qmd.txt").read_bytes() == syntax_source
+    assert (generated / "source/syntax.css.txt").read_bytes() == (repo / "decks/syntax/source.css").read_bytes()
+    assert "".join(item["markdown"] for item in syntax["slideSources"]).encode() == syntax_source[syntax_source.index(b"## "):]
+    assert 'data-manifest="_generated/syntax-manifest.json"' in (site / "syntax-examples.html").read_text()
+    syntax_assets = ("texture.svg", "two-views.svg", "transparent-rings.svg", "motion.mp4", "motion.vtt", "tone.wav", "embedded.html")
+    for asset in syntax_assets:
+        assert (generated / "source/syntax-assets" / asset).read_bytes() == (repo / "decks/syntax/assets" / asset).read_bytes()
+    required_ids = ("half-left", "half-right", "transparent", "opacity", "opacity-css", "background-opacity", "fit-fill", "filter-presets", "theme-filter", "custom-filter", "vignettes", "inline-images", "flowing-split", "cards", "panel-controls", "item-filters", "fragment-effects", "video", "audio", "media-advance", "embedded-page", "section-divider", "containers", "text-fit", "navigation-guard", "scroll-overflow", "global-background", "omit-background", "match-overrides", "labels", "transition-slide", "transition-zoom", "transition-none", "source-links", "source-record")
+    for index, slide_id in enumerate(required_ids):
+        assert f"#{slide_id}" in syntax["slideSources"][index]["markdown"], f"Syntax destination drift: {slide_id}"
+    for mode in ("light", "dark"):
+        for view in ("index", "presenter"):
+            text = (generated / "syntax/nocturne" / mode / f"{view}.html").read_text()
+            assert len(re.findall(r'<section\b[^>]*class="[^\"]*\bslide\b', text)) == len(required_ids)
+            for slide_id in required_ids:
+                assert f'id="{slide_id}"' in text, f"Missing syntax demonstration: {slide_id}"
+            for token in ('class="ds-controls ds-keep-time"', 'class="ds-hide"', 'data-background-opacity="0.18"', 'data-fragment-index="0"', 'data-match-color="#245c88"', 'data-match-colors="total=#765013"'):
+                assert token in text, f"Missing authored behavior: {token}"
+            assert ('id="counter" hidden' in text) == (view == "index")
+            assert ('id="deckNotes"' in text) == (view == "presenter"), "Syntax notes isolation"
+        for asset in syntax_assets:
+            assert (generated / "syntax/nocturne" / mode / "assets" / asset).read_bytes() == (repo / "decks/syntax/assets" / asset).read_bytes()
     audience_reference = None
     note_reference = None
     count = 0

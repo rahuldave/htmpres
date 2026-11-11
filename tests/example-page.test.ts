@@ -25,9 +25,11 @@ const html = themeVariant(read('decks/example/index.html'), { name:'nocturne', m
 const headScripts = [...html.slice(0, html.indexOf('<style>')).matchAll(/<script>(.*?)<\/script>/gs)].map(match => match[1]).join('\n');
 for (const query of ['', '?compare-slide=1', '?example-slide=1']) {
   const ready = [];
+  let paused = 0, removed = 0;
+  const automaticMedia = { autoplay:true, pause(){paused++;}, classList:{remove(name){ if(name === 'ds-autoplay') removed++; }} };
   const window = { matchMedia: () => ({ matches:false, addEventListener(){} }), addEventListener(){}, dispatchEvent(){}, htmpresExample:undefined };
   const document = { documentElement:{dataset:{},style:{},classList:{toggle(){}}}, head:{append(){}},
-    getElementById:()=>null, querySelector:()=>null, createElement:()=>({textContent:''}),
+    getElementById:()=>null, querySelector:()=>null, querySelectorAll:()=>[automaticMedia], createElement:()=>({textContent:''}),
     addEventListener:(type, callback)=>{ if(type === 'DOMContentLoaded') ready.push(callback); } };
   new Function('window','document','location', `
     const slides = [{dataset:{activeFrame:'0'}}, {dataset:{activeFrame:'0'}}]; let current = 0;
@@ -37,6 +39,8 @@ for (const query of ['', '?compare-slide=1', '?example-slide=1']) {
     function updateNavigationButtons() {} function scheduleTextFit() {} function scheduleViewportLayout() {}
     ${headScripts}`)(window,document,{search:query,pathname:'/deck/index.html'});
   ready.forEach(run=>run());
+  assert(paused === (query.includes('example-slide') ? 1 : 0) && removed === paused,
+    'Only the interactive source preview pauses authored autoplay; full and comparison decks retain it');
   const api = window.htmpresExample;
   if (!query.includes('example-slide')) assert(!api, 'Full decks and comparison do not expose the example controls');
   else {
@@ -63,3 +67,6 @@ assert(selection('nocturne','dark','presenter',1,patterns).open === '_generated/
 let rejectedPath = false;
 try { selection('nocturne','light','audience',1,{...patterns,deckSet:'../private'}); } catch { rejectedPath=true; }
 assert(rejectedPath, 'Manifest deck root stays within a named generated set');
+
+const syntax = {...patterns,deckSet:'syntax'};
+assert(selection('nocturne','light','audience',1,syntax).open === '_generated/syntax/nocturne/light/index.html#/1', 'Syntax lab keeps its own deck paths');

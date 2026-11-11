@@ -13,6 +13,7 @@ project:
     - quarto-class-map.md
     - semantic-authoring.md
     - syntax-reference.md
+    - syntax-examples.qmd
     - semantic-authoring-report.md
     - quarto-extension.md
     - packaging.md
@@ -60,6 +61,7 @@ website:
       - section: Author
         contents:
           - syntax-reference.md
+          - syntax-examples.qmd
           - authoring-cli.md
           - themes.md
           - quarto-class-map.md

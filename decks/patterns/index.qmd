@@ -11,7 +11,7 @@ deck:
 ## {#statement data-title="A statement"}
 
 ::: {.statement}
-Give each idea room.
+State the claim before showing the evidence.
 :::
 
 ::: notes
@@ -25,17 +25,19 @@ Explain the claim before showing its supporting evidence.
 > [Original demonstration copy, htmpres authors.]{.source}
 
 ::: notes
-The source belongs with the quote. This is example copy, not an external quotation.
+Put the source beside the quote. The quotation is original example copy by
+htmpres authors.
 :::
 
-## One source makes two views {#contained data-section="A contained picture"}
+## Keep the whole picture visible {#contained data-section="A contained picture"}
 
 ![One Markdown document branches into audience slides and a presenter view with notes.](assets/two-views.svg){.ds-fit .zoomable}
 
 [Diagram: htmpres authors, [source record](#sources).]{.credit}
 
 ::: notes
-The full diagram remains visible. Select the image to zoom; Escape closes it.
+The full diagram remains visible. Select the image to zoom, then press Escape
+to close it.
 :::
 
 ## {#full data-title="A full-slide picture" data-section="Full-slide media"}
@@ -47,7 +49,7 @@ The full diagram remains visible. Select the image to zoom; Escape closes it.
 [Diagram: htmpres authors, [source record](#sources).]{.credit}
 
 ::: notes
-Fill crops the picture to cover the slide. Use ds-fit to retain every edge.
+Fill crops the picture to cover the slide. To retain every edge, use ds-fit.
 :::
 
 ## {#overlay data-title="Text over a picture" data-section="Picture and explanation"}
@@ -63,19 +65,21 @@ Fill crops the picture to cover the slide. Use ds-fit to retain every edge.
 [Diagram: htmpres authors, [source record](#sources).]{.credit}
 
 ::: notes
-The theme supplies the readable text panel. The image keeps its accessible description.
+The theme supplies a panel behind the text so you can read it over the picture.
+The image keeps its accessible description.
 :::
 
 ## A decorative background {#background data-background-image="assets/texture.svg" data-section="Backgrounds"}
 
-[The heading and body use theme-controlled panels.]{.key}
+[The theme sets the panels behind the heading and body.]{.key}
 
-The texture adds decoration. The words carry the explanation.
+Use the texture as decoration behind the explanation.
 
 [Texture: htmpres authors, [source record](#sources).]{.credit}
 
 ::: notes
-Background layers are decorative. For an informative image use a described ds-full image instead.
+Use background layers for decoration. If the image contains information, use a
+ds-full image with a description.
 :::
 
 ## Picture on the left {#left data-section="Two panes"}
@@ -95,7 +99,7 @@ Background layers are decorative. For an informative image use a described ds-fu
 [Diagram: htmpres authors, [source record](#sources).]{.credit}
 
 ::: notes
-Advance three times. The explaining points appear in order; earlier points stay visible.
+Advance three times to reveal the points in order. Earlier points stay visible.
 :::
 
 ## Picture on the right {#right data-section="Two panes"}
@@ -113,7 +117,7 @@ Keep the presenter file and the editable Markdown for yourself.
 [Diagram: htmpres authors, [source record](#sources).]{.credit}
 
 ::: notes
-Both the source Markdown and presenter HTML contain these cues.
+Your cues stay in both the Markdown source and the presenter HTML.
 :::
 
 ## A grid of pictures {#grid data-section="Several pictures"}
@@ -123,27 +127,26 @@ Both the source Markdown and presenter HTML contain these cues.
 ![Audience and presenter views share one source.](assets/two-views.svg){.ds-fit}
 :::
 ::: {.ds-media}
-![The same diagram can be reused in another panel.](assets/two-views.svg){.ds-fit}
+![The same diagram of audience and presenter views in a second panel.](assets/two-views.svg){.ds-fit}
 :::
 :::
 
 [Diagram: htmpres authors, [source record](#sources).]{.credit}
 
 ::: notes
-The grid container places the pictures. Each picture chooses its own fit or fill behavior.
+The grid container places the pictures. Set fit or fill for each picture.
 :::
 
 ## Notes and counters {#counters}
 
-The audience does not need a slide count.
-
-With `counter: presenter`, the presenter keeps the count and the audience sees the slide without it.
+Set `counter: presenter` to show the slide count in the presenter view and omit
+it from the audience view.
 
 [Open the source record](#sources), then return here.
 
 ::: notes
-The deck front matter selects the counter policy. It is not a per-slide attribute.
-End stops on this last main slide. The source record is an appendix slide.
+Choose the counter policy in the deck front matter. It applies to the whole
+deck. End stops on this last main slide. The source record is an appendix slide.
 :::
 
 ## Source record {#sources data-kind="appendix"}
@@ -154,5 +157,6 @@ The quotation is original demonstration copy.
 [Back to the contained picture](#contained), [background](#background), or [last main slide](#counters).
 
 ::: notes
-An appendix link is a detour. Use one of the return links to resume the main talk.
+The source record is outside the main talk. Use one of the return links to
+resume it.
 :::

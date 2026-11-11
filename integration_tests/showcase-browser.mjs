@@ -16,9 +16,9 @@ export async function checkShowcaseBrowser(tab) {
       lines: [...slide.querySelectorAll('.code-line-highlight')].map(el => Number(el.dataset.line)),
       terms: [...slide.querySelectorAll('.equation-term')].map(el => ({ a: el.classList.contains('mean'), b: el.classList.contains('total'), c: el.classList.contains('count'), highlighted: el.classList.contains('equation-term-highlight') })) };
   });
-  await choose('1. One source. Two views.');
+  await choose('1. One source for slides and notes');
   assert(await tab.playwright.evaluate(() => document.querySelector('.slide.active h2 em').textContent === 'source'), 'Title emphasis renders as markup');
-  await choose('3. Give each idea its importance');
+  await choose('3. Mark main points and qualifications');
   const roles = await tab.playwright.evaluate(() => {
     const slide = document.querySelector('.slide.active');
     const size = selector => Number(getComputedStyle(slide.querySelector(selector)).fontSize.replace('px', ''));
@@ -29,14 +29,14 @@ export async function checkShowcaseBrowser(tab) {
   assert((await state()).id === 'importance', 'Footnote stays on the slide');
   await tab.playwright.locator('#importance a[href="#slide-3-fnref1"]').click(); await observe();
   passed.push('inline title, key/aside spans and blocks, unique IDs, footnote round trip');
-  await choose('4. Reveal the argument one step at a time');
+  await choose('4. Reveal points one at a time');
   assert((await state()).fragments.every(item => item.hidden), 'Layering hides future points at baseline');
   for (let frame = 1; frame <= 4; frame++) {
     await next();
     assert((await state()).fragments.every((item, i) => i >= frame ? item.hidden && item.visibility === 'hidden' : !item.hidden && (i === frame - 1 ? item.opacity === 1 : item.opacity < 1)), `Span/list dim frame ${frame}`);
   }
   passed.push('dim spans and list items inside columns, no reading ahead');
-  for (const [title, lane] of [['5. Code and explanation share one clock', 'code'], ['6. Equations use the same clock', 'equation']]) {
+  for (const [title, lane] of [['5. Reveal code with its explanation', 'code'], ['6. Reveal equation terms with their explanations', 'equation']]) {
     await choose(title);
     assert((await state()).fragments.every(item => item.hidden), `${lane} starts without future explanation`);
     for (const [offset, frame] of [1, 3, 7].entries()) {
@@ -54,7 +54,7 @@ export async function checkShowcaseBrowser(tab) {
   await tab.pressKey(null, 'End'); await observe();
   let current = await state();
   assert(current.id === 'main-result' && current.counter === '10 / 10' && current.nextDisabled, 'Main talk stops before appendix');
-  await tab.playwright.getByRole('link', { name: 'The supporting data', exact: true }).click(); await observe();
+  await tab.playwright.getByRole('link', { name: 'Open the supporting data', exact: true }).click(); await observe();
   assert((await state()).id === 'appendix-data' && (await state()).counter === 'Appendix 1 / 2', 'Live appendix jump and separate counter');
   await tab.playwright.getByRole('link', { name: 'More detail', exact: true }).click(); await observe();
   assert((await state()).id === 'appendix-detail' && (await state()).counter === 'Appendix 2 / 2', 'Trailing appendix inheritance');

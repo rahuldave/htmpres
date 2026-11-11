@@ -124,3 +124,59 @@ and no horizontal page overflow.
 Screenshots are real public deck output, with
 file extensions that match their JPEG encoding. Scientific runtimes were not
 rerun because source programs and reviewed export bytes did not change.
+
+## Visual syntax and slide prose correction, 2026-11-11
+
+The preceding audit did not provide enough rendered examples. Some reference
+links reached more prose, and the writing review omitted the slide sources.
+
+The syntax gallery now has a separate 35-slide deck. It shows intrinsic image
+transparency, default and custom opacity, edge-to-edge half backgrounds,
+background position, crops, filters, overlays, alignment, layouts, transitions,
+panel controls, item filters, local media, fitting, scrolling and matching-color
+overrides. Each selected slide has its exact Markdown below the preview. The
+complete QMD, supplemental stylesheet and seven original assets are available
+to download. Ordinary deck exports retain authored media autoplay; the source
+preview pauses automatic playback until the reader selects Play.
+
+The canonical syntax and class references link to these outputs. The class
+reference's three-column example now contains three children, and its media
+section links to the supplied video/audio files. Installation prerequisites and
+the difference between bundled and custom classes are explicit. Theme-variable
+and automated-check details are expandable on the semantic guide.
+
+Independent nossaifd and declaude revisions covered all eight tracked demo
+sources. The decks are example, patterns, syntax, tutorial, semantic, authoring-hooks,
+pictures and slide-breaks. They contain 155 source slides in total. The review
+included body text, headings, notes, captions, navigation labels and authored
+controls. Code, math, IDs, behavior attributes, slide order and cited specimens
+were preserved.
+
+Pictures is an internal regression fixture; its deliberate
+permutation labels remain, with a presenter note explaining its purpose and
+linking to ordinary author examples. Slide-breaks needed no prose changes.
+
+Independent newcomer reads found unstated prerequisites, unexplained stylesheet
+references and an obsolete claim that interleaved code/text steps were unfinished.
+Those passages were corrected. Hard checks pass; soft findings were judged in
+context. Repeated syntax labels, intentional dense/overflow specimens and
+technical terms remain where they teach or test the behavior.
+
+The new examples also exposed a keyboard defect. Space on an authored button
+activated it and advanced the full deck. The runtime now preserves native
+control keys, including media controls, while keeping deck navigation shortcuts
+on its own chrome. Escape closes overlays from focused controls. Focused
+regressions cover both cases and the distinction between keyboard and tap guards.
+
+Final verification covers all normal Quarto/Deno check components, the Node
+renderer and all-deck verifier, and 91 compatibility tests. The site crawl
+passes 185 HTML pages and 146 theme views with exact source/asset pairing and
+notes isolation. Actual browser checks pass all 140 syntax mode/view cases,
+including image coverage rather than container geometry alone. The existing
+feature tour, semantic reveals, matched colors and authoring hooks also pass.
+
+At 390 pixels, audience and presenter previews remain stacked above equally
+wide source boxes with no horizontal page overflow. Native controls, actual
+scrolling, video playback/reset, media-end advance and the embedded page were
+exercised in exported decks. Homepage screenshots were recaptured from the
+revised example, retaining JPEG encoding and matching extensions.

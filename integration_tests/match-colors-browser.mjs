@@ -22,8 +22,8 @@ export async function checkMatchColorsBrowser(tab) {
       if (await tab.playwright.evaluate(() => document.documentElement.dataset.colorModeChoice) === mode) break;
       await tab.playwright.locator('#colorModeBtn').click(); await observe();
     }
-    for (const [name, type] of [['3. Code and explanation share one clock','code'],['4. Equations use the same clock','equation']]) {
-      await choose('1. A semantic story'); await choose(name);
+    for (const [name, type] of [['3. Match code steps to explanations','code'],['4. Match equation steps to explanations','equation']]) {
+      await choose('1. Mark text by its importance'); await choose(name);
       assert(!(await snapshot()).summary, 'Summary is opt-in final state, not baseline');
       for (let i=0;i<3;i++) {
         await next();
@@ -53,7 +53,7 @@ export async function checkMatchColorsBrowser(tab) {
       await tab.playwright.locator('#prevBtn').click(); await observe();
       await tab.playwright.locator('#prevBtn').click(); await observe();
       assert((await snapshot()).text.filter(text=>text.slot).length===1, 'Retreat removes colors for unrevealed groups');
-      await choose('1. A semantic story'); await choose(name);
+      await choose('1. Mark text by its importance'); await choose(name);
       assert((await snapshot()).text.every(t=>!t.slot) && (await snapshot()).fragments.every(f=>!f.visible), 'Navigation reset clears matching and hides future text');
       passed.push(`${mode} ${type}: final pairs, previous and reset`);
     }

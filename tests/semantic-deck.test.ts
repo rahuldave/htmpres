@@ -12,7 +12,7 @@ for (const view of ["index", "presenter"]) {
   const content = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "");
   const ids = [...content.matchAll(/\sid="([^"]+)"/g)].map(match => match[1]);
   assert(ids.length === new Set(ids).size, `${view}: unique generated IDs`);
-  assert(html.includes('<h2>A <em>semantic</em> story</h2>'), `${view}: inline title Markdown`);
+  assert(html.includes('<h2>Mark text by its <em>importance</em></h2>'), `${view}: inline title Markdown`);
   assert([...html.matchAll(/data-step-indices="1\|3\|7"/g)].length === 2 && html.includes('data-steps="1|2|3"'), `${view}: code and equation both retain sparse shared step mappings`);
   assert(html.includes('data-equation-steps="mean|total|count"'), `${view}: three distinct equation teaching terms`);
   assert(html.includes('data-match="count"') && html.includes('\\htmlClass{count}{n}'), `${view}: denominator has its own matching explanation`);

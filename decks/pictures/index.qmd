@@ -7,6 +7,10 @@ deck:
 
 ## {data-title="Fault 1: readable" data-section="Pictures"}
 
+::: notes
+This deck is an internal regression fixture for picture rendering. It deliberately repeats aspect ratios, wrappers and labels to test their combinations. For ordinary author examples, use [picture patterns](https://rahuldave.com/htmpres/patterns.html).
+:::
+
 ::: {.ds-full .ds-media .ds-fill .ds-no-pad .ds-readable}
 ![A long line of students waits before one database](assets/photo.svg)
 :::

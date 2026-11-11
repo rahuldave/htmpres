@@ -7,48 +7,48 @@ deck:
   overflow: fit-scroll
 ---
 
-## A *semantic* story {#story .hero-title}
+## Mark text by its *importance* {#story .hero-title}
 
-[Structure carries the argument.]{.key}
+[Use `.key` for the main conclusion.]{.key}
 
-[The theme supplies its appearance.]{.aside}
+[Use `.aside` for a qualification.]{.aside}
 
-An inline equation, $x^2 + y^2 = z^2$, and a source.[^1]
+Include inline math, such as $x^2 + y^2 = z^2$, and footnotes in the same text.[^1]
 
-[^1]: This first slide has its own footnote.
+[^1]: This footnote belongs to the first slide.
 
 ::: notes
-Introduce the distinction between story and appearance. The cue can include math: $x^2$.[^1]
+Mark the importance of text in the source. The theme controls its appearance. Presenter notes can also include math, such as $x^2$.[^1]
 
-[^1]: This note has a separate footnote namespace.
+[^1]: Footnotes in presenter notes have separate IDs from footnotes on slides.
 :::
 
-## Importance survives a theme change {#importance .autoscale}
+## Keep importance when changing themes {#importance .autoscale}
 
-Ordinary body text provides the comparison.
+Compare ordinary body text with `.key` and `.aside` text.
 
 [The central result.]{.key} [A minor qualification.]{.aside}
 
 :::: {.two-col}
 ::: {.key .card}
-The main point can be a whole block.
+Add `.key` to a block when the whole block contains the main point.
 :::
 ::: {.aside .callout}
-A qualification stays secondary, including during text fitting.
+Text fitting shrinks text when a slide would overflow. An `.aside` qualification stays secondary.
 :::
 ::::
 
-This slide reuses a footnote label safely.[^1]
+Reuse a footnote label on another slide without merging its footnotes.[^1]
 
 [^1]: A different footnote on the second slide.
 
 ::: notes
-Switch between light and dark. The semantic roles keep their meaning.[^1]
+Switch between light and dark modes. The importance of `.key` and `.aside` text stays the same.[^1]
 
 [^1]: A different footnote in the second cue.
 :::
 
-## Code and explanation share one clock {#code-steps data-step-summary="match"}
+## Match code steps to explanations {#code-steps data-step-summary="match"}
 
 :::: {.two-col}
 ::: {}
@@ -69,10 +69,10 @@ print(mean)
 ::::
 
 ::: notes
-Advance three times to teach, then once more for a color-matched overview. Previous restores the last highlight; earlier explanations remain visible.
+Use the same names in `data-line-matches` and `data-match` to pair code lines with explanations. The `data-highlight` setting keeps line 4 highlighted during every step. Advance three times to show those pairs. Advance once more for the color-matched overview. Previous restores the last highlight, and earlier explanations remain visible.
 :::
 
-## Equations use the same clock {#equation-steps data-step-summary="match"}
+## Match equation steps to explanations {#equation-steps data-step-summary="match"}
 
 :::: {.two-col}
 ::: {.equation-steps data-equation-steps="mean|total|count" data-step-indices="1|3|7"}
@@ -90,10 +90,10 @@ $$
 ::::
 
 ::: notes
-Mean, total and count each have a matching explanation. The fourth advance restores all three terms to full strength. The classed terms are addressable after KaTeX typesetting. This cue also renders $\bar{x}=4$.
+Give each equation term a class. Here, `mean` marks the mean, `total` marks the sum and `count` marks the number of observations. Use those names in `data-equation-steps` and `data-match` to pair terms with explanations. The fourth advance restores all three terms to full strength. This note also renders $\bar{x}=4$.
 :::
 
-## Reveal the story without reading ahead {#layering}
+## Reveal text one step at a time {#layering}
 
 :::: {.two-col}
 ::: {.incremental data-fragment-effect="dim"}
@@ -108,17 +108,17 @@ Mean, total and count each have a matching explanation. The fourth advance resto
 ::::
 
 ::: notes
-There are four reveal frames. Future spans and list items stay hidden. Previous points dim only because this slide asks for dim.
+Advance through four reveal frames. Future spans and list items stay hidden. Earlier points dim only because the `.incremental` containers set `data-fragment-effect` to `dim`.
 :::
 
-## The result holds {#main-result}
+## End the main talk before the appendix {#main-result}
 
-[One source carries meaning across themes.]{.key}
+[Keep the same importance roles across themes.]{.key}
 
-The normal talk ends here. [The data](#appendix-data) is available for discussion.
+The main talk ends here. Follow [the data link](#appendix-data) to discuss supporting material.
 
 ::: notes
-End and Next stop here. Follow the data link to visit the appendix, then use its return link or browser Back.
+End and Next stop at this slide. Follow the data link to enter the appendix. Return with its link or browser Back.
 :::
 
 ## Supporting data {#appendix-data data-kind="appendix"}
@@ -131,12 +131,12 @@ End and Next stop here. Follow the data link to visit the appendix, then use its
 
 The mean is $\bar{x}=4$.[^1]
 
-[^1]: The appendix also owns its footnote IDs.
+[^1]: Appendix footnotes have their own IDs.
 
-[Back to the result](#main-result) · [More detail](#appendix-detail)
+[Back to the final main slide](#main-result) or [More detail](#appendix-detail)
 
 ::: notes
-The counter labels the appendix separately; the main talk still has six slides.
+The counter labels the appendix separately. The main talk has six slides.
 :::
 
 ## Additional detail {#appendix-detail}
@@ -147,4 +147,4 @@ $$
 \frac{2+4+6}{3}=4
 $$
 
-[Back to the result](#main-result)
+[Back to the final main slide](#main-result)

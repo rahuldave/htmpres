@@ -43,7 +43,7 @@ export async function checkPatternsBrowser(tab, expectedSources, {modes = ['ligh
   assert((await tab.playwright.locator('#example-markdown').textContent()).startsWith('## Source record'), 'Credit reaches its appendix source and updates the source panel');
   await tab.playwright.frameLocator('iframe').getByRole('link', {name:'Back to the contained picture',exact:true}).click();
   await tab.getAXState({emit:false});
-  assert((await tab.playwright.locator('#example-markdown').textContent()).startsWith('## One source makes two views'), 'Appendix returns to its picture');
+  assert((await tab.playwright.locator('#example-markdown').textContent()).startsWith('## Keep the whole picture visible'), 'Appendix returns to its picture');
   await tab.playwright.getByRole('button', {name:'Copy slide Markdown',exact:true}).click();
   await tab.getAXState({emit:false});
   // Some in-app browsers isolate the clipboard read API from native paste.

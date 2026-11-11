@@ -13,7 +13,7 @@ export async function checkTalkHooksBrowser(tab, { expectShrink = false } = {}) 
     await choose('1. A statement');
     let state=await tab.playwright.evaluate(()=>{const s=document.querySelector('.slide.active'),b=s.querySelector('.statement'),r=b.getBoundingClientRect(),a=s.getBoundingClientRect(),css=getComputedStyle(s),scale=a.height/s.offsetHeight;return {heading:!!s.querySelector('h2'),size:Number.parseFloat(getComputedStyle(b).fontSize),align:css.textAlign,center:Math.abs((r.top+r.bottom)-(a.top+a.bottom+(Number.parseFloat(css.paddingTop)-Number.parseFloat(css.paddingBottom))*scale))/2,scale:s.dataset.textFitScale,overflow:s.scrollHeight-s.clientHeight};});
     assert(!state.heading && state.align==='center' && state.center<4 && state.overflow<=4,`${mode}: solo statement deliberately centered and fits`);
-    await choose('2. Importance in context');
+    await choose('2. Choose an importance role');
     state=await tab.playwright.evaluate(()=>{const s=document.querySelector('.slide.active'),size=e=>Number.parseFloat(getComputedStyle(e).fontSize);return {body:size(s.querySelector('p')),statement:size(s.querySelector('.statement')),key:size(s.querySelector('.key')),aside:size(s.querySelector('.aside')),source:size(s.querySelector('.source')),weight:getComputedStyle(s.querySelector('.statement')).fontWeight};});
     assert(state.statement>state.key && state.key>state.body && state.aside<state.body && state.source<=state.aside && +state.weight>=600,`${mode}: role hierarchy and available statement weight`);
     await choose('3. A picture with attribution');
@@ -101,7 +101,7 @@ export async function checkHookCatalog(tab, base, cases) {
     await tab.goto(`${base}/${item.path}`); await tab.getAXState({emit:false});
     let state=await tab.playwright.evaluate(()=>{const s=document.querySelector('.slide.active'),b=s.querySelector('.statement');return {heading:!!s.querySelector('h2'),display:getComputedStyle(s).display,align:getComputedStyle(s).textAlign,size:Number.parseFloat(getComputedStyle(b).fontSize),height:s.scrollHeight-s.clientHeight};});
     if(state.heading||state.display!=='flex'||state.align!=='center'||state.height>4) throw new Error(`${item.theme}/${item.mode}: statement layout ${JSON.stringify(state)}`);
-    await chooseDeckSlide(tab,'2. Importance in context');
+    await chooseDeckSlide(tab,'2. Choose an importance role');
     state=await tab.playwright.evaluate(()=>{const s=document.querySelector('.slide.active'),size=selector=>Number.parseFloat(getComputedStyle(s.querySelector(selector)).fontSize);return {body:size('p'),statement:size('.statement'),key:size('.key'),source:size('.source')};});
     if(!(state.statement>state.key&&state.key>state.body&&state.source<state.body)) throw new Error(`${item.theme}/${item.mode}: hierarchy ${JSON.stringify(state)}`);
     await chooseDeckSlide(tab,'3. A picture with attribution');

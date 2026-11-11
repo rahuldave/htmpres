@@ -586,3 +586,23 @@ test('statement, credit lane and quote source agree in actual Deno and Node outp
     assert.match(html, /justify-content: safe center;/);
   }
 });
+
+test('verification separates root fitting defaults from authored slide attributes', () => {
+  const dir=path.join(scratch,'fitting-verification');mkdirSync(dir);
+  const file=path.join(dir,'slides.qmd');
+  writeFileSync(file,'---\ndeck:\n  text-fit: true\n---\n## Local policy {data-text-fit="false"}\n\nKeep this slide at its authored text size.\n');
+  runDeno(['render',file]);
+  const commands=[['quarto',['run',cli,'verify',file]],['node',[path.join(root,'scripts/verify-roundtrip.mjs'),file]]];
+  for(const [command,args] of commands) {
+    const result=spawnSync(command,args,{cwd:root,encoding:'utf8'});
+    assert.equal(result.status,0,result.stderr+result.stdout);
+  }
+  const audience=path.join(dir,'index.html');
+  writeFileSync(audience,readFileSync(audience,'utf8').replace(/(<section\b[^>]*?) data-text-fit="false"/,'$1'));
+  assert.doesNotMatch(readFileSync(audience,'utf8'),/<section[^>]*data-text-fit=/);
+  for(const [command,args] of commands) {
+    const result=spawnSync(command,args,{cwd:root,encoding:'utf8'});
+    assert.equal(result.status,1,result.stderr+result.stdout);
+    assert.match(result.stderr+result.stdout,/data-text-fit count 0 did not match QMD 1/);
+  }
+});

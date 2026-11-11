@@ -3512,7 +3512,8 @@ function countClassName(html: string, className: string) {
 
 function countAttr(html: string, attr: string) {
   const re = new RegExp(`\\b${escapeRegExp(attr)}=`, "gi");
-  return (html.match(re) || []).length;
+  // Root defaults are renderer-owned; compare authored slide/content attributes.
+  return (html.replace(/<html\b[^>]*>/gi, "").match(re) || []).length;
 }
 
 function countQmdSlides(qmd: string) {

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 320" role="img" aria-labelledby="title desc">
+  <title id="title">One source, two presentation views</title>
+  <desc id="desc">A Markdown source document becomes audience slides and a presenter page containing the slides and speaker cues.</desc>
+  <rect width="1000" height="320" rx="12" fill="#f4f3f6"/>
+  <g stroke="#71502f" stroke-width="3" fill="none">
+    <path d="M330 160H470V85H620M470 160V235H620"/>
+    <path d="m610 77 10 8-10 8m0 134 10 8-10 8"/>
+  </g>
+  <g fill="#fff" stroke="#d0cddc" stroke-width="2">
+    <rect x="55" y="65" width="275" height="190" rx="8"/>
+    <rect x="625" y="30" width="320" height="110" rx="8"/>
+    <rect x="625" y="180" width="320" height="110" rx="8"/>
+  </g>
+  <g fill="#292d43" font-family="Georgia, serif" font-size="27">
+    <text x="85" y="115">index.qmd</text>
+    <text x="655" y="78">Audience</text>
+    <text x="655" y="228">Presenter</text>
+  </g>
+  <g fill="#626779" font-family="Arial, sans-serif" font-size="18">
+    <text x="85" y="158">Slide content</text>
+    <text x="85" y="192">Layouts and media</text>
+    <text x="85" y="226">Speaker notes</text>
+    <text x="655" y="111">The slides, with notes removed</text>
+    <text x="655" y="261">The slides and your speaker cues</text>
+  </g>
+</svg>

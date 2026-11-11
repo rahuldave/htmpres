@@ -5,10 +5,11 @@ sidebar: false
 page-layout: full
 ---
 
-The same twelve slides (ten in the talk, two in the appendix), two independent theme choices. Choose a slide and view to
-compare typography, contrast and layout. **35 themes have light/dark pairs**;
-the three original seeds are light only. Complementary palettes are htmpres
-adaptations where the source supplies only one mode.
+Choose two themes and compare the same slide in both. The deck has twelve
+slides, ten in the talk and two in the appendix. Choose a slide and view to
+compare typography, contrast and layout. There are 35 themes with light/dark pairs.
+The three original seeds are light only. Where a source supplies only one mode,
+htmpres supplies an adapted complementary palette.
 
 ```{=html}
 <section id="theme-comparison" aria-label="Theme comparison">
@@ -49,8 +50,8 @@ adaptations where the source supplies only one mode.
 ```
 
 The shared selector loads the chosen slide in both panes. You can explore each
-embedded deck independently afterward. The pane's mode selector sets its palette;
-open the full view to use the deck's own mode button.
+embedded deck independently afterward. The pane's mode selector sets its palette.
+Open the full view to use the deck's own mode button.
 
 [Download and edit the example](example.qmd#edit-the-source)  /
 [Theme declarations and provenance](themes.md)

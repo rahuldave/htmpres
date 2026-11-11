@@ -73,3 +73,54 @@ checks actual width, typography, stacking and preview proportions.
 `integration_tests/example-browser.mjs` exercises keyboard steps and source
 navigation. `integration_tests/patterns-browser.mjs` checks the pattern source,
 canvas, mode/view changes, bounded reveals, copying and credit return links.
+
+## User documentation review, 2026-11-11
+
+This follow-up responds to reader failures that the preceding audit missed.
+It covers the 20 existing public pages plus the new syntax reference.
+
+| Surface | Reader problem | Correction |
+| --- | --- | --- |
+| Syntax | No complete author vocabulary in one place | Added syntax-reference.md, source-backed settings/attributes/classes/aliases and copyable examples; promoted it to navbar/sidebar/home |
+| Semantic guide | Source without a visible result | Added per-topic links to exact interactive slides and a real equation-summary screenshot |
+| Class map | Class lists without visual destinations | Added per-topic rendered-output links and a screenshot; separated runtime, starter and custom classes |
+| Plotting overview and Python/R/JS/gallery | Independence displaced the reason for the packages | Lead with theme coordination; show reviewed same-data themed specimens and categorical/sequential/diverging roles; preserve exact code/download pairing |
+| Home | No output illustrations | Added real audience and presenter screenshots, actionable captions and chart coordination |
+| CLI | Template choices and insertion position missing | Listed all 18 template kinds and explained insertion after a slide |
+| Themes | Visual comparison buried; maintenance internals in author flow | Linked comparison first, explained chart/document coordination, moved import/verification procedures into repository-only theme-maintenance.md |
+| Customization | Missing background asset, two cards in a three-column sample, overbroad HTML import claim | Corrected runnable setup/layout and documented converter boundaries/output overwrite |
+| Other public pages | Entry points and scope | Reviewed quickstart, example, patterns, comparison, install/packaging, feature status and contributing; link ordinary authoring to the syntax reference |
+
+The previously published semantic-authoring-report.html URL remains available
+because the user requested an online report for downstream skill authors. It is
+historical material, not the main author guide. Its lead link was removed from
+Semantic slides; no public permalink was removed.
+
+The parser/runtime inventory was independently checked. That review corrected
+filter aliases, wrapper-only effects, fitting booleans, caption scope, limited
+metadata parsing, navigation opt-outs and starter-class ownership. All 16
+Markdown examples in the reference were parsed into 18 source slides, linted,
+converted with the renderer's Pandoc reader and compiled for matched summaries.
+Scientific export bundles, source programs and publication evidence remain
+unchanged.
+
+The final writing pass used nossaifd and declaude after content and illustrations
+were complete. Three independent revision passes covered all 21 public pages.
+Every page passes both hard and verbose Nossa checks. Lexical and structural
+Declaude findings were reviewed in context, with preservation checks for code,
+links, pins, measurements and citations. A separate newcomer read checked the
+accepted references, homepage, installation/sharing route and plotting guides.
+It caught an overbroad download claim, which now applies only to complete
+tutorial examples.
+
+Verification passed `just check` and `just docs-check`. The crawl covers 177 HTML
+pages and 146 theme views, including source parity, notes isolation, local links,
+fonts and assets. Browser checks covered the homepage screenshots, the new
+navbar route, syntax-to-example navigation, all four equation steps and the
+matched summary. The preview and source remain stacked with matching widths.
+Desktop and 390-pixel checks confirmed bounded tables, loaded chart specimens
+and no horizontal page overflow.
+
+Screenshots are real public deck output, with
+file extensions that match their JPEG encoding. Scientific runtimes were not
+rerun because source programs and reviewed export bytes did not change.

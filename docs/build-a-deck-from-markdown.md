@@ -1,17 +1,15 @@
 # Customize layouts and themes
 
-Use this customization reference for authors who want to change theme tokens,
-backgrounds, typography, layout behavior or renderer settings. For a guided
-first talk using the supplied themes, follow [Start a deck](quickstart.qmd).
-For working patterns with their source, use [Learn from the Markdown](example.qmd).
-
-The companion reference deck remains at `decks/tutorial/index.qmd`; the legacy
-folder and `just tutorial` command are retained for compatibility.
+Change theme tokens, backgrounds, typography, layouts or renderer settings in
+your deck. For a guided first talk with the supplied themes, follow
+[Start a deck](quickstart.qmd). For patterns and their source, use
+[Learn from the Markdown](example.qmd).
 
 For semantic importance, offline math, shared text/code/equation steps and
 appendix links, see [Semantic slides](semantic-authoring.md) and its complete
-audience/presenter example. New slides start with top-level `---` or `##`; a separator immediately before
-a heading (allowing blank lines) makes one slide. Use an empty heading such as
+audience/presenter example. New slides start with top-level `---` or `##`.
+A separator immediately before a heading, with only blank lines between, makes
+one slide. Use an empty heading such as
 `## {#backup data-kind="appendix"}` for untitled-slide settings. See
 [slide boundaries](semantic-authoring.md#slide-boundaries-and-lint). Check with `htmpres.ts lint slides.qmd --json`.
 
@@ -49,23 +47,21 @@ deck:
   css: source.css
   renderer: custom
   theme: mono-grid
-  background-image: assets/background.svg
-  background-filter: theme sharpen
-  background-opacity: 0.08
   text-fit: true
   overflow: fit-scroll
 ---
 ```
 
 `deck.css` tells the renderer which CSS file to inline into the generated HTML.
-`deck.theme` is copied to `data-theme` on the generated `<html>` element.
-Bundled Bootstrap, Bootswatch, Elegant, Reading, and Tufte themes can be selected
-directly, with `deck.color-mode: light|dark|auto`; see [Presentation themes](themes.md).
+The renderer copies `deck.theme` to `data-theme` on the generated `<html>` element.
+Select bundled Bootstrap, Bootswatch, Elegant, Reading or Tufte themes by name,
+with `deck.color-mode: light|dark|auto`. See [Presentation themes](themes.md).
+
 `deck.background-*` options create a global background layer, and
-`deck.text-fit` enables runtime typography fitting. `deck.overflow` controls
-what happens when content is still too tall; `fit` and `fit-scroll`
-automatically run the fitting pass, and `fit-scroll` turns on scrolling only
-for slides that still overflow. Scrollable slides show a small bottom cue until
+`deck.text-fit` turns on runtime typography fitting. Use `deck.overflow` to choose
+what happens when content is still too tall. Both `fit` and `fit-scroll` run
+the fitting pass automatically. If a slide still overflows, `fit-scroll` turns
+on scrolling for that slide. Scrollable slides show a small bottom cue until
 the reader scrolls near the end of the slide.
 
 ## 3. Choose a theme
@@ -101,8 +97,9 @@ filter. Use `.ds-original` when a media item must bypass theme filtering.
 
 ## 4. Add a global background
 
-Use front matter when the whole deck should carry the same low background
-image. The renderer inserts a `.ds-global-background` layer into every slide:
+First save your background image as `assets/background.svg`, or change the path
+below to an image you already have. Use front matter when every slide should
+carry that decorative background. The renderer inserts a `.ds-global-background` layer into every slide:
 
 ```yaml
 deck:
@@ -171,7 +168,7 @@ contents and overview. `data-section` appears as the slide footer label.
 Use Quarto/Pandoc fenced divs for visual blocks:
 
 ```markdown
-:::: three-col
+:::: two-col
 ::: {.card .metric-card}
 **Reusable**
 
@@ -186,8 +183,8 @@ Approvals and evidence travel with the work.
 ::::
 ```
 
-Use more colons for an outer div when nesting divs. The extra colons make the nesting easier
-to scan.
+When nesting divs, use more colons for the outer div. The extra colons make the
+nesting easier to scan.
 
 Use `docs/quarto-class-map.md` as the class reference. A class is reusable
 when it has renderer behavior or starter CSS there. Other classes are ordinary
@@ -229,10 +226,10 @@ def render_slide(slide):
 ```
 ````
 
-The language class, such as `.python`, enables Pandoc syntax highlighting.
-Use `.numberLines` for line numbers. Use `data-highlight` for persistent line
-highlights, and `data-steps` for code transitions that consume Next, Space,
-PageDown, Previous, or PageUp before the deck changes slides.
+Pandoc uses the language class, such as `.python`, for syntax highlighting.
+Use `.numberLines` for line numbers and `data-highlight` for persistent line
+highlights. Use `data-steps` for code transitions. They consume Next, Space,
+PageDown, Previous or PageUp before the deck changes slides.
 
 Line specs accept comma-separated numbers and ranges:
 
@@ -255,10 +252,10 @@ Wrap a list in `.incremental` to reveal list items one-by-one:
 :::
 ```
 
-Use `.fragment` on any fenced div to reveal a whole block. Optional
-`data-fragment-index` values let multiple blocks reveal together, and
-`data-fragment-effect` maps to CSS effect classes such as `rise`, `left`,
-`right`, `scale`, `blur`, `highlight`, `dim`, or `none`.
+Use `.fragment` on any fenced div to reveal a whole block. To reveal multiple
+blocks together, give them the same `data-fragment-index`. Use
+`data-fragment-effect` for CSS effects such as `rise`, `left`, `right`, `scale`,
+`blur`, `highlight`, `dim` or `none`.
 
 ```markdown
 ::: {.card .fragment data-fragment-index="2" data-fragment-effect="highlight"}
@@ -285,8 +282,8 @@ and code/equation `data-step-indices` mappings advance together, even across
 columns. Sparse numbers consume no empty keypresses. Without mappings, mixed
 events run in source order.
 
-Ordinary revealed text remains visible; `dim`
-keeps the latest text point current until another text point appears. On a
+Ordinary revealed text remains visible. With `dim`, the latest text point stays
+current until another text point appears. On a
 slide containing only code steps, without explicit mappings, the first snapshot
 is visible initially. Blocks then advance to their next snapshots together.
 
@@ -311,9 +308,9 @@ itself:
 
 Images with `.zoomable` open the deck zoom modal when clicked.
 
-Deckset-style layout ideas are represented with fenced div containers instead
-of overloading image alt text. Containers decide where content lives; image,
-video, audio, and iframe classes decide how media behaves inside the container.
+Use fenced div containers for Deckset-style layouts, with image alt text left
+for descriptions. Containers place the content. Classes on images, video,
+audio and iframes control the media inside each container.
 
 Full-slide media:
 
@@ -383,9 +380,9 @@ Useful media classes:
 - `.ds-theme-filter`: apply the active theme's `--ds-theme-filter` value.
 - `.ds-sharpen`: apply the browser SVG sharpen filter and compose it with preset or custom CSS filters.
 - `.ds-original`: remove filters from a media item.
-- `.ds-alpha`: opacity via `--ds-opacity`.
+- `.ds-alpha`: opacity through `--ds-opacity`.
 - `.ds-rounded`: apply a media corner radius.
-- `.ds-vignette` / `.ds-vignette-light`: edge vignette via `--ds-vignette`, `--ds-vignette-size`, and optionally `--ds-vignette-color`.
+- `.ds-vignette` / `.ds-vignette-light`: edge vignette through `--ds-vignette`, `--ds-vignette-size`, and optionally `--ds-vignette-color`.
 - `.ds-readable`: add a readability gradient overlay to a background media container.
 
 Use `.ds-vignette` and `.ds-readable` on a media wrapper or full-slide media
@@ -451,6 +448,9 @@ Render the customization reference deck:
 just tutorial
 ```
 
+Its source is `decks/tutorial/index.qmd`. The legacy folder and `just tutorial`
+command are retained for compatibility.
+
 Render one deck:
 
 ```sh
@@ -470,14 +470,18 @@ Open:
 
 ## 14. Import existing HTML
 
-When starting from an HTML deck copied into `source_presentations/`, run:
+The importer accepts htmpres-style HTML containing `<section class="slide">`
+elements. It does not convert arbitrary web pages or other presentation formats.
+For a file named `source_presentations/my-deck.html`, run:
 
 ```sh
-just convert
-just render-all
-just verify
+just convert source_presentations/my-deck.html
+just render decks/my-deck/index.qmd
+just verify decks/my-deck/index.qmd
 ```
 
-The converter writes QMD, copies normal assets, extracts embedded `data:image`
-assets into `assets/generated/`, and preserves supported interactive data
-attributes.
+This writes `decks/my-deck/index.qmd`, replacing that file if it already exists.
+Save any existing edits before importing again. The importer copies adjacent
+`assets/` and `diagrams/` folders, extracts embedded `data:image` assets into
+`assets/generated/`, and preserves supported interactive attributes. Check
+image paths and inspect both output views after the conversion.

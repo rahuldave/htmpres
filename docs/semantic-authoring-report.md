@@ -23,7 +23,8 @@ Slide 3 (A titled picture, empty description): describe this picture, or mark a 
 The JSON report retains `version: 1`, sets `ok: false`, and includes
 `severity: "error"`, `code: "image-description"`, the source file,
 slide-start `line`/`column`, `slide` number and `slideId`. Exit status is 1.
-The supplied e1, e2 and e3 slides all report this error, naming their own slide.
+The supplied e1, e2 and e3 slides all report this error. Each diagnostic names
+the slide.
 The check uses the same Pandoc reader as rendering, separately for titles,
 audience content and presenter notes. References, linked pictures and raw HTML
 are covered; code examples, comments and escaped syntax are not pictures.
@@ -49,7 +50,7 @@ gaps, instead of adding a fixed empty band.
 
 A missing caption allocates no
 caption row. Captions are centered under centered pictures. `.ds-fit` keeps
-shape and scales past natural size; `.ds-fill` still deliberately crops.
+shape and scales past natural size. `.ds-fill` still crops the image.
 No author color, size or style attributes were added.
 
 The supplied Atelier/light case was measured in a real 1280 × 720 browser.
@@ -63,7 +64,7 @@ from intrinsic dimensions, the image content box and `object-fit: contain`:
 | t2: title and caption, no credit or section label | 517.28 × 290.61 px | 677.48 × 380.61 px |
 
 The title-to-picture gap in these cases is 16 px; the image/caption gap is
-8 px. On t2 the caption ends at y=557, leaving the theme's 24 px bottom inset.
+8 px. On t2 the caption ends at y=557, with the theme's 24 px bottom inset below it.
 On t1 the remaining space contains the section label, credit and their gaps.
 The fixtures use the same aspect ratios as the supplied drawings; pixel
 rounding follows the browser's viewBox intrinsic size.
@@ -172,27 +173,29 @@ No old form gains a lint rejection, and no author syntax is renamed.
 Themes own `--htmpres-media-text-bg`, `--htmpres-media-text-ink`,
 `--htmpres-media-label-bg` and `--htmpres-media-label-ink`. The default opaque
 ground is the theme paper; ink targets 4.8:1 following the existing credit
-policy. This handles bright, dark and mixed photographs without pretending a
-transparent scrim can guarantee contrast. `.key` retains its emphasis size and
+policy. The opaque ground handles bright, dark and mixed photographs. A transparent
+scrim cannot guarantee contrast. `.key` retains its emphasis size and
 weight while inheriting the panel's readable ink. Explicit `.ds-fill` still
 crops; `.ds-fit` and the ordinary one-picture default preserve shape.
 
 ### Verification and boundaries
 
 The rerunnable fixture is `decks/pictures/index.qmd`. Its first six slides
-reproduce the supplied report; additional cases cover wide/tall/16:9 pictures
-with captions and credits, linked pictures without fit classes, deliberate
-fill/cropping, bright backgrounds, non-full readability, and titled/untitled
-split images beside wrapped and plain lists. The ordinary browser harness
+reproduce the supplied report. Other cases cover wide/tall/16:9 pictures with
+captions and credits, and linked pictures without fit classes. They also cover
+deliberate fill/cropping, bright backgrounds, non-full readability, and
+titled/untitled split images beside wrapped and plain lists.
+
+The ordinary browser harness
 `integration_tests/picture-matrix.html` uses actual renderer HTML, fonts, images
 and controls. `scripts/build-picture-fixtures.mjs` generates its local bundle;
 it does not publish test pages. Both the harness and CUA spot checks use
 `integration_tests/picture-slides-browser.mjs` assertions.
 
-The complete catalog matrix checks all 35 paired themes in both modes and both
-views, plus sage, mono-grid and blank in their one supported mode and both
-views, for 146 cases. Legacy seeds have no bundled dark pair. Deno/Node integration
-checks use real Nocturne, Flatly and Sage renders in both output views; the full
+The complete catalog matrix checks 146 cases. It covers all 35 paired themes in
+both modes and both views, plus sage, mono-grid and blank in their one supported
+mode and both views. Legacy seeds have no bundled dark pair. Deno/Node integration
+checks use real Nocturne, Flatly and Sage renders in both output views. The full
 catalog matrix substitutes theme CSS on unchanged canonical slide bodies.
 
 The final matrix passed **3,796 slide checks with zero failures**. A compact
@@ -210,7 +213,7 @@ and blank were checked in both views in their supported legacy mode.
 
 Automatic remaining-height layout targets one picture, or a picture beside
 one companion pane/list. Arbitrary multi-picture compositions retain their
-authored layout; they are not silently reclassified as a one-picture grid.
+authored layout. The renderer does not reclassify them as a one-picture grid.
 No Deckset commands, color attributes, size attributes or inline style syntax
 were added. Captions in notes and ordinary multi-content slides are unchanged.
 
@@ -242,7 +245,7 @@ or numbered author class. See [importance](semantic-authoring.md#importance)
 for Schwabish's relevant pages and text-fit limits.
 
 **Browser test:** detailed Nocturne light/dark checks measure statement
-size/weight and confirm that a long statement actually shrinks to fit. Catalog
+size/weight and confirm that a long statement shrinks to fit. Catalog
 checks cover short-statement centering/containment and importance hierarchy
 across 35 paired themes, three legacy seeds and read-only snapshots of all nine
 pending foundations (91 mode cases total). Foundation adoption itself remains
@@ -457,7 +460,7 @@ also works inside fitted cards and callouts.
 
 ## 2. Math and named terms
 
-**Browser test:** [slide 6](compare.qmd?slide=6) and the semantic demo. real
+**Browser test:** [slide 6](compare.qmd?slide=6) and the semantic demo. Real
 KaTeX HTML and MathML render without parse errors; named terms are present in
 the DOM, and math in presenter cues renders. Generated script, stylesheet and
 font URLs are local. Asset hashes and font completeness are checked separately;
@@ -633,7 +636,7 @@ links preserve the reveal frame. Numeric `#/N` URLs remain supported.
 Slides without an explicit ID receive a collision-safe `slide-N` ID. Duplicate
 explicit slide IDs are an error.
 
-## 6. Opening and closing slide kinds , no change requested
+## 6. Opening and closing slide kinds {#6-opening-and-closing-slide-kinds-no-change-requested}
 
 The request marked this item as information only, so it required no implementation.
 No `credits` or `conclusion` insert kinds/templates were added. An author can
@@ -704,7 +707,7 @@ The original PR #11 blanket rejection of body `---` has been superseded.
 Standalone top-level `---` and `##` both start slides; a separator followed by
 an empty or titled heading (with only blank lines between) makes one slide.
 Untitled slides use `Slide N` or `data-title` in navigation and omit the heading.
-Rules inside code, comments and fenced divs,including notes,do not split slides.
+Rules inside code, comments and fenced divs, including notes, do not split slides.
 The lint JSON schema stays at version 1; `empty-slide` replaces the former
 `slide-break` prohibition. Both renderers, both verifiers and slide editing
 commands share this contract.
@@ -733,7 +736,7 @@ Open `http://127.0.0.1:8767/` for the audience or
 the server rebuilds both outputs and the browser reloads after a successful
 build.
 
-The current view and slide hash stay in place; reveal steps restart.
+The current view and slide hash stay in place. Reveal steps restart.
 An invalid save keeps the last good deck visible. Fix and save to recover.
 The preview client is injected by the local server; exported HTML has no
 polling connection. The canonical tour is served the same way.

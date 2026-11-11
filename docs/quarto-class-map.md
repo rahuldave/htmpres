@@ -1,15 +1,21 @@
-# QMD class map
+# Layout and class reference
 
-The editable deck source is Quarto-flavored Markdown. The renderer uses
-Quarto/Pandoc for Markdown fragments, then writes a custom HTML slide shell
-with navigation, overview, zoom, presenter notes, and small interactions.
+Use the [complete syntax reference](syntax-reference.md) to look up every
+author-facing setting, class and attribute. Use this page to combine layouts
+and media. Links beside each section open the rendered patterns.
+
+The editable source is a Quarto Markdown (QMD) file. The renderer uses
+Quarto/Pandoc to convert Markdown fragments, then writes the slide HTML with
+navigation, overview, zoom, presenter notes and small interactions.
 
 ## Slide syntax
 
-Slides start with top-level `---` or a level-2 heading; a separator immediately
-before a heading makes one slide. Empty headings carry untitled-slide settings.
-Heading classes and data attributes
-are copied to the generated `<section class="slide">`.
+[See a title slide](example.qmd?slide=1) or an [untitled statement](patterns.qmd?slide=1), with the actual heading source.
+
+Start a slide with top-level `---` or a level-2 heading. A separator immediately
+before a heading makes one slide. Use an empty heading to set attributes on an
+untitled slide. The renderer copies heading classes and data attributes to
+the generated `<section class="slide">`.
 
 ```markdown
 ## Platform Story {.hero-title data-section="Opening" data-title="Platform Story"}
@@ -19,7 +25,7 @@ Common slide classes:
 
 - `.hero-title`: title-slide treatment.
 - `.section-divider`: centered chapter slide.
-- `.diagram-slide`: full-slide diagram treatment for legacy imports.
+- `.diagram-slide`: a marker from legacy imports. It does not generate a diagram layout.
 - `.title-hidden`: keeps a navigation title while visually hiding the slide heading.
 - `.autoscale`: enables text fitting for one slide.
 - `.no-autoscale`: opts one slide out of deck-level text fitting.
@@ -27,15 +33,19 @@ Common slide classes:
 
 ## Semantic importance, math and titles
 
+See [importance and footnotes](example.qmd?slide=3), [typeset equations](example.qmd?slide=6) and [title emphasis](_generated/semantic/index.html#story).
+
 Use `[The claim.]{.statement}`, `[The point.]{.key}` and `[A qualification.]{.aside}`, or fenced
 `::: {.key}` / `::: {.aside}` blocks. The theme maps importance to weight,
-size and ink. Use semantic roles without inline styles or font choices. Optional
+size and ink (text color). Use semantic roles without inline styles or font choices. Optional
 matched-color overrides are the explicit exception; see the examples below.
-.key and the other semantic roles work in all paired themes, in both modes.
+`.key` and the other semantic roles work in all paired themes, in both modes.
 
- `.key` uses importance token level 3,
-`.aside` level 1, `.statement` level 4, `.credit`/`.source` level 0 and ordinary body level 2; themes expose levels 0 to 4 as
-`--htmpres-importance-N-scale`, `-weight` and `-ink` for future remapping.
+The theme assigns importance level 3 to `.key`, level 1 to `.aside`, and
+level 4 to `.statement`. `.credit`/`.source` use level 0, and ordinary body text
+uses level 2. Themes expose levels 0 to 4 as CSS variables
+`--htmpres-importance-N-scale`, `-weight` and `-ink` so theme authors can change
+how each level looks.
 There are no numbered author classes.
 
 Titles accept inline Markdown, for example `## Why *structure* matters {#structure}`.
@@ -50,6 +60,8 @@ and the [audience demo](_generated/semantic/index.html).
 
 ## Statement, picture credit, quote source and counter
 
+Open the rendered [statement](patterns.qmd?slide=1), [picture credit](patterns.qmd?slide=3), [quotation](patterns.qmd?slide=2) or [counter example](patterns.qmd?slide=10). Each page shows the source under the slide.
+
 Jonathan Schwabish's *Better Presentations* (2017) motivates these hooks.
 They cover dominant claims (pp. 70 to 72), spare statement/header slides (pp. 139 to 140), picture
 credits and endnotes (pp. 128 to 129). His examples also cover quotations with highlighted passages and
@@ -63,8 +75,9 @@ sources (pp. 72 to 73), and omitting audience slide numbers (pp. 69 to 70).
 | `.source` span or block | Level-0 source line kept with the quotation. `.key` works inside the quote. |
 | `deck.counter: presenter` in initial YAML | Hide the counter in audience output and retain it in presenter output, including the appendix. |
 
-Level 0 has purpose-specific attribution marks, not a generic small-text class.
-There are no numbered author classes. This complete deck demonstrates all hooks
+Level 0 is for attribution through the named roles. It has no generic class
+for small text. There are no numbered author classes. This complete deck
+demonstrates all hooks
 (replace `assets/photo.jpg` with your own picture):
 
 ```markdown
@@ -114,12 +127,16 @@ See the [complete guide](semantic-authoring.md#picture-credits) and
 
 ## Matched final view
 
+[Try the code overview](example.qmd?slide=5) or [equation overview](example.qmd?slide=6). Each has three teaching steps and one summary step.
+
+[![The equation overview pairs each named term with an explanation of the same color.](assets/screenshots/equation-summary.jpg)](example.qmd?slide=6)
+
 `## A result {data-step-summary="match"}` adds one automatic final step after
-all text/code/equation reveals. Named source parts and explaining text share their colors from each group's
-first reveal, retaining earlier colors as the slide builds. On the final step,
-the last teaching highlight and dimming clear. Previous
-restores the final teaching highlight. Omit the attribute to retain normal
-behavior.
+all text, code and equation reveals. Named source parts and their explanations
+share colors from each group's first reveal. Earlier groups keep their colors
+as the slide advances. The final step clears the last teaching highlight and
+dimming. Previous restores the final teaching highlight. If you omit the
+attribute, the slide keeps its normal behavior.
 
 | Author syntax | Meaning |
 |---|---|
@@ -139,7 +156,9 @@ the optional color attributes are explicit author overrides.
 
 ## Presenter notes
 
-Speaker notes are authored as a fenced div:
+[See the notes example](patterns.qmd?slide=10) and choose **Presenter with notes**.
+
+Write speaker notes in a fenced div:
 
 ```markdown
 ::: notes
@@ -147,13 +166,16 @@ Use this as the presenter cue.
 :::
 ```
 
-During rendering, notes are removed from audience slide content and written to
+The renderer removes notes from audience slide content and writes them to
 the presenter notes panel in `presenter.html`.
 
 ## Layout blocks
 
-Use fenced divs for structure. These examples use theme defaults; customize
-appearance in the theme stylesheet, keeping QMD semantic:
+[See two columns with code and text](example.qmd?slide=5), or [a grid of pictures](patterns.qmd?slide=9).
+
+Use fenced divs for structure and the theme's defaults for appearance. For
+custom colors or sizes, edit the theme stylesheet and keep semantic roles in
+the QMD:
 
 ```markdown
 :::: three-col
@@ -165,14 +187,13 @@ Shared patterns become visible.
 ::::
 ```
 
-Class ownership is intentionally split:
+A class gets its behavior or appearance from one of these places:
 
 - Renderer/runtime classes have behavior in `_extensions/htmpres/htmpres.ts`
   or the runtime assets.
 - Starter CSS classes are styled by the packaged `source.css` seed and can be
   copied into a deck.
-- Deck-local classes are just normal Quarto classes until that deck or theme
-  defines them in CSS.
+- Deck-local classes need CSS definitions in that deck or its theme.
 
 Common starter CSS layout classes include:
 
@@ -186,6 +207,8 @@ in that deck's `source.css` or theme stylesheet. It is a deck-local hook unless
 the reusable class map documents it.
 
 ## Themes
+
+[Compare the same slide in two themes](compare.qmd). The page shows both declarations.
 
 For Bootstrap, Bootswatch, Elegant, Reading, and Tufte adapters and their
 light/dark/auto selection, see [Presentation themes](themes.md). Existing
@@ -202,8 +225,8 @@ deck:
 ```
 
 The renderer copies the theme to `<html data-theme="mono-grid">` and overflow
-to `<html data-overflow="fit-scroll">`. Deck CSS can then split structural
-layout from theme concerns:
+to `<html data-overflow="fit-scroll">`. In deck CSS, keep structural layout
+rules separate from the theme's palette and typography:
 
 ```css
 :root,
@@ -229,6 +252,8 @@ and text-fit typography tokens.
 
 ## Global backgrounds and text fit
 
+[See a background](patterns.qmd?slide=6) and a [fitted statement](patterns.qmd?slide=1).
+
 Set global background and text-fit behavior in front matter:
 
 ```yaml
@@ -250,13 +275,17 @@ overrides use `data-background-image`, `data-background-fit`,
 
 Text fitting uses `deck.text-fit`, `.autoscale`, `.no-autoscale`,
 `data-text-fit`, and `data-text-fit-min`. The runtime measures the active
-slide, sets `--htmpres-text-fit-scale`, and themes decide which typography
-tokens scale. `deck.overflow` can be `hidden`, `scroll`, `fit`, or
-`fit-scroll`; the `fit` modes trigger that same fitting pass, and
-`fit-scroll` only scrolls slides that still overflow. Scrollable slides show a
+slide and sets `--htmpres-text-fit-scale`. The theme defines which typography
+tokens scale.
+
+`deck.overflow` can be `hidden`, `scroll`, `fit`, or
+`fit-scroll`. The `fit` modes also trigger text fitting. With `fit-scroll`,
+only slides that still overflow scroll. Scrollable slides show a
 small bottom cue while more content is below the visible slide area.
 
 ## Deckset-inspired containers
+
+See [full-slide media](patterns.qmd?slide=4), [picture left](patterns.qmd?slide=7), [picture right](patterns.qmd?slide=8) and [picture grid](patterns.qmd?slide=9).
 
 Deckset uses image alt-text modifiers for full backgrounds, split images,
 fit/fill, filters, video, and audio. In `htmpres`, the same ideas are expressed
@@ -269,16 +298,19 @@ with composable Quarto containers plus media attributes:
 
 ### Pictures that fit, with accessible descriptions
 
+The [picture patterns](patterns.qmd?slide=3) show captions and credits. Select the full-slide, overlay and background patterns to compare the layouts.
+
 Jonathan Schwabish, *Better Presentations* (2017), pp. 118 to 124, recommends
-letting a strong picture fill the slide. Adam Wathan and Steve Schoger,
-*Refactoring UI*, "Text needs consistent contrast," pp. 202 to 204, explain why
-picture overlays need a dependable ground. The patterns use semantic roles. The theme supplies ink, backgrounds and typography.
+that a strong picture fill the slide. Adam Wathan and Steve Schoger explain
+why text over a picture needs a background with consistent contrast. See
+*Refactoring UI*, "Text needs consistent contrast," pp. 202 to 204. The patterns
+use semantic roles, and the theme supplies ink, backgrounds and typography.
 
 Every meaningful picture needs a description between `![` and `]`. The
-`lint`, `render` and `verify` commands reject an empty or missing description
-with an `image-description` **error**, including pictures in presenter notes,
-reference images and raw HTML. Diagnostics identify the slide and point to its
-starting line. For example, slide 3 titled "A titled picture, empty description"
+`lint`, `render` and `verify` commands fail with an `image-description` error
+when a description is empty or missing. The check covers pictures in presenter notes,
+reference images and raw HTML. Diagnostics name the slide and point to the
+line where it starts. For example, slide 3 titled "A titled picture, empty description"
 produces this exact message:
 
 ```text
@@ -288,8 +320,8 @@ Slide 3 (A titled picture, empty description): describe this picture, or mark a 
 `lint --json` retains schema version 1 and includes `severity: "error"`,
 `code: "image-description"`, `slide`, `slideId`, `line` and `column`; it exits
 with status 1. Both verifiers also reject exported images with no `alt`
-attribute, including serialized presenter notes. All rendered images have an
-`alt` attribute. Code examples and comments are not pictures.
+attribute. They check the notes stored in presenter output too. All rendered
+images have an `alt` attribute. Code examples and comments are not pictures.
 
 For a purely decorative picture that adds no information, explicitly write an
 empty description with `.decorative` on the **image**:
@@ -301,11 +333,12 @@ empty description with `.decorative` on the **image**:
 ```
 
 The decorative image renders `alt=""` and lint accepts it. Raw HTML may use
-`<img src="assets/texture.svg" class="decorative" alt="">`. Do not mark an
-informative picture decorative to remove a caption; the described `.ds-full`
-form below already hides its visible caption. `data-background-image` remains
-the decorative full-slide background form. These HTML attributes are retained
-when printing; htmpres does not provide a separate tagged-PDF export.
+`<img src="assets/texture.svg" class="decorative" alt="">`.
+
+Do not mark an informative picture decorative to remove a caption. Use the described
+`.ds-full` form below to hide the visible caption and keep the description.
+Use `data-background-image` for a decorative full-slide background. Printing
+retains these HTML attributes. htmpres does not provide a separate tagged-PDF export.
 
 For a titled slide containing one picture and an optional credit, write:
 
@@ -317,16 +350,17 @@ For a titled slide containing one picture and an optional credit, write:
 [Picture: Creator, source and license.]{.credit}
 ```
 
-The description becomes both the image's screen-reader `alt` and its visible
-caption. The picture, caption and credit fit below the title, without cropping
-the picture. It grows to a limiting edge of the space below the title,
-reserving the actual caption, credit and section-label boxes plus the theme's
-gaps. It can scale beyond its intrinsic size, including viewBox-only SVGs.
+The description becomes both the image's screen-reader `alt` text and its
+visible caption. The picture fits below the title without cropping. It grows
+until one edge reaches the available space, after the layout reserves room
+for the caption, credit, section label and theme gaps. The image can grow
+beyond its original size. SVGs with only a viewBox also scale this way.
 
-Captions are centered under centered pictures. Wide, tall and 16:9 images use the same syntax. `.ds-fit` is
-optional for this one-picture layout. Wrapping the image in `::: {.ds-media}`
-also works; a linked image keeps its native Markdown caption behavior.
-`.ds-fill` deliberately crops to fill the available picture box.
+Captions sit under the center of centered pictures. Wide, tall and 16:9
+images use the same syntax. `.ds-fit` is optional for this one-picture layout.
+You can also wrap the image in `::: {.ds-media}`. A linked image keeps its
+native Markdown caption behavior. To fill the available picture box by
+cropping, use `.ds-fill`.
 
 For a full-slide picture, keep its description and omit the visible heading:
 
@@ -340,11 +374,10 @@ For a full-slide picture, keep its description and omit the visible heading:
 [Picture: Creator, source and license.]{.credit}
 ```
 
-Inside `.ds-full`, the description stays in `alt` and the automatically
-generated caption is hidden, including from screen readers. The image itself
-retains its accessible name. `data-title` supplies the navigation label without
-a visible title. Use `.ds-fit` instead of `.ds-fill` when showing the complete
-picture matters more than filling the slide.
+Inside `.ds-full`, the description stays in `alt`. The generated caption is
+hidden visually and from screen readers, while the image keeps its accessible
+name. `data-title` supplies a navigation label without a visible title. If you
+need to show the complete picture, use `.ds-fit` instead of `.ds-fill`.
 
 For text over the picture, add a semantic layer:
 
@@ -362,11 +395,11 @@ For text over the picture, add a semantic layer:
 [Picture: Creator, source and license.]{.credit}
 ```
 
-`.ds-readable` adds a gradient without changing the full-slide geometry; it
-also works on a contained `.ds-media` picture. `.ds-layer` has an opaque,
-theme-controlled text panel. Its nested `.key` uses that panel's ink while
-retaining semantic emphasis. The panel keeps text readable on dark, bright and
-mixed pictures; a transparent gradient alone cannot guarantee that contrast.
+`.ds-readable` adds a gradient and keeps the full-slide geometry. It also
+works on a contained `.ds-media` picture. `.ds-layer` gives text an opaque
+panel whose colors come from the theme. A nested `.key` uses the panel's ink
+and keeps its semantic emphasis. The panel keeps text readable on dark, bright
+and mixed pictures. A transparent gradient alone cannot guarantee that contrast.
 
 A decorative background can carry a visible title and body text directly:
 
@@ -379,18 +412,18 @@ A decorative background can carry a visible title and body text directly:
 ```
 
 The title and body receive the same theme-controlled panels. Background layers
-are decorative (`aria-hidden`); use the described `.ds-full` image pattern
-above when the picture itself needs an accessible description.
+are decorative (`aria-hidden`). When the picture itself needs an accessible
+description, use the described `.ds-full` image pattern above.
 
 In all four examples, `data-section` keeps a readable section label on its own
 opaque theme ground. The credit lane remains separate. A left/right picture
 beside a list also starts below the title and leaves space for its caption and
-credit. Automatic fitting targets the one-picture or two-pane structures;
-complex multi-picture compositions retain their authored container layout.
+credit. Automatic fitting applies to the one-picture or two-pane structures.
+Complex multi-picture compositions keep the container layout that you author.
 
 Themes can override `--htmpres-media-text-bg`, `--htmpres-media-text-ink`,
 `--htmpres-media-label-bg` and `--htmpres-media-label-ink`. Defaults use theme
-paper and an ink targeting 4.8:1 contrast, following the attribution policy.
+paper and ink that targets 4.8:1 contrast under the attribution policy.
 Authors can use these layouts without CSS, colors or sizes. Every informative
 image needs a description; decorative images need an explicit `.decorative` mark.
 
@@ -422,6 +455,8 @@ Split flow layout:
 
 ## Media classes
 
+[See the text overlay and readability panel](patterns.qmd?slide=5). Filter and playback examples below are source patterns; the gallery does not demonstrate every filter or include sample audio/video files.
+
 Use layout classes on containers and fit/filter classes on the media. Wrapper
 effects such as vignette and readability overlays belong on the nearest
 container, because they use pseudo-elements around the media.
@@ -434,10 +469,10 @@ container, because they use pseudo-elements around the media.
 - `.ds-theme-filter`: apply the active theme's `--ds-theme-filter` value.
 - `.ds-sharpen`: apply the browser SVG sharpen filter and compose it with preset or custom CSS filters.
 - `.ds-original`: remove filters from a media item.
-- `.ds-alpha`: opacity via `--ds-opacity`.
-- `.ds-zoom`: visual zoom via `--ds-scale`.
-- `.ds-vignette` / `.ds-vignette-light`: edge vignette via `--ds-vignette`, `--ds-vignette-size`, and optionally `--ds-vignette-color`.
-- `.ds-readable`: readability gradient via `--ds-readable-angle`, `--ds-readable-start`, and `--ds-readable-end`.
+- `.ds-alpha`: opacity through `--ds-opacity`.
+- `.ds-zoom`: visual zoom through `--ds-scale`.
+- `.ds-vignette`: edge vignette through `--ds-vignette`, `--ds-vignette-size`, and optionally `--ds-vignette-color`. Add `.ds-vignette-light` on the same container for a light vignette.
+- `.ds-readable`: readability gradient through `--ds-readable-angle`, `--ds-readable-start`, and `--ds-readable-end`.
 
 Three inline images laid out by an enclosing div:
 
@@ -484,6 +519,8 @@ For video, audio, and embeds, raw HTML is the most predictable authoring form:
 
 ## Images and zoom
 
+[Open the contained image](patterns.qmd?slide=3) and click it to zoom.
+
 Normal images use Pandoc image attributes:
 
 ```markdown
@@ -494,6 +531,8 @@ Clicking a `.zoomable` image opens the custom deck zoom modal. Press `Esc` or
 click outside the image to close it.
 
 ## Code blocks
+
+[Try code highlights with an explanation](example.qmd?slide=5). The preview and Markdown use the same step mapping.
 
 Use fenced-code attributes for syntax highlighting, line numbers, static line
 highlights, and step-through code transitions:
@@ -518,6 +557,8 @@ Supported code attributes:
 - `data-step-indices="1|3|7"` maps code snapshots to shared text/equation frames.
 
 ## Transitions and fragments
+
+[Try dimmed fragments](example.qmd?slide=4) and [synchronized equation terms](example.qmd?slide=6).
 
 Use `.incremental` around a list to reveal each list item one step at a time:
 
@@ -560,8 +601,8 @@ slide heading when the author prefers data attributes.
 
 Mixed slides use one ordered step graph. Match text
 `data-fragment-index="1"` with code `data-step-indices="1|3|7"` to change both
-columns together. A mapped code/equation lane starts inactive and holds its
-latest snapshot until its next mapped frame. Sparse indices consume no empty
+columns together. A mapped code or equation block starts inactive and holds its latest snapshot
+until its next mapped frame. Sparse indices consume no empty
 keypresses. Earlier ordinary fragments stay visible; `dim` is opt-in.
 
 For equations, wrap classed math in
@@ -590,6 +631,8 @@ The following do not consume navigation steps:
 
 ## Interactivity
 
+The complete panel-button pattern below can be copied into a slide. The [syntax reference](syntax-reference.md#interactions) also gives a working item-filter pattern.
+
 The packaged interaction helper supports a generic data-driven button pattern:
 
 ```markdown
@@ -605,10 +648,12 @@ Surfaces call the same runtime contract.
 :::
 ```
 
-The interaction helper scopes updates to the current custom `.slide`, falling
-back to the document only when necessary.
+The interaction helper looks for targets within the current `.slide` first,
+then in the document if necessary.
 
-## Slide iDs, appendix and breaks
+## Slide IDs, appendix and breaks
+
+[Enter the appendix from the final main slide](example.qmd?slide=10) and follow its return link.
 
 `## Extra {#appendix-data data-kind="appendix"}` starts a trailing appendix.
 All later slides belong to it. Normal counters, Next, End and media

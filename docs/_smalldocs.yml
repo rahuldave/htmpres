@@ -12,6 +12,7 @@ project:
     - themes.md
     - quarto-class-map.md
     - semantic-authoring.md
+    - syntax-reference.md
     - semantic-authoring-report.md
     - quarto-extension.md
     - packaging.md
@@ -37,6 +38,8 @@ website:
         text: Start a deck
       - href: example.qmd
         text: Example
+      - href: syntax-reference.md
+        text: Syntax
       - href: compare.qmd
         text: Compare themes
       - href: plotting-packages.md
@@ -56,6 +59,7 @@ website:
           - compare.qmd
       - section: Author
         contents:
+          - syntax-reference.md
           - authoring-cli.md
           - themes.md
           - quarto-class-map.md
@@ -67,9 +71,11 @@ website:
           - plotting-r.qmd
           - plotting-javascript.qmd
           - plotting-gallery.qmd
-      - section: Understand & extend
+      - section: Customize
         contents:
           - build-a-deck-from-markdown.md
+      - section: Project and installation
+        contents:
           - contributing.md
           - quarto-extension.md
           - packaging.md

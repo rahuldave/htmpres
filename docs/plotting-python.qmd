@@ -1,25 +1,84 @@
 ---
-title: "Make charts with Python"
+title: "Match Python charts to your theme"
 ---
 
-Compare electricity use across buildings, check a falling reservoir level, and
-find rooms that miss a temperature target. These examples teach Matplotlib,
-pandas and Seaborn through small chart tasks. All measurements are illustrative,
-not evidence from a real study. Each script contains its complete local data.
+Use Plotfoundry to match a chart to the blog or slides where you will publish it. Select
+the matching theme in your plotting code. Qualitative colors still identify categories,
+sequential colors show magnitude, and diverging colors show values around a meaningful
+center. Use Matplotlib, pandas and Seaborn with the family, mode, profile and surface
+selected for your document.
 
-![The Library uses less electricity each week. The Office has no reading in week three.](_generated/plotting-tutorials/python-electricity.png){width=640px}
+## See the same scientific palettes in two themes
 
-[Open full size](_generated/plotting-tutorials/python-electricity.png), [SVG](_generated/plotting-tutorials/python-electricity.svg), [PDF](_generated/plotting-tutorials/python-electricity.pdf), [source](_generated/plotting-tutorials/python-electricity.py), [export report](_generated/plotting-tutorials/python-electricity.report.json).
+The reviewed Matplotlib specimens below use the same data, scale limits and category
+domain, the ordered list that fixes each category's slot. Compare the Folio light
+reading page with the Nocturne dark slide panel. Their profiles, fonts, backgrounds and
+ink change, while the scientific colors retain their meaning.
 
-Plotfoundry supplies fonts, backgrounds, axes and explicit color scales.
-Its line helper also adds shapes, dashes, ink edges and direct labels.
-You can keep native pandas and Seaborn plots when you only need the theme.
+```{=html}
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:1.25rem">
+<figure style="margin:0">
+<a href="_generated/plotting/exports/python/folio-light-reading-paper.png"><img src="_generated/plotting/exports/python/folio-light-reading-paper.png" alt="Folio · light · reading · paper: categorical lines and markers above sequential cividis and diverging BrBG heatmaps; crossed cells are missing." width="640" loading="lazy" style="display:block;width:100%;height:auto"></a>
+<figcaption>Folio · light · reading · paper. Open the image at full size to inspect labels and edges.</figcaption>
+</figure>
+<figure style="margin:0">
+<a href="_generated/plotting/exports/python/nocturne-dark-presentation-panel.png"><img src="_generated/plotting/exports/python/nocturne-dark-presentation-panel.png" alt="Nocturne · dark · presentation · panel: categorical lines and markers above sequential cividis and diverging BrBG heatmaps; crossed cells are missing." width="640" loading="lazy" style="display:block;width:100%;height:auto"></a>
+<figcaption>Nocturne · dark · presentation · panel. Reduced preview; intended width 1152 CSS pixels.</figcaption>
+</figure>
+</div>
+```
+
+The top panels show qualitative categories, including the conditional five-slot
+option. The lower panels show sequential cividis and diverging BrBG, with crossed
+cells for missing values. The specimens show all three palette roles in one
+themed figure. [Compare all nine themes and presentation settings](plotting-gallery.qmd?interface=python).
+
+## Select the configuration used by your document
+
+Use the same family and mode as your blog or deck. A reading page uses the
+`reading` profile at 640 CSS pixels, while slides use `presentation` at 1152.
+Choose `paper` for the main background or `panel` for an inset background.
+After installation, use either configuration below in the complete examples.
+Replace the configuration line with your choice:
+
+```python
+from plotfoundry import theme
+
+# Configuration changes for a Folio blog and a Nocturne slide panel.
+blog = theme("folio", mode="light", profile="reading", surface="paper")
+slides = theme("nocturne", mode="dark", profile="presentation", surface="panel")
+config = blog  # Use this in the complete examples below.
+```
+
+The [nine family identifiers](plotting-packages.md#match-the-setting-keep-the-scientific-meaning)
+work with both modes, both profiles and both surfaces. Selecting Nocturne dark
+keeps the exact sampled cividis and BrBG maps. Category identities, limits and
+the center remain the data encoding. The surrounding theme and contrasting mark
+edges adapt, without replacing scientific colors with Nocturne's accents.
+
+The examples below compare electricity use, a reservoir level, occupancy and room
+temperatures. All measurements are illustrative. Every complete program includes its
+local data and matches its source download.
+
+## Choose a palette and plotting route
+
+| Data meaning | Complete example below | How it is drawn |
+| --- | --- | --- |
+| Unordered categories | Weekly electricity use | `line` supplies the qualitative colors, shapes, dashes, ink edges and direct labels |
+| One ordered quantity | Occupancy from 0 to 100% | `colorscale` supplies exact sequential cividis; native Seaborn owns the points and fit |
+| Change around a target | Room deviations from 20 C | `heatmap` supplies diverging BrBG with `center=0` and crossed missing cells |
+| A single native series | Reservoir level | pandas draws the series; `context` and `style_axes` supply the theme |
+
+To keep existing Matplotlib, pandas or Seaborn code, use a native chart with your
+document's fonts and background. For the full categorical treatment, use the helper's
+shapes, dashes, ink edges and direct labels. Applying the theme alone does not add those
+cues.
 
 ## Install once and run a script
 
-Use Python 3.12 or later. Plotfoundry is an unreleased reference, not a PyPI
-release. This command installs the reviewed Python source and its Matplotlib
-dependencies into a virtual environment:
+Use Python 3.12 or later. Plotfoundry is an unreleased reference, not a PyPI release.
+This command installs the reviewed Python source and its Matplotlib dependencies into a
+virtual environment:
 
 ```sh
 python3.12 -m venv .venv
@@ -32,10 +91,10 @@ On Windows, use `.venv/Scripts/python.exe` instead of `.venv/bin/python`.
 
 Save the first script below as `python-electricity.py`. Run it in your working
 directory with `.venv/bin/python python-electricity.py`. It writes PNG, SVG,
-PDF and an export report beside the script's working directory.
+PDF and an export report in that working directory.
 The source download contains the same code shown here.
 
-For the pandas and Seaborn tasks, install their optional dependencies:
+For the pandas and Seaborn examples, install their optional dependencies:
 
 ```sh
 .venv/bin/python -m pip install 'pandas==3.1.1' 'seaborn==0.13.2'
@@ -43,10 +102,13 @@ For the pandas and Seaborn tasks, install their optional dependencies:
 
 ## Compare weekly electricity use
 
-The question is whether electricity use falls in all three buildings.
-Use a category color for each building, because building names have no numeric
-order. Keep the explicit domain when filtering the rows, so a building retains
-its color and shape.
+![The Library uses less electricity each week. The Office has no reading in week three.](_generated/plotting-tutorials/python-electricity.png){width=640px}
+
+[Open full size](_generated/plotting-tutorials/python-electricity.png), [SVG](_generated/plotting-tutorials/python-electricity.svg), [PDF](_generated/plotting-tutorials/python-electricity.pdf), [source](_generated/plotting-tutorials/python-electricity.py), [export report](_generated/plotting-tutorials/python-electricity.report.json).
+
+The question is whether electricity use falls in all three buildings. Use a category
+color for each building, because building names have no numeric order. Keep the explicit
+domain when filtering the rows, so a building retains its color and shape.
 
 ```python
 """Illustrative weekly electricity readings; no external data download."""
@@ -72,10 +134,9 @@ with context(config):
     export(fig, config, "python-electricity", dpi=80)
     plt.close(fig)
 ```
-
-The Library falls from 420 to 320 kWh. The Workshop falls more slowly, while
-the Office has no observation in week three. The gap represents an absent
-reading, not zero use and not an interpolated estimate.
+ The Library falls from 420 to 320 kWh. The Workshop falls more slowly, while the Office
+has no observation in week three. The gap represents an absent reading. It does not mean
+zero use or an interpolated estimate.
 
 Replace the six values for each building with your readings. Keep the week and
 value lists the same length. Leave missing readings as `None`, and update the
@@ -122,21 +183,20 @@ with context(config):
     export(fig, config, "python-reservoir", dpi=80)
     plt.close(fig)
 ```
-
-The final observation is below 5.5 m. The dashed line is a planning threshold
-chosen for this example, not a statistical estimate. Change the threshold and
-annotation together when adapting the chart.
+ The final observation is below 5.5 m. The dashed line is a planning threshold chosen
+for this example, not a statistical estimate. Change the threshold and annotation
+together when adapting the chart.
 
 The theme changes the background, fonts and axes. It does not add category
 shapes or direct labels to arbitrary pandas plots. If you add several building
 series, use the first example's `line` helper with an explicit domain.
 
-## Explore temperature, electricity and occupancy with Seaborn
+## Color a native Seaborn chart by occupancy
 
-Position can show two measurements, while color shows a third. Here temperature
-and electricity use define position. Color shows the occupied percentage of the
-building, which runs from 0 to 100. Use the sequential cividis map because a
-larger percentage means more of the same quantity.
+Position can show two measurements, while color shows a third. Here temperature and
+electricity use define position. Color shows the occupied percentage of the building,
+which runs from 0 to 100. Use the sequential cividis map because a larger percentage
+means more of the same quantity.
 
 ![Electricity use falls as outdoor temperature rises in these illustrative rows. Color shows occupancy, not a building category.](_generated/plotting-tutorials/python-occupancy.png){width=640px}
 
@@ -180,11 +240,10 @@ with context(config):
     export(fig, config, "python-occupancy", dpi=80)
     plt.close(fig)
 ```
-
-One row has no occupancy reading. The explicit complete-case filter removes it
-from both the visible points and the fitted line. This native Seaborn example
-does not draw a crossed missing-point symbol. Keep missing counts in your analysis
-when using this approach.
+ One row has no occupancy reading. The filter keeps only rows with every required value,
+so it removes that row from both the visible points and the fitted line. The native
+Seaborn example does not draw a crossed missing-point symbol. Keep missing counts in
+your analysis when you use this approach.
 
 The line is a descriptive least-squares fit with no confidence interval.
 The invented rows cannot support a causal conclusion about temperature or
@@ -193,14 +252,14 @@ your own question. Remove the `regplot` call if you only need the observations.
 
 Keep the 0 to 100 color limits when comparing another building or filtering rows.
 Otherwise, the same color could mean a different occupied percentage.
-The approved `colorscale` supplies the map and normalization; Seaborn still owns
-the native points and fit. A theme alone does not add the category helper's cues.
+The approved `colorscale` supplies the map and normalization, while Seaborn
+still owns the native points and fit. A theme alone does not add the category helper's cues.
 
 ## Separate missing rooms from rooms on target
 
-A room can be cooler or warmer than a 20 C target. Use the diverging BrBG map,
-with zero at the center. The observed limits are asymmetric, from -2 to +5 C.
-Use those same limits across room comparisons.
+A room can be cooler or warmer than a 20 C target. Use the diverging BrBG map, with zero
+at the center. The observed limits are asymmetric, from -2 to +5 C. Use those same
+limits across room comparisons.
 
 ![The Studio is 5 C above target on day four. Cross-hatching means missing; an uncrossed pale cell means zero deviation.](_generated/plotting-tutorials/python-temperature.png){width=640px}
 
@@ -230,24 +289,24 @@ with context(config):
     export(fig, config, "python-temperature", dpi=80)
     plt.close(fig)
 ```
+ The Studio has the largest positive deviation on day four. The Meeting room has no
+reading on day two. Its crossed cell differs from the pale cells that are exactly on
+target.
 
-The Studio has the largest positive deviation on day four. The Meeting room has
-no reading on day two. Its crossed cell differs from the pale cells that are
-exactly on target.
+Replace each row with one room's deviations, then update the room labels. If your input
+contains absolute temperatures, subtract the target first. Choose a meaningful target
+before selecting the center. Zero is not always the right center for an arbitrary
+measurement.
 
-Replace each row with one room's deviations, then update the room labels.
-If your input contains absolute temperatures, subtract the target first.
-Choose a meaningful target before selecting the center; zero is not always
-the right center for an arbitrary measurement.
+## Export for your blog or slides
 
-## Change the theme and save for a document
+Select a profile for the document where readers will see the chart. The profile sets the
+sizes of chart text and marks for reading or presentation.
 
-A profile selects sizes for chart text and marks in a reading document or presentation.
-
-All examples use an eight-inch canvas and the reading profile's declared
-640 CSS-pixel placement. The height varies to make space for each chart.
-The export uses 80 DPI here, so the PNG is 640 pixels wide. Increasing DPI
-adds raster pixels; it does not change the declared size of text.
+All examples use an eight-inch canvas and the reading profile's declared 640 CSS-pixel
+placement. The height varies to make space for each chart. The export uses 80 DPI here,
+so the PNG is 640 pixels wide. Increasing DPI adds raster pixels without changing the
+declared size of text.
 
 To make a presentation chart, select `profile="presentation"` in `theme` and
 place the result at 1152 CSS pixels. Keep `figsize` eight inches wide.
@@ -259,33 +318,53 @@ and [download its complete source](_generated/plotting-tutorials/python-electric
 This version changes the profile and uses 144 DPI to export 1152 raster pixels.
 A 640-pixel preview of that file reduces its apparent text size.
 
-A surface selects a paper or panel background. Select another family, mode or surface in `theme`, for example
-`theme("nocturne", mode="dark", surface="panel")`. The
-[theme gallery](plotting-gallery.qmd?interface=python) compares all nine families
-and both profiles. It is a reference for appearance, not a replacement for
-choosing the right chart and limits.
+To use the electricity chart on the Nocturne slide panel shown above, keep its
+data, domain and `line` calls. Replace the `config` assignment and final `export`
+call in the complete program:
 
-In a Markdown document, reference the exported file at its declared placement:
+```python
+config = theme("nocturne", mode="dark", profile="presentation", surface="panel")
+# Keep the existing drawing block; replace its export call with:
+export(fig, config, "electricity-nocturne-slides", dpi=144)
+```
+
+The same `config` must reach `context`, each helper, `style_axes` and `export`.
+Changing only the exporter does not restyle a figure already drawn. Keep the
+native canvas eight inches wide, then inspect spacing at the presentation
+profile's intended 1152-pixel width. The [gallery](plotting-gallery.qmd?interface=python)
+compares all configurations using the same scientific specimen.
+
+Embed PNG or SVG in Quarto Markdown at the declared placement:
 
 ```markdown
 ![Weekly electricity use](python-electricity.png){width=640px}
+
+![Weekly electricity use on a Nocturne slide](electricity-nocturne-slides.svg){width=1152px}
 ```
+ For a blog template that uses HTML, the reading export can be embedded as:
 
-The examples also write SVG and PDF. SVG contains outlined glyphs, so text is
-not editable. Python PDF requests TrueType subsets and checks their presence;
-this is not full PDF conformance certification. Export keeps the full canvas
-without tight cropping. Check the actual file for clipped or crowded labels.
+```html
+<img src="python-electricity.svg" width="640" alt="Weekly electricity use; Office has no week-three reading">
+```
+ The file keeps its chosen light or dark appearance. If your blog or deck offers both
+modes, export both configurations and select the matching file in the document. The
+embedded image does not switch its theme automatically.
 
-The small preview on a phone scales the whole picture, including text.
-Use the full-size image or vector download to inspect the intended placement.
-Every image above links to its exact source and all three export formats.
+The examples also write SVG and PDF. SVG contains outlined glyphs, so text is not
+editable. Python PDF requests TrueType subsets and checks their presence. The check is
+not full PDF conformance certification. Export keeps the full canvas without tight
+cropping. Check the actual file for clipped or crowded labels.
 
-## Fonts, limits and offline setup
+A small phone preview scales the text with the rest of the picture. Use the full-size
+image or vector download to inspect the intended placement. Each complete tutorial example links to
+its exact source and all three export formats.
 
-The exporter binds supported text to bundled font files and real weights.
-It checks axes, titles, legends and colorbars, including text created late.
-Keep plain text. Mathtext, TeX, unsupported glyphs and log formatters that create
-mathtext fail instead of silently using a different face.
+## Font support and offline setup
+
+The exporter binds supported text to bundled font files and real weights. It checks
+axes, titles, legends and colorbars, including text created late. Keep plain text.
+Mathtext, TeX, unsupported glyphs and log formatters that create mathtext fail instead
+of silently using a different face.
 
 `style_axes` styles native axes after you add artists. `annotate` lets you choose
 a label, metadata or body annotation size deliberately. Arbitrary artists,
@@ -295,7 +374,7 @@ because they use its theme.
 For an offline machine, prepare the Plotfoundry wheel and all selected dependency
 wheels on a compatible connected machine. Install them with
 `pip install --no-index --find-links wheelhouse 'plotfoundry[matplotlib]==0.1.0.dev1'`.
-Add pandas and Seaborn wheels if using those tasks. A lone wheel does not include
+Add pandas and Seaborn wheels if you use those examples. A lone wheel does not include
 Matplotlib or its native dependencies.
 
 The examples were checked with Python 3.12.10, Matplotlib 3.11.2, NumPy 2.5.4,

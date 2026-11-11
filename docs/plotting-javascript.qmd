@@ -1,29 +1,90 @@
 ---
-title: "JavaScript charts with Observable Plot"
+title: "Match JavaScript charts to your theme"
 ---
 
-Compare delivery routes over time, explore energy use, and find plants with
-longer delivery times. These examples use invented local observations and
-Observable Plot, a JavaScript library that draws charts from rows of data.
+Use Plotfoundry to match an Observable Plot chart to the blog or slides where you will
+publish it. Choose from the same nine themes, with bundled fonts and contrasting mark
+edges. Qualitative colors identify categories, sequential colors show magnitude, and
+diverging colors show values around a meaningful center. The scientific maps keep their
+exact sampled colors.
 
-![North improves after week four; Central has no observation in week three.](assets/javascript/deliveries.png)
+## See the same route data in Folio and Nocturne
 
-Plotfoundry styles chart axes, labels, grids and legends, called chart furniture.
-It adds exact sampled colors, file-backed fonts,
-and helpers with distinct shapes, dashes, direct labels and ink edges.
-The package is an unreleased reference. There is no npm or CDN publication.
-It runs independently in a browser or Quarto Observable JavaScript (OJS).
-No htmpres installation, Python or R is needed at runtime.
+The reviewed browser exports below show the same delivery measurements in two themes.
+Folio uses the treated line helper. Nocturne uses native Plot lines, so the comparison
+also shows what a theme alone supplies.
 
-[Install and run](#install-and-run), [Compare routes](#compare-routes) ,
-[Explore energy use](#explore-energy-use), [Find signed changes](#find-signed-changes) ,
-[Adapt native Plot](#adapt-native-plot), [Use Quarto](#use-quarto) ,
-[Fonts and export limits](#fonts-and-export-limits)
+```{=html}
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:1.25rem">
+<figure style="margin:0">
+<a href="assets/javascript/deliveries.png"><img src="assets/javascript/deliveries.png" alt="Folio light reading chart of delivery times with treated lines, shapes, dashes and direct route labels." width="640" loading="lazy" style="display:block;width:100%;height:auto"></a>
+<figcaption>Folio · light · reading · paper. Treated categorical lines retain shapes, dashes, ink edges and labels.</figcaption>
+</figure>
+<figure style="margin:0">
+<a href="assets/javascript/native.png"><img src="assets/javascript/native.png" alt="The same delivery times in Nocturne dark reading theme, using thin native lines without helper cues." width="640" loading="lazy" style="display:block;width:100%;height:auto"></a>
+<figcaption>Nocturne · dark · reading · paper. Theme-only native lines retain the category colors, with no helper cues.</figcaption>
+</figure>
+</div>
+```
+
+The background, ink and fonts match each theme. Choose mark treatment separately
+from the theme. Use the helper in either theme when categories need its shapes,
+dashes, ink edges and direct labels as well as color. [Sequential](#explore-energy-use) and
+[diverging](#find-signed-changes) examples below complete the three palette roles.
+
+## Select the configuration used by your document
+
+After installation, choose the same family, mode, profile and surface as your
+blog or deck. Replace the `config` assignment in each complete module below
+with your choice. Keep its `loadSpec` call and local imports:
+
+```js
+// A Folio reading page: intended width 640 CSS pixels.
+const config = theme(spec, "folio", {
+  mode: "light", profile: "reading", surface: "paper"
+});
+```
+ For a Nocturne slide panel, use this configuration instead:
+
+```js
+// A Nocturne slide panel: intended width 1152 CSS pixels.
+const config = theme(spec, "nocturne", {
+  mode: "dark", profile: "presentation", surface: "panel"
+});
+```
+
+The [nine family identifiers](plotting-packages.md#match-the-setting-keep-the-scientific-meaning)
+work with both modes, both profiles and both surfaces. The [theme gallery](plotting-gallery.qmd)
+shows the same qualitative, sequential and diverging specimen across the themes
+using reviewed Python and R exports. The JavaScript reference uses the same
+scientific contract. The static gallery images are not JavaScript output.
+
+A dark theme changes the chart background, fonts, labels, axes and ink edges. It does
+not recolor cividis or BrBG to the theme's brand accents or reverse their meaning. Keep
+category domains, numeric limits and the diverging center the same when charts compare
+the same measurements.
+
+## Choose a palette role
+
+| Data meaning | Complete JavaScript example | Palette and treatment |
+| --- | --- | --- |
+| Unordered categories | [Delivery routes](#compare-routes) | Three qualitative slots with shapes, dashes, ink edges and direct labels |
+| One ordered quantity | [Energy use](#explore-energy-use) | Sequential cividis with explicit limits and a crossed missing point |
+| Change around a center | [Delivery-time change](#find-signed-changes) | Diverging BrBG with an explicit zero center and crossed missing cells |
+| Existing native chart | [Native Plot lines](#adapt-native-plot) | Matching furniture and fonts; native marks retain their own treatment |
+
+A chart's furniture includes its axes, labels, grids and legends. The native route
+applies matching furniture and fonts. The helpers also add mark treatment.
+
+All examples use invented local observations. Each complete module matches its installed
+source example. The package is an unreleased reference, with no npm or CDN publication
+implied. It runs in a browser or Quarto Observable JavaScript (OJS), independently of
+htmpres, Python and R at runtime.
 
 ## Install and run
 
-Start with the repository checkout that contains this guide. To get a checkout,
-use these commands, record its revision, and check the package version:
+Install from the reviewed repository revision. The commands below create a checkout and
+print its revision and package version:
 
 ```sh
 git clone --no-checkout https://github.com/rahuldave/htmpres.git plotfoundry-source
@@ -34,16 +95,16 @@ cd packages/javascript
 node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync("package.json")); if(p.version!=="0.1.0-dev.1") throw Error("Use the source revision for this guide"); console.log(p.version)'
 ```
 
-These instructions target version `0.1.0-dev.1`, not an npm release. The checkout selects the reviewed Git revision. Record the printed revision
-with your work. Stop if the version differs. Then build its local archive:
+The checkout selects the reviewed Git revision for version `0.1.0-dev.1`.
+Record the printed revision with your work, and stop if the version differs.
+The package has no npm release. Build its local archive with:
 
 ```sh
 npm pack --ignore-scripts
 ```
-
-The package includes the browser bundle. You do not need a build step. Record the
-source revision for your work. The repository's private root npm package is
-not installed. In a new project outside that checkout, run:
+ The archive includes the browser bundle, so you do not need a build step. The
+repository's private root npm package is not installed. Keep the recorded source
+revision with your work. In a new project outside that checkout, run:
 
 ```sh
 npm init -y
@@ -67,13 +128,17 @@ this HTML file in the same project root:
 
 For package-aware build tools, imports such as `plotfoundry` and
 `plotfoundry/observable` select the same modules. Plain browsers use the local
-paths in these examples. Nothing fetches an external library after setup.
+paths in these examples. After setup, the examples load libraries from local
+paths without fetching external libraries.
 
 ## Compare routes
 
-Start with three named routes and delivery time in hours. The explicit category
-domain fixes each route's slot, even when one route is absent after filtering.
-A missing observation stays a gap. The helper does not connect across that interval or turn it into zero.
+![Folio light reading theme: North improves after week four; Central has no observation in week three.](assets/javascript/deliveries.png)
+
+Start with three named routes and delivery time in hours. Set the category domain, the
+ordered list that fixes each route's slot. A route keeps its slot even when it is absent
+after filtering. Missing observations leave gaps, with no connecting segment or zero
+replacement.
 
 ```js
 import {loadSpec, theme} from "./node_modules/plotfoundry/src/index.js";
@@ -114,19 +179,18 @@ observation in week three. South stays slower throughout this invented example.
 Replace `deliveries` with your rows and change the axis labels to your units.
 The download links save the chart without requiring a file API of your own.
 
-The default has three slots. Five needs the explicit
-`variant: "colorblind-subset-5"` option. Five is conditional because the frozen simulations showed lower separation.
-Extra marks can also obscure each other.
+The default has three slots. To use five, select the explicit
+`variant: "colorblind-subset-5"` option. Five is conditional because the frozen
+simulations showed lower separation, and extra marks can obscure each other.
 Keep its shapes, dashes, ink edges and direct labels, then inspect your chart.
-
-A variant change can change slot colors. The package never expands a variant automatically.
+A variant change can change slot colors. The package never expands a variant
+automatically.
 
 ## Explore energy use
 
-The next chart asks whether energy use rises with temperature and load.
-Position shows temperature and load. Color shows a third measurement in kWh.
-The sequential cividis scale has fixed limits, so another chart can use the
-same color meaning.
+The next chart asks whether energy use rises with temperature and load. Position shows
+temperature and load. Color shows a third measurement in kWh. The sequential cividis
+scale has fixed limits, so another chart can use the same color meaning.
 
 ![Higher temperatures have higher energy use in these invented observations. The crossed point has no energy reading.](assets/javascript/energy.png)
 
@@ -156,21 +220,21 @@ document.querySelector("#chart").append(chart,
 // Dispose fonts when removing every chart that uses this session.
 ```
 
-Energy rises with temperature in these invented observations; load varies within
-that trend. The muted crossed point has a location but no energy value.
+Energy rises with temperature in these invented observations, while load varies
+within that trend. The muted crossed point has a location but no energy value.
 Change the `sensors` rows and choose limits for your comparison question.
 Keep those limits when you filter the rows.
 
-Values below 10 or above 61 use endpoint colors. Null, undefined and NaN remain
-missing. Infinity, booleans and string numeric coercion are rejected.
-The legend uses the exact discrete bins, not interpolation between samples.
-The legend rounds tick labels for readability. The lookup values do not change.
+Values below 10 or above 61 use endpoint colors. Null, undefined and NaN remain missing.
+Infinity, booleans and string numeric coercion are rejected. The legend uses the exact
+discrete bins, not interpolation between samples. The legend rounds tick labels for
+readability. The lookup values do not change.
 
 ## Find signed changes
 
-Use a diverging map when a meaningful center separates two kinds of change.
-Here zero means no change in delivery time. Faster deliveries reach -2 hours;
-slower deliveries reach +8 hours. The two arms keep those different limits.
+Use a diverging map when a meaningful center separates two kinds of change. Here zero
+means no change in delivery time. Faster deliveries reach -2 hours, while slower
+deliveries reach +8 hours. The two arms keep those different limits.
 
 ![The Hub has the largest slowdown in week four. The crossed Depot cell is missing, while uncrossed pale cells are zero.](assets/javascript/changes.png)
 
@@ -213,7 +277,7 @@ remain distinct. `legend` uses the same asymmetric inverse for every tick.
 ## Adapt native Plot
 
 You can keep a native Plot chart and apply only its furniture and fonts.
-The next module uses native `Plot.line`; the `options` call supplies the selected
+The next module uses native `Plot.line`, with `options` supplying the selected
 background, text and axis settings. Native options still control the axes and
 mark data.
 
@@ -252,21 +316,46 @@ module with the tested API shape. The bundled exact version is the default.
 A supplied version is caller-declared provenance, not package verification.
 Untested versions are rejected.
 
-## Change the theme and placement
+## Export for your blog or slides
 
-Select any of the nine families, either mode, and either profile in `theme`.
-For example, use `theme(spec, "folio", {mode:"dark", profile:"presentation"})`.
+Keep the selected configuration through font loading, chart construction,
+styling and export. To adapt the delivery module to a Nocturne slide panel,
+replace its `config` assignment with the presentation configuration above and
+rebuild the chart. Replace its fixed `height: 384` with `height: config.width * 0.6`
+to give the presentation text room. Inspect the final layout at its intended width.
+
 Presentation width is 1152 CSS pixels, with 24-pixel labels and 36-pixel headings.
-Reading width is 640, with 16-pixel labels and 30-pixel headings.
+Reading width is 640, with 16-pixel labels and 30-pixel headings. The first module's
+`exportSvg` and `exportPng` calls save the currently selected configuration.
+Its PNG uses `pixelRatio:2` for more raster pixels without doubling
+the declared placement size.
 
-Body annotations use 20 pixels for serif reading families and 18 otherwise;
-presentation body annotations use 30. Metadata uses 14 pixels in reading mode.
+After downloading the files, embed the reading chart in Quarto Markdown:
+
+```markdown
+![Delivery time by route; Central is missing in week three](deliveries.svg){width=640px}
+```
+
+Use `.png` instead of `.svg` when needed. A blog template can use HTML:
+
+```html
+<img src="deliveries.png" width="640" alt="Delivery time by route; Central is missing in week three">
+```
+
+Place a presentation export at `width=1152px` in Quarto Markdown, or `width="1152"`
+in HTML. Name the file for its selected theme and mode when keeping several
+exports. PNG and SVG keep their exported appearance when a page's light or dark
+toggle changes. If the document offers both modes, export both
+cases and let the document choose its matching image.
+
+Body annotations use 20 pixels for serif reading families and 18 otherwise.
+Presentation body annotations use 30. Metadata uses 14 pixels in reading mode.
 Use `data-pf-role` to distinguish heading, label, metadata and body_annotation.
 `stylePlot(..., {resize:true})` applies their sizes. By default, it preserves
 authored sizes and binds the real font face and weight.
 
 `theme(..., {width})` declares another placement width and scales SVG lengths
-together. A later CSS resize also scales the whole picture, including text.
+together. A later CSS resize scales the text with the rest of the picture.
 Use the declared width to judge readability, rather than a thumbnail.
 The full browser example offers all 72 case selections.
 
@@ -300,43 +389,45 @@ glyphs. `watchPlot` applies role sizes and faces to inserted hover text.
 Dispose the observer when removing the chart. The native Plot zero-width
 separator is layout formatting, not a visible glyph.
 
-The first example creates working SVG and PNG download links. Exports clone a single SVG canvas. The caller's chart remains unchanged. Surrounding HTML
-headings, captions and separate legends are not part of that canvas.
-Save those SVGs separately or compose them in your document.
+The first example creates SVG and PNG download links. Each export clones a single SVG
+canvas and leaves the caller's chart unchanged. HTML headings, captions and separate
+legends around the chart are outside that canvas. Save those SVGs separately or compose
+them in your document.
 
-SVG text becomes paths from the exact bundled files. The result needs no font
-network request, but has no selectable text or live hover. PNG rasterizes the
-same outlined SVG at an explicit pixel ratio. Its report gives actual canvas
-dimensions; resolution does not change placed typography. The package has no PDF exporter.
+SVG text becomes paths from the exact bundled files. The result needs no font network
+request, but has no selectable text or live hover. PNG rasterizes the same outlined SVG
+at an explicit pixel ratio. Its report gives actual canvas dimensions. Resolution does
+not change placed typography. The package has no PDF exporter.
 
-Plain Latin text, punctuation and approved glyphs are supported. Math, complex
-shaping, missing glyphs, italic or vertical text and external SVG images, filters
-or HTML are rejected. Supported text runs keep native offsets, anchors and tspan
-positions. The exporter is a tested Plot path, not a universal SVG converter.
-Dense labels still need author review.
+Plain Latin text, punctuation and approved glyphs are supported. Math, complex shaping,
+missing glyphs, italic or vertical text and external SVG images, filters or HTML are
+rejected. Supported text runs keep native offsets, anchors and tspan positions. The
+exporter is a tested Plot path, not a universal SVG converter. Dense labels still need
+author review.
 
-Helpers accept row objects with numeric Cartesian coordinates and linear paths.
-They preserve input order, missing intervals, facet fields and native clipping.
-Projections and alternative curves are rejected. Arbitrary filled areas, maps,
-third-party marks and automatic label-overlap repair are outside this adapter.
-Do not infer compliance from a native theme-only chart.
+Helpers accept row objects with numeric Cartesian coordinates and linear paths. They
+preserve input order, missing intervals, facet fields and native clipping. Projections
+and alternative curves are rejected. Arbitrary filled areas, maps, third-party marks and
+automatic label-overlap repair are outside this adapter. Do not infer compliance from a
+native theme-only chart.
 
-## Reference, offline use and maintenance
+## Package resources and offline use
 
-The core import does not fetch, touch the DOM or register fonts. `loadSpec` checks
-every immutable resource before parsing. In Node, import `loadSpec` from
-`plotfoundry/node` for regular-file closure checks. An installed browser consumer needs no Node runtime.
-Every spec file, font and dependency notice ships in the archive.
+The archive includes every spec file, font and dependency notice.
+The core import does not fetch, touch the DOM or register fonts. `loadSpec`
+checks every immutable resource before parsing. An installed browser consumer
+needs no Node runtime. In Node, import `loadSpec` from `plotfoundry/node` to
+check that resources are regular files and the resource set is complete.
 
-The current verification uses Node 25.1.0, Chrome 157, Quarto 1.8.26,
-Playwright 1.65.0 and Pillow 13.0.0 on macOS. Plot 0.6.19 is the tested renderer.
-Renderer and
-Quarto versions are recorded in the installed-browser evidence. Compatible
-engine ranges are not a claim that every version or platform was tested.
-There is no registry account, package publication or live CDN promise.
+The current verification uses Node 25.1.0, Chrome 157, Quarto 1.8.26, Playwright 1.65.0
+and Pillow 13.0.0 on macOS. Plot 0.6.19 is the tested renderer. The installed-browser
+evidence records renderer and Quarto versions. Compatible engine ranges are not a claim
+that every version or platform was tested. There is no registry account, package
+publication or live CDN promise.
 
 Maintainers run `npm test` and `node tools/check-package.mjs` from this package.
-`npm ci --ignore-scripts` installs locked build tools; installed consumers do not need these build tools.
+`npm ci --ignore-scripts` installs locked build tools.
+Installed consumers do not need these build tools.
 `node tools/build-vendor.mjs` rebuilds both browser bundles and notices.
 Normal validation does not regenerate files to hide drift. The source lock,
 original foundations, ET Book conversion recipe and notices stay included.
@@ -358,8 +449,8 @@ guidance. No source prose from those guides is reproduced.
 with all 72 case selections. The figure's colors are independent of this site's
 page theme. The example can scroll at its intended width on a narrow screen.
 
-Download the complete modules, save each in your installed project root, and
-use the HTML wrapper shown above:
+Download the complete modules, save each in your installed project root, and use the
+HTML wrapper shown above:
 
 - [Delivery times](_generated/javascript/examples/standalone/deliveries.js).
 - [Energy use](_generated/javascript/examples/standalone/energy.js).
@@ -371,7 +462,10 @@ use the HTML wrapper shown above:
 The package `resources/data/notices` directory retains the font and upstream
 notices. Browser dependencies have their own `vendor/notices` files. Preserve
 both directories when distributing a copy. Source comes from the
-[JavaScript package directory](https://github.com/rahuldave/htmpres/tree/main/packages/javascript);
-there is no npm registry release to install.
+[JavaScript package directory](https://github.com/rahuldave/htmpres/tree/main/packages/javascript).
+There is no npm registry release to install.
 
-Maintainer browser checks need an installed Chrome executable. The default path is macOS-specific; the browser runner accepts `--browser-executable` for an explicit path. The locked verification recipe provisions Playwright/Pillow only as developer tools.
+Maintainer browser checks need an installed Chrome executable. The default path
+is macOS-specific. To select another path, pass `--browser-executable` to the
+browser runner. The locked verification recipe provisions Playwright/Pillow
+only as developer tools.

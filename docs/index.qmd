@@ -3,9 +3,8 @@ title: Markdown presentations with speaker notes
 toc: false
 ---
 
-htmpres turns Quarto Markdown (QMD) into a custom HTML slide deck, with an
-outline, progressive reveals, zoomable media and a separate presenter view.
-Edit one readable file; render two useful views.
+Write slides and speaker notes in one Markdown file. htmpres builds a browser
+presentation with a separate presenter view.
 
 ```{=html}
 <div class="home-actions">
@@ -13,12 +12,37 @@ Edit one readable file; render two useful views.
   <a class="btn btn-outline-primary" href="example.html">Learn from the Markdown</a>
   <a class="btn btn-outline-primary" href="compare.html">Compare all 38 themes</a>
 </div>
+```
+
+## Reveal an equation in steps {#home-example}
+
+[![An equation and three explanations share semantic colors after the final reveal.](assets/screenshots/equation-summary.jpg)](example.qmd?slide=6)
+
+The mean, total and count appear with their explanations as you advance. The
+last step shows all three colored pairs together. [Try the equation steps and
+read their Markdown](example.qmd?slide=6). The [syntax reference](syntax-reference.md)
+collects the marks used to build them.
+
+htmpres uses Quarto Markdown (QMD) to build a custom HTML slide deck with an
+outline, progressive reveals and zoomable media. Choose a theme without editing
+a stylesheet.
+
+## Write, preview and present
+
+```{=html}
 <div class="home-grid">
-  <article><span class="eyebrow">01 · Write</span><h2>Write your slides</h2><p>Use level-two headings for slides, fenced blocks for layouts and inline notes for your speaking cues.</p></article>
-  <article><span class="eyebrow">02 · Render</span><h2>A custom HTML shell</h2><p>Quarto runs the build script and Pandoc converts Markdown fragments. htmpres writes the HTML and browser controls.</p></article>
+  <article><span class="eyebrow">01 · Write</span><h2>Write your slides</h2><p>Write slides with level-two headings, use fenced blocks for layouts, and keep speaking cues in notes.</p></article>
+  <article><span class="eyebrow">02 · Preview</span><h2>Preview while you write</h2><p>Run the live preview. Save your Markdown, styles or assets to rebuild the deck and reload the audience and presenter pages.</p></article>
   <article><span class="eyebrow">03 · Present</span><h2>Present with notes</h2><p>Share the audience page. Open the presenter page for the same slides with notes beside them.</p></article>
 </div>
 ```
+
+[![Presenter view shows the outline on the left, the audience slide in the middle and private speaking cues on the right.](assets/screenshots/presenter-notes.jpg)](_generated/decks/nocturne/light/presenter.html#/8)
+
+Audience HTML contains the slides. Presenter HTML adds your cues and navigation.
+[Open the presenter view](_generated/decks/nocturne/light/presenter.html#/8), or
+[create your first deck](quickstart.qmd). Both views come from the same Markdown
+file. Share the audience output when notes should stay private.
 
 ## Compare themes
 
@@ -28,25 +52,33 @@ Bootstrap, Bootswatch, Elegant, Reading, Tufte and the original htmpres seeds.
 
 [Open the theme comparison](compare.qmd)
 
-## Plot outside the slide tool
+## Match charts to your blog or slides
 
-[Standalone Python, R and JavaScript plotting](plotting-packages.md) uses the same approved
-scientific foundations without installing htmpres. Read the native guides or
-[browse all 72 configurations](plotting-gallery.qmd). The references are unreleased;
-installation uses pinned reviewed source.
+[Plotfoundry for Python, R and JavaScript](plotting-packages.md) coordinates chart
+fonts, backgrounds and scientific palettes with the nine Elegant, Reading and
+Tufte themes. Use qualitative colors for categories, sequential scales for
+ordered values, and diverging scales around a meaningful midpoint.
 
-## Find your next step
+Choose the same theme and mode as your blog or deck, then select reading or
+presentation sizes. [Compare the visible chart examples](plotting-packages.md)
+or [browse all 72 configurations](plotting-gallery.qmd). The packages also work
+independently of htmpres. Installation uses pinned, unreleased reference source.
+
+## Authoring guides {#find-your-next-step}
 
 - [Start a deck](quickstart.qmd): make a first talk with a bundled theme, live preview and speaker cues.
 - [Learn from the Markdown](example.qmd) to step through examples and copy their actual source.
+- [Complete syntax reference](syntax-reference.md): every deck setting, class and attribute, with examples.
 - [Semantic authoring](semantic-authoring.md): importance, reveals, code, equations and appendix links.
 - [Authoring CLI](authoring-cli.md): create, inspect, edit and preview decks.
 - [Class reference](quarto-class-map.md): the supported layout and interaction vocabulary.
 - [Customization reference](build-a-deck-from-markdown.md): optional theme, layout and runtime overrides.
-- [Extension internals](quarto-extension.md): how the custom renderer works.
-
-This documentation site is built with **SmallDocs and Nocturne**. The slide decks
-are built with **Quarto and the htmpres custom HTML renderer**.
+- [Install the extension](quarto-extension.md): set up htmpres in a presentation project.
 
 [Pictures and slide patterns](patterns.qmd) shows backgrounds, full-slide images,
 left/right layouts and attributions with their editable source.
+
+This documentation site is built with **SmallDocs and Nocturne**. The slide decks
+are built with **Quarto and the htmpres custom HTML renderer**. Quarto runs the
+build script, and Pandoc converts Markdown fragments. htmpres writes the HTML
+and browser controls.

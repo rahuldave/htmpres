@@ -2,9 +2,9 @@
 title: Start a deck
 ---
 
-Make a short presentation, choose a ready-made theme, and open it with your
-speaker notes. You write Markdown; the bundled theme supplies the appearance.
-The finished deck runs in a browser.
+Write a short presentation in Markdown, choose a bundled theme, and open the
+deck with your speaker notes. The theme supplies the appearance. The finished
+deck runs in a browser.
 
 ## 1. Run the example
 
@@ -17,7 +17,7 @@ cd htmpres
 just example
 ```
 
-This creates `decks/example/index.html` for the audience and
+`just example` creates `decks/example/index.html` for the audience and
 `decks/example/presenter.html` with speaking cues. Open either file in your
 browser. Use Right or Space to advance; some slides have several reveal steps.
 
@@ -76,7 +76,7 @@ Questions?
 ````
 
 Each `##` starts a slide. Markdown emphasis works in titles. `.key` marks the
-main point; `.aside` marks supporting context. The incremental list hides
+main point, and `.aside` marks supporting context. The incremental list hides
 future points and dims earlier ones. The theme decides how these roles look.
 
 A `::: notes` block belongs to the preceding slide. It appears only in the
@@ -100,8 +100,7 @@ while the command is running. The presenter page includes the same slides and
 their cues. The two windows navigate independently.
 
 Change a heading or a cue and save `index.qmd`. Both pages rebuild and reload
-automatically, keeping their current slide. Reveal steps restart on that
-slide. If a save contains an error, the terminal explains it and the last good
+automatically. Each page stays on its current slide, with reveal steps restarted. If a save contains an error, the terminal explains it and the last good
 deck stays visible. Correct the source and save again. Stop the preview with
 Ctrl+C.
 
@@ -115,8 +114,8 @@ deck:
   color-mode: auto
 ```
 
-Save and watch the preview change. Keep the other metadata and slides; there
-should be only one `deck` block. You can choose Nocturne, Simplex Reading or
+Save and watch the preview change. Keep the other metadata and slides in place,
+with only one `deck` block. You can choose Nocturne, Simplex Reading or
 another name in the [theme catalog](themes.md#available-names).
 
 | Setting | Result |
@@ -125,8 +124,8 @@ another name in the [theme catalog](themes.md#available-names).
 | `color-mode: dark` | Use dark as the deck's default. |
 | `color-mode: auto` | Follow the system preference unless the reader has chosen a mode. |
 
-Viewers can use the deck's mode button; their choice is remembered for that
-deck. The 35 paired themes provide both modes. The three legacy seeds are light
+Viewers can use the deck's mode button, which remembers their choice for that
+deck. The 35 paired themes have both modes. The three legacy seeds are light
 only. Selecting a bundled theme by name is all you need for normal use.
 
 ## 5. Add a pattern when you need it
@@ -166,7 +165,7 @@ The second argument.
 
 For a local image, put the file in your talk's `assets/` folder and write
 `![A description of the image](assets/result.svg){.zoomable}`. The description
-helps readers using assistive tools; clicking a zoomable image opens it larger.
+helps readers using assistive tools. Click a zoomable image to open it larger.
 
 For images, use the [picture patterns](patterns.qmd). They show a contained image,
 a full-slide picture, readable text over an image, decorative backgrounds, and
@@ -185,7 +184,8 @@ just verify decks/my-talk/index.qmd
 ```
 
 Render writes `index.html` and `presenter.html` beside your source. Verify
-checks that the generated views match that source. Lint also checks empty slides, picture descriptions and counter settings.
+checks that the generated views match that source. Lint checks empty slides,
+picture descriptions and counter settings.
 For machine-readable output, use `just lint decks/my-talk/index.qmd`.
 
 For an offline audience copy, share `index.html` together with its generated
@@ -199,3 +199,5 @@ or the [class reference](quarto-class-map.md) to look up a layout.
 [Customization reference](build-a-deck-from-markdown.md) covers optional theme
 and layout overrides. [Website maintenance](contributing.md) covers building
 this documentation site.
+
+For a particular mark or option, use the [complete syntax reference](syntax-reference.md).

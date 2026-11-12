@@ -1,9 +1,14 @@
 # Semantic authoring implementation report
 
+For current text-over-picture behavior, see [text over pictures and optional
+panels](syntax-reference.md#text-over-picture). The dated [PR #28](https://github.com/rahuldave/htmpres/pull/28) record below
+describes the earlier automatic-panel policy.
+
 This report records dated releases and their verification, beginning on
 2026-11-06. Use [Semantic slides](semantic-authoring.md) for the current authoring
 contract. Historical fixture sizes and test counts below describe each release.
-The separate planning worksheet in `plan.md` is not read by htmpres.
+Talk-planning tools may create a separate worksheet in `plan.md`. Htmpres does
+not read that worksheet when it renders the slide source.
 
 ## Picture descriptions and fitted space (2026-11-10)
 

@@ -299,7 +299,7 @@ tokens scale.
 only slides that still overflow scroll. Scrollable slides show a
 small bottom cue while more content is below the visible slide area.
 
-## Deckset-inspired containers
+## Media containers {#deckset-inspired-containers}
 
 See [full-slide media](patterns.qmd?slide=4), [picture left](patterns.qmd?slide=7), [picture right](patterns.qmd?slide=8) and [picture grid](patterns.qmd?slide=9).
 
@@ -308,7 +308,8 @@ control cropping, filters and playback:
 
 - Place the container with `.ds-full`, `.ds-left`, `.ds-right`, `.ds-split`, `.ds-pane`, `.ds-media`, `.ds-grid` and `.ds-inline`. The renderer supplies `.ds-global-background` for the [background settings](#global-backgrounds-and-text-fit).
 - Set media behavior with `.ds-fit`, `.ds-fill`, `.ds-rounded`, `.zoomable`, and filter classes.
-- `.ds-layer` raises text or controls above full-slide media on a theme-controlled readable panel.
+- `.ds-layer` raises text or controls above full-slide media, with a transparent background.
+- `.ds-panel` adds a theme-colored panel to a text block. On a slide heading, it adds panels to the title and each top-level text block.
 - `.ds-no-pad`, `.ds-no-border`, `.ds-frame`, `.ds-center`, `.ds-top`, and `.ds-bottom` tune the container box.
 
 ### Pictures that fit, with accessible descriptions
@@ -417,11 +418,23 @@ For text over the picture, add a semantic layer:
 [Picture: Creator, source and license.]{.credit}
 ```
 
-`.ds-readable` adds a gradient and keeps the full-slide geometry. It also
-works on a contained `.ds-media` picture. `.ds-layer` gives text an opaque
-panel whose colors come from the theme. A nested `.key` uses the panel's ink
-and keeps its semantic emphasis. The panel keeps text readable on dark, bright
-and mixed pictures. A transparent gradient alone cannot guarantee that contrast.
+`.ds-layer` places text above the picture and leaves its background transparent.
+The theme sets the text's colors and emphasis. `.ds-readable` adds a gradient
+to the picture and also works on a contained `.ds-media` picture. A gradient
+can help, but check the text against your picture in each theme mode you use.
+
+For a solid panel, add `.ds-panel` to the text block:
+
+```markdown
+::: {.ds-layer .ds-panel}
+[Every search reads the same rows.]{.key}
+:::
+```
+
+The theme supplies the panel's background and text colors. Nested emphasis keeps its
+size and weight and uses the panel's ink. The surrounding picture stays visible.
+Compare the [text without a panel](syntax-examples.qmd?slide=35) and the
+[panel over the same picture](syntax-examples.qmd?slide=36), with their Markdown.
 
 A decorative background can carry a visible title and body text directly:
 
@@ -433,19 +446,38 @@ A decorative background can carry a visible title and body text directly:
 [Picture: Creator, source and license.]{.credit}
 ```
 
-The title and body receive the same theme-controlled panels. Background layers
-are decorative (`aria-hidden`). When the picture itself needs an accessible
-description, use the described `.ds-full` image pattern above.
+The title and body appear over the picture without panels. To put a panel
+behind one passage, place it inside a `::: {.ds-panel}` block. To give the title
+and each top-level text block a panel, put `.ds-panel` on the slide heading.
+A top-level block sits directly inside the slide, outside a card or column.
+The slide class covers paragraphs, lists, blockquotes, `.ds-layer`, and fenced
+`.key`, `.aside` or `.statement` blocks. Give other containers their own
+`.ds-panel` class.
+
+```markdown
+## Every search repeats the work {.ds-panel data-background-image="assets/photo.svg"}
+
+[Read the data once, then reuse the result.]{.key}
+```
+
+Compare the [text without panels](syntax-examples.qmd?slide=6) and
+[panels on the title and body](syntax-examples.qmd?slide=37).
+Background layers are decorative (`aria-hidden`). When the picture needs an
+accessible description, use the described `.ds-full` image pattern above.
 
 In the picture layouts above, `data-section` keeps a readable section label on its own
-opaque theme ground. The credit lane remains separate. A left/right picture
+opaque background supplied by the theme. The credit lane remains separate. A left/right picture
 beside a list also starts below the title and leaves space for its caption and
-credit. Automatic fitting applies to the one-picture or two-pane structures.
-Complex multi-picture compositions keep the container layout that you author.
+credit. Automatic sizing covers a single picture, with an optional title, or one
+picture plus one explanation in left/right panes. Credits are allowed in either
+layout. Extra body blocks or pictures use the container layout that you author.
 
-Themes can override `--htmpres-media-text-bg`, `--htmpres-media-text-ink`,
-`--htmpres-media-label-bg` and `--htmpres-media-label-ink`. Defaults use theme
-paper and ink that targets 4.8:1 text/background contrast. See the
+For optional theme customization, panels use `--htmpres-media-text-bg` and
+`--htmpres-media-text-ink`.
+Themes can also override
+`--htmpres-media-label-bg` and `--htmpres-media-label-ink` for section labels.
+By default, panels and labels use theme background and text colors, with a target
+text/background contrast of 4.8:1. See the
 [credit contrast policy](semantic-authoring.md#picture-credits).
 Authors can use these layouts without CSS, colors or sizes. Every informative
 image needs a description; decorative images need an explicit `.decorative` mark.

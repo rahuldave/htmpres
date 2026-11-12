@@ -416,7 +416,8 @@ and fit/filter classes on the image or its media container.
 | `.ds-left`, `.ds-right` | Left and right half-slide containers. | [Picture left](patterns.qmd?slide=7), [picture right](patterns.qmd?slide=8) |
 | `.ds-media` | Contain an image, video or embedded media. | [Contained image](patterns.qmd?slide=3) |
 | `.ds-pane` | Text/content pane beside media. | [Picture and text](patterns.qmd?slide=7) |
-| `.ds-layer` | Text panel above media, with theme-controlled backing. | [Text overlay](patterns.qmd?slide=5) |
+| `.ds-layer` | Text above media with a transparent background by default. | [Transparent overlay](syntax-examples.qmd?slide=35) |
+| `.ds-panel` | Theme-colored backing on a text block; on a slide heading, panels on its title and top-level text. | [Overlay panel](syntax-examples.qmd?slide=36), [background panels](syntax-examples.qmd?slide=37) |
 | `.ds-split` | Flowing grid of panes, two columns by default. | [Flowing panes](syntax-examples.qmd?slide=13) |
 | `.ds-grid` | Grid of media blocks, three columns by default. | [Picture grid](patterns.qmd?slide=9) |
 | `.ds-inline` | Small media arranged in a wrapping row. | [Inline images](syntax-examples.qmd?slide=12) |
@@ -440,6 +441,64 @@ and fit/filter classes on the image or its media container.
 
 [Inspect the left-picture pattern](patterns.qmd?slide=7). Swap the left and
 right roles to put the picture on the other side.
+
+## Text over a picture {#text-over-picture}
+
+Text blocks over an image have transparent backgrounds by default. Use
+`.ds-layer` to place the text above a full-slide picture. Add `.ds-panel` when you want a solid panel behind
+that text. The theme sets the panel's background color, text color and padding.
+
+[Compare the transparent overlay](syntax-examples.qmd?slide=35) with the
+[panel over the same picture](syntax-examples.qmd?slide=36).
+Both examples include their source. The picture is faint so the text stays
+readable in light and dark modes, even without a panel.
+
+For a decorative background, these complete slides need no custom CSS.
+Download the [example texture](_generated/source/syntax-assets/texture.svg)
+into your deck's `assets/` folder.
+
+Without a panel:
+
+```markdown
+## {data-title="Text over a background" data-background-image="assets/texture.svg" data-background-opacity="0.18" data-background-filter="none"}
+
+::: {.ds-layer}
+[The picture shows through behind these words.]{.key}
+:::
+```
+
+An explicit panel:
+
+```markdown
+## {data-title="A panel over a background" data-background-image="assets/texture.svg" data-background-opacity="0.18" data-background-filter="none"}
+
+::: {.ds-layer .ds-panel}
+[The theme sets this panel's background and text colors.]{.key}
+:::
+```
+
+Use a fenced `.ds-panel` block for one passage. For panels on the title and each
+top-level text block, put `.ds-panel` on the slide heading instead.
+A top-level block sits directly inside the slide, outside a card or column.
+The slide class covers paragraphs, lists, blockquotes, `.ds-layer`, and fenced
+`.key`, `.aside` or `.statement` blocks. Give other containers their own
+`.ds-panel` class.
+
+```markdown
+## A title with a panel {.ds-panel data-background-image="assets/texture.svg" data-background-opacity="0.18" data-background-filter="none"}
+
+[The body has its own panel.]{.key}
+```
+
+[See the title and body panels](syntax-examples.qmd?slide=37).
+Panels leave the rest of the image uncovered. Credits and section labels keep
+their own theme backing regardless of your choice for the main text.
+
+Check text without a panel against your actual image in each theme mode you use.
+You can choose a quieter picture, reduce background opacity, add a gradient
+with `.ds-readable` on a media container, or add `.ds-panel`.
+Themes set panel colors through `--htmpres-media-text-bg` and
+`--htmpres-media-text-ink`. These variables do not add a panel by themselves.
 
 ## Slide backgrounds {#slide-backgrounds}
 

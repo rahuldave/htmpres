@@ -466,7 +466,7 @@ The public documentation review is recorded in `docs/documentation-audit.md`;
 it is a maintainer record outside the website page allowlist.
 
 The visual syntax lab source is `decks/syntax/index.qmd`; `just syntax-examples`
-renders its 35-slide examples. The website lab at `syntax-examples.html` has its
+renders its 38-slide examples. The website lab at `syntax-examples.html` has its
 own manifest and four Nocturne mode/view exports. It includes original local
 SVG, video, captions, audio and an embedded page, all staged through an explicit
 asset list. `integration_tests/syntax-examples-browser.mjs` checks exact source,

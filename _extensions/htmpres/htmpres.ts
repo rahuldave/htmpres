@@ -128,6 +128,7 @@ const rawDivClasses = [
   "ds-noir",
   "ds-original",
   "ds-pane",
+  "ds-panel",
   "ds-readable",
   "ds-right",
   "ds-rounded",

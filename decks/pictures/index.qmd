@@ -25,11 +25,13 @@ This deck is an internal regression fixture for picture rendering. It deliberate
 ![A long line of students waits before one database](assets/photo.svg){.ds-fill}
 :::
 
-::: {.ds-layer}
+::: {.ds-layer .ds-panel}
 [Every search reads the same rows]{.key}
+
+- An ordinary bullet uses the panel's ink.
 :::
 
-## Fault 2: title on a background {data-background-image="assets/photo.svg" data-section="Pictures"}
+## Fault 2: title on a background {.ds-panel data-background-image="assets/photo.svg" data-section="Pictures"}
 
 [Every search reads the same rows]{.key}
 
@@ -117,11 +119,11 @@ This deck is an internal regression fixture for picture rendering. It deliberate
 ![The same observation on a light ground.](assets/bright.svg)
 :::
 
-::: {.ds-layer}
+::: {.ds-layer .ds-panel}
 [Every search reads the same rows]{.key}
 :::
 
-## A title on a bright background {data-background-image="assets/bright.svg" data-section="Pictures"}
+## A title on a bright background {.ds-panel data-background-image="assets/bright.svg" data-section="Pictures"}
 
 [Every search reads the same rows]{.key}
 
@@ -368,4 +370,18 @@ This deck is an internal regression fixture for picture rendering. It deliberate
 
 ::: {.ds-right .ds-pane}
 - The decorative texture adds no information.
+:::
+
+## {data-title="Panels on semantic text blocks" .ds-panel data-background-image="assets/bright.svg"}
+
+::: {.key}
+The point
+:::
+
+::: {.aside}
+A small note
+:::
+
+::: {.statement}
+The headline
 :::

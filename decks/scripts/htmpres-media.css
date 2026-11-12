@@ -85,18 +85,17 @@
 .slide.htmpres-split-media > .ds-left { grid-column: 1; }
 .slide.htmpres-split-media > .ds-right { grid-column: 2; }
 
-/* Opaque theme panels work on dark, light and mixed photographs alike. */
-.slide .ds-layer,
-.slide.htmpres-full-media > :is(h2,p,ul,ol,blockquote) {
+/* Picture text is transparent by default. Authors may request a theme panel. */
+.slide .ds-panel,
+.slide.ds-panel > :is(h2,p,ul,ol,blockquote,.ds-layer,.key,.aside,.statement) {
   background: var(--htmpres-media-text-bg, var(--paper));
   color: var(--htmpres-media-text-ink, var(--ink));
   padding: var(--htmpres-media-text-padding, .45em .65em);
   width: fit-content;
   max-width: 100%;
 }
-.slide .ds-layer :is(.key,.aside,.statement),
-.slide.htmpres-full-media > :is(h2,p,ul,ol,blockquote) :is(.key,.aside,.statement),
-.slide .ds-layer :is(p,li,h2,h3,a) {
+.slide .ds-panel :is(.key,.aside,.statement,p,ul,ol,li,blockquote,h2,h3,a),
+.slide.ds-panel > :is(h2,p,ul,ol,blockquote,.ds-layer,.key,.aside,.statement) :is(.key,.aside,.statement,p,ul,ol,li,blockquote,h2,h3,a) {
   color: inherit;
 }
 .slide:is(.htmpres-full-media,.htmpres-picture-slide,.htmpres-split-media)::after {

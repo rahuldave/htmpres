@@ -85,7 +85,7 @@ Try the [statement](?slide=1), [quotation](?slide=2), and
 | --- | --- | --- |
 | Keep the whole image, with a caption | [Contained picture](?slide=3) | Replace the described `.ds-fit` image. |
 | Cover the slide with a picture | [Full-slide picture](?slide=4) | Use `.ds-full` and `.ds-fill`; fill may crop edges. |
-| Put readable text over a picture | [Picture and text](?slide=5) | Put the explanation in `.ds-layer`. |
+| Put text over a picture | [Picture and panel](?slide=5), [text without a panel](syntax-examples.qmd?slide=35) | Use `.ds-layer`; add `.ds-panel` for a solid panel. |
 | Add a decorative background | [Background](?slide=6) | Set `data-background-image` on the heading. |
 | Explain a picture in steps | [Picture left](?slide=7) | Keep the picture in `.ds-left`, the explanation in `.ds-right`. |
 | Put the explanation first | [Picture right](?slide=8) | Swap the `.ds-left` and `.ds-right` roles. |

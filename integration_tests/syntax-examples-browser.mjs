@@ -1,4 +1,5 @@
 import { checkDocsLayout } from './docs-layout-browser.mjs';
+import { mediaTextSnapshot, mediaTextFailures } from './media-panels-browser.mjs';
 
 /** Run through CUA on syntax-examples.html with its generated manifest. */
 export async function checkSyntaxExamples(tab, manifest, {modes=['light','dark'], views=['audience','presenter']}={}) {
@@ -34,6 +35,13 @@ export async function checkSyntaxExamples(tab, manifest, {modes=['light','dark']
         assert(Math.abs(halves[0].x)<.01&&Math.abs(halves[1].x-.5)<.01&&halves.every(p=>Math.abs(p.width-.5)<.01&&Math.abs(p.height-1)<.01),`Edge-to-edge halves ${mode}/${view}/${slide}: ${JSON.stringify(halves)}`);
         const cover=await frame.locator('.slide.active .ds-media').evaluate(node=>{const box=node.getBoundingClientRect(),image=node.querySelector('img').getBoundingClientRect();return {x:Math.abs(box.x-image.x),y:Math.abs(box.y-image.y),width:Math.abs(box.width-image.width),height:Math.abs(box.height-image.height)};});
         assert(Object.values(cover).every(difference=>difference<1),`Image covers its whole half ${mode}/${view}/${slide}: ${JSON.stringify(cover)}`);
+      }
+      if([6,35,36,37].includes(slide)) {
+        const boxes=await frame.locator('.slide.active').evaluate(mediaTextSnapshot);
+        assert(boxes.length>0,`Inspected text boxes ${mode}/${view}/${slide}`);
+        const failures=mediaTextFailures(boxes);
+        assert(failures.length===0,`${mode}/${view}/${slide}: ${failures.join('; ')}`);
+        assert(boxes.some(box=>box.panel)===(slide>=36),`Explicit panel choice ${mode}/${view}/${slide}`);
       }
       if(slide===4||slide===5) assert(Math.abs(Number(data.opacity)-(slide===4?.6:.25))<.001,`Opacity ${mode}/${view}/${slide}: ${data.opacity}`);
       if(slide===15) {

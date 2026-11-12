@@ -52,7 +52,8 @@ Use the [syntax reference](syntax-reference.md) to look up settings and syntax.
 | Half-slide backgrounds | [Left](?slide=1), [right](?slide=2) |
 | Transparent image files | [Transparency in the asset](?slide=3) |
 | Image opacity | [Default opacity](?slide=4), [a CSS value](?slide=5) |
-| Background opacity and position | [Faint background](?slide=6) |
+| Background opacity and position | [Faint background without text panels](?slide=6) |
+| Text over pictures | [No panel by default](?slide=35), [an explicit panel](?slide=36), [title and body panels](?slide=37) |
 | Fit and fill | [Same image, different crop](?slide=7) |
 | Filters | [Presets](?slide=8), [theme and sharpen](?slide=9), [custom values and zoom](?slide=10) |
 | Container overlays | [Dark vignette, light vignette and gradient](?slide=11) |
@@ -65,7 +66,7 @@ Use the [syntax reference](syntax-reference.md) to look up settings and syntax.
 | Named matching colors | [Span, slide and CSS values](?slide=29) |
 | Alignment and labels | [Top, center and bottom](?slide=30) |
 | Slide entrances | [Slide](?slide=31), [zoom](?slide=32), [none](?slide=33), [fade](?slide=34) |
-| Fitting and navigation | [Dense comparison](?slide=24), [tap guard](?slide=25), [scroll overflow](?slide=26), [links](?slide=34), [appendix](?slide=35) |
+| Fitting and navigation | [Dense comparison](?slide=24), [prevent slide advances on clicks](?slide=25), [scroll overflow](?slide=26), [links](?slide=34), [appendix](?slide=38) |
 
 The [feature tour](example.qmd) covers importance, synchronized code and math,
 matched colors, footnotes and notes. The [picture patterns](patterns.qmd) cover

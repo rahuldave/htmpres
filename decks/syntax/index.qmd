@@ -120,12 +120,13 @@ as `source.css`. Copy its `.faint-image` rule with this slide.
 
 [The words remain fully opaque.]{.key}
 
-Only the decorative background uses opacity 0.18. The theme supplies the text
-panels and foreground colors.
+Only the decorative background uses opacity 0.18. The text sits directly over
+it, with no panel. The theme sets the foreground colors.
 
 ::: notes
-Heading attributes set this slide's background. Put the same settings under
-deck in the front matter to apply them to the whole deck. Background fit retains
+Heading attributes set this slide's background. To apply them to the whole deck, put
+`background-image`, `background-opacity` and the other background settings
+under `deck` in front matter. Omit the `data-` prefix there. Background fit retains
 the whole image. Background fill may crop it. Set position to choose which edge
 stays visible.
 :::
@@ -680,11 +681,69 @@ None affects the entrance only. The slide can still contain separate reveal step
 
 [The source record](#source-record) lists the bundled assets.
 
-[Return to the first pattern](#half-left) to compare its halves again.
+[Return to the first pattern](#half-left) to compare its halves.
 
 ::: notes
 The fade transition runs when the slide opens. Slide transitions also accept
-slide, zoom and none. They do not add reveal frames. End stops on this main slide.
+slide, zoom and none. They do not add reveal frames. The End key stops at the last main slide, before the appendix.
+:::
+
+## {#overlay-transparent data-title="Text over a picture without a panel" .no-background}
+
+::: {.ds-full .ds-media .ds-no-pad}
+![A geometric texture behind the explanation.](assets/texture.svg){.ds-fill .ds-alpha .faint-image}
+:::
+
+::: {.ds-layer}
+[The picture shows through behind these words.]{.key}
+
+Text over a picture has no panel by default.
+:::
+
+[Original illustration by htmpres authors.]{.credit}
+
+::: notes
+The ds-layer class places the text above the picture. It adds no background.
+This example fades the picture to leave enough contrast in light and dark modes.
+The supplied stylesheet sets `.faint-image { --ds-opacity: .25; }`.
+Keep that rule when copying this slide. It affects the image, not the text.
+:::
+
+## {#overlay-panel data-title="Choose a panel over the same picture" .no-background}
+
+::: {.ds-full .ds-media .ds-no-pad}
+![A geometric texture behind the explanation.](assets/texture.svg){.ds-fill .ds-alpha .faint-image}
+:::
+
+::: {.ds-layer .ds-panel}
+[The panel separates these words from the picture.]{.key}
+
+Add ds-panel when the picture makes the text hard to read.
+:::
+
+[Original illustration by htmpres authors.]{.credit}
+
+::: notes
+This slide uses the same picture, opacity and position as the preceding slide.
+The only change is ds-panel, which adds the panel. The theme supplies its background and text colors.
+Keep the `.faint-image { --ds-opacity: .25; }` rule from the example stylesheet.
+The panel itself needs no custom CSS.
+:::
+
+## Choose panels on a background {#background-panel .ds-panel data-background-image="assets/texture.svg" data-background-filter="none" data-background-opacity="0.18"}
+
+[Add panels behind the title and body with one slide class.]{.key}
+
+Put ds-panel on the slide heading to add panels behind its title and each
+top-level text block.
+
+::: notes
+A decorative background normally leaves the title and body without panels,
+as in the faint-background example. Here ds-panel on the slide heading adds
+panels behind the title and each top-level text block. A top-level block sits directly inside the slide,
+outside a card or column. To add a panel behind
+one passage, put that passage in a fenced ds-panel block instead. Neither form
+needs custom CSS.
 :::
 
 ## Source record {#source-record data-kind="appendix" .no-background}

@@ -28,6 +28,6 @@ for(const theme of themeChoices(catalog))for(const mode of theme.modes){
   }
 }
 cpSync(path.join(root,'decks/pictures/assets/htmpres-math'),path.join(output,'assets/htmpres-math'),{recursive:true});
-for(const [source,target]of [['picture-matrix.html','index.html'],['picture-slides-browser.mjs','picture-slides-browser.mjs'],['deck-browser.mjs','deck-browser.mjs']])copyFileSync(path.join(root,'integration_tests',source),path.join(output,target));
+for(const [source,target]of [['picture-matrix.html','index.html'],['picture-slides-browser.mjs','picture-slides-browser.mjs'],['media-panels-browser.mjs','media-panels-browser.mjs'],['deck-browser.mjs','deck-browser.mjs']])copyFileSync(path.join(root,'integration_tests',source),path.join(output,target));
 writeFileSync(path.join(output,'manifest.json'),JSON.stringify(cases,null,2));
 console.log(`Built ${cases.length} theme/mode/view picture cases in ${output}`);

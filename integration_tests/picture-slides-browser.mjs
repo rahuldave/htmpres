@@ -1,5 +1,6 @@
 /** Actual CUA geometry/contrast regressions for decks/pictures in either view. */
 import { chooseDeckSlide } from './deck-browser.mjs';
+import { mediaTextSnapshot, mediaTextFailures } from './media-panels-browser.mjs';
 
 export function pictureSnapshot(doc = document, viewport = {width:innerWidth,height:innerHeight}) {
     const slide=doc.querySelector('.slide.active'), rect=el=>el?.getBoundingClientRect().toJSON()||null;
@@ -30,7 +31,9 @@ export function pictureSnapshot(doc = document, viewport = {width:innerWidth,hei
     return {space,title:slide.dataset.title,slide:rect(slide),full:rect(full),image:rect(img),caption:rect(caption),captionVisible:visible(caption),alt:img?.alt,loaded:!!img?.complete&&img.naturalWidth>0,fit:style(img)?.objectFit,layer:rect(layer),layerColors:color(layer),keyColors:color(slide.querySelector('.key')),heading:rect(heading),headingColors:color(heading),bodyPanelColors:color(bodyPanel),expectedFit:img?.classList.contains("ds-fill")||img?.closest(".ds-fill")?"cover":"contain",splitPane:rect(slide.querySelector(':scope > .ds-media:not(.ds-full)')),splitCopy:rect(slide.classList.contains('htmpres-split-media')?slide.querySelector(':scope > ul,:scope > ol,:scope > .ds-right:not(.ds-media),:scope > .ds-left:not(.ds-media)'):null),credit:rect(slide.querySelector('.slide-credits')),label:{visible:hasLabel&&label.display!=='none'&&label.visibility!=='hidden'&&label.content!=='none',ground:label.backgroundColor,ink:label.color,zIndex:label.zIndex},viewport};
 }
 export async function inspectPictureSlide(tab) {
-  return tab.playwright.evaluate(pictureSnapshot);
+  const state = await tab.playwright.evaluate(pictureSnapshot);
+  state.textBoxes = await tab.playwright.locator('.slide.active').evaluate(mediaTextSnapshot);
+  return state;
 }
 function contrast(a,b) {
   const lum=s=>s.match(/[\d.]+/g).slice(0,3).map(Number).map(x=>x/255).map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4).reduce((n,x,i)=>n+x*[.2126,.7152,.0722][i],0);
@@ -51,9 +54,9 @@ export function pictureFailures(state,number) {
   }
   if(s.full) {
     expect(inside(s.full,s.slide)&&Math.abs(s.full.width-s.slide.width)<3&&Math.abs(s.full.height-s.slide.height)<3,'full image fills slide');
-    if(s.layer) {expect(inside(s.layer,s.slide),'overlay stays inside slide');expect(opaque(s.layerColors.ground)&&contrast(s.layerColors.ink,s.layerColors.ground)>=4.5,'overlay has readable theme ground');expect(contrast(s.keyColors.ink,s.layerColors.ground)>=4.5,'nested key readable on overlay');}
-    if(s.bodyPanelColors) expect(opaque(s.bodyPanelColors.ground)&&contrast(s.keyColors.ink,s.bodyPanelColors.ground)>=4.5,'background body/key has readable theme ground');
-    if(s.heading) expect(opaque(s.headingColors.ground)&&contrast(s.headingColors.ink,s.headingColors.ground)>=4.5,'background title has readable theme ground');
+    if(s.layer) expect(inside(s.layer,s.slide),'overlay stays inside slide');
+    expect(Array.isArray(s.textBoxes),'text backing was inspected');
+    failures.push(...mediaTextFailures(s.textBoxes || []));
     if(number===4){expect(s.alt==='A long line of students waits before one database','full picture keeps exact screen-reader alt');expect(!s.captionVisible,'full picture caption not visible');}
   }
   expect(!s.label.visible||(opaque(s.label.ground)&&contrast(s.label.ink,s.label.ground)>=4.5&&Number(s.label.zIndex)>=2),'picture section label has readable foreground ground');
@@ -67,7 +70,7 @@ export function pictureFailures(state,number) {
   if(s.splitCopy) {expect(inside(s.splitCopy,s.slide),'split explanation stays inside slide');expect(Math.abs(s.splitCopy.top-s.splitPane.top)<3,'split explanation shares the picture row');}
   return failures;
 }
-export const pictureSlideLabels=["Fault 1: readable", "Fault 2: layer ink", "Fault 2: title on a background", "Fault 3: caption", "Fault 4: label over a picture", "Fault 5: a bare picture under a title", "Fit wide wrapped", "Fit wide bare", "Fit tall wrapped", "Fit tall bare", "Fit 16 by 9 wrapped", "Fit 16 by 9 bare", "Split picture and explanation", "Overlay on a bright picture", "A title on a bright background", "Readable media without a full-slide container", "A left picture beside a list", "A right picture beside a list", "Linked photo picture without a fit class", "Linked wide picture without a fit class", "Linked tall picture without a fit class", "A deliberately cropped picture", "Untitled contained picture", "Untitled split picture", "Untitled left picture beside a list", "Untitled right picture beside a list", "Every student waits for one database", "A titled picture, no section", "ViewBox photo, caption, credit, label", "ViewBox photo, caption, credit", "ViewBox photo, caption, label", "ViewBox photo, caption", "ViewBox photo, linked, credit, label", "ViewBox photo, linked, credit", "ViewBox photo, linked, label", "ViewBox photo, linked", "ViewBox wide, caption, credit, label", "ViewBox wide, caption, credit", "ViewBox wide, caption, label", "ViewBox wide, caption", "ViewBox wide, linked, credit, label", "ViewBox wide, linked, credit", "ViewBox wide, linked, label", "ViewBox wide, linked", "ViewBox tall, caption, credit, label", "ViewBox tall, caption, credit", "ViewBox tall, caption, label", "ViewBox tall, caption", "ViewBox tall, linked, credit, label", "ViewBox tall, linked, credit", "ViewBox tall, linked, label", "ViewBox tall, linked", "Explicit decorative bare", "Explicit decorative full", "Explicit decorative split"];
+export const pictureSlideLabels=["Fault 1: readable", "Fault 2: layer ink", "Fault 2: title on a background", "Fault 3: caption", "Fault 4: label over a picture", "Fault 5: a bare picture under a title", "Fit wide wrapped", "Fit wide bare", "Fit tall wrapped", "Fit tall bare", "Fit 16 by 9 wrapped", "Fit 16 by 9 bare", "Split picture and explanation", "Overlay on a bright picture", "A title on a bright background", "Readable media without a full-slide container", "A left picture beside a list", "A right picture beside a list", "Linked photo picture without a fit class", "Linked wide picture without a fit class", "Linked tall picture without a fit class", "A deliberately cropped picture", "Untitled contained picture", "Untitled split picture", "Untitled left picture beside a list", "Untitled right picture beside a list", "Every student waits for one database", "A titled picture, no section", "ViewBox photo, caption, credit, label", "ViewBox photo, caption, credit", "ViewBox photo, caption, label", "ViewBox photo, caption", "ViewBox photo, linked, credit, label", "ViewBox photo, linked, credit", "ViewBox photo, linked, label", "ViewBox photo, linked", "ViewBox wide, caption, credit, label", "ViewBox wide, caption, credit", "ViewBox wide, caption, label", "ViewBox wide, caption", "ViewBox wide, linked, credit, label", "ViewBox wide, linked, credit", "ViewBox wide, linked, label", "ViewBox wide, linked", "ViewBox tall, caption, credit, label", "ViewBox tall, caption, credit", "ViewBox tall, caption, label", "ViewBox tall, caption", "ViewBox tall, linked, credit, label", "ViewBox tall, linked, credit", "ViewBox tall, linked, label", "ViewBox tall, linked", "Explicit decorative bare", "Explicit decorative full", "Explicit decorative split", "Panels on semantic text blocks"];
 export async function checkPictureSlidesBrowser(tab,{collect=false}={}) {
   const labels=pictureSlideLabels;
   await tab.playwright.evaluate(async()=>{await document.fonts.ready;return document.fonts.status;});

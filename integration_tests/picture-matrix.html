@@ -9,6 +9,7 @@
 <iframe id="deck" title="Current picture-slide case" width="1280" height="720"></iframe>
 <script type="module">
 import {pictureSnapshot,pictureFailures,pictureSlideLabels} from './picture-slides-browser.mjs';
+import {mediaTextSnapshot} from './media-panels-browser.mjs';
 const frame=document.querySelector('#deck'),button=document.querySelector('#run'),status=document.querySelector('#status'),results=document.querySelector('#results');
 const settle=async win=>new Promise(resolve=>win.requestAnimationFrame(()=>win.requestAnimationFrame(resolve)));
 button.addEventListener('click',async()=>{
@@ -24,7 +25,9 @@ button.addEventListener('click',async()=>{
    const failures=[];
    for(let n=0;n<pictureSlideLabels.length;n++){
     if(n){doc.querySelector('#nextBtn').click();await settle(win);}
-    const state=pictureSnapshot(doc,{width:win.innerWidth,height:win.innerHeight}),errors=pictureFailures(state,n+1);
+    const state=pictureSnapshot(doc,{width:win.innerWidth,height:win.innerHeight});
+    state.textBoxes=mediaTextSnapshot(doc.querySelector('.slide.active'));
+    const errors=pictureFailures(state,n+1);
     if(state.title!==pictureSlideLabels[n])errors.push('Next reaches expected slide');
     if(errors.length)failures.push({slide:n+1,errors,state});
    }

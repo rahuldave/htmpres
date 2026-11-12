@@ -58,20 +58,21 @@ Fill crops the picture to cover the slide. To retain every edge, use ds-fit.
 ![One Markdown document branches into audience slides and a presenter view with notes.](assets/two-views.svg){.ds-fill}
 :::
 
-::: {.ds-layer}
+::: {.ds-layer .ds-panel}
 [Keep your cues in the presenter view.]{.key}
 :::
 
 [Diagram: htmpres authors, [source record](#sources).]{.credit}
 
 ::: notes
-The theme supplies a panel behind the text so you can read it over the picture.
+The ds-panel class requests a theme panel behind this text. Omit ds-panel to
+leave the background behind the text transparent.
 The image keeps its accessible description.
 :::
 
-## A decorative background {#background data-background-image="assets/texture.svg" data-section="Backgrounds"}
+## A decorative background {#background data-background-image="assets/texture.svg" data-background-opacity="0.18" data-section="Backgrounds"}
 
-[The theme sets the panels behind the heading and body.]{.key}
+[The texture shows through behind the heading and body.]{.key}
 
 Use the texture as decoration behind the explanation.
 

@@ -156,7 +156,7 @@ def crawl(site):
         for asset in ("two-views.svg", "texture.svg"):
             assert (generated / "patterns/nocturne" / mode / "assets" / asset).read_bytes() == (repo / "decks/patterns/assets" / asset).read_bytes()
     syntax = json.loads((generated / "syntax-manifest.json").read_text())
-    assert syntax["deckSet"] == "syntax" and len(syntax["slides"]) == 35
+    assert syntax["deckSet"] == "syntax" and len(syntax["slides"]) == 38
     syntax_source = (repo / "decks/syntax/index.qmd").read_bytes()
     assert (generated / "source/syntax.qmd.txt").read_bytes() == syntax_source
     assert (generated / "source/syntax.css.txt").read_bytes() == (repo / "decks/syntax/source.css").read_bytes()
@@ -165,7 +165,7 @@ def crawl(site):
     syntax_assets = ("texture.svg", "two-views.svg", "transparent-rings.svg", "motion.mp4", "motion.vtt", "tone.wav", "embedded.html")
     for asset in syntax_assets:
         assert (generated / "source/syntax-assets" / asset).read_bytes() == (repo / "decks/syntax/assets" / asset).read_bytes()
-    required_ids = ("half-left", "half-right", "transparent", "opacity", "opacity-css", "background-opacity", "fit-fill", "filter-presets", "theme-filter", "custom-filter", "vignettes", "inline-images", "flowing-split", "cards", "panel-controls", "item-filters", "fragment-effects", "video", "audio", "media-advance", "embedded-page", "section-divider", "containers", "text-fit", "navigation-guard", "scroll-overflow", "global-background", "omit-background", "match-overrides", "labels", "transition-slide", "transition-zoom", "transition-none", "source-links", "source-record")
+    required_ids = ("half-left", "half-right", "transparent", "opacity", "opacity-css", "background-opacity", "fit-fill", "filter-presets", "theme-filter", "custom-filter", "vignettes", "inline-images", "flowing-split", "cards", "panel-controls", "item-filters", "fragment-effects", "video", "audio", "media-advance", "embedded-page", "section-divider", "containers", "text-fit", "navigation-guard", "scroll-overflow", "global-background", "omit-background", "match-overrides", "labels", "transition-slide", "transition-zoom", "transition-none", "source-links", "overlay-transparent", "overlay-panel", "background-panel", "source-record")
     for index, slide_id in enumerate(required_ids):
         assert f"#{slide_id}" in syntax["slideSources"][index]["markdown"], f"Syntax destination drift: {slide_id}"
     for mode in ("light", "dark"):

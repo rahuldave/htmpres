@@ -4,6 +4,16 @@ import * as render from '../_extensions/htmpres/lib/render.mjs';
 import { attributionTokens } from '../_extensions/htmpres/themes/attribution.mjs';
 import { contrastRatio } from '../_extensions/htmpres/themes/matches.mjs';
 import { readFileSync } from 'node:fs';
+import { mediaTextFailures } from '../integration_tests/media-panels-browser.mjs';
+
+test('browser backing checks distinguish transparent defaults, explicit panels and unreadable list ink',()=>{
+  const box={tag:'DIV',panel:false,ground:'rgba(0, 0, 0, 0)',ink:'rgb(0, 0, 0)',emphasis:[]};
+  assert.deepEqual(mediaTextFailures([box]),[]);
+  assert.match(mediaTextFailures([{...box,ground:'rgb(255, 255, 255)'}])[0],/default picture text must be transparent/);
+  assert.deepEqual(mediaTextFailures([{...box,panel:true,ground:'rgb(255, 255, 255)'}]),[]);
+  assert.match(mediaTextFailures([{...box,panel:true,ground:'rgb(255, 255, 255)',emphasis:['rgb(166, 166, 166)']}])[0],/readable theme colors/);
+  assert.match(mediaTextFailures([{...box,panel:true}])[0],/opaque readable theme colors/);
+});
 
 test('picture classification is shared, structural, and leaves arbitrary content alone',()=>{
   assert.equal(typeof render.slideMediaClasses,'function');
@@ -23,7 +33,7 @@ test('picture classification is shared, structural, and leaves arbitrary content
   assert.deepEqual(classify('<p title="example > class=\'ds-full\'">Text</p><!-- <div class="ds-full"> -->'),[]);
 });
 
-test('media text and section labels get opaque theme ground and readable ink in every paired mode',()=>{
+test('opt-in media panels and section labels get readable theme colors in every paired mode',()=>{
   const catalog=JSON.parse(readFileSync(new URL('../_extensions/htmpres/themes/catalog.json',import.meta.url)));
   for(const [name,entry]of Object.entries(catalog.themes))for(const mode of ['light','dark']){
     const p=entry.palettes[mode],t=attributionTokens(p);

@@ -326,6 +326,11 @@ Full-slide media:
 :::
 ```
 
+A `.ds-layer` block has a transparent background over the picture. For a solid
+panel, open that block with `::: {.ds-layer .ds-panel}`. The theme sets the panel's background
+and text colors.
+See [both choices with their Markdown](syntax-reference.md#text-over-picture).
+
 Half-slide media:
 
 ```markdown
